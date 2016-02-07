@@ -36,8 +36,11 @@ class MainWindow(QMainWindow):
 
         mainMenu = self.menuBar()
         fileMenu = mainMenu.addMenu("&File")
-        fileMenu.addAction(exitAction)
+        fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
+        fileMenu.addAction(saveAction)
+        fileMenu.addAction(exitAction)
+        
         
         self.home()
 
