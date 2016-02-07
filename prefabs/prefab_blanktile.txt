@@ -37,7 +37,7 @@
 		side
 		{
 			"id" "10"
-			"plane" "(x8 y8 z8) (x6 y6 z6) (x7 y7 z7)"
+			"plane" "	(x8 y8 z8) (x6 y6 z6) (x7 y7 z7)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
