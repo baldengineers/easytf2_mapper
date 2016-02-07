@@ -24,7 +24,7 @@
 			"smoothing_groups" "0"
 		}
 		side
-		{
+		{ 
 			"id" "9"
 			"plane" "(x1 y1 z1) (x7 y7 z7) (x4 y4 z4)"
 			"material" "DEV/DEV_BLENDMEASURE"
