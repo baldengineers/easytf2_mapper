@@ -1,6 +1,6 @@
 #file for testing out the algorithms for the coordinates of each chunk
 import os
-import fileinput
+from array import array
 posx = -1
 posy = 1
 start = 6
@@ -13,8 +13,6 @@ stringsz = ['z1','z2','z3','z4','z5','z6','z8'] #keywords to search for
 stringsx = ['x1','x2','x3','x4','x5','x6','x8']
 stringsy = ['y1','y2','y3','y4','y5','y6','y8']
 
-
-#for every line that has a keyword, add to a counter
 for line in lines:
     if any(s in line for s in stringsz):
         looplist += '1'
@@ -23,8 +21,7 @@ print(looplist)
 for i in range(len(looplist)-1):
     values.append(lines[start])
     start += 11
-f.close()
-        
+    
 print(values) #just testing
 x1 = (posx*512)+512
 y1 = (posy*512)-512
@@ -51,32 +48,6 @@ x8 = (posx*512)+512
 y8 = posy*512
 z8 = 64
 
-with fileinput.FileInput('prefabs\prefab_blanktile.txt', inplace=True, backup='.bak') as file:
-    for line in file:
-        line.replace('x1', str(x1))
-        line.replace('x2', str(x2))
-        line.replace('x3', str(x3))
-        line.replace('x4', str(x4))
-        line.replace('x5', str(x5))
-        line.replace('x6', str(x6))
-        line.replace('x7', str(x7))
-        line.replace('x8', str(x8))
-        line.replace('y1', str(y1))
-        line.replace('y2', str(y2))
-        line.replace('y3', str(y3))
-        line.replace('y4', str(y4))
-        line.replace('y5', str(y5))
-        line.replace('y6', str(y6))
-        line.replace('y7', str(y7))
-        line.replace('y8', str(y8))
-        line.replace('z1', str(z1))
-        line.replace('z2', str(z2))
-        line.replace('z3', str(z3))
-        line.replace('z4', str(z4))
-        line.replace('z5', str(z5))
-        line.replace('z6', str(z6))
-        line.replace('z7', str(z7))
-        line.replace('z8', str(z8))
-print(file)
-        
+
+           
         
