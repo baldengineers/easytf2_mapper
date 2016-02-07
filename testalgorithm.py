@@ -1,8 +1,7 @@
 #file for testing out the algorithms for the coordinates of each chunk
 import os
-from array import array
-posx = -1
-posy = 1
+posx = -1 #PLACEHOLDER, WILL BE CHANGED BASED OFF USER INPUT IN THE GUI
+posy = 1 #PLACEHOLDER, WILL BE CHANGED BASED OFF USER INPUT IN THE GUI
 start = 6
 looplist = '1'
 values=[]#Values are all of the lines of a prefab that have the vertex coords
@@ -50,32 +49,30 @@ z8 = 64
 
 values = "".join(lines)#converting list to string
 
-values.replace('x1 ',str(x1))
-values.replace('x2 ',str(x2))
-values.replace('x3 ',str(x3))
-values.replace('x4 ',str(x4))
-values.replace('x5 ',str(x5))
-values.replace('x6 ',str(x6))
-values.replace('x7 ',str(x7))
-values.replace('x8 ',str(x8))
-values.replace('y1 ',str(y1))
-values.replace('y2 ',str(y2))
-values.replace('y3 ',str(y3))
-values.replace('y4 ',str(y4))
-values.replace('y5 ',str(y5))
-values.replace('y6 ',str(y6))
-values.replace('y7 ',str(y7))
-values.replace('y8 ',str(y8))
-values.replace(' z1',str(z1))
-values.replace(' z2',str(z2))
-values.replace(' z3',str(z3))
-values.replace(' z4',str(z4))
-values.replace(' z5',str(z5))
-values.replace(' z6',str(z6))
-values.replace(' z7',str(z7))
-values.replace(' z8',str(z8))
-
-
+values = values.replace('x1',str(x1))
+values = values.replace('x2',str(x2))
+values = values.replace('x3',str(x3))
+values = values.replace('x4',str(x4))
+values = values.replace('x5',str(x5))
+values = values.replace('x6',str(x6))
+values = values.replace('x7',str(x7))
+values = values.replace('x8',str(x8))
+values = values.replace('y1',str(y1))
+values = values.replace('y2',str(y2))
+values = values.replace('y3',str(y3))
+values = values.replace('y4',str(y4)) #replacing the variables in the prefab with the values it will use
+values = values.replace('y5',str(y5))
+values = values.replace('y6',str(y6))
+values = values.replace('y7',str(y7))
+values = values.replace('y8',str(y8))
+values = values.replace('z1',str(z1))
+values = values.replace('z2',str(z2))
+values = values.replace('z3',str(z3))
+values = values.replace('z4',str(z4))
+values = values.replace('z5',str(z5))
+values = values.replace('z6',str(z6))
+values = values.replace('z7',str(z7))
+values = values.replace('z8',str(z8))
 
 print(values)
 
