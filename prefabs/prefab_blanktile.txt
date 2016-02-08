@@ -1,0 +1,76 @@
+    solid
+    {
+        "id" "4"
+        side
+        {
+            "id" "7"
+            "plane" "(x1 y1 z1) (x2 y2 z2) (x3 y3 z3)"
+            "material" "DEV/DEV_BLENDMEASURE"
+            "uaxis" "[1 0 0 0] 0.25"
+            "vaxis" "[0 -1 0 0] 0.25"
+            "rotation" "0"
+            "lightmapscale" "16"
+            "smoothing_groups" "0"
+        }
+        side
+        {
+            "id" "8"
+            "plane" "(x6 y6 z6) (x5 y5 z5) (x4 y4 z4)"
+            "material" "DEV/DEV_BLENDMEASURE"
+            "uaxis" "[1 0 0 0] 0.25"
+            "vaxis" "[0 -1 0 0] 0.25"
+            "rotation" "0"
+            "lightmapscale" "16"
+            "smoothing_groups" "0"
+        }
+        side
+        {
+            "id" "9"
+            "plane" "(x2 y2 z2) (x4 y4 z4) (x5 y5 z5)"
+            "material" "DEV/DEV_BLENDMEASURE"
+            "uaxis" "[0 1 0 0] 0.25"
+            "vaxis" "[0 0 -1 0] 0.25"
+            "rotation" "0"
+            "lightmapscale" "16"
+            "smoothing_groups" "0"
+        }
+        side
+        {
+            "id" "10"
+            "plane" "(x8 y8 z8) (x6 y6 z6) (x7 y7 z7)"
+            "material" "DEV/DEV_BLENDMEASURE"
+            "uaxis" "[0 1 0 0] 0.25"
+            "vaxis" "[0 0 -1 0] 0.25"
+            "rotation" "0"
+            "lightmapscale" "16"
+            "smoothing_groups" "0"
+        }
+        side
+        {
+            "id" "11"
+            "plane" "(x3 y3 z3) (x5 y5 z5) (x6 y6 z6)"
+            "material" "DEV/DEV_BLENDMEASURE"
+            "uaxis" "[1 0 0 0] 0.25"
+            "vaxis" "[0 0 -1 0] 0.25"
+            "rotation" "0"
+            "lightmapscale" "16"
+            "smoothing_groups" "0"
+        }
+        side
+        {
+            "id" "12"
+            "plane" "(x1 y1 z1) (x7 y7 z7) (x4 y4 z4)"
+            "material" "DEV/DEV_BLENDMEASURE"
+            "uaxis" "[1 0 0 0] 0.25"
+            "vaxis" "[0 0 -1 0] 0.25"
+            "rotation" "0"
+            "lightmapscale" "16"
+            "smoothing_groups" "0"
+        }
+        editor
+        {
+            "color" "0 137 246"
+            "visgroupshown" "1"
+            "visgroupautoshown" "1"
+        }
+    }
