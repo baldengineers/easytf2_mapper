@@ -1,13 +1,3 @@
-in the floor prefab, looking from above in hammer:
+IMPORTANT:
 
-side with id "8" is the back of the rectangular prism, or underneath
-
-side with id "7" is the front of the rectangular prism, or where people will walk
-
-side with id "9" is the left side of the rectangular prism
-
-side with id "10" is the right side of the rectangular prism
-
-side with id "11" is the top, or upper side to the rectangular prism
-
-side with id "12" is bottom, opposite side 11
+FOR ALL THE " id "<number>" " IN THE PREFABS, WE NEED AN OVERARCHING VARIABLE += 1 FOR THIS. I'LL TRY TO IMPLEMENT IT SO EACH PREFAB AL GORE ITHM USES A GLOBAL += 1 FROM MAIN.py
