@@ -3,7 +3,7 @@ import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
 
-"""
+
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y):
         super(GridBtn, self).__init__()
@@ -18,7 +18,7 @@ class GridBtn(QMainWindow):
 
     def returny(self, y):
         return y
-"""
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
         
         self.button_grid_layout = QGridLayout()
         #TODO: Manually set grid x and grid y
-        """
+        
         self.grid_x = 3
         self.grid_y = 3
         
@@ -87,22 +87,17 @@ class MainWindow(QMainWindow):
         self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
         self.show()
-        """
+        
 
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.vmt")
         file = open(name, "r")
-        lines = []
+        importlines = file.readlines()
 
-        for line in file:
-            lines.append(line)
-            for letter in line:
-                #TODO: Use Anson's functions to decipher the vmt file, to then open
-                #the file into the program
-                pass
+        importlinesstr = "".join(importlines)
         
-        #with file:
-            #text = file.read()
+        #now, it imports the vmt, and has two versions of it; the importlines which has each
+        #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
         name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmt")
