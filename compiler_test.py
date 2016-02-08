@@ -1,10 +1,8 @@
 import os
 import wall_prefab
 import ground_prefab
-from main import totalblocks
+from main import totalblocks #imports final total chunks piece
 
-global values
-global beg_template
 
 open('Script_.tmp', 'w').close()
 
@@ -38,7 +36,7 @@ world
     "detailvbsp" "detail_2fort.vbsp"
     "detailmaterial" "detail/detailsprites_2fort"
 """
-end_template = """
+end_template = """ 
 }
 cameras
 {
@@ -51,7 +49,8 @@ cordon
 	"active" "0"
 }
 """
-compiledblocks = "".join(totalblocks)
+#end of file template that ends each vmf
+compiledblocks = "".join(totalblocks) #totalblocks will be a list of each "block" from each chunk in the map, put into 1 string here.
 
 whole = beg_template + compiledblocks + end_template 
 

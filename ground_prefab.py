@@ -12,7 +12,7 @@ stringsz = ['z1','z2','z3','z4','z5','z6','z8'] #keywords to search for
 stringsx = ['x1','x2','x3','x4','x5','x6','x8']
 stringsy = ['y1','y2','y3','y4','y5','y6','y8']
 
-x1 = (posx*512)+512
+x1 = (posx*512)+512  #math for calculating coords of piece based off of it's grid location
 y1 = (posy*512)-512
 z1 = 64
 x2 = posx*512
@@ -66,5 +66,3 @@ values = values.replace('z8',str(z8))
 
 print(values)
 
-           
-        
