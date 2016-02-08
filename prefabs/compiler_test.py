@@ -52,9 +52,6 @@ cordon
 }
 """
 compiledblocks = "".join(totalblocks)
-if __name__ == '__main__':
-    # service.py executed as script
-    # do something
-    wall_prefab.find()
-    whole = beg_template + compiledblocks + end_template 
+
+whole = beg_template + compiledblocks + end_template 
 
