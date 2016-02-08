@@ -1,6 +1,7 @@
 import os
 import wall_prefab
 import ground_prefab
+from main import totalblocks
 
 global values
 global beg_template
@@ -37,11 +38,23 @@ world
     "detailvbsp" "detail_2fort.vbsp"
     "detailmaterial" "detail/detailsprites_2fort"
 """
+end_template = """
+}
+cameras
+{
+	"activecamera" "-1"
+}
+cordon
+{
+	"mins" "(-1024 -1024 -1024)"
+	"maxs" "(1024 1024 1024)"
+	"active" "0"
+}
+"""
+compiledblocks = "".join(totalblocks)
 if __name__ == '__main__':
     # service.py executed as script
     # do something
     wall_prefab.find()
-    whole = beg_template + """values from wall_prefab, how to?
-                            You would have to import the wall_prefab.py
-                            then use wall_prefab.variable to reference it"""
+    whole = beg_template + compiledblocks + end_template 
 

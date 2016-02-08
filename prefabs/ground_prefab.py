@@ -1,7 +1,7 @@
 #file for getting coords of a ground tile
 import os
-posx = -1 #PLACEHOLDER, WILL BE CHANGED BASED OFF USER INPUT IN THE GUI
-posy = 1 #PLACEHOLDER, WILL BE CHANGED BASED OFF USER INPUT IN THE GUI
+from main import posx
+from main import posy
 start = 6
 looplist = '1'
 values=[]#Values are all of the lines of a prefab that have the vertex coords
@@ -12,16 +12,6 @@ stringsz = ['z1','z2','z3','z4','z5','z6','z8'] #keywords to search for
 stringsx = ['x1','x2','x3','x4','x5','x6','x8']
 stringsy = ['y1','y2','y3','y4','y5','y6','y8']
 
-for line in lines:
-    if any(s in line for s in stringsz):
-        looplist += '1'
-#adds all the lines with coords to a list
-print(looplist)
-for i in range(len(looplist)-1):
-    values.append(lines[start])
-    start += 11
-    
-print(values) #just testing
 x1 = (posx*512)+512
 y1 = (posy*512)-512
 z1 = 64
