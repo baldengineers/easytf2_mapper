@@ -4,11 +4,11 @@ from PySide.QtCore import *
 from PySide.QtGui import *
 
 class GridBtn():
-    def __init__(self):
-        self.button = QPushButton("0", self)
+    def __init__(self, self_global):
+        self.button = QPushButton("0", self_global)
 
     def change_val(self, val):
-        self.button = QPushButton(val, self)
+        self.button = QPushButton(val, self_global)
 
 class MainWindow(QMainWindow):
     def __init__(self, app):
@@ -66,7 +66,7 @@ class MainWindow(QMainWindow):
         
         for x in range(self.grid_x):
             for y in range(self.grid_y):
-                grid_btn = GridBtn()
+                grid_btn = GridBtn(self) #change this to use the GridBtn class
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
         
         self.column = QHBoxLayout()
