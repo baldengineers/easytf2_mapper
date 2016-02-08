@@ -41,5 +41,7 @@ if __name__ == '__main__':
     # service.py executed as script
     # do something
     wall_prefab.find()
-    whole = beg_template + #values from wall_prefab, how to?
+    whole = beg_template + """values from wall_prefab, how to?
+                            You would have to import the wall_prefab.py
+                            then use wall_prefab.variable to reference it"""
 

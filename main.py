@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
 
         saveAction = QAction("&Save", self)
         saveAction.setShortcut("Ctrl+S")
-        saveAction.setStatusTip("Save File as .txt")
+        saveAction.setStatusTip("Save File as .vmf")
         #saveAction.triggered.connect()
 
         newAction = QAction("&New", self)
