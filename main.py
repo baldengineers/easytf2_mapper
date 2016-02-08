@@ -78,7 +78,7 @@ class MainWindow(QMainWindow):
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 for grid_btn in range(self.grid_y):
-                    print("lol")
+                    print("lol") #testing if works
                     #need to fix this to make more efficient
                     grid_btn = GridBtn(self, self.grid_x, self.grid_y) #change this to use the GridBtn class
                     self.button_grid_layout.addWidget(grid_btn.button,x,y)
@@ -92,9 +92,8 @@ class MainWindow(QMainWindow):
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.vmt")
         file = open(name, "r")
-        importlines = file.readlines()
-
-        importlinesstr = "".join(importlines)
+        openlines = file.readlines()
+        openlinesstr = "".join(importlines)
         
         #now, it imports the vmt, and has two versions of it; the importlines which has each
         #line as a string in a list, and importlinesstr, which makes it one big string
