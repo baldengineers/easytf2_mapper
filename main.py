@@ -3,15 +3,25 @@ import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
 
-class GridBtn():
-    def __init__(self, self_global):
+"""
+class GridBtn(QMainWindow):
+    def __init__(self, self_global, x, y):
+        super(GridBtn, self).__init__()
         self.button = QPushButton("0", self_global)
+        self.move(x,y)
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
 
+    def returnx(self, x):
+        return x
+
+    def returny(self, y):
+        return y
+"""
+
 class MainWindow(QMainWindow):
-    def __init__(self, app):
+    def __init__(self):
         #create the main window
         super(MainWindow, self).__init__()
         self.setGeometry(500, 300, 500, 300)
@@ -61,18 +71,23 @@ class MainWindow(QMainWindow):
         
         self.button_grid_layout = QGridLayout()
         #TODO: Manually set grid x and grid y
+        """
         self.grid_x = 3
         self.grid_y = 3
         
         for x in range(self.grid_x):
             for y in range(self.grid_y):
-                grid_btn = GridBtn(self) #change this to use the GridBtn class
-                self.button_grid_layout.addWidget(grid_btn.button,x,y)
+                for grid_btn in range(self.grid_y):
+                    print("lol")
+                    #need to fix this to make more efficient
+                    grid_btn = GridBtn(self, self.grid_x, self.grid_y) #change this to use the GridBtn class
+                    self.button_grid_layout.addWidget(grid_btn.button,x,y)
         
         self.column = QHBoxLayout()
         self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
         self.show()
+        """
 
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.vmt")
@@ -107,5 +122,5 @@ class MainWindow(QMainWindow):
             pass
 
 app = QApplication(sys.argv)
-gui = MainWindow(app)
+gui = MainWindow()
 app.exec_()
