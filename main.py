@@ -90,20 +90,24 @@ class MainWindow(QMainWindow):
         
 
     def file_open(self):
-        name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.vmt")
+        name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
         file = open(name, "r")
         openlines = file.readlines()
-        openlinesstr = "".join(importlines)
+        openlinesstr = "".join(openlines)
         
         #now, it imports the vmt, and has two versions of it; the importlines which has each
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
-        name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmt")
+        name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.sav")
         file = open(name, "w")
         text = self.textEdit.toPlainText()
         file.write(text)
         file.close()
+    
+    def file_export(self):
+        name = QFileDialog.getExportFileName(self, "Export File", "//", "*vmf")
+        #this compiles it, not just saving the location like the sav; this time as a vmf
 
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
