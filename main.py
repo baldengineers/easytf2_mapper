@@ -8,6 +8,10 @@ class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y):
         super(GridBtn, self).__init__()
         self.button = QPushButton("0", self_global)
+        self.x = 32*x
+        self.y = 20+(32*y)
+        self.button.move(self.x,self.y)
+        self.button.resize(32,32)
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
@@ -74,9 +78,12 @@ class MainWindow(QMainWindow):
         self.grid_x = 3
         self.grid_y = 3
 
-        grid_btn = GridBtn(self, self.grid_x, self.grid_y)
-        grid_btn.move(100,100)
-        grid_btn.resize(100,100)
+        for x in range(self.grid_x):
+            for y in range(self.grid_y):
+                print("test") #testing if works
+                #need to fix this to make more efficient
+                grid_btn = GridBtn(self, x, y)
+                self.button_grid_layout.addWidget(grid_btn.button,x,y)
         
         self.column = QHBoxLayout()
         self.column.addWidget(self.texture_list)
@@ -85,7 +92,7 @@ class MainWindow(QMainWindow):
         
 
     def file_open(self):
-        name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.vmt")
+        name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
         file = open(name, "r")
         openlines = file.readlines()
         openlinesstr = "".join(importlines)
@@ -94,11 +101,15 @@ class MainWindow(QMainWindow):
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
-        name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmt")
+        name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.sav")
         file = open(name, "w")
         text = self.textEdit.toPlainText()
         file.write(text)
         file.close()
+
+    def file_export(self):
+        name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmf")
+        file = open(name, "w")
 
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
