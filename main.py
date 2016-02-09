@@ -81,16 +81,8 @@ class MainWindow(QMainWindow):
         
         self.button_grid_layout = QGridLayout()
         #TODO: Manually set grid x and grid y
-        
-        self.grid_x = 7
-        self.grid_y = 7
-        grid_list = []
-        for x in range(self.grid_x):
-            for y in range(self.grid_y):
-                print("test") #testing if works
-                #need to fix this to make more efficient
-                grid_btn = GridBtn(self, x, y)
-                self.button_grid_layout.addWidget(grid_btn.button,x,y)
+
+        self.grid_change()
         
         self.column = QHBoxLayout()
         self.column.addWidget(self.texture_list)
@@ -122,9 +114,16 @@ class MainWindow(QMainWindow):
                                      ("Grid Height:"))                                    
         text2 = QInputDialog.getText(self,("Get Grid X"),
                                      ("Grid Width:"))
-        grid_y = int(text[0])
-        grid_x = int(text2[0])
-        print(grid_x)
+        self.grid_y = int(text[0])
+        self.grid_x = int(text2[0])
+        print(self.grid_x)
+        grid_list = []
+        for x in range(self.grid_x):
+            for y in range(self.grid_y):
+                print("test") #testing if works
+                #need to fix this to make more efficient
+                grid_btn = GridBtn(self, x, y)
+                self.button_grid_layout.addWidget(grid_btn.button,x,y)
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
