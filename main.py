@@ -118,13 +118,13 @@ class MainWindow(QMainWindow):
         file = open(name, "w")
 
     def grid_change(self):
-        text = QInputDialog.getText(self, self.tr("QInputDialog().getText()"),
-                                     self.tr("Grid Height:"), QLineEdit.Normal)                                    
-        text2 = QInputDialog.getText(self, self.tr("QInputDialog().getText()"),
-                                     self.tr("Grid Width:"), QLineEdit.Normal)
-        
-        grid_y = text
-        grid_x = text2
+        text = QInputDialog.getText(self,("Get Grid Y"),
+                                     ("Grid Height:"))                                    
+        text2 = QInputDialog.getText(self,("Get Grid X"),
+                                     ("Grid Width:"))
+        grid_y = int(text[0])
+        grid_x = int(text2[0])
+        print(grid_x)
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
