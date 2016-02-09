@@ -3,6 +3,7 @@ import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
 
+grid_list=[]
 
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y):
@@ -12,15 +13,16 @@ class GridBtn(QMainWindow):
         self.y = 20+(32*y)
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
+        self.button.clicked.connect(self.print_returnxy)
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
 
-    def returnx(self, x):
-        return x
+    def returnxy(self):
+        return self.x
 
-    def returny(self, y):
-        return y
+    def print_returnxy(self):
+        print(self.returnxy())
 
 
 class MainWindow(QMainWindow):
@@ -75,21 +77,27 @@ class MainWindow(QMainWindow):
         self.button_grid_layout = QGridLayout()
         #TODO: Manually set grid x and grid y
         
-        self.grid_x = 3
-        self.grid_y = 3
-
+        self.grid_x = 7
+        self.grid_y = 7
+        grid_list = []
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 print("test") #testing if works
                 #need to fix this to make more efficient
                 grid_btn = GridBtn(self, x, y)
+                grid_list.append(grid_btn)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
-        
+        print(grid_list)
         self.column = QHBoxLayout()
         self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
         self.show()
-        
+        self.check_pressed(grid_list)
+
+    def check_pressed(self,grid_list):
+        for i in range(len(grid_list)): 
+            if grid_list[i].button.clicked:
+                print("the btn worked")
 
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
