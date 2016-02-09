@@ -116,14 +116,14 @@ class MainWindow(QMainWindow):
                                      ("Grid Width:"))
         self.grid_y = int(text[0])
         self.grid_x = int(text2[0])
-        print(self.grid_x)
-        grid_list = []
+        grid_list = [] # do we still need this?
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 print("test") #testing if works
                 #need to fix this to make more efficient
                 grid_btn = GridBtn(self, x, y)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
+
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
