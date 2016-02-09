@@ -108,8 +108,20 @@ class MainWindow(QMainWindow):
     def file_export(self):
         name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmf")
         file = open(name, "w")
+    def removeButtons(self):
+        try:
+            for cnt in reversed(range(GridBtn.button.count())):
+                # takeAt does both the jobs of itemAt and removeWidget
+                # namely it removes an item and returns it
+                widget = GridBtn.button.takeAt(cnt).widget()
 
+                if widget is not None: 
+                    # widget will be None if the item is a layout
+                    widget.deleteLater()
+        except Exception as e:
+            print(str(e))
     def grid_change(self):
+        self.removeButtons()
         text = QInputDialog.getText(self,("Get Grid Y"),
                                      ("Grid Height:"))                                    
         text2 = QInputDialog.getText(self,("Get Grid X"),
