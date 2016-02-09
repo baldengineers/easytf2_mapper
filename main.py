@@ -82,19 +82,15 @@ class MainWindow(QMainWindow):
                 print("test") #testing if works
                 #need to fix this to make more efficient
                 grid_btn = GridBtn(self, x, y)
-                grid_list.append(grid_btn)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
-        print(grid_list)
+                grid_btn.button.clicked.connect(self.click_func)
+        
         self.column = QHBoxLayout()
         self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
         self.show()
-    
-
-    def check_pressed(self,grid_list):
-        for i in range(len(grid_list)): 
-            if grid_list[i].button.clicked:
-                print("the btn worked")
+    def click_func(self):
+        print(x)
 
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
