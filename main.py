@@ -90,7 +90,7 @@ class MainWindow(QMainWindow):
         self.column.addLayout(self.button_grid_layout)
         self.show()
     def click_func(self):
-        print(x)
+        print(self.x)
 
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
