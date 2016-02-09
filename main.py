@@ -13,10 +13,12 @@ class GridBtn(QMainWindow):
         self.y = 20+(32*y)
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
-        
+        self.button.clicked.connect(self.click_func)
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
+    def click_func():
+        print("xd")
 
    
 
@@ -87,9 +89,6 @@ class MainWindow(QMainWindow):
         self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
         self.show()
-        grid_btn.button.clicked.connect(self.returnxy)
-    def returnxy(self):
-        print("LOL")
     
 
     def check_pressed(self,grid_list):
