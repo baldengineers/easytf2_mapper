@@ -51,10 +51,18 @@ class MainWindow(QMainWindow):
         newAction.setStatusTip("Create a New File")
         #newAction.triggered.connect()
 
+        gridAction = QAction("&Set Grid Size", self)
+        gridAction.setShortcut("Ctrl+G")
+        gridAction.setStatusTip("Set Grid Height and Width. RESETS ALL BLOCKS.")
+        gridAction.triggered.connect(self.grid_change)
+
+
         self.statusBar()
 
         mainMenu = self.menuBar()
         fileMenu = mainMenu.addMenu("&File")
+        optionsMenu = mainMenu.addMenu("&Options")
+        optionsMenu.addAction(gridAction)
         fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
         fileMenu.addAction(saveAction)
@@ -109,6 +117,14 @@ class MainWindow(QMainWindow):
         name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmf")
         file = open(name, "w")
 
+    def grid_change(self):
+        text = QInputDialog.getText(self, self.tr("QInputDialog().getText()"),
+                                     self.tr("Grid Height:"), QLineEdit.Normal)                                    
+        text2 = QInputDialog.getText(self, self.tr("QInputDialog().getText()"),
+                                     self.tr("Grid Width:"), QLineEdit.Normal)
+        
+        grid_y = text
+        grid_x = text2
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
