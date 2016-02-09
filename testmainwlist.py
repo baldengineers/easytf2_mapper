@@ -6,7 +6,7 @@ from PySide.QtGui import *
 grid_list=[]
 
 class GridBtn(QMainWindow):
-    def __init__(self, self_global, x, y):
+    def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
         self.button = QPushButton("0", self_global)
         self.x = 32*x
@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
         
         self.button_grid_layout = QGridLayout()
         #TODO: Manually set grid x and grid y
-        
+        btn_id = 0
         self.grid_x = 7
         self.grid_y = 7
         grid_list = []
@@ -79,15 +79,20 @@ class MainWindow(QMainWindow):
             for y in range(self.grid_y):
                 print("test") #testing if works
                 #need to fix this to make more efficient
-                grid_btn = GridBtn(self, x, y)
+                grid_btn = GridBtn(self, x, y, btn_id)
+                grid_list.append(grid_btn)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
-        
+                grid_btn.button.clicked.connect(self.click_func)
+                btn_id += 1
+                
+        print(grid_list)
         self.column = QHBoxLayout()
         self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
         self.show()
     def click_func():
-        self.thisxy = GridBtn(x,y)
+        y = grid_btn
+        self.thisxy = grid_btn
         print(self.thisxy)
 
     def file_open(self):
