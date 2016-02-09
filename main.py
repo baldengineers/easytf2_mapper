@@ -8,7 +8,6 @@ class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y):
         super(GridBtn, self).__init__()
         self.button = QPushButton("0", self_global)
-        self.move(x,y)
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
@@ -74,14 +73,10 @@ class MainWindow(QMainWindow):
         
         self.grid_x = 3
         self.grid_y = 3
-        
-        for x in range(self.grid_x):
-            for y in range(self.grid_y):
-                for grid_btn in range(self.grid_y):
-                    print("lol") #testing if works
-                    #need to fix this to make more efficient
-                    grid_btn = GridBtn(self, self.grid_x, self.grid_y) #change this to use the GridBtn class
-                    self.button_grid_layout.addWidget(grid_btn.button,x,y)
+
+        grid_btn = GridBtn(self, self.grid_x, self.grid_y)
+        grid_btn.move(100,100)
+        grid_btn.resize(100,100)
         
         self.column = QHBoxLayout()
         self.column.addWidget(self.texture_list)
