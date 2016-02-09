@@ -13,7 +13,7 @@ class GridBtn(QMainWindow):
         self.y = 20+(32*y)
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
-        self.button.clicked.connect(MainWindow.click_func)
+        self.button.clicked.connect(lambda: MainWindow.click_func(x,x,y))
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
@@ -86,9 +86,9 @@ class MainWindow(QMainWindow):
         self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
         self.show()
-    def click_func():
-        self.thisxy = GridBtn(x,y)
-        print(self.thisxy)
+
+    def click_func(self, x, y):
+        print((x,y))
 
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
