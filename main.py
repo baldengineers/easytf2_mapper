@@ -24,7 +24,7 @@ class GridBtn(QMainWindow):
    
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, self_global):
         #create the main window
         super(MainWindow, self).__init__()
         self.setGeometry(500, 300, 500, 300)
@@ -74,8 +74,10 @@ class MainWindow(QMainWindow):
         self.dropdown = QComboBox()
         self.dropdown.addItem(tile1)
         self.dropdown.showPopup()
-        self.dropdown.activated()['QString'].connect(self.handleActivated)
-        self.dropdown.move(100, 100)
+        self.dropdownbutton = QPushButton("Prefab List", self_global)
+        self.dropdownbutton.resize(100,20)
+        self.dropdownbutton.show()
+        self.dropdownbutton.clicked.connect(self.dropdown.activated()['QString'].connect(self.handleActivated))
     def closeEvent(self, event):
         #closeEvent runs close_application when the x button is pressed
         event.ignore()
