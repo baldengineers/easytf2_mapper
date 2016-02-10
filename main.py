@@ -145,6 +145,12 @@ class MainWindow(QMainWindow):
 
         print(self.grid_y)
         print(self.grid_x)
+        if self.grid_y >= 23:
+            print("y value too big! Please print a number. (less than 23)")
+            self.grid_change()
+        elif self.grid_x >= 28:
+            print("x value too big! Please print a number. (less than 28)")
+            self.grid_change()
 
         for x in range(self.grid_x):
             for y in range(self.grid_y):
@@ -153,12 +159,7 @@ class MainWindow(QMainWindow):
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
                 self.count += 1
                 grid_list.append(grid_btn)
-        if self.grid_y >= 23:
-            print("y value too big! Please print a number. (less than 23)")
-            self.grid_change()
-        elif self.grid_x >= 28:
-            print("x value too big! Please print a number. (less than 28)")
-            self.grid_change()
+
             
                 
     def clearlist(self):
