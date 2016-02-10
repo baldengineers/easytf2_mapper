@@ -129,7 +129,8 @@ class MainWindow(QMainWindow):
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
             print("Please enter a number.")
             self.grid_change()
-            
+        
+        print(grid_list)    
         
         for x in range(self.grid_x):
             for y in range(self.grid_y):
