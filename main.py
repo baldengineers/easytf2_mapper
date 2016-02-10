@@ -82,11 +82,12 @@ class MainWindow(QMainWindow):
         self.button_grid_layout = QGridLayout()
         #TODO: Manually set grid x and grid y
 
-        self.grid_change()
-        
         self.column = QHBoxLayout()
         #self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
+        
+        self.grid_change()
+        
         self.show()
 
     def file_open(self):
@@ -111,11 +112,18 @@ class MainWindow(QMainWindow):
         
     def removeButtons(self):
 
-        for i in reversed(range(self.button_grid_layout.count())):
-            widget = self.button_grid_layout.takeAt(i).widget()
+        for i in range(self.button_grid_layout.count()): print(i)
 
-            if widget is not None:
-                widget.deleteLater()
+        #for i in reversed(range(self.button_grid_layout.count())):
+            #widget = self.button_grid_layout.takeAt(i).widget()
+
+            #if widget is not None:
+                #widget.deleteLater()
+
+        for grid_button in grid_list:
+            del grid_button.button
+
+        self.clearlist()
         
     def grid_change(self):
         self.removeButtons()
@@ -142,7 +150,12 @@ class MainWindow(QMainWindow):
                 grid_btn = GridBtn(self, x, y)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
                 self.count += 1
-                #grid_list.append(grid_btn)
+                grid_list.append(grid_btn)
+
+        #for i in range(self.button_grid_layout.count()): print(i)
+
+        self.column.addLayout(self.button_grid_layout)
+        self.show()
                 
     def clearlist(self):
         grid_list=[]
