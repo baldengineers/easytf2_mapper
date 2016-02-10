@@ -113,8 +113,7 @@ class MainWindow(QMainWindow):
         print(grid_list)
         for grid_button in grid_list:
             grid_button.button.deleteLater()
-        grid_list=[]
-        
+        self.clearlist()
     def grid_change(self):
         self.removeButtons()
         self.count=0
@@ -139,7 +138,10 @@ class MainWindow(QMainWindow):
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
                 self.count += 1
                 grid_list.append(grid_btn)
+        print(grid_list)
 
+    def clearlist(self):
+        grid_list=[]
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
