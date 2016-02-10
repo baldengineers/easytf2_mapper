@@ -110,7 +110,7 @@ class MainWindow(QMainWindow):
         file = open(name, "w")
     def removeButtons(self):
         for button in grid_list:
-            GridBtn.button.deleteLater()
+            self.button_grid_layout.deleteLater()
         
     def grid_change(self):
         self.removeButtons()
