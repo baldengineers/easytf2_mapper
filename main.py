@@ -24,7 +24,7 @@ class GridBtn(QMainWindow):
    
 
 class MainWindow(QMainWindow):
-    def __init__(self, self_global):
+    def __init__(self):
         #create the main window
         super(MainWindow, self).__init__()
         self.setGeometry(500, 300, 500, 300)
@@ -70,14 +70,7 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(exitAction)
         
         self.home()
-        tile1= '1- blank tile' #for testing
-        self.dropdown = QComboBox()
-        self.dropdown.addItem(tile1)
-        self.dropdown.showPopup()
-        self.dropdownbutton = QPushButton("Prefab List", self_global)
-        self.dropdownbutton.resize(100,20)
-        self.dropdownbutton.show()
-        self.dropdownbutton.clicked.connect(self.dropdown.activated()['QString'].connect(self.handleActivated))
+
     def closeEvent(self, event):
         #closeEvent runs close_application when the x button is pressed
         event.ignore()
@@ -97,6 +90,7 @@ class MainWindow(QMainWindow):
         self.grid_change()
         
         self.show()
+
 
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
@@ -136,6 +130,7 @@ class MainWindow(QMainWindow):
         
     def grid_change(self):
         self.removeButtons()
+        self.removeDropdown()
         self.count=0
         text = QInputDialog.getText(self,("Get Grid Y"),
                                      ("Grid Height:"))                                    
@@ -164,11 +159,20 @@ class MainWindow(QMainWindow):
                 #print("test") #testing if works
                 grid_btn = GridBtn(self, x, y)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
-                self.count += 1
-                grid_list.append(grid_btn)
-
-            
                 
+                grid_list.append(grid_btn)
+            self.count += 1
+        self.comboBox = QComboBox(self)
+        self.comboBox.addItem("1. Blank Tile")
+        self.comboBox.addItem("2. Wall Tile")
+        self.comboBox.move(32*self.count+2, 22)
+        self.comboBox.show()
+            
+    def removeDropdown(self):
+        try:
+            self.comboBox.deleteLater()
+        except:
+            print('ok')
     def clearlist(self):
         grid_list=[]
         
