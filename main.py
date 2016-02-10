@@ -109,25 +109,19 @@ class MainWindow(QMainWindow):
         name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmf")
         file = open(name, "w")
     def removeButtons(self):
-        try:
-            for cnt in reversed(range(GridBtn.button.count())):
-                # takeAt does both the jobs of itemAt and removeWidget
-                # namely it removes an item and returns it
-                widget = GridBtn.button.takeAt(cnt).widget()
-
-                if widget is not None: 
-                    # widget will be None if the item is a layout
-                    widget.deleteLater()
-        except Exception as e:
-            print(str(e))
+        for button in grid_list:
+            GridBtn.button.deleteLater()
+        
     def grid_change(self):
         self.removeButtons()
+        self.count=0
         text = QInputDialog.getText(self,("Get Grid Y"),
                                      ("Grid Height:"))                                    
         text2 = QInputDialog.getText(self,("Get Grid X"),
                                      ("Grid Width:"))
         self.grid_y = int(text[0])
         self.grid_x = int(text2[0])
+        grid_btn = 0
         grid_list = [] # do we still need this?
         for x in range(self.grid_x):
             for y in range(self.grid_y):
@@ -135,6 +129,8 @@ class MainWindow(QMainWindow):
                 #need to fix this to make more efficient
                 grid_btn = GridBtn(self, x, y)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
+                self.count += 1
+                grid_list.append(grid_btn)
 
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
