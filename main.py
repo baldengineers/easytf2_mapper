@@ -85,7 +85,7 @@ class MainWindow(QMainWindow):
         self.grid_change()
         
         self.column = QHBoxLayout()
-        self.column.addWidget(self.texture_list)
+        #self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
         self.show()
 
@@ -110,16 +110,12 @@ class MainWindow(QMainWindow):
         file = open(name, "w")
         
     def removeButtons(self):
-        print(grid_list)
-        for i in range(self.button_grid_layout.count()):
+
+        for i in reversed(range(self.button_grid_layout.count())):
             widget = self.button_grid_layout.takeAt(i).widget()
-            
+
             if widget is not None:
                 widget.deleteLater()
-                
-        #for grid_button in grid_list:
-            #grid_button.button.deleteLater()
-        self.clearlist()
         
     def grid_change(self):
         self.removeButtons()
@@ -134,9 +130,11 @@ class MainWindow(QMainWindow):
         except ValueError:
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
             print("Please enter a number.")
+            for i in range(self.button_grid_layout.count()): print(i)
             self.grid_change()
-        
-        print(grid_list)    
+
+        print(self.grid_y)
+        print(self.grid_x)
         
         for x in range(self.grid_x):
             for y in range(self.grid_y):
@@ -144,11 +142,11 @@ class MainWindow(QMainWindow):
                 grid_btn = GridBtn(self, x, y)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
                 self.count += 1
-                grid_list.append(grid_btn)
-        print(grid_list)
-
+                #grid_list.append(grid_btn)
+                
     def clearlist(self):
         grid_list=[]
+        
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
