@@ -70,7 +70,12 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(exitAction)
         
         self.home()
-
+        tile1= '1- blank tile' #for testing
+        self.dropdown = QComboBox()
+        self.dropdown.addItem(tile1)
+        self.dropdown.showPopup()
+        self.dropdown.activated()['QString'].connect(self.handleActivated)
+        self.dropdown.move(100, 100)
     def closeEvent(self, event):
         #closeEvent runs close_application when the x button is pressed
         event.ignore()
