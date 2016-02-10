@@ -111,9 +111,16 @@ class MainWindow(QMainWindow):
         
     def removeButtons(self):
         print(grid_list)
-        for grid_button in grid_list:
-            grid_button.button.deleteLater()
+        for i in reversed(self.button_grid_layout.count()):
+            widget = self.button_grid_layout.takeAt(i).widget()
+            
+            if widget is not None:
+                widget.deleteLater()
+                
+        #for grid_button in grid_list:
+            #grid_button.button.deleteLater()
         self.clearlist()
+        
     def grid_change(self):
         self.removeButtons()
         self.count=0
