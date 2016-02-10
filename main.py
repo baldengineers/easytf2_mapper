@@ -114,14 +114,17 @@ class MainWindow(QMainWindow):
 
         for i in range(self.button_grid_layout.count()): print(i)
 
+        for i in reversed(range(self.button_grid_layout.count())):
+            widget = self.button_grid_layout.takeAt(i).widget()
+
+            if widget is not None:
+                widget.deleteLater()
+
         #for i in reversed(range(self.button_grid_layout.count())):
-            #widget = self.button_grid_layout.takeAt(i).widget()
+            #self.button_grid_layout.itemAt(i).widget().setParent(None)
 
-            #if widget is not None:
-                #widget.deleteLater()
-
-        for grid_button in grid_list:
-            del grid_button.button
+        #for grid_button in grid_list:
+            #grid_button.button.close()
 
         self.clearlist()
         
@@ -143,7 +146,7 @@ class MainWindow(QMainWindow):
 
         print(self.grid_y)
         print(self.grid_x)
-        
+
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 print("test") #testing if works
