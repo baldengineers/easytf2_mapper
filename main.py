@@ -14,6 +14,7 @@ class GridBtn(QMainWindow):
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.clicked.connect(lambda: self.click_func(x,y))
+        self.button.show()
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
@@ -86,7 +87,7 @@ class MainWindow(QMainWindow):
         #self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
         
-        self.grid_change()
+        self.grid_start()
         
         self.show()
 
@@ -154,11 +155,36 @@ class MainWindow(QMainWindow):
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
                 self.count += 1
                 grid_list.append(grid_btn)
+                
 
         #for i in range(self.button_grid_layout.count()): print(i)
 
         self.column.addLayout(self.button_grid_layout)
         self.show()
+    def grid_start(self):
+        self.count=0
+        text = QInputDialog.getText(self,("Get Grid Y"),
+                                     ("Grid Height:"))                                    
+        text2 = QInputDialog.getText(self,("Get Grid X"),
+                                     ("Grid Width:"))
+        try:
+            self.grid_y = int(text[0])
+            self.grid_x = int(text2[0])
+        except ValueError:
+            #TODO: Instead of a print statement, we need to bring up a window, alerting the user
+            print("Please enter a number.")
+            for i in range(self.button_grid_layout.count()): print(i)
+            self.grid_start()
+
+        for x in range(self.grid_x):
+            for y in range(self.grid_y):
+                print("test") #testing if works
+                grid_btn = GridBtn(self, x, y)
+                self.button_grid_layout.addWidget(grid_btn.button,x,y)
+                self.count += 1
+                grid_list.append(grid_btn)
+            
+        
                 
     def clearlist(self):
         grid_list=[]
