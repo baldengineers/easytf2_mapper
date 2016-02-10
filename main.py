@@ -119,8 +119,14 @@ class MainWindow(QMainWindow):
                                      ("Grid Height:"))                                    
         text2 = QInputDialog.getText(self,("Get Grid X"),
                                      ("Grid Width:"))
-        self.grid_y = int(text[0])
-        self.grid_x = int(text2[0])
+        try:
+            self.grid_y = int(text[0])
+            self.grid_x = int(text2[0])
+        except ValueError:
+            #TODO: Instead of a print statement, we need to bring up a window, alerting the user
+            print("Please enter a number.")
+            self.grid_change()
+            
         grid_btn = 0
         grid_list = [] # do we still need this?
         for x in range(self.grid_x):
