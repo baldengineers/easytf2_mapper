@@ -110,8 +110,10 @@ class MainWindow(QMainWindow):
         file = open(name, "w")
         
     def removeButtons(self):
+        print(grid_list)
         for grid_button in grid_list:
             grid_button.button.deleteLater()
+        grid_list=[]
         
     def grid_change(self):
         self.removeButtons()
@@ -128,7 +130,7 @@ class MainWindow(QMainWindow):
             print("Please enter a number.")
             self.grid_change()
             
-        grid_list = [] 
+        
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 print("test") #testing if works
