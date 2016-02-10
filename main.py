@@ -108,9 +108,10 @@ class MainWindow(QMainWindow):
     def file_export(self):
         name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmf")
         file = open(name, "w")
+        
     def removeButtons(self):
         for button in grid_list:
-            self.button_grid_layout.deleteLater()
+            grid_list[button].deleteLater()
         
     def grid_change(self):
         self.removeButtons()
@@ -127,12 +128,10 @@ class MainWindow(QMainWindow):
             print("Please enter a number.")
             self.grid_change()
             
-        grid_btn = 0
-        grid_list = [] # do we still need this?
+        grid_list = [] 
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 print("test") #testing if works
-                #need to fix this to make more efficient
                 grid_btn = GridBtn(self, x, y)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
                 self.count += 1
