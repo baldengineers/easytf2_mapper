@@ -68,5 +68,5 @@ def createGround(posx,posy):
     values = values.replace('z8',str(z8))
 
     print(values)
-    return(values)
+    return values
 
