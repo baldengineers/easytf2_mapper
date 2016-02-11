@@ -3,8 +3,10 @@ import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
+id_num = 0
 
 class GridBtn(QMainWindow):
+    id_num = 0
     def __init__(self, self_global, x, y):
         super(GridBtn, self).__init__()
         self.button = QPushButton("0", self_global)
@@ -12,20 +14,23 @@ class GridBtn(QMainWindow):
         self.y = 20+(32*y)
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
-        self.button.clicked.connect(lambda: self.click_func(x,y))
+        self.button.clicked.connect(lambda: self.click_func(x,y, id_num))
         self.button.show()
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
 
-    def click_func(self, x, y):
+    def click_func(self, x, y,id_num):
         print((x,y))
         #eval() turns the string into a variable name.
         moduleName = eval(prefab_list[gui.comboBox.currentIndex()])
-        create = moduleName.createTile(x, y)
+        create = moduleName.createTile(x, y, id_num)
+        id_num = moduleName.return_id()
         if gui.comboBox.currentIndex() != 0:
-            create2 = ground_prefab.createTile(x, y)
+            create2 = ground_prefab.createTile(x, y, id_num)
             print(create + create2)
+            id_num = create2.return_id()
+            
         else:
             print(create)
         #totalblocks[button id of button pressed] = create
