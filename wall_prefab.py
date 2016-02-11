@@ -1,9 +1,7 @@
 import os
 from main import posy
 from main import posx
-
 def createWall(posx, posy):
-  start = 6 # Do you still need this? Repond plz
   looplist = 'a'
   f = open('prefabs\prefab_wall.txt', 'r+')
   lines = f.readlines()

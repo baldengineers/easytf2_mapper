@@ -1,6 +1,4 @@
 import os
-import wall_prefab
-import ground_prefab
 from main import totalblocks #imports final total chunks piece
 
 

@@ -20,7 +20,11 @@ class GridBtn(QMainWindow):
 
     def click_func(self, x, y):
         print((x,y))
-        prefab_list[gui.comboBox.currentIndex()].createTile(x, y)
+        #prefab_list[gui.comboBox.currentIndex()].createTile(x, y)
+        #this should be finding the prefab that's selected (it does), but then
+        #should execute the right prefab script accordingly.
+        
+        
    
 
 class MainWindow(QMainWindow):
@@ -111,6 +115,8 @@ class MainWindow(QMainWindow):
     def file_export(self):
         name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmf")
         file = open(name, "w")
+        import compiler_test
+        exec(compiler_test)
         
     def removeButtons(self):
 

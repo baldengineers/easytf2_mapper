@@ -2,10 +2,7 @@
 import os
 from main import posx
 from main import posy
-
-def createGround(posx,posy):
-
-    start = 6
+def createGround(posx, posy):
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
     f = open('prefabs\prefab_blanktile.txt', 'r+')
@@ -15,7 +12,7 @@ def createGround(posx,posy):
     stringsx = ['x1','x2','x3','x4','x5','x6','x8']
     stringsy = ['y1','y2','y3','y4','y5','y6','y8']
 
-    x1 = (posx*512)+512  #math for calculating coords of piece based off of its grid location
+    x1 = (posx*512)+512
     y1 = (posy*512)-512
     z1 = 64
     x2 = posx*512
@@ -69,4 +66,5 @@ def createGround(posx,posy):
 
     print(values)
     return values
-
+           
+        
