@@ -2,8 +2,7 @@
 import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
-
-grid_list=[]
+import 
 
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y):
@@ -21,6 +20,7 @@ class GridBtn(QMainWindow):
 
     def click_func(self, x, y):
         print((x,y))
+        prefab_list[gui.comboBox.currentIndex()].createTile(x, y)
    
 
 class MainWindow(QMainWindow):
@@ -165,8 +165,8 @@ class MainWindow(QMainWindow):
             self.count += 1
         self.comboBox = QComboBox(self)
         self.comboBox.resize(64, 16)
-        self.comboBox.addItem("1. Blank Tile")
-        self.comboBox.addItem("2. Wall Tile")
+        for item in prefab_text_list:
+            self.comboBox.addItem(item)
         self.comboBox.move(32*self.count+2, 22)
         self.comboBox.show()
             
@@ -188,6 +188,17 @@ class MainWindow(QMainWindow):
         else:
             pass
 
+#define some global variables
+grid_list=[]
+prefab_list = ["ground_prefab", "wall_prefab"] # As we get more prefabs, add the filenames to this list
+prefab_text_list = ["1. Blank Tile", "2. Wall Tile"] # As we get more prefabs, add the text that will be in the comboBox to this list
+# Indexes for prefab_list and prefab_text_list should match
+
+#imports that need prefab_list to be defined
+for item in prefab_list:
+    import item
+
+#Main Program
 app = QApplication(sys.argv)
 gui = MainWindow()
 app.exec_()
