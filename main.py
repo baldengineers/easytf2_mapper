@@ -3,10 +3,9 @@ import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
-id_num = 0
 
 class GridBtn(QMainWindow):
-    def __init__(self, self_global, x, y, btn_id):
+    def __init__(self, self_global, x, y, btn_id, id_num):
         super(GridBtn, self).__init__()
         self.button = QPushButton("0", self_global)
         self.x = 32*x
@@ -14,17 +13,17 @@ class GridBtn(QMainWindow):
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
-                                                            btn_id))
+                                                            btn_id, id_num))
         self.button.show()
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
 
-    def click_func(self, self_global, x, y, btn_id):
+    def click_func(self, self_global, x, y, btn_id, id_num):
         print((x,y))
         #eval() turns the string into a variable name.
         moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
-        create = moduleName.createTile(x, y)
+        create = moduleName.createTile(x, y, id_num)
         if gui.comboBox.currentIndex() != 0:
             create2 = ground_prefab.createTile(x, y, id_num)
             print(create + create2)
@@ -34,6 +33,8 @@ class GridBtn(QMainWindow):
             print(create)
 
         totalblocks[btn_id] = create
+
+        id_num += 1
 
         print(totalblocks)
         
@@ -176,7 +177,7 @@ class MainWindow(QMainWindow):
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 #print("test") #testing if works
-                grid_btn = GridBtn(self, x, y, self.btn_id_count)
+                grid_btn = GridBtn(self, x, y, self.btn_id_count, id_num)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
                 
                 grid_list.append(grid_btn)
@@ -211,6 +212,7 @@ class MainWindow(QMainWindow):
             pass
 
 #define some global variables
+id_num = 0
 grid_list=[]
 totalblocks = []
 prefab_list = ["ground_prefab", "wall_prefab"] # As we get more prefabs, add the filenames to this list
