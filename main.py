@@ -6,26 +6,43 @@ import importlib
 id_num = 0
 
 class GridBtn(QMainWindow):
+<<<<<<< HEAD
     id_num = 0
     def __init__(self, self_global, x, y):
+=======
+    def __init__(self, self_global, x, y, btn_id):
+>>>>>>> origin/master
         super(GridBtn, self).__init__()
         self.button = QPushButton("0", self_global)
         self.x = 32*x
         self.y = 20+(32*y)
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
+<<<<<<< HEAD
         self.button.clicked.connect(lambda: self.click_func(x,y, id_num))
+=======
+        self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
+                                                            btn_id))
+>>>>>>> origin/master
         self.button.show()
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
 
+<<<<<<< HEAD
     def click_func(self, x, y,id_num):
         print((x,y))
         #eval() turns the string into a variable name.
         moduleName = eval(prefab_list[gui.comboBox.currentIndex()])
         create = moduleName.createTile(x, y, id_num)
         id_num = moduleName.return_id()
+=======
+    def click_func(self, self_global, x, y, btn_id):
+        print((x,y))
+        #eval() turns the string into a variable name.
+        moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
+        create = moduleName.createTile(x, y)
+>>>>>>> origin/master
         if gui.comboBox.currentIndex() != 0:
             create2 = ground_prefab.createTile(x, y, id_num)
             print(create + create2)
@@ -33,8 +50,10 @@ class GridBtn(QMainWindow):
             
         else:
             print(create)
-        #totalblocks[button id of button pressed] = create
-        
+
+        totalblocks[btn_id] = create
+
+        print(totalblocks)
         
    
 
@@ -149,6 +168,7 @@ class MainWindow(QMainWindow):
         self.removeButtons()
         self.removeDropdown()
         self.count=0
+        self.btn_id_count = 0
         text = QInputDialog.getText(self,("Get Grid Y"),
                                      ("Grid Height:"))                                    
         text2 = QInputDialog.getText(self,("Get Grid X"),
@@ -174,10 +194,14 @@ class MainWindow(QMainWindow):
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 #print("test") #testing if works
-                grid_btn = GridBtn(self, x, y)
+                grid_btn = GridBtn(self, x, y, self.btn_id_count)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
                 
                 grid_list.append(grid_btn)
+                totalblocks.append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
+                self.btn_id_count += 1
+
+                
             self.count += 1
         self.comboBox = QComboBox(self)
         self.comboBox.resize(64, 16)
