@@ -3,6 +3,7 @@ import os
 
 def createTile(posx, posy):
     looplist = '1'
+    loopnum = 0
     values=[]#Values are all of the lines of a prefab that have the vertex coords
     f = open('prefabs\prefab_blanktile.txt', 'r+')
     lines = f.readlines() #gathers each line of the prefab and puts numbers them
@@ -37,6 +38,7 @@ def createTile(posx, posy):
     z8 = 64
 
     values = "".join(lines)#converting list to string
+    ogvalues = "".join(lines)#converting list to string for original reference
 
     values = values.replace('x1',str(x1))
     values = values.replace('x2',str(x2))
@@ -62,6 +64,10 @@ def createTile(posx, posy):
     values = values.replace('z6',str(z6))
     values = values.replace('z7',str(z7))
     values = values.replace('z8',str(z8))
+
+    for i in range(ogvalues.count('id_num'):
+        values = values.replace('id_num', loopnum, 1)
+        loopnum += 1
 
     return values
            
