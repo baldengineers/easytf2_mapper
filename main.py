@@ -5,7 +5,7 @@ from PySide.QtGui import *
 import importlib
 
 class GridBtn(QMainWindow):
-    def __init__(self, self_global, x, y, btn_id, id_num):
+    def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
         self.button = QPushButton("0", self_global)
         self.x = 32*x
@@ -13,28 +13,26 @@ class GridBtn(QMainWindow):
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
-                                                            btn_id, id_num))
+                                                            btn_id))
         self.button.show()
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
 
-    def click_func(self, self_global, x, y, btn_id, id_num):
+    def click_func(self, self_global, x, y, btn_id):
         print((x,y))
         #eval() turns the string into a variable name.
         moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
-        create = moduleName.createTile(x, y, id_num)
+        create = moduleName.createTile(x, y, btn_id)
         if gui.comboBox.currentIndex() != 0:
-            create2 = ground_prefab.createTile(x, y, id_num)
+            create2 = ground_prefab.createTile(x, y, btn_id)
             print(create + create2)
-            id_num = create2.return_id()
+            #id_num = create2.return_id()
             
         else:
             print(create)
 
         totalblocks[btn_id] = create
-
-        id_num += 1
 
         print(totalblocks)
         
@@ -177,7 +175,7 @@ class MainWindow(QMainWindow):
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 #print("test") #testing if works
-                grid_btn = GridBtn(self, x, y, self.btn_id_count, id_num)
+                grid_btn = GridBtn(self, x, y, self.btn_id_count)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
                 
                 grid_list.append(grid_btn)
