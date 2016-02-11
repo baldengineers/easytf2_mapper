@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         #create the main window
         super(MainWindow, self).__init__()
-        self.setGeometry(500, 300, 500, 300)
+        self.setGeometry(100, 25, 875, 750)
         self.setWindowTitle("Easy TF2 Mapper")
         self.setWindowIcon(QIcon("map.ico"))
 
@@ -143,6 +143,7 @@ class MainWindow(QMainWindow):
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
             print("Please enter a number.")
             self.grid_change()
+            self.removeDropdown()
         
 
         print(self.grid_y)
@@ -150,8 +151,8 @@ class MainWindow(QMainWindow):
         if self.grid_y >= 23:
             print("y value too big! Please print a number. (less than 23)")
             self.grid_change()
-        elif self.grid_x >= 28:
-            print("x value too big! Please print a number. (less than 28)")
+        elif self.grid_x >= 26:
+            print("x value too big! Please print a number. (less than 26)")
             self.grid_change()
 
         for x in range(self.grid_x):
@@ -163,6 +164,7 @@ class MainWindow(QMainWindow):
                 grid_list.append(grid_btn)
             self.count += 1
         self.comboBox = QComboBox(self)
+        self.comboBox.resize(64, 16)
         self.comboBox.addItem("1. Blank Tile")
         self.comboBox.addItem("2. Wall Tile")
         self.comboBox.move(32*self.count+2, 22)
