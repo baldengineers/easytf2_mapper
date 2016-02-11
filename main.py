@@ -2,6 +2,7 @@
 import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
+import importlib
 
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y):
@@ -201,7 +202,7 @@ prefab_text_list = ["1. Blank Tile", "2. Wall Tile"] # As we get more prefabs, a
 
 #imports that need prefab_list to be defined
 for item in prefab_list:
-    import item
+    globals()[item] = importlib.import_module(item)
 
 #Main Program
 app = QApplication(sys.argv)

@@ -1,7 +1,6 @@
 #file for getting coords of a ground tile
 import os
-from main import posx
-from main import posy
+
 def createTile(posx, posy):
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
