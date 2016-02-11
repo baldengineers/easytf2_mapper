@@ -1,7 +1,7 @@
 import os
 from main import posy
 from main import posx
-def createWall(posx, posy):
+def createTile(posx, posy):
   looplist = 'a'
   f = open('prefabs\prefab_wall.txt', 'r+')
   lines = f.readlines()

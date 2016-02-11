@@ -2,7 +2,11 @@
 import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
-import 
+totalblocks = []
+
+prefab_list=['ground_prefab', 'wall_prefab']
+for fab in prefab_list:
+    import fab
 
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y):
@@ -20,9 +24,8 @@ class GridBtn(QMainWindow):
 
     def click_func(self, x, y):
         print((x,y))
-        #prefab_list[gui.comboBox.currentIndex()].createTile(x, y)
-        #this should be finding the prefab that's selected (it does), but then
-        #should execute the right prefab script accordingly.
+        create = prefab_list[gui.comboBox.currentIndex()].createTile(x, y)
+        #totalblocks[button id of button pressed] = create
         
         
    
@@ -171,7 +174,7 @@ class MainWindow(QMainWindow):
             self.count += 1
         self.comboBox = QComboBox(self)
         self.comboBox.resize(64, 16)
-        for item in prefab_text_list:
+        for item in prefab_list:
             self.comboBox.addItem(item)
         self.comboBox.move(32*self.count+2, 22)
         self.comboBox.show()
