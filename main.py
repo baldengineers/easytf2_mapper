@@ -27,7 +27,7 @@ class GridBtn(QMainWindow):
         id_num = moduleName.createTile(x, y, id_num)[1]
         if gui.comboBox.currentIndex() != 0:
             create2 = ground_prefab.createTile(x, y, id_num)[0]
-            create += create2
+            create = create + create2
             id_num = ground_prefab.createTile(x, y, id_num)[1]
             print(create)
             

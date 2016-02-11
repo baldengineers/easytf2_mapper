@@ -11,7 +11,7 @@ def createTile(posx, posy, id_num):
     stringsx = ['x1','x2','x3','x4','x5','x6','x8']
     stringsy = ['y1','y2','y3','y4','y5','y6','y8']
 
-    x1 = (posx*512)+512
+    x1 = (posx*512)
     y1 = (posy*512)-512
     z1 = 64
     x2 = posx*512
