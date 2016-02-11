@@ -3,7 +3,7 @@ import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
-
+id_num = 0
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -13,31 +13,33 @@ class GridBtn(QMainWindow):
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
-                                                            btn_id))
+                                                            id_num,btn_id))
         self.button.show()
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
 
-    def click_func(self, self_global, x, y, btn_id):
+    def click_func(self, self_global, x, y, id_num, btn_id):
         print((x,y))
         #eval() turns the string into a variable name.
         moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
-        create = moduleName.createTile(x, y, btn_id)
+        create = moduleName.createTile(x, y, id_num)[0]
+        id_num = moduleName.createTile(x, y, id_num)[1]
         if gui.comboBox.currentIndex() != 0:
-            create2 = ground_prefab.createTile(x, y, btn_id)
-            print(create + create2)
-            #id_num = create2.return_id()
+            create2 = ground_prefab.createTile(x, y, id_num)[0]
+            create += create2
+            id_num = ground_prefab.createTile(x, y, id_num)[1]
+            print(create)
             
         else:
-            print(create)
+            print(create) #remove these prints later; this is working right now
 
         totalblocks[btn_id] = create
 
         print(totalblocks)
         
    
-
+    
 class MainWindow(QMainWindow):
     def __init__(self):
         #create the main window
@@ -194,6 +196,7 @@ class MainWindow(QMainWindow):
     def removeDropdown(self):
         try:
             self.comboBox.deleteLater()
+            totalblocks = []
         except:
             print('ok')
     def clearlist(self):

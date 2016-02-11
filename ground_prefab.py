@@ -66,10 +66,8 @@ def createTile(posx, posy, id_num):
 
     for i in range(ogvalues.count('id_num')):
         values = values.replace('id_num', str(id_num), 1)
-        #id_num += 1
+        id_num = id_num+1
 
-    return values
-
-       
+    return values, id_num
     
 
