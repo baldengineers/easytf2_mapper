@@ -6,43 +6,25 @@ import importlib
 id_num = 0
 
 class GridBtn(QMainWindow):
-<<<<<<< HEAD
-    id_num = 0
-    def __init__(self, self_global, x, y):
-=======
     def __init__(self, self_global, x, y, btn_id):
->>>>>>> origin/master
         super(GridBtn, self).__init__()
         self.button = QPushButton("0", self_global)
         self.x = 32*x
         self.y = 20+(32*y)
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
-<<<<<<< HEAD
-        self.button.clicked.connect(lambda: self.click_func(x,y, id_num))
-=======
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
                                                             btn_id))
->>>>>>> origin/master
         self.button.show()
 
     def change_val(self, val):
         self.button = QPushButton(val, self_global)
 
-<<<<<<< HEAD
-    def click_func(self, x, y,id_num):
-        print((x,y))
-        #eval() turns the string into a variable name.
-        moduleName = eval(prefab_list[gui.comboBox.currentIndex()])
-        create = moduleName.createTile(x, y, id_num)
-        id_num = moduleName.return_id()
-=======
     def click_func(self, self_global, x, y, btn_id):
         print((x,y))
         #eval() turns the string into a variable name.
         moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
         create = moduleName.createTile(x, y)
->>>>>>> origin/master
         if gui.comboBox.currentIndex() != 0:
             create2 = ground_prefab.createTile(x, y, id_num)
             print(create + create2)
