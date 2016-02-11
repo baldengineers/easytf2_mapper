@@ -29,9 +29,9 @@ def createTile(posx, posy, id_num):
     x6 = (posx*512)+512
     y6 = posy*512
     z6 = 0
-    x7 = posx+posy
-    y7 = posx+posy
-    z7 = posx+posy
+    x7 = posx*512
+    y7 = posy*512
+    z7 = 0
     x8 = (posx*512)+512
     y8 = posy*512
     z8 = 64
