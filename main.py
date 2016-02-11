@@ -20,7 +20,10 @@ class GridBtn(QMainWindow):
 
     def click_func(self, x, y):
         print((x,y))
-        create = prefab_list[gui.comboBox.currentIndex()].createTile(x, y)
+        #eval() turns the string into a variable name.
+        moduleName = eval(prefab_list[gui.comboBox.currentIndex()])
+        create = moduleName.createTile(x, y)
+        print(create)
         #totalblocks[button id of button pressed] = create
         
         
@@ -148,7 +151,6 @@ class MainWindow(QMainWindow):
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
             print("Please enter a number.")
             self.grid_change()
-            self.removeDropdown()
         
 
         print(self.grid_y)
@@ -170,7 +172,7 @@ class MainWindow(QMainWindow):
             self.count += 1
         self.comboBox = QComboBox(self)
         self.comboBox.resize(64, 16)
-        for item in prefab_list:
+        for item in prefab_text_list:
             self.comboBox.addItem(item)
         self.comboBox.move(32*self.count+2, 22)
         self.comboBox.show()
