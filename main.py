@@ -23,7 +23,12 @@ class GridBtn(QMainWindow):
         #eval() turns the string into a variable name.
         moduleName = eval(prefab_list[gui.comboBox.currentIndex()])
         create = moduleName.createTile(x, y)
-        print(create)
+        if gui.comboBox.currentIndex() != 0:
+            import ground_prefab
+            create2 = ground_prefab.createTile(x, y)
+            print(create + create2)
+        else:
+            print(create)
         #totalblocks[button id of button pressed] = create
         
         

@@ -59,5 +59,4 @@ def createTile(posx, posy):
   values = values.replace('z7',str(z7))
   values = values.replace('z8',str(z8))
   
-  print(values)
   return values
