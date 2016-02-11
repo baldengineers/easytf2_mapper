@@ -196,7 +196,7 @@ class MainWindow(QMainWindow):
     def removeDropdown(self):
         try:
             self.comboBox.deleteLater()
-            totalblocks = []
+            del totalblocks[:]
         except:
             print('ok')
     def clearlist(self):
