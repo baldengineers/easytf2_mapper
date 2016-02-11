@@ -2,11 +2,6 @@
 import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
-totalblocks = []
-
-prefab_list=['ground_prefab', 'wall_prefab']
-for fab in prefab_list:
-    import fab
 
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y):
@@ -199,6 +194,7 @@ class MainWindow(QMainWindow):
 
 #define some global variables
 grid_list=[]
+totalblocks = []
 prefab_list = ["ground_prefab", "wall_prefab"] # As we get more prefabs, add the filenames to this list
 prefab_text_list = ["1. Blank Tile", "2. Wall Tile"] # As we get more prefabs, add the text that will be in the comboBox to this list
 # Indexes for prefab_list and prefab_text_list should match
