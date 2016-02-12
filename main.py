@@ -1,5 +1,6 @@
 #use blocks to create maps
 import sys
+import os.path
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
