@@ -5,6 +5,7 @@ from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
 #check todo every time you open this
+#TODO: make number keys change the dropdown option
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -132,7 +133,6 @@ class MainWindow(QMainWindow):
         self.texture_list.addItem("texture")
         
         self.button_grid_layout = QGridLayout()
-        #TODO: Manually set grid x and grid y
 
         self.column = QHBoxLayout()
         #self.column.addWidget(self.texture_list)
