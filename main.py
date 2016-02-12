@@ -4,7 +4,7 @@ import os.path
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
-
+#check todo every time you open this
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
