@@ -23,36 +23,50 @@ class GridBtn(QMainWindow):
         print("lel")
 
     def click_func(self, self_global, x, y, id_num, btn_id):
-        print((x,y))
-        global world_id_num
-        #eval() turns the string into a variable name.
-        moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
-        create = moduleName.createTile(x, y, id_num, world_id_num)
-        world_id_num += 1
-        if self_global.comboBox.currentIndex() != 0:
-            create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
-            world_id_num +=1
-            create = create + create2
-            #print(create)
-            #print(id_num)
-            #print(world_id_num)
-            
+        self.checkForAlt()
+        if toggle != 0:
+            self.button.setIcon(QIcon())
+            totalblocks[btn_id] = 'EMPTY SLOT'
         else:
-            pass
-            #print(create)
-            #print(id_num)
-            #print(world_id_num)
+            print((x,y))
+            global world_id_num
+            #eval() turns the string into a variable name.
+            moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
+            create = moduleName.createTile(x, y, id_num, world_id_num)
+            world_id_num += 1
+            if self_global.comboBox.currentIndex() != 0:
+                create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
+                world_id_num +=1
+                create = create + create2
+                #print(create)
+                #print(id_num)
+                #print(world_id_num)
+                
+            else:
+                pass
+                #print(create)
+                #print(id_num)
+                #print(world_id_num)
 
-        icon = prefab_icon_list[self_global.comboBox.currentIndex()]
-        self.button.setIcon(QIcon(icon))
-        self.button.setIconSize(QSize(32,32))
+            icon = prefab_icon_list[self_global.comboBox.currentIndex()]
+            self.button.setIcon(QIcon(icon))
+            self.button.setIconSize(QSize(32,32))
 
-        totalblocks[btn_id] = create
+            totalblocks[btn_id] = create
 
         #print(totalblocks)
+
+    def checkForAlt(self):
+        modifiers = QApplication.keyboardModifiers()
+        if modifiers == Qt.AltModifier:
+            global toggle
+            toggle = 1
+        else:
+            global toggle
+            toggle = 0
         
-        
-   
+
+
     
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -239,6 +253,7 @@ class MainWindow(QMainWindow):
 #define some global variables
 id_num = 1
 world_id_num = 2
+toggle = 0
 grid_list=[]
 totalblocks = []
 prefab_list = ["ground_prefab", "wall_prefab"] # As we get more prefabs, add the filenames to this list
