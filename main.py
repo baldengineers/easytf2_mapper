@@ -140,14 +140,13 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        #name = QFileDialog.getSaveFileName(self, "Export File", "//", "*.vmf")
-        #file = open(name, "w")
-		#
+        file = open('output\output.vmf', "w")
         import export
         wholething = export.execute(totalblocks)
         print(wholething)
-        
-        
+        file.write(wholething)
+        file.close()
+        print("The .vmf has been outputted to the output folder.")
     def removeButtons(self):
 
         for i in reversed(range(self.button_grid_layout.count())):
