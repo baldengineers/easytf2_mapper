@@ -18,7 +18,7 @@ class GridBtn(QMainWindow):
         self.button.show()
 
     def reset_icon(self):
-        self.button.setIcon(QIcon("icons\wall_top.jpg"))
+        self.button.setIcon(QIcon())
         print("lel")
 
     def click_func(self, self_global, x, y, id_num, btn_id):
