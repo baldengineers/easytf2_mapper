@@ -142,6 +142,7 @@ class MainWindow(QMainWindow):
     def file_export(self):
         #name = QFileDialog.getSaveFileName(self, "Export File", "//", "*.vmf")
         #file = open(name, "w")
+		#
         import export
         wholething = export.execute(totalblocks)
         print(wholething)
