@@ -26,7 +26,7 @@ class GridBtn(QMainWindow):
         self.checkForAlt()
         if toggle != 0:
             self.button.setIcon(QIcon())
-            totalblocks[btn_id] = 'EMPTY SLOT'
+            totalblocks[btn_id] = 'EMPTY_SLOT'
         else:
             print((x,y))
             global world_id_num
@@ -256,9 +256,9 @@ world_id_num = 2
 toggle = 0
 grid_list=[]
 totalblocks = []
-prefab_list = ["ground_prefab", "wall_prefab"] # As we get more prefabs, add the filenames to this list
-prefab_text_list = ["1. Blank Tile", "2. Wall Tile"] # As we get more prefabs, add the text that will be in the comboBox to this list
-prefab_icon_list = ["icons\ground.jpg","icons\wall_top.jpg"]
+prefab_list = ["ground_prefab", "wall_prefab", "wall_prefab_bottom"] # As we get more prefabs, add the filenames to this list
+prefab_text_list = ["1. Blank Tile", "2. Wall Tile (Top)", "3. Wall Tile (Bottom)"] # As we get more prefabs, add the text that will be in the comboBox to this list
+prefab_icon_list = ["icons\ground.jpg","icons\wall_top.jpg","icons\wall_bottom"]
 # Indexes for prefab_list and prefab_text_list and prefab_icon_list should match
 
 
