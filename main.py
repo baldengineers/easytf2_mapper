@@ -7,14 +7,13 @@ import importlib
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
-        self.button = QPushButton("0", self_global)
+        self.button = QPushButton("", self_global)
         self.x = 32*x
         self.y = 20+(32*y)
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
-                                                            id_num,
-                                                            btn_id))
+                                                            id_num, btn_id))
         self.button.show()
 
     def change_val(self, val):
@@ -22,14 +21,13 @@ class GridBtn(QMainWindow):
 
     def click_func(self, self_global, x, y, id_num, btn_id):
         print((x,y))
+        global world_id_num
         #eval() turns the string into a variable name.
         moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
         create = moduleName.createTile(x, y, id_num, world_id_num)
-        global world_id_num
         world_id_num += 1
-        if gui.comboBox.currentIndex() != 0:
+        if self_global.comboBox.currentIndex() != 0:
             create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
-            global world_id_num
             world_id_num +=1
             create = create + create2
             print(create)
@@ -40,6 +38,10 @@ class GridBtn(QMainWindow):
             print(create)
             print(id_num)
             print(world_id_num)
+
+        icon = prefab_icon_list[self_global.comboBox.currentIndex()]
+        self.button.setIcon(QIcon(icon))
+        self.button.setIconSize(QSize(32,32))
 
         totalblocks[btn_id] = create
 
@@ -237,7 +239,9 @@ grid_list=[]
 totalblocks = []
 prefab_list = ["ground_prefab", "wall_prefab"] # As we get more prefabs, add the filenames to this list
 prefab_text_list = ["1. Blank Tile", "2. Wall Tile"] # As we get more prefabs, add the text that will be in the comboBox to this list
-# Indexes for prefab_list and prefab_text_list should match
+prefab_icon_list = ["icons\ground.jpg","icons\wall_top.jpg"]
+# Indexes for prefab_list and prefab_text_list and prefab_icon_list should match
+
 
 #imports that need prefab_list to be defined
 for item in prefab_list:
