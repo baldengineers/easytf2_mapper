@@ -1,7 +1,8 @@
-IMPORTANT:
-
-FOR ALL THE " id "<number>" " IN THE PREFABS, WE NEED AN OVERARCHING VARIABLE += 1 FOR THIS. I'LL TRY TO IMPLEMENT IT SO EACH PREFAB AL GORE ITHM USES A GLOBAL += 1 FROM MAIN.py
-
-also:
-
-work on functionality first. it's better to get the infrastructure in place before doing yer nitpicky shit jony
+<b>readme:<\b>
+<p>
+<p>
+Ctrl+G = resize grid. deletes all blocks.
+<p>
+Ctrl+E = export vmf. do this when you're done.
+<p>
+Alt+click on a square with a prefab on it to remove it.
