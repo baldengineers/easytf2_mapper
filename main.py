@@ -30,14 +30,15 @@ class GridBtn(QMainWindow):
             create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
             world_id_num +=1
             create = create + create2
-            print(create)
-            print(id_num)
-            print(world_id_num)
+            #print(create)
+            #print(id_num)
+            #print(world_id_num)
             
         else:
-            print(create)
-            print(id_num)
-            print(world_id_num)
+            pass
+            #print(create)
+            #print(id_num)
+            #print(world_id_num)
 
         icon = prefab_icon_list[self_global.comboBox.currentIndex()]
         self.button.setIcon(QIcon(icon))
@@ -45,7 +46,7 @@ class GridBtn(QMainWindow):
 
         totalblocks[btn_id] = create
 
-        print(totalblocks)
+        #print(totalblocks)
         
         
    
