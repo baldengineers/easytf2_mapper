@@ -6,6 +6,8 @@ from PySide.QtGui import *
 import importlib
 #check todo every time you open this
 #TODO: make number keys change the dropdown option
+#TODO: add prefabs
+#TODO: add lighting methods
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
