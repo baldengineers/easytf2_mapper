@@ -14,10 +14,12 @@ class GridBtn(QMainWindow):
         self.button.resize(32,32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
                                                             id_num, btn_id))
+        
         self.button.show()
 
-    def change_val(self, val):
-        self.button = QPushButton(val, self_global)
+    def reset_icon(self):
+        self.button.setIcon(QIcon("icons\wall_top.jpg"))
+        print("lel")
 
     def click_func(self, self_global, x, y, id_num, btn_id):
         print((x,y))
@@ -167,8 +169,6 @@ class MainWindow(QMainWindow):
         self.clearlist()
         
     def grid_change(self):
-        self.removeButtons()
-        self.removeDropdown()
         self.count=0
         self.btn_id_count = 0
         text = QInputDialog.getText(self,("Get Grid Y"),
@@ -182,7 +182,9 @@ class MainWindow(QMainWindow):
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
             print("Please enter a number.")
             self.grid_change()
-        
+
+        self.removeButtons()
+        self.removeDropdown()
 
         print(self.grid_y)
         print(self.grid_x)
