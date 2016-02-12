@@ -3,7 +3,7 @@ import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
-id_num = 0
+
 class GridBtn(QMainWindow):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -13,7 +13,8 @@ class GridBtn(QMainWindow):
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
-                                                            id_num,btn_id))
+                                                            id_num,
+                                                            btn_id))
         self.button.show()
 
     def change_val(self, val):
@@ -23,20 +24,27 @@ class GridBtn(QMainWindow):
         print((x,y))
         #eval() turns the string into a variable name.
         moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
-        create = moduleName.createTile(x, y, id_num)[0]
-        id_num = moduleName.createTile(x, y, id_num)[1]
+        create = moduleName.createTile(x, y, id_num, world_id_num)
+        global world_id_num
+        world_id_num += 1
         if gui.comboBox.currentIndex() != 0:
-            create2 = ground_prefab.createTile(x, y, id_num)[0]
+            create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
+            global world_id_num
+            world_id_num +=1
             create = create + create2
-            id_num = ground_prefab.createTile(x, y, id_num)[1]
             print(create)
+            print(id_num)
+            print(world_id_num)
             
         else:
-            print(create) #remove these prints later; this is working right now
+            print(create)
+            print(id_num)
+            print(world_id_num)
 
         totalblocks[btn_id] = create
 
         print(totalblocks)
+        
         
    
     
@@ -69,6 +77,11 @@ class MainWindow(QMainWindow):
         newAction.setStatusTip("Create a New File")
         #newAction.triggered.connect()
 
+        exportAction = QAction("&Export", self)
+        exportAction.setShortcut("Ctrl+e")
+        exportAction.setStatusTip("Export as .vmf")
+        exportAction.triggered.connect(self.file_export)
+
         gridAction = QAction("&Set Grid Size", self)
         gridAction.setShortcut("Ctrl+G")
         gridAction.setStatusTip("Set Grid Height and Width. RESETS ALL BLOCKS.")
@@ -84,6 +97,7 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
         fileMenu.addAction(saveAction)
+        fileMenu.addAction(exportAction)
         fileMenu.addAction(exitAction)
         
         self.home()
@@ -126,10 +140,12 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.vmf")
-        file = open(name, "w")
-        import compiler_test
-        exec(compiler_test)
+        #name = QFileDialog.getSaveFileName(self, "Export File", "//", "*.vmf")
+        #file = open(name, "w")
+        import export
+        wholething = export.execute(totalblocks)
+        print(wholething)
+        
         
     def removeButtons(self):
 
@@ -187,7 +203,7 @@ class MainWindow(QMainWindow):
                 
             self.count += 1
         self.comboBox = QComboBox(self)
-        self.comboBox.resize(64, 16)
+        self.comboBox.resize(128, 16)
         for item in prefab_text_list:
             self.comboBox.addItem(item)
         self.comboBox.move(32*self.count+2, 22)
@@ -197,6 +213,8 @@ class MainWindow(QMainWindow):
         try:
             self.comboBox.deleteLater()
             del totalblocks[:]
+            global world_id_num
+            world_id_num = 2
         except:
             print('ok')
     def clearlist(self):
@@ -213,7 +231,8 @@ class MainWindow(QMainWindow):
             pass
 
 #define some global variables
-id_num = 0
+id_num = 1
+world_id_num = 2
 grid_list=[]
 totalblocks = []
 prefab_list = ["ground_prefab", "wall_prefab"] # As we get more prefabs, add the filenames to this list

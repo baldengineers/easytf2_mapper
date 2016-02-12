@@ -1,7 +1,7 @@
 #file for getting coords of a ground tile
 import os
 
-def createTile(posx, posy, id_num):
+def createTile(posx, posy, id_num, world_id_num):
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
     f = open('prefabs\prefab_blanktile.txt', 'r+')
@@ -11,33 +11,35 @@ def createTile(posx, posy, id_num):
     stringsx = ['x1','x2','x3','x4','x5','x6','x8']
     stringsy = ['y1','y2','y3','y4','y5','y6','y8']
 
-    x1 = (posx*512)
-    y1 = (posy*512)-512
+    x1 = posx*512
+    y1 = (posy*(-512))
     z1 = 64
-    x2 = posx*512
-    y2 = (posy*512)-512
+    x2 = (posx*512)+512
+    y2 = (posy*(-512))
     z2 = 64
-    x3 = posx*512
-    y3 = posy*512
+    x3 = (posx*512)+512
+    y3 = (posy*(-512))-512
     z3 = 64
     x4 = posx*512
-    y4 = (posy*512)-512
+    y4 = (posy*(-512))-512
     z4 = 0
-    x5 = posx*512
-    y5 = posy*512
+    x5 = (posx*512)+512
+    y5 = (posy*(-512))-512
     z5 = 0
     x6 = (posx*512)+512
-    y6 = posy*512
+    y6 = posy*(-512)
     z6 = 0
-    x7 = posx+posy
-    y7 = posx+posy
-    z7 = posx+posy
-    x8 = (posx*512)+512
-    y8 = posy*512
-    z8 = 64
+    x7 = posx*512
+    y7 = (posy*(-512))-512
+    z7 = 64
+    x8 = posx*512
+    y8 = posy*(-512)
+    z8 = 0
 
     values = "".join(lines)#converting list to string
     ogvalues = "".join(lines)#converting list to string for original reference
+    values = values.replace('world_idnum', str(world_id_num))
+    #world_id_num += 1
 
     values = values.replace('x1',str(x1))
     values = values.replace('x2',str(x2))
@@ -68,6 +70,6 @@ def createTile(posx, posy, id_num):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
 
-    return values, id_num
+    return values
     
 

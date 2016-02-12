@@ -1,6 +1,6 @@
 import os
 
-def createTile(posx, posy, id_num):
+def createTile(posx, posy, id_num, world_id_num):
     looplist = 'a'
     f = open('prefabs\prefab_wall.txt', 'r+')
     lines = f.readlines()
@@ -8,33 +8,35 @@ def createTile(posx, posy, id_num):
     stringsz = ['z1','z2','z3','z4','z5','z6','z8']
       
     x1 = posx*512
-    y1 = ((posy-1)*512)+64
+    y1 = posy*(-512)
     z1 = 256
     x2 = (posx*512)+512
-    y2 = ((posy-1)*512)+64
+    y2 = posy*(-512)
     z2 = 256
     x3 = (posx*512)+512
-    y3 = (posy-1)*512
+    y3 = (posy*(-512)) - 64
     z3 = 256
     x4 = posx*512
-    y4 = (posy-1)*512
+    y4 = (posy*(-512)) - 64
     z4 = 64
     x5 = (posx*512)+512
-    y5 = (posy*512)-512
+    y5 = (posy*(-512))-64
     z5 = 64
     x6 = (posx*512)+512
-    y6 = ((posy-1)*512)+64
+    y6 = posy*(-512)
     z6 = 64
     x7 = posx*512
-    y7 = (posy-1)*512
+    y7 = (posy*(-512)) - 64
     z7 = 256
     x8 = posx*512
-    y8 = ((posy-1)*512)+64
+    y8 = (posy*(-512))
     z8 = 64
       
     values = "".join(lines)#converting list to string
     ogvalues = "".join(lines)
-      
+    values = values.replace('world_idnum', str(world_id_num))
+    #world_id_num += 1
+    
     values = values.replace('x1',str(x1))
     values = values.replace('x2',str(x2))
     values = values.replace('x3',str(x3))
@@ -64,4 +66,4 @@ def createTile(posx, posy, id_num):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
   
-    return values, id_num
+    return values
