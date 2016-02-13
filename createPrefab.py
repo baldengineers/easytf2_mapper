@@ -1,10 +1,21 @@
+"""
+This program takes a vmf file exported from hammer, then exports both a
+prefab txt template (look in prefabs folder), and a .py containing the
+algorithms to create the object
+"""
+
+
+
+
+
+
 file_list = []
 num_list = []
 value_list = []
 
 var_num = 1
 value_list_history = []
-name = "prefabs\godplsno.vmf"
+name = "prefabs\godplsno.vmf" #name of the vmf file, will change to allow user to open a file
 file = open(name, "r")
 
 openlines = file.readlines()
@@ -64,6 +75,14 @@ def write_var():
       #file_list.append("%s%d = %s*%s512 - 512" %(var, var_num, var, negative))
       #print(file_list)
 
+def compileTXT():
+  #This compiles the txt prefab template
+
+def compilePY():
+  #This compiles the py file containing the algorithms
+
+
+#main loop
 for line in openlines:
   if "(" in line:
     for letter in line:
