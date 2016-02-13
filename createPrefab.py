@@ -77,9 +77,11 @@ def write_var():
 
 def compileTXT():
   #This compiles the txt prefab template
+  pass
 
 def compilePY():
   #This compiles the py file containing the algorithms
+  pass
 
 
 #main loop
