@@ -2,6 +2,7 @@ file_list = []
 i = 1
 name = "prefabs\godplsno.vmf"
 file = open(name, "r")
+
 openlines = file.readlines()
 openlinesstr = "".join(openlines)
 
@@ -15,10 +16,10 @@ for line in openlinesstr:
       if number == 0:
         file_list.append("%s%d = %s*%s512", "x", i, "x", "")
         print(file_list)
-      elif number == 512
+      elif number == 512:
         file_list.append("%s%d = %s*%s512 + 512", "x", i, "x", "")
-      elif number == -512
+      elif number == -512:
         file_list.append("%s%d = %s*%s512 - 512", "y", i, "y", "-")
         
-      i++
+      i += 1
         
