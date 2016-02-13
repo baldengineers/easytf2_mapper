@@ -1,25 +1,72 @@
 file_list = []
-i = 1
+num_list = []
+value_list = []
+
+var_num = 1
 name = "prefabs\godplsno.vmf"
 file = open(name, "r")
 
 openlines = file.readlines()
-openlinesstr = "".join(openlines)
 
-for line in openlinesstr:
+def write_var():
+  #TODO: Add a values list history, that keeps track of all the past value_lists
+  #so we can see if there are duplicate value lists. 
+  
+  value_list = []
+  #item count needs to be -1 so that the initial "SEPARATE" makes the var 0
+  num_count = -1
+
+  print("num_list: ", num_list)
+  
+  for item in num_list:
+    if item == "SEPARATE":
+      num_count += 1
+      print(num_count)
+    else:
+      try:
+        value_list[num_count] = value_list[num_count] + item
+      except IndexError:
+        value_list.append(item)
+
+  print("value_list: ", value_list)
+  value_list_history.append(value_list)
+  xyz_list = ["x", "y", "z"]
+  
+  for var in xyz_list:
+    
+    value = int(value_list[xyz_list.index(var)])
+
+    if var == "x":
+      negative = ""
+    elif var == "y":
+      negative = "-"
+        
+    if var == "z":
+      file_list.append("%s%d = %d" %(var, var_num, value))
+    elif value == 0:
+      file_list.append("%s%d = %s*%s512" %(var, var_num, var, negative))
+      print(file_list)
+    elif value == 512:
+      file_list.append("%s%d = %s*%s512 + 512" %(var, var_num, var, negative))
+      print(file_list)
+    elif value == -512:
+      file_list.append("%s%d = %s*%s512 - 512" %(var, var_num, var, negative))
+      print(file_list)
+
+for line in openlines:
   if "(" in line:
     for letter in line:
+      print(letter)
       try:
         number = int(letter)
+        num_list.append(letter)
       except ValueError:
-        continue
-      if number == 0:
-        file_list.append("%s%d = %s*%s512", "x", i, "x", "")
-        print(file_list)
-      elif number == 512:
-        file_list.append("%s%d = %s*%s512 + 512", "x", i, "x", "")
-      elif number == -512:
-        file_list.append("%s%d = %s*%s512 - 512", "y", i, "y", "-")
-        
-      i += 1
+        if letter == " ":
+          num_list.append("SEPARATE")
+        elif letter == ")":
+          write_var()
+          var_num += 1
+          num_list = []
+
+      
         
