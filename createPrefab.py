@@ -94,7 +94,7 @@ def compilePY():
 
 #main loop
 for line in openlines:
-  if "mins" or "maxs" in line: #TODO: maybe make the strings that we don't want to include a list?
+  if "mins" in line or "maxs" in line: #TODO: maybe make the strings that we don't want to include a list?
     txt_list.append(line)
   else:
     if "(" not in line:
