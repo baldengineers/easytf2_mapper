@@ -145,7 +145,14 @@ for line in openlines:
     txt_list.append(line)
   else:
     if "(" not in line:
-      txt_list.append(line)
+      if "id" not in line: #work on implementing this
+        txt_list.append(line)
+      else:
+        for letter in line:
+          try:
+            number = int(letter)
+          except ValueError:
+            pass
     elif "(" in line:
       for letter in line:
         #print(letter)
