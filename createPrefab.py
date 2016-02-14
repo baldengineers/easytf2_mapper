@@ -14,6 +14,36 @@ py_list = []
 txt_list = []
 num_list = []
 value_list = []
+compile_list = [
+"""
+import os
+
+def createTile(posx, posy, id_num, world_id_num):
+    looplist = '1'
+    values=[]#Values are all of the lines of a prefab that have the vertex coords
+    f = open('prefabs\prefab_blanktile.txt', 'r+')
+    lines = f.readlines() #gathers each line of the prefab and puts numbers them
+""",
+"INSERT_PY_LIST",
+"INSERT_VAR_COUNT",
+"""
+    values = "".join(lines)#converting list to string
+    ogvalues = "".join(lines)
+    values = values.replace('world_idnum', str(world_id_num))
+    #world_id_num += 1
+    
+    for var in ["x", "y", "z"]:
+        for count in range(1,var_count+1):
+    
+            values = values.replace(var + str(count),str(eval(var + str(count))))
+
+    for i in range(ogvalues.count('id_num')):
+        values = values.replace('id_num', str(id_num), 1)
+        id_num = id_num+1
+  
+    return values
+"""
+]
 
 var_num = 1
 value_list_history = []
@@ -79,20 +109,37 @@ def write_var():
 
 def compileTXT():
   #This compiles the txt prefab template
-  name = "prefabs\output.txt" #TODO: make it so that you manually choose file
+  name = "prefabs\\" + prefab_name + ".txt"
   file = open(name, "w")
   
   for item in txt_list:
     file.write(item)
 
-  print("File Exported as \"output.txt\"")
+  print("File Exported as \"%s\"" %(name))
 
 def compilePY():
   #This compiles the py file containing the algorithms
-  pass
+  for item in py_list:
+    compile_list.insert(compile_list.index("INSERT_PY_LIST"), "    " + item + "\n")
+
+  compile_list[compile_list.index("INSERT_PY_LIST")] = ""
+
+  var_count = (len(py_list) + 1)/3
+
+  compile_list[compile_list.index("INSERT_VAR_COUNT")] = "    var_count = %d" %(var_count)
+
+  name = prefab_name + ".py"
+  file = open(name, "w")
+  
+  for item in compile_list:
+    file.write(item)
+
+  print("File Exported as \"%s\"" %(name))
 
 
 #main loop
+prefab_name = input("Name of prefab? (eg. wall_prefab)\n")  
+
 for line in openlines:
   if "mins" in line or "maxs" in line: #TODO: maybe make the strings that we don't want to include a list?
     txt_list.append(line)
@@ -118,6 +165,7 @@ for line in openlines:
             num_list = []
 
 compileTXT()
+compilePY()
 
       
         
