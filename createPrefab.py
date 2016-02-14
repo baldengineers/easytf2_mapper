@@ -9,7 +9,9 @@ algorithms to create the object
 
 
 
-file_list = []
+
+py_list = []
+txt_list = []
 num_list = []
 value_list = []
 
@@ -28,21 +30,27 @@ def write_var():
   #item count needs to be -1 so that the initial "SEPARATE" makes the var 0
   num_count = -1
 
-  print("num_list: ", num_list)
+  #print("num_list: ", num_list)
   
   for item in num_list:
     if item == "SEPARATE":
       num_count += 1
-      print(num_count)
+      #print(num_count)
     else:
       try:
         value_list[num_count] = value_list[num_count] + item
       except IndexError:
         value_list.append(item)
 
-  print("value_list: ", value_list)
+  #print("value_list: ", value_list)
   value_list_history.append(value_list)
-  print("value_list_history: ", value_list_history)
+  #print("value_list_history: ", value_list_history)
+
+  item_count = 0
+  for item in value_list:
+    txt_list.insert(-1 - item_count, "INSERT_VAR")
+    item_count += 2 
+  
   xyz_list = ["x", "y", "z"]
   
   for var in xyz_list:
@@ -55,29 +63,29 @@ def write_var():
       negative = "-"
         
     if var == "z":
-      file_list.append("%s%d = %d" %(var, var_num, value))
-      print(file_list)
+      py_list.append("%s%d = %d" %(var, var_num, value))
+      #print(py_list)
     elif value == 0:
-      file_list.append("%s%d = %s*%s512" %(var, var_num, var, negative))
-      print(file_list)
+      py_list.append("%s%d = %s*%s512" %(var, var_num, var, negative))
+      #print(py_list)
     else:
-      file_list.append("%s%d = %s*%s512 + (%d)" %(var, var_num, var, negative, value))
-      print(file_list)
-  
+      py_list.append("%s%d = %s*%s512 + (%d)" %(var, var_num, var, negative, value))
+      #print(py_list)
 
-    #elif value == 0:
-      #file_list.append("%s%d = %s*%s512" %(var, var_num, var, negative))
-      #print(file_list)
-    #elif value == 512:
-      #file_list.append("%s%d = %s*%s512 + 512" %(var, var_num, var, negative))
-      #print(file_list)
-    #elif value == -512:
-      #file_list.append("%s%d = %s*%s512 - 512" %(var, var_num, var, negative))
-      #print(file_list)
+    txt_list[txt_list.index("INSERT_VAR")] = "%s%d" %(var, var_num)
+
+    #print("txt_list: ", txt_list)
+  
 
 def compileTXT():
   #This compiles the txt prefab template
-  pass
+  name = "prefabs\output.txt" #TODO: make it so that you manually choose file
+  file = open(name, "w")
+  
+  for item in txt_list:
+    file.write(item)
+
+  print("File Exported as \"output.txt\"")
 
 def compilePY():
   #This compiles the py file containing the algorithms
@@ -86,21 +94,30 @@ def compilePY():
 
 #main loop
 for line in openlines:
-  if "(" in line:
-    for letter in line:
-      print(letter)
-      try:
-        number = int(letter)
-        num_list.append(letter)
-      except ValueError:
-        if letter == " ":
-          num_list.append("SEPARATE")
-        elif letter == "-":
-          num_list.append("-")
-        elif letter == ")":
-          write_var()
-          var_num += 1
-          num_list = []
+  if "mins" or "maxs" in line: #TODO: maybe make the strings that we don't want to include a list?
+    txt_list.append(line)
+  else:
+    if "(" not in line:
+      txt_list.append(line)
+    elif "(" in line:
+      for letter in line:
+        #print(letter)
+        try:
+          number = int(letter)    
+          num_list.append(letter)
+        except ValueError:
+          if letter != "-":
+            txt_list.append(letter)
+          if letter == " ":
+            num_list.append("SEPARATE")
+          elif letter == "-":
+            num_list.append("-")
+          elif letter == ")":
+            write_var() 
+            var_num += 1
+            num_list = []
+
+compileTXT()
 
       
         
