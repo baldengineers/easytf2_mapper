@@ -13,6 +13,8 @@ algorithms to create the object
 py_list = []
 txt_list = []
 num_list = []
+id_num_list = []
+id_value_list = []
 value_list = []
 compile_list = [
 """
@@ -46,9 +48,31 @@ def createTile(posx, posy, id_num, world_id_num):
 ]
 
 var_num = 1
+black_list_var = False #True means it IS on the blacklist, False otherwise
 value_list_history = []
 name = "prefabs\godplsno.vmf" #name of the vmf file, will change to allow user to open a file
 file = open(name, "r")
+
+black_list = ["editorversion",
+              "editorbuild",
+              "mapversion",
+              "formatversion",
+              "prefab",
+              "bSnapToGrid",
+              "bShowGrid",
+              "bShowLogicalGrid",
+              "nGridSpacing",
+              "bShow3DGrid",
+              "mapversion",
+              "classname",
+              "skyname",
+              "maxpropscreenwidth",
+              "detailvbsp",
+              "detailmaterial",
+              "activecamera",
+              "mins",
+              "maxs",
+              "active"]
 
 openlines = file.readlines()
 
@@ -137,40 +161,72 @@ def compilePY():
   print("File Exported as \"%s\"" %(name))
 
 
+
+
+
+
+
+
+
+
+
 #main loop
 prefab_name = input("Name of prefab? (eg. wall_prefab)\n")  
 
 for line in openlines:
-  if "mins" in line or "maxs" in line: #TODO: maybe make the strings that we don't want to include a list?
-    txt_list.append(line)
-  else:
-    if "(" not in line:
-      if "id" not in line: #work on implementing this
-        txt_list.append(line)
-      else:
-        for letter in line:
-          try:
-            number = int(letter)
-          except ValueError:
-            pass
-    elif "(" in line:
-      for letter in line:
-        #print(letter)
-        try:
-          number = int(letter)    
-          num_list.append(letter)
-        except ValueError:
-          if letter != "-":
-            txt_list.append(letter)
-          if letter == " ":
-            num_list.append("SEPARATE")
-          elif letter == "-":
-            num_list.append("-")
-          elif letter == ")":
-            write_var() 
-            var_num += 1
-            num_list = []
+  
+  for item in black_list:
+    if item in line:
+      black_list_var = True
 
+  #Testing creating the black_list automatically
+  #if "\t" not in line:
+   # createBlackList(line)
+  if not black_list_var:
+    if "\t" in line:
+      if "(" not in line:
+        if "solid" in line or "side" in line: #need to add this because somehow, the solid/side
+                                              #line does not make it past "if id not in line"
+            txt_list.append(line)
+
+        
+        if "id" not in line:
+          txt_list.append(line)
+        elif "\t\t\"id\"" in line:
+          for letter in line:
+            try:
+              number = int(letter)
+            except ValueError:
+              txt_list.append(letter)
+
+          if "\t\t\t" in line:
+            txt_list.insert(-2, "id_num") #need to insert because it creates a \n at the end of the line
+          else: 
+            txt_list.insert(-2, "world_idnum")
+
+        #print(txt_list)
+
+      elif "(" in line:
+        for letter in line:
+          #print(letter)
+          try:
+            number = int(letter)    
+            num_list.append(letter)
+          except ValueError:
+            if letter != "-":
+              txt_list.append(letter)
+            if letter == " ":
+              num_list.append("SEPARATE")
+            elif letter == "-":
+              num_list.append("-")
+            elif letter == ")":
+              write_var() 
+              var_num += 1
+              num_list = []
+
+  black_list_var = False
+
+  
 compileTXT()
 compilePY()
 

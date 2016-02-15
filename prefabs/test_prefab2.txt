@@ -1,7 +1,26 @@
-	solid
+versioninfo
+{
+	"editorversion" "400"
+	"editorbuild" "7026"
+	"mapversion" "1"
+	"formatversion" "100"
+	"prefab" "0"
+}
+visgroups
+{
+}
+viewsettings
+{
+}
+world
+{
+	"mapversion" "1"
+	"classname" "worldspawn"
+	"skyname" "sky_tf2_04"
+	"detailvbsp" "detail_2fort.vbsp"
+	"detailmaterial" "detail/detailsprites_2fort"
 	{
 		"id" "world_idnum"
-		side
 		{
 			"id" "id_num"
 			"plane" "(x1 y1 z1) (x2 y2 z2) (x3 y3 z3)"
@@ -12,7 +31,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x4 y4 z4) (x5 y5 z5) (x6 y6 z6)"
@@ -23,7 +41,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x7 y7 z7) (x8 y8 z8) (x9 y9 z9)"
@@ -34,7 +51,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x10 y10 z10) (x11 y11 z11) (x12 y12 z12)"
@@ -45,7 +61,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x13 y13 z13) (x14 y14 z14) (x15 y15 z15)"
@@ -56,7 +71,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x16 y16 z16) (x17 y17 z17) (x18 y18 z18)"
@@ -74,10 +88,8 @@
 			"visgroupautoshown" "1"
 		}
 	}
-	solid
 	{
 		"id" "world_idnum"
-		side
 		{
 			"id" "id_num"
 			"plane" "(x19 y19 z19) (x20 y20 z20) (x21 y21 z21)"
@@ -88,7 +100,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x22 y22 z22) (x23 y23 z23) (x24 y24 z24)"
@@ -99,7 +110,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x25 y25 z25) (x26 y26 z26) (x27 y27 z27)"
@@ -110,7 +120,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x28 y28 z28) (x29 y29 z29) (x30 y30 z30)"
@@ -121,7 +130,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x31 y31 z31) (x32 y32 z32) (x33 y33 z33)"
@@ -132,7 +140,6 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
-		side
 		{
 			"id" "id_num"
 			"plane" "(x34 y34 z34) (x35 y35 z35) (x36 y36 z36)"
@@ -150,3 +157,14 @@
 			"visgroupautoshown" "1"
 		}
 	}
+}
+cameras
+{
+	"activecamera" "-1"
+}
+cordon
+{
+	"mins" "(-1024 -1024 -1024)"
+	"maxs" "(1024 1024 1024)"
+	"active" "0"
+}
