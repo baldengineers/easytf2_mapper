@@ -4,6 +4,7 @@ import os.path
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
+import createPrefab
 #check todo every time you open this
 #TODO: make number keys change the dropdown option
 #TODO: add prefabs
@@ -111,18 +112,27 @@ class MainWindow(QMainWindow):
         gridAction.setStatusTip("Set Grid Height and Width. RESETS ALL BLOCKS.")
         gridAction.triggered.connect(self.grid_change)
 
+        createPrefabAction = QAction("&Prefab", self)
+        #createPrefabAction.setShortcut("")
+        createPrefabAction.setStatusTip("Create Your Own Prefab!")
+        createPrefabAction.triggered.connect(self.create_prefab)
 
         self.statusBar()
 
         mainMenu = self.menuBar()
         fileMenu = mainMenu.addMenu("&File")
         optionsMenu = mainMenu.addMenu("&Options")
-        optionsMenu.addAction(gridAction)
+        createMenu = mainMenu.addMenu("&Create")
+        
         fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
         fileMenu.addAction(saveAction)
         fileMenu.addAction(exportAction)
         fileMenu.addAction(exitAction)
+
+        optionsMenu.addAction(gridAction)
+
+        createMenu.addAction(createPrefabAction)
         
         self.home()
 
@@ -156,20 +166,21 @@ class MainWindow(QMainWindow):
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
-        name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.sav")
-        file = open(name, "w")
+        name = QFileDialog.getSaveFileName(self, "Save File", "C:/", "*.sav")
+        file = open(name[1], "w")
         text = self.textEdit.toPlainText()
         file.write(text)
         file.close()
 
     def file_export(self):
-        file = open('output\output.vmf', "w")
+        name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "VMF file (*.vmf)")
+        file = open(name[0], "w")
         import export
         wholething = export.execute(totalblocks)
         print(wholething)
         file.write(wholething)
         file.close()
-        print("The .vmf has been outputted to the output folder.")
+        print("The .vmf has been outputted to %s" %(name[0]))
     def removeButtons(self):
 
         for i in reversed(range(self.button_grid_layout.count())):
@@ -253,6 +264,10 @@ class MainWindow(QMainWindow):
         else:
             pass
 
+    def create_prefab(self):
+        name = QFileDialog.getOpenFileName(self, "Choose File", "C:/","*.vmf")
+        print(createPrefab.create(name))
+
 #define some global variables
 id_num = 1
 world_id_num = 2
@@ -261,28 +276,24 @@ grid_list=[]
 totalblocks = []
 prefab_list = ["ground_prefab",
                "wall_prefab",
-               "wall_prefab_bottom",
-               "test_prefab"]
+               "wall_prefab_bottom"]
 # As we get more prefabs, add the filenames to this list
 
 prefab_text_list = ["1. Blank Tile",
                     "2. Wall Tile (Top)",
-                    "3. Wall Tile (Bottom)",
-                    "TEST_USAGE_ONLY"]
+                    "3. Wall Tile (Bottom)"]
 # As we get more prefabs, add the text that will be in the comboBox to this list
 
 prefab_icon_list = ["icons\ground.jpg",
                     "icons\wall_top.jpg",
-                    "icons\wall_bottom",
-                    "icons\ground.jpg"]
+                    "icons\wall_bottom"]
 # Indexes for prefab_list and prefab_text_list and prefab_icon_list should match
 
 
 #imports that need prefab_list to be defined
 for item in prefab_list:
     globals()[item] = importlib.import_module(item)
-    print("import ", item)
-
+    
 #Main Program
 app = QApplication(sys.argv)
 gui = MainWindow()

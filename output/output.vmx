@@ -55,82 +55,6 @@ world
         side
         {
             "id" "3"
-            "plane" "(0 0 64) (0 0 64) (0 -512 0)"
-            "material" "DEV/DEV_BLENDMEASURE"
-            "uaxis" "[0 1 0 0] 0.25"
-            "vaxis" "[0 0 -1 0] 0.25"
-            "rotation" "0"
-            "lightmapscale" "16"
-            "smoothing_groups" "0"
-        }
-        side
-        {
-            "id" "4"
-            "plane" "(512 0 0) (512 -512 0) (512 -512 64)"
-            "material" "DEV/DEV_BLENDMEASURE"
-            "uaxis" "[0 1 0 0] 0.25"
-            "vaxis" "[0 0 -1 0] 0.25"
-            "rotation" "0"
-            "lightmapscale" "16"
-            "smoothing_groups" "0"
-        }
-        side
-        {
-            "id" "5"
-            "plane" "(512 0 64) (0 0 64) (0 -512 64)"
-            "material" "DEV/DEV_BLENDMEASURE"
-            "uaxis" "[1 0 0 0] 0.25"
-            "vaxis" "[0 0 -1 0] 0.25"
-            "rotation" "0"
-            "lightmapscale" "16"
-            "smoothing_groups" "0"
-        }
-        side
-        {
-            "id" "6"
-            "plane" "(512 -512 0) (0 -512 0) (0 0 64)"
-            "material" "DEV/DEV_BLENDMEASURE"
-            "uaxis" "[1 0 0 0] 0.25"
-            "vaxis" "[0 0 -1 0] 0.25"
-            "rotation" "0"
-            "lightmapscale" "16"
-            "smoothing_groups" "0"
-        }
-        editor
-        {
-            "color" "0 254 151"
-            "visgroupshown" "1"
-            "visgroupautoshown" "1"
-        }
-    }
-    solid
-    {
-        "id" "3"
-        side
-        {
-            "id" "1"
-            "plane" "(0 0 64) (512 0 64) (512 -512 64)"
-            "material" "DEV/DEV_BLENDMEASURE"
-            "uaxis" "[1 0 0 0] 0.25"
-            "vaxis" "[0 -1 0 0] 0.25"
-            "rotation" "0"
-            "lightmapscale" "16"
-            "smoothing_groups" "0"
-        }
-        side
-        {
-            "id" "2"
-            "plane" "(0 -512 0) (512 -512 0) (512 0 0)"
-            "material" "DEV/DEV_BLENDMEASURE"
-            "uaxis" "[1 0 0 0] 0.25"
-            "vaxis" "[0 -1 0 0] 0.25"
-            "rotation" "0"
-            "lightmapscale" "16"
-            "smoothing_groups" "0"
-        }
-        side
-        {
-            "id" "3"
             "plane" "(0 0 64) (0 -512 64) (0 -512 0)"
             "material" "DEV/DEV_BLENDMEASURE"
             "uaxis" "[0 1 0 0] 0.25"
@@ -179,6 +103,7 @@ world
             "visgroupautoshown" "1"
         }
     }
+ 
 }
 cameras
 {

@@ -2,7 +2,7 @@ import os
 
 def createTile(posx, posy, id_num, world_id_num):
     looplist = 'a'
-    f = open('prefabs\prefab_wall.txt', 'r+')
+    f = open('prefab_template\prefab_wall.txt', 'r+')
     lines = f.readlines()
       
     x1 = posx*512

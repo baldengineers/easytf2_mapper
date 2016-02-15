@@ -1,91 +1,10 @@
 """
-This program takes a vmf file exported from hammer, then exports both a
+This function takes a vmf file exported from hammer, then exports both a
 prefab txt template (look in prefabs folder), and a .py containing the
 algorithms to create the object
 """
 
 
-
-
-
-
-
-py_list = []
-txt_list = []
-num_list = []
-id_num_list = []
-id_value_list = []
-value_list = []
-compile_list = [
-"""import os
-
-def createTile(posx, posy, id_num, world_id_num):
-    looplist = '1'
-    values=[]#Values are all of the lines of a prefab that have the vertex coords
-""",
-
-"INSERT_OPEN_FILE",
-
-"""
-    lines = f.readlines() #gathers each line of the prefab and puts numbers them
-""",
-
-"INSERT_PY_LIST",
-
-"INSERT_VAR_COUNT",
-
-"""
-    values = "".join(lines)#converting list to string
-    ogvalues = "".join(lines)
-    values = values.replace('world_idnum', str(world_id_num))
-    #world_id_num += 1
-    
-    for var in ["x", "y", "z"]:
-        for count in range(1,var_count+1):
-            string = var + str(count)
-            string_var = str(eval(var + str(count)))
-
-            if var == "z":
-                values = values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
-            else:
-                values = values.replace(string + " ",string_var + " ")
-
-    for i in range(ogvalues.count('id_num')):
-        values = values.replace('id_num', str(id_num), 1)
-        id_num = id_num+1
-  
-    return values
-"""
-]
-
-var_num = 1
-black_list_var = False #True means it IS on the blacklist, False otherwise
-value_list_history = []
-name = "prefabs\godplsno.vmf" #name of the vmf file, will change to allow user to open a file
-file = open(name, "r")
-
-black_list = ["editorversion",
-              "editorbuild",
-              "mapversion",
-              "formatversion",
-              "prefab",
-              "bSnapToGrid",
-              "bShowGrid",
-              "bShowLogicalGrid",
-              "nGridSpacing",
-              "bShow3DGrid",
-              "mapversion",
-              "classname",
-              "skyname",
-              "maxpropscreenwidth",
-              "detailvbsp",
-              "detailmaterial",
-              "activecamera",
-              "mins",
-              "maxs",
-              "active"]
-
-openlines = file.readlines()
 
 def write_var():
   #TODO: Add a values list history, that keeps track of all the past value_lists
@@ -174,75 +93,150 @@ def compilePY():
 
 
 
+def create():
 
+  py_list = []
+  txt_list = []
+  num_list = []
+  id_num_list = []
+  id_value_list = []
+  value_list = []
+  compile_list = [
+  """import os
 
+  def createTile(posx, posy, id_num, world_id_num):
+      looplist = '1'
+      values=[]#Values are all of the lines of a prefab that have the vertex coords
+  """,
 
+  "INSERT_OPEN_FILE",
 
+  """
+      lines = f.readlines() #gathers each line of the prefab and puts numbers them
+  """,
 
+  "INSERT_PY_LIST",
 
+  "INSERT_VAR_COUNT",
 
+  """
+      values = "".join(lines)#converting list to string
+      ogvalues = "".join(lines)
+      values = values.replace('world_idnum', str(world_id_num))
+      #world_id_num += 1
+      
+      for var in ["x", "y", "z"]:
+          for count in range(1,var_count+1):
+              string = var + str(count)
+              string_var = str(eval(var + str(count)))
 
-#main loop
-prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
-txt_path = "prefabs\\\\" + prefab_name + ".txt"
-py_path = prefab_name + ".py"
+              if var == "z":
+                  values = values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
+              else:
+                  values = values.replace(string + " ",string_var + " ")
 
-for line in openlines:
+      for i in range(ogvalues.count('id_num')):
+          values = values.replace('id_num', str(id_num), 1)
+          id_num = id_num+1
+    
+      return values
+  """
+  ]
+
+  var_num = 1
+  black_list_var = False #True means it IS on the blacklist, False otherwise
+  value_list_history = []
+  #name = "prefab_template\godplsno.vmf" #name of the vmf file, will change to allow user to open a file
+  file = open(name, "r")
+
+  black_list = ["editorversion",
+                "editorbuild",
+                "mapversion",
+                "formatversion",
+                "prefab",
+                "bSnapToGrid",
+                "bShowGrid",
+                "bShowLogicalGrid",
+                "nGridSpacing",
+                "bShow3DGrid",
+                "mapversion",
+                "classname",
+                "skyname",
+                "maxpropscreenwidth",
+                "detailvbsp",
+                "detailmaterial",
+                "activecamera",
+                "mins",
+                "maxs",
+                "active"]
+
+  openlines = file.readlines()
+
   
-  for item in black_list:
-    if item in line:
-      black_list_var = True
 
-  #Testing creating the black_list automatically
-  #if "\t" not in line:
-   # createBlackList(line)
-  if not black_list_var:
-    if "\t" in line:
-      if "(" not in line:
-        if "solid" in line or "side" in line: #need to add this because somehow, the solid/side
-                                              #line does not make it past "if id not in line"
+  #main loop
+  prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
+  txt_path = "prefab_template\\\\" + prefab_name + ".txt"
+  py_path = "prefabs\\" + prefab_name + ".py"
+
+  for line in openlines:
+    
+    for item in black_list:
+      if item in line:
+        black_list_var = True
+
+    #Testing creating the black_list automatically
+    #if "\t" not in line:
+     # createBlackList(line)
+    if not black_list_var:
+      if "\t" in line:
+        if "(" not in line:
+          if "solid" in line or "side" in line: #need to add this because somehow, the solid/side
+                                                #line does not make it past "if id not in line"
+              txt_list.append(line)
+
+          
+          if "id" not in line:
             txt_list.append(line)
+          elif "\t\t\"id\"" in line:
+            for letter in line:
+              try:
+                number = int(letter)
+              except ValueError:
+                txt_list.append(letter)
 
-        
-        if "id" not in line:
-          txt_list.append(line)
-        elif "\t\t\"id\"" in line:
+            if "\t\t\t" in line:
+              txt_list.insert(-2, "id_num") #need to insert because it creates a \n at the end of the line
+            else: 
+              txt_list.insert(-2, "world_idnum")
+
+          #print(txt_list)
+
+        elif "(" in line:
           for letter in line:
+            #print(letter)
             try:
-              number = int(letter)
+              number = int(letter)    
+              num_list.append(letter)
             except ValueError:
-              txt_list.append(letter)
+              if letter != "-":
+                txt_list.append(letter)
+              if letter == " ":
+                num_list.append("SEPARATE")
+              elif letter == "-":
+                num_list.append("-")
+              elif letter == ")":
+                write_var() 
+                var_num += 1
+                num_list = []
 
-          if "\t\t\t" in line:
-            txt_list.insert(-2, "id_num") #need to insert because it creates a \n at the end of the line
-          else: 
-            txt_list.insert(-2, "world_idnum")
-
-        #print(txt_list)
-
-      elif "(" in line:
-        for letter in line:
-          #print(letter)
-          try:
-            number = int(letter)    
-            num_list.append(letter)
-          except ValueError:
-            if letter != "-":
-              txt_list.append(letter)
-            if letter == " ":
-              num_list.append("SEPARATE")
-            elif letter == "-":
-              num_list.append("-")
-            elif letter == ")":
-              write_var() 
-              var_num += 1
-              num_list = []
-
-  black_list_var = False
+    black_list_var = False
 
   
-compileTXT()
-compilePY()
+  compileTXT()
+  compilePY()
+
+  return "lol"
 
       
         
