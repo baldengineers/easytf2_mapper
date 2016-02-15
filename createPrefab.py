@@ -42,8 +42,13 @@ def createTile(posx, posy, id_num, world_id_num):
     
     for var in ["x", "y", "z"]:
         for count in range(1,var_count+1):
-    
-            values = values.replace(var + str(count),str(eval(var + str(count))))
+            string = var + str(count)
+            string_var = str(eval(var + str(count)))
+
+            if var == "z":
+                values = values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
+            else:
+                values = values.replace(string + " ",string_var + " ")
 
     for i in range(ogvalues.count('id_num')):
         values = values.replace('id_num', str(id_num), 1)
@@ -179,7 +184,7 @@ def compilePY():
 
 #main loop
 prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
-txt_path = "prefabs\\" + prefab_name + ".txt"
+txt_path = "prefabs\\\\" + prefab_name + ".txt"
 py_path = prefab_name + ".py"
 
 for line in openlines:
