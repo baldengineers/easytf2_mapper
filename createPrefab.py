@@ -17,17 +17,23 @@ id_num_list = []
 id_value_list = []
 value_list = []
 compile_list = [
-"""
-import os
+"""import os
 
 def createTile(posx, posy, id_num, world_id_num):
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
-    f = open('prefabs\prefab_blanktile.txt', 'r+')
+""",
+
+"INSERT_OPEN_FILE",
+
+"""
     lines = f.readlines() #gathers each line of the prefab and puts numbers them
 """,
+
 "INSERT_PY_LIST",
+
 "INSERT_VAR_COUNT",
+
 """
     values = "".join(lines)#converting list to string
     ogvalues = "".join(lines)
@@ -120,10 +126,10 @@ def write_var():
       py_list.append("%s%d = %d" %(var, var_num, value))
       #print(py_list)
     elif value == 0:
-      py_list.append("%s%d = %s*%s512" %(var, var_num, var, negative))
+      py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var, negative))
       #print(py_list)
     else:
-      py_list.append("%s%d = %s*%s512 + (%d)" %(var, var_num, var, negative, value))
+      py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var, negative, value))
       #print(py_list)
 
     txt_list[txt_list.index("INSERT_VAR")] = "%s%d" %(var, var_num)
@@ -133,18 +139,20 @@ def write_var():
 
 def compileTXT():
   #This compiles the txt prefab template
-  name = "prefabs\\" + prefab_name + ".txt"
-  file = open(name, "w")
+  file = open(txt_path, "w")
   
   for item in txt_list:
     file.write(item)
 
-  print("File Exported as \"%s\"" %(name))
+  print("File Exported as \"%s\"" %(txt_path))
 
 def compilePY():
   #This compiles the py file containing the algorithms
+  
   for item in py_list:
     compile_list.insert(compile_list.index("INSERT_PY_LIST"), "    " + item + "\n")
+
+  compile_list[compile_list.index("INSERT_OPEN_FILE")] = "    f = open('%s', 'r+')" %(txt_path)
 
   compile_list[compile_list.index("INSERT_PY_LIST")] = ""
 
@@ -152,13 +160,12 @@ def compilePY():
 
   compile_list[compile_list.index("INSERT_VAR_COUNT")] = "    var_count = %d" %(var_count)
 
-  name = prefab_name + ".py"
-  file = open(name, "w")
+  file = open(py_path, "w")
   
   for item in compile_list:
     file.write(item)
 
-  print("File Exported as \"%s\"" %(name))
+  print("File Exported as \"%s\"" %(py_path))
 
 
 
@@ -171,7 +178,9 @@ def compilePY():
 
 
 #main loop
-prefab_name = input("Name of prefab? (eg. wall_prefab)\n")  
+prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
+txt_path = "prefabs\\" + prefab_name + ".txt"
+py_path = prefab_name + ".py"
 
 for line in openlines:
   

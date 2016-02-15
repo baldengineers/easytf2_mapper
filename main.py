@@ -36,6 +36,7 @@ class GridBtn(QMainWindow):
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
             create = moduleName.createTile(x, y, id_num, world_id_num)
+            #create = test_prefab.createTile(x, y, id_num, world_id_num)
             world_id_num += 1
             if self_global.comboBox.currentIndex() != 0:
                 create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
@@ -258,15 +259,29 @@ world_id_num = 2
 toggle = 0
 grid_list=[]
 totalblocks = []
-prefab_list = ["ground_prefab", "wall_prefab", "wall_prefab_bottom"] # As we get more prefabs, add the filenames to this list
-prefab_text_list = ["1. Blank Tile", "2. Wall Tile (Top)", "3. Wall Tile (Bottom)"] # As we get more prefabs, add the text that will be in the comboBox to this list
-prefab_icon_list = ["icons\ground.jpg","icons\wall_top.jpg","icons\wall_bottom"]
+prefab_list = ["ground_prefab",
+               "wall_prefab",
+               "wall_prefab_bottom",
+               "test_prefab"]
+# As we get more prefabs, add the filenames to this list
+
+prefab_text_list = ["1. Blank Tile",
+                    "2. Wall Tile (Top)",
+                    "3. Wall Tile (Bottom)",
+                    "TEST_USAGE_ONLY"]
+# As we get more prefabs, add the text that will be in the comboBox to this list
+
+prefab_icon_list = ["icons\ground.jpg",
+                    "icons\wall_top.jpg",
+                    "icons\wall_bottom",
+                    "icons\ground.jpg"]
 # Indexes for prefab_list and prefab_text_list and prefab_icon_list should match
 
 
 #imports that need prefab_list to be defined
 for item in prefab_list:
     globals()[item] = importlib.import_module(item)
+    print("import ", item)
 
 #Main Program
 app = QApplication(sys.argv)

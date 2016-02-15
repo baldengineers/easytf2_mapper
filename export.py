@@ -31,7 +31,7 @@ world
     "maxpropscreenwidth" "-1"
     "detailvbsp" "detail_2fort.vbsp"
     "detailmaterial" "detail/detailsprites_2fort"
-    """
+"""
     end_template = """ 
 }
 cameras
