@@ -4,9 +4,7 @@ prefab txt template (look in prefabs folder), and a .py containing the
 algorithms to create the object
 """
 
-
-
-def write_var():
+def write_var(num_list, txt_list, py_list, var_num, value_list_history):
   #TODO: Add a values list history, that keeps track of all the past value_lists
   #so we can see if there are duplicate value lists. 
   
@@ -61,16 +59,32 @@ def write_var():
     #print("txt_list: ", txt_list)
   
 
-def compileTXT():
+def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon):
   #This compiles the txt prefab template
   file = open(txt_path, "w")
   
   for item in txt_list:
     file.write(item)
 
-  print("File Exported as \"%s\"" %(txt_path))
+  prefab_file = open("prefab_template\\prefab_list.txt", "a")
+  prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
+  prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
 
-def compilePY():
+  prefab_file.write(prefab_name + "\n")
+  prefab_text_file.write(prefab_text + "\n")
+  prefab_icon_file.write(prefab_icon + "\n")
+
+  for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+    file.close()
+
+  file.close()
+
+  return "File Exported as \"%s\"\n" %(txt_path)
+
+  
+  
+
+def compilePY(py_path, py_list, txt_path, compile_list):
   #This compiles the py file containing the algorithms
   
   for item in py_list:
@@ -89,11 +103,15 @@ def compilePY():
   for item in compile_list:
     file.write(item)
 
-  print("File Exported as \"%s\"" %(py_path))
+  file.close()
+
+  return "File Exported as \"%s\"\n" %(py_path)
+
+  
 
 
 
-def create():
+def create(name, prefab_name, prefab_text, prefab_icon):
 
   py_list = []
   txt_list = []
@@ -104,49 +122,48 @@ def create():
   compile_list = [
   """import os
 
-  def createTile(posx, posy, id_num, world_id_num):
-      looplist = '1'
-      values=[]#Values are all of the lines of a prefab that have the vertex coords
-  """,
+def createTile(posx, posy, id_num, world_id_num):
+    looplist = '1'
+    values=[]#Values are all of the lines of a prefab that have the vertex coords
+""",
 
   "INSERT_OPEN_FILE",
 
   """
-      lines = f.readlines() #gathers each line of the prefab and puts numbers them
-  """,
+    lines = f.readlines() #gathers each line of the prefab and puts numbers them
+""",
 
   "INSERT_PY_LIST",
 
   "INSERT_VAR_COUNT",
 
   """
-      values = "".join(lines)#converting list to string
-      ogvalues = "".join(lines)
-      values = values.replace('world_idnum', str(world_id_num))
-      #world_id_num += 1
-      
-      for var in ["x", "y", "z"]:
-          for count in range(1,var_count+1):
-              string = var + str(count)
-              string_var = str(eval(var + str(count)))
-
-              if var == "z":
-                  values = values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
-              else:
-                  values = values.replace(string + " ",string_var + " ")
-
-      for i in range(ogvalues.count('id_num')):
-          values = values.replace('id_num', str(id_num), 1)
-          id_num = id_num+1
+    values = "".join(lines)#converting list to string
+    ogvalues = "".join(lines)
+    values = values.replace('world_idnum', str(world_id_num))
+    #world_id_num += 1
     
-      return values
-  """
+    for var in ["x", "y", "z"]:
+        for count in range(1,var_count+1):
+            string = var + str(count)
+            string_var = str(eval(var + str(count)))
+
+            if var == "z":
+                values = values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
+            else:
+                values = values.replace(string + " ",string_var + " ")
+
+    for i in range(ogvalues.count('id_num')):
+        values = values.replace('id_num', str(id_num), 1)
+        id_num = id_num+1
+  
+    return values"""
   ]
 
   var_num = 1
   black_list_var = False #True means it IS on the blacklist, False otherwise
   value_list_history = []
-  #name = "prefab_template\godplsno.vmf" #name of the vmf file, will change to allow user to open a file
+  #name = "prefab_template\godplsno.vmf" #name of the vmf file, changed to allow user to open a file
   file = open(name, "r")
 
   black_list = ["editorversion",
@@ -175,9 +192,9 @@ def create():
   
 
   #main loop
-  prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
+  #prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
   txt_path = "prefab_template\\\\" + prefab_name + ".txt"
-  py_path = "prefabs\\" + prefab_name + ".py"
+  py_path = prefab_name + ".py"
 
   for line in openlines:
     
@@ -226,17 +243,12 @@ def create():
               elif letter == "-":
                 num_list.append("-")
               elif letter == ")":
-                write_var() 
+                write_var(num_list, txt_list, py_list, var_num, value_list_history) 
                 var_num += 1
                 num_list = []
 
     black_list_var = False
 
-  
-  compileTXT()
-  compilePY()
+  file.close()
+  return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon) + compilePY(py_path, py_list, txt_path, compile_list)
 
-  return "lol"
-
-      
-        

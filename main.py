@@ -180,7 +180,8 @@ class MainWindow(QMainWindow):
         print(wholething)
         file.write(wholething)
         file.close()
-        print("The .vmf has been outputted to %s" %(name[0]))
+        QMessageBox.information(self, "File Exported",
+                                "The .vmf has been outputted to %s" %(name[0]))
     def removeButtons(self):
 
         for i in reversed(range(self.button_grid_layout.count())):
@@ -209,7 +210,7 @@ class MainWindow(QMainWindow):
             self.grid_x = int(text2[0])
         except ValueError:
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
-            print("Please enter a number.")
+            QMessageBox.critical(self, "Error", "Please enter a number.")
             self.grid_change()
 
         self.removeButtons()
@@ -265,8 +266,15 @@ class MainWindow(QMainWindow):
             pass
 
     def create_prefab(self):
-        name = QFileDialog.getOpenFileName(self, "Choose File", "C:/","*.vmf")
-        print(createPrefab.create(name))
+        name = QFileDialog.getOpenFileName(self, "Choose .vmf File", "C:/","*.vmf")
+        prefab_icon = QFileDialog.getOpenFileName(self, "Choose Prefab Icon", "C:/","*.jpg")
+        prefab_name = QInputDialog.getText(self,"Prefab Name",
+                                     "Name of Prefab (e.g. wall_prefab):")
+        prefab_text = QInputDialog.getText(self, "Prefab Text",
+                                           "Prefab Text (e.g. Wall Tile)")
+        QMessageBox.information(self, "Files Created",
+                                createPrefab.create(name[0], prefab_name[0],
+                                                    prefab_text[0], prefab_icon[0]))
 
 #define some global variables
 id_num = 1
@@ -274,25 +282,30 @@ world_id_num = 2
 toggle = 0
 grid_list=[]
 totalblocks = []
-prefab_list = ["ground_prefab",
-               "wall_prefab",
-               "wall_prefab_bottom"]
-# As we get more prefabs, add the filenames to this list
+prefab_list = []
+prefab_text_list = []
+prefab_icon_list = []
 
-prefab_text_list = ["1. Blank Tile",
-                    "2. Wall Tile (Top)",
-                    "3. Wall Tile (Bottom)"]
-# As we get more prefabs, add the text that will be in the comboBox to this list
+prefab_file = open("prefab_template\prefab_list.txt")
+prefab_text_file = open("prefab_template\prefab_text_list.txt")
+prefab_icon_file = open("prefab_template\prefab_icon_list.txt")
 
-prefab_icon_list = ["icons\ground.jpg",
-                    "icons\wall_top.jpg",
-                    "icons\wall_bottom"]
-# Indexes for prefab_list and prefab_text_list and prefab_icon_list should match
+for line in prefab_file.readlines():
+        prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
 
+for line in prefab_text_file.readlines():
+        prefab_text_list.append(line[:-1] if line.endswith("\n") else line)
+
+for line in prefab_icon_file.readlines():
+    prefab_icon_list.append(line[:-1] if line.endswith("\n") else line)
+
+for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+    file.close()
 
 #imports that need prefab_list to be defined
 for item in prefab_list:
     globals()[item] = importlib.import_module(item)
+    print("import", item)
     
 #Main Program
 app = QApplication(sys.argv)
