@@ -246,7 +246,7 @@ class MainWindow(QMainWindow):
             for y in range(self.grid_y):
                 #print("test") #testing if works
                 grid_btn = GridBtn(self, x, y, self.btn_id_count)
-                self.button_grid_layout.addWidget(grid_btn.button,x,y)
+                self.button_grid_layout.addWidget(grid_btn.button,y,x) #needs to be like this because grid_layout is counter-intuitive
                 #self.button_grid_layout.setColumnMinimumWidth(y, 32)
                 
                 grid_list.append(grid_btn)
