@@ -189,7 +189,18 @@ def createTile(posx, posy, id_num, world_id_num):
 
   openlines = file.readlines()
 
-  
+  prefab_icon_list = prefab_icon.split("/")
+
+  if "easytf2_mapper" in prefab_icon_list:
+    del prefab_icon_list[ :prefab_icon_list.index("easytf2_mapper")+1]
+
+    for index, item in enumerate(prefab_icon_list): #enumerate allows you to give 2 vars in the for loop
+      if index != len(prefab_icon_list) - 1:
+        #print(index, " is ", item, " in ", prefab_icon_list)
+        prefab_icon_list[index] = item + "/" # add the "/" back into the filepath
+    
+    prefab_icon = "".join(prefab_icon_list)
+    #print("prefab_icon: ",prefab_icon)
 
   #main loop
   #prefab_name = input("Name of prefab? (eg. wall_prefab)\n")

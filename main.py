@@ -39,16 +39,16 @@ class GridBtn(QMainWindow):
             create = moduleName.createTile(x, y, id_num, world_id_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             world_id_num += 1
-            if self_global.comboBox.currentIndex() != 0:
-                create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
-                world_id_num +=1
-                create = create + create2
+            #if self_global.comboBox.currentIndex() != 0:
+                #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
+                #world_id_num +=1
+                #create = create + create2
                 #print(create)
                 #print(id_num)
                 #print(world_id_num)
                 
-            else:
-                pass
+            #else:
+                #pass
                 #print(create)
                 #print(id_num)
                 #print(world_id_num)
