@@ -9,14 +9,15 @@ import createPrefab
 #TODO: make number keys change the dropdown option
 #TODO: add prefabs
 #TODO: add lighting methods
-class GridBtn(QMainWindow):
+class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
         self.button = QPushButton("", self_global)
         self.x = 32*x
         self.y = 20+(32*y)
-        self.button.move(self.x,self.y)
-        self.button.resize(32,32)
+        #self.button.move(self.x,self.y)
+        #self.button.resize(32,32)
+        self.button.setFixedSize(32, 32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
                                                             btn_id))
         
@@ -36,7 +37,7 @@ class GridBtn(QMainWindow):
             global world_id_num
             global id_num
             #eval() turns the string into a variable name.
-            moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
+            moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             create = moduleName.createTile(x, y, id_num, world_id_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
@@ -55,7 +56,7 @@ class GridBtn(QMainWindow):
                 #print(id_num)
                 #print(world_id_num)
 
-            icon = prefab_icon_list[self_global.comboBox.currentIndex()]
+            icon = prefab_icon_list[self_global.tile_list.currentRow()]
             self.button.setIcon(QIcon(icon))
             self.button.setIconSize(QSize(32,32))
 
@@ -144,14 +145,28 @@ class MainWindow(QMainWindow):
         self.close_application()
         
     def home(self):
-        self.texture_list = QListWidget()
-        self.texture_list.addItem("texture")
+        self.central_widget = QWidget()
+        self.setCentralWidget(self.central_widget)
+        
+        self.tile_list = QListWidget()
+
+        for index, text in enumerate(prefab_text_list):
+            item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
+            self.tile_list.addItem(item)
         
         self.button_grid_layout = QGridLayout()
+        self.button_grid_layout.setSpacing(0)
 
         self.column = QHBoxLayout()
-        #self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
+        self.column.addStretch(1)
+        self.column.addWidget(self.tile_list)
+        #self.column.addStretch(1)
+        
+        self.row = QVBoxLayout(self.central_widget)
+        self.row.addLayout(self.column)
+        self.row.addStretch(1)
+        self.row.addStretch(1)
         
         self.grid_change()
         
@@ -198,7 +213,7 @@ class MainWindow(QMainWindow):
         #for grid_button in grid_list:
             #grid_button.button.close()
 
-        self.clearlist()
+        #self.clearlist()
         
     def grid_change(self):
         self.count=0
@@ -216,7 +231,7 @@ class MainWindow(QMainWindow):
             self.grid_change()
 
         self.removeButtons()
-        self.removeDropdown()
+        #self.removeDropdown()
 
         print(self.grid_y)
         print(self.grid_x)
@@ -232,30 +247,32 @@ class MainWindow(QMainWindow):
                 #print("test") #testing if works
                 grid_btn = GridBtn(self, x, y, self.btn_id_count)
                 self.button_grid_layout.addWidget(grid_btn.button,x,y)
+                #self.button_grid_layout.setColumnMinimumWidth(y, 32)
                 
                 grid_list.append(grid_btn)
                 totalblocks.append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
                 self.btn_id_count += 1
+            #self.button_grid_layout.setRowMinimumHeight(x, 32)
 
                 
             self.count += 1
-        self.comboBox = QComboBox(self)
-        self.comboBox.resize(128, 16)
-        for item in prefab_text_list:
-            self.comboBox.addItem(item)
-        self.comboBox.move(32*self.count+2, 22)
-        self.comboBox.show()
+        #self.comboBox = QComboBox(self)
+        #self.comboBox.resize(128, 16)
+        #for item in prefab_text_list:
+        #    self.comboBox.addItem(item)
+        #self.comboBox.move(32*self.count+2, 22)
+        #self.comboBox.show()
             
-    def removeDropdown(self):
-        try:
-            self.comboBox.deleteLater()
-            del totalblocks[:]
-            global world_id_num
-            world_id_num = 2
-        except:
-            print('ok')
-    def clearlist(self):
-        grid_list=[]
+    #def removeDropdown(self):
+     #   try:
+      #      self.comboBox.deleteLater()
+       #     del totalblocks[:]
+        #    global world_id_num
+         #   world_id_num = 2
+        #except:
+         #   print('ok')
+    #def clearlist(self):
+     #    grid_list=[]
         
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
