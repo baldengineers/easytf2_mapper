@@ -140,8 +140,10 @@ def createTile(posx, posy, id_num, world_id_num):
   """
     values = "".join(lines)#converting list to string
     ogvalues = "".join(lines)
-    values = values.replace('world_idnum', str(world_id_num))
-    #world_id_num += 1
+    
+    for i in range(ogvalues.count("world_idnum")):
+        values = values.replace('world_idnum', str(world_id_num), 1)
+        world_id_num += 1
     
     for var in ["x", "y", "z"]:
         for count in range(1,var_count+1):
@@ -157,7 +159,7 @@ def createTile(posx, posy, id_num, world_id_num):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
   
-    return values"""
+    return values, id_num, world_id_num"""
   ]
 
   var_num = 1
@@ -204,7 +206,7 @@ def createTile(posx, posy, id_num, world_id_num):
 
   #main loop
   #prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
-  txt_path = "prefab_template\\\\" + prefab_name + ".txt"
+  txt_path = "prefab_template/" + prefab_name + ".txt"
   py_path = prefab_name + ".py"
 
   for line in openlines:

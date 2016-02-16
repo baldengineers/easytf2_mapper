@@ -18,7 +18,7 @@ class GridBtn(QMainWindow):
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
-                                                            id_num, btn_id))
+                                                            btn_id))
         
         self.button.show()
 
@@ -26,7 +26,7 @@ class GridBtn(QMainWindow):
         self.button.setIcon(QIcon())
         print("lel")
 
-    def click_func(self, self_global, x, y, id_num, btn_id):
+    def click_func(self, self_global, x, y, btn_id):
         self.checkForAlt()
         if toggle != 0:
             self.button.setIcon(QIcon())
@@ -34,11 +34,13 @@ class GridBtn(QMainWindow):
         else:
             print((x,y))
             global world_id_num
+            global id_num
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
             create = moduleName.createTile(x, y, id_num, world_id_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
-            world_id_num += 1
+            id_num = create[1]
+            world_id_num = create[2]
             #if self_global.comboBox.currentIndex() != 0:
                 #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
                 #world_id_num +=1
@@ -57,7 +59,7 @@ class GridBtn(QMainWindow):
             self.button.setIcon(QIcon(icon))
             self.button.setIconSize(QSize(32,32))
 
-            totalblocks[btn_id] = create
+            totalblocks[btn_id] = create[0]
 
         #print(totalblocks)
 

@@ -4,7 +4,7 @@ import os
 def createTile(posx, posy, id_num, world_id_num):
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
-    f = open('prefab_template\ground_prefab.txt', 'r+')
+    f = open('prefab_template/ground_prefab.txt', 'r+')
     lines = f.readlines() #gathers each line of the prefab and puts numbers them
 
     x1 = posx*512
@@ -36,8 +36,10 @@ def createTile(posx, posy, id_num, world_id_num):
       
     values = "".join(lines)#converting list to string
     ogvalues = "".join(lines)
-    values = values.replace('world_idnum', str(world_id_num))
-    #world_id_num += 1
+
+    for i in range(ogvalues.count("world_idnum")):
+        values = values.replace('world_idnum', str(world_id_num), 1)
+        world_id_num += 1
     
     for var in ["x", "y", "z"]:
         for count in range(1,var_count+1):
@@ -48,4 +50,4 @@ def createTile(posx, posy, id_num, world_id_num):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
   
-    return values
+    return values, id_num, world_id_num

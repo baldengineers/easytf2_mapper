@@ -1,3 +1,6 @@
 icons/ground.jpg
 icons/wall_bottom.jpg
 icons/wall_top.jpg
+icons/wall_right.jpg
+icons/wall_left.jpg
+icons/spire.jpg
