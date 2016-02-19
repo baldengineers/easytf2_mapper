@@ -211,7 +211,8 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        global count_btns
+        global world_id_num, count_btns, currentlight
+        currentlight = currentlight.replace("world_idnum",str(world_id_num))
         entity_list[count_btns] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "VMF file (*.vmf)")
         file = open(name[0], "w")
