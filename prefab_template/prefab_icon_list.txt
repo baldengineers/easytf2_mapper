@@ -7,5 +7,5 @@ icons/spire.jpg
 icons/wall_corner_bottom_left.jpg
 icons/wall_corner_bottom_right.jpg
 icons/wall_corner_top_right.jpg
-
 icons/wall_corner_top_left.jpg
+icons/crate_cover.jpg

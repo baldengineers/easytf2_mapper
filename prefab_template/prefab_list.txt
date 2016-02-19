@@ -8,3 +8,4 @@ corner_bottom_left
 corner_bottom_right
 corner_top_right
 corner_top_left
+box_cover

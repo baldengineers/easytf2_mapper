@@ -1,6 +1,6 @@
 import os
 
-def execute(totalblocks):
+def execute(totalblocks, entity_list):
 
     beg_template = """
 versioninfo
@@ -47,6 +47,8 @@ cordon
     #end of file template that ends each vmf
     compiledblocks = "".join(totalblocks) #totalblocks will be a list of each "block" from each chunk in the map, put into 1 string here.
     compiledblocks = compiledblocks.replace('EMPTY_SLOT','')
-    whole = beg_template + compiledblocks + end_template
+    entities = "".join(entity_list)
+    entities = entities.replace('NO_ENTITY','')
+    whole = beg_template + compiledblocks + "}\n"+entities + end_template
     return whole
 

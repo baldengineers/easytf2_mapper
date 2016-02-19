@@ -38,6 +38,7 @@ class GridBtn(QWidget):
         if toggle != 0:
             self.button.setIcon(QIcon())
             totalblocks[btn_id] = 'EMPTY_SLOT'
+            entity_list[btn_id] = 'NO_ENTITY'
         else:
             print((x,y))
             global world_id_num
@@ -68,8 +69,11 @@ class GridBtn(QWidget):
             self.button.setIconSize(QSize(32,32))
 
             totalblocks[btn_id] = create[0]
+            try:
+                entity_list[btn_id] = create[3]
+            except:
+                pass
 
-        print(totalblocks)
 
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
@@ -208,11 +212,11 @@ class MainWindow(QMainWindow):
 
     def file_export(self):
         global count_btns
-        totalblocks[count_btns] = currentlight
+        entity_list[count_btns] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "VMF file (*.vmf)")
         file = open(name[0], "w")
         import export
-        wholething = export.execute(totalblocks)
+        wholething = export.execute(totalblocks, entity_list)
         print(wholething)
         file.write(wholething)
         file.close()
@@ -273,8 +277,9 @@ class MainWindow(QMainWindow):
                 self.btn_id_count += 1
                 global count_btns
                 count_btns += 1
+                entity_list.append("NO_ENTITY")
             #self.button_grid_layout.setRowMinimumHeight(x, 32)
-        totalblocks.append("lighting slot")
+        entity_list.append("lighting slot")
         #print(totalblocks)
 
                 
@@ -360,7 +365,6 @@ entity_list=[]
 prefab_text_list = []
 prefab_icon_list = []
 currentlight = '''
-}
 entity
 {
     "id" "world_idnum"
