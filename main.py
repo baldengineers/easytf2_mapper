@@ -9,7 +9,7 @@ import light_create
 #check todo every time you open this
 #TODO: make number keys change the dropdown option
 #TODO: add prefabs
-#TODO: add lighting methods
+#TODO: 
 class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -26,7 +26,6 @@ class GridBtn(QWidget):
 
     def reset_icon(self):
         self.button.setIcon(QIcon())
-        print("lel")
 
     def click_func(self, self_global, x, y, btn_id):
         self.checkForAlt()
@@ -198,7 +197,8 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        totalblocks.append(currentlight)
+        global btn_id_count
+        totalblocks[btn_id_count] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "VMF file (*.vmf)")
         file = open(name[0], "w")
         import export
@@ -260,11 +260,13 @@ class MainWindow(QMainWindow):
                 
                 grid_list.append(grid_btn)
                 totalblocks.append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
-                self.btn_id_count += 1
+                global btn_id_count
+                btn_id_count += 1
             #self.button_grid_layout.setRowMinimumHeight(x, 32)
+        totalblocks.append("lighting slot")
 
                 
-            self.count += 1
+        self.count += 1
         #self.comboBox = QComboBox(self)
         #self.comboBox.resize(128, 16)
         #for item in prefab_text_list:
@@ -333,11 +335,38 @@ class MainWindow(QMainWindow):
 id_num = 1
 world_id_num = 2
 toggle = 0
+btn_id_count = 0
 grid_list=[]
 totalblocks = []
 prefab_list = []
 prefab_text_list = []
 prefab_icon_list = []
+currentlight = '''
+}
+entity
+{
+    "id" "world_idnum"
+    "classname" "light_environment"
+    "_ambient" "255 255 255 100"
+    "_ambientHDR" "-1 -1 -1 1"
+    "_AmbientScaleHDR" "1"
+    "_light" "255 255 255 200"
+    "_lightHDR" "-1 -1 -1 1"
+    "_lightscaleHDR" "1"
+    "angles" "0 0 0"
+    "pitch" "0"
+    "SunSpreadAngle" "0"
+    "origin" "0 0 73"
+    editor
+    {
+        "color" "220 30 220"
+        "visgroupshown" "1"
+        "visgroupautoshown" "1"
+        "logicalpos" "[0 500]"
+    }
+}
+'''
+#if the user does not change the lighting, it sticks with this.
 
 prefab_file = open("prefab_template\prefab_list.txt")
 prefab_text_file = open("prefab_template\prefab_text_list.txt")

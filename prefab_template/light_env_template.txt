@@ -1,22 +1,23 @@
-	entity
-	{
-		"id" "world_idnum"
-		"classname" "light_environment"
-		"_ambient" "light_r light_g light_b light_brightness"
-		"_ambientHDR" "-1 -1 -1 1"
-		"_AmbientScaleHDR" "1"
-		"_light" "255 255 255 200"
-		"_lightHDR" "-1 -1 -1 1"
-		"_lightscaleHDR" "1"
-		"angles" "0 0 0"
-		"pitch" "0"
-		"SunSpreadAngle" "0"
-		"origin" "0 0 73"
-		editor
-		{
-			"color" "220 30 220"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-			"logicalpos" "[0 500]"
-		}
-	}
+}
+entity
+{
+    "id" "world_idnum"
+    "classname" "light_environment"
+    "_ambient" "light_r light_g light_b lightbrightness"
+    "_ambientHDR" "-1 -1 -1 1"
+    "_AmbientScaleHDR" "1"
+    "_light" "255 255 255 200"
+    "_lightHDR" "-1 -1 -1 1"
+    "_lightscaleHDR" "1"
+    "angles" "0 0 0"
+    "pitch" "0"
+    "SunSpreadAngle" "0"
+    "origin" "0 0 73"
+    editor
+    {
+        "color" "220 30 220"
+        "visgroupshown" "1"
+        "visgroupautoshown" "1"
+        "logicalpos" "[0 500]"
+    }
+}

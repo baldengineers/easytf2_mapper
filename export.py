@@ -33,7 +33,6 @@ world
     "detailmaterial" "detail/detailsprites_2fort"
 """
     end_template = """ 
-}
 cameras
 {
     "activecamera" "-1"
