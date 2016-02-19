@@ -9,7 +9,9 @@ import light_create
 #check todo every time you open this
 #TODO: make number keys change the dropdown option
 #TODO: add prefabs
-#TODO: 
+#TODO: fix only latest prefab showing bug. a good way to fix this is
+#to make a button that prints the totalblocks list to see where it
+#goes wrong
 class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -63,7 +65,7 @@ class GridBtn(QWidget):
 
             totalblocks[btn_id] = create[0]
 
-        #print(totalblocks)
+        print(totalblocks)
 
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
@@ -197,8 +199,8 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        global btn_id_count
-        totalblocks[btn_id_count] = currentlight
+        global count_btns
+        totalblocks[count_btns] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "VMF file (*.vmf)")
         file = open(name[0], "w")
         import export
@@ -260,10 +262,12 @@ class MainWindow(QMainWindow):
                 
                 grid_list.append(grid_btn)
                 totalblocks.append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
-                global btn_id_count
-                btn_id_count += 1
+                self.btn_id_count += 1
+                global count_btns
+                count_btns += 1
             #self.button_grid_layout.setRowMinimumHeight(x, 32)
         totalblocks.append("lighting slot")
+        #print(totalblocks)
 
                 
         self.count += 1
@@ -339,6 +343,7 @@ btn_id_count = 0
 grid_list=[]
 totalblocks = []
 prefab_list = []
+count_btns = 0
 prefab_text_list = []
 prefab_icon_list = []
 currentlight = '''
