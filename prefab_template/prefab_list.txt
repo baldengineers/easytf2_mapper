@@ -4,3 +4,7 @@ wall_prefab_top
 wall_prefab_right
 wall_prefab_left
 spike_prefab
+corner_bottom_left
+corner_bottom_right
+corner_top_right
+corner_top_left

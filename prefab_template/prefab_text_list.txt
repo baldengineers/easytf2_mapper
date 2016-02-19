@@ -4,3 +4,7 @@ Wall Tile (Top)
 Wall Tile (Right)
 Wall Tile (Left)
 Spire
+Corner Wall (Bottom Left)
+Corner Wall (Bottom Right)
+Corner Wall (Top Right)
+Corner Wall (Top Left)

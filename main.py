@@ -132,6 +132,9 @@ class MainWindow(QMainWindow):
         createPrefabAction.setStatusTip("Create Your Own Prefab! View the readme for a good idea on formatting.")
         createPrefabAction.triggered.connect(self.create_prefab)
 
+        refreshPrefab = QAction("&Refresh Prefab List", self)
+        refreshPrefab.setStatusTip("Refresh the list of prefabs, done after creating a new one.")
+        refreshPrefab.triggered.connect(self.importprefabs)
         self.statusBar()
 
         mainMenu = self.menuBar()
@@ -147,6 +150,7 @@ class MainWindow(QMainWindow):
 
         optionsMenu.addAction(gridAction)
         optionsMenu.addAction(changeLightAction)
+        optionsMenu.addAction(refreshPrefab)
 
         createMenu.addAction(createPrefabAction)
         
@@ -317,7 +321,11 @@ class MainWindow(QMainWindow):
 
         global currentlight
         currentlight = light_create.replacevalues(r_input,g_input,b_input,light_input,world_id_num)
-
+    def importprefabs(self):
+        for item in prefab_list:
+            globals()[item] = importlib.import_module(item)
+            print("import", item)
+        self.home()
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
@@ -348,6 +356,7 @@ grid_list=[]
 totalblocks = []
 prefab_list = []
 count_btns = 0
+entity_list=[]
 prefab_text_list = []
 prefab_icon_list = []
 currentlight = '''
@@ -382,10 +391,10 @@ prefab_text_file = open("prefab_template\prefab_text_list.txt")
 prefab_icon_file = open("prefab_template\prefab_icon_list.txt")
 
 for line in prefab_file.readlines():
-        prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
+    prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
 
 for line in prefab_text_file.readlines():
-        prefab_text_list.append(line[:-1] if line.endswith("\n") else line)
+    prefab_text_list.append(line[:-1] if line.endswith("\n") else line)
 
 for line in prefab_icon_file.readlines():
     prefab_icon_list.append(line[:-1] if line.endswith("\n") else line)
@@ -394,10 +403,10 @@ for file in [prefab_file, prefab_text_file, prefab_icon_file]:
     file.close()
 
 #imports that need prefab_list to be defined
+
 for item in prefab_list:
     globals()[item] = importlib.import_module(item)
-    print("import", item)
-    
+    print("import", item)   
 #Main Program
 app = QApplication(sys.argv)
 gui = MainWindow()
