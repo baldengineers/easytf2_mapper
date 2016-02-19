@@ -219,7 +219,7 @@ def createTile(posx, posy, id_num, world_id_num):
     if not black_list_var:
       if "\t" in line:
         if "(" not in line:
-          if "solid" in line or "side" in line: #need to add this because somehow, the solid/side
+          if "solid" in line or "side" in line or "origin" in line: #need to add this because somehow, the solid/side
                                                 #line does not make it past "if id not in line"
               txt_list.append(line)
 
