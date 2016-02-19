@@ -7,11 +7,12 @@ import importlib
 import createPrefab
 import light_create
 #check todo every time you open this
-#TODO: make number keys change the dropdown option
-#TODO: add prefabs
-#TODO: fix only latest prefab showing bug. a good way to fix this is
-#to make a button that prints the totalblocks list to see where it
-#goes wrong
+#TODO: make number keys change the dropdown option /last priority
+#TODO: add more prefabs. jony, in competitive a spire looks nothing like
+#that spire prefab lol. we'll have to change that.
+#TODO: add an entities list; where entities can be placed in each chunk
+#like health kits, props, lights, etc. a gui for that could be far down
+#the road.
 class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
