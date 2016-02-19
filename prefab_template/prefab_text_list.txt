@@ -1,0 +1,6 @@
+Blank Tile
+Wall Tile (Bottom)
+Wall Tile (Top)
+Wall Tile (Right)
+Wall Tile (Left)
+Spire

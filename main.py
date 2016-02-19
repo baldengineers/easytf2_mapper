@@ -4,20 +4,22 @@ import os.path
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
+import createPrefab
 #check todo every time you open this
 #TODO: make number keys change the dropdown option
 #TODO: add prefabs
 #TODO: add lighting methods
-class GridBtn(QMainWindow):
+class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
         self.button = QPushButton("", self_global)
         self.x = 32*x
         self.y = 20+(32*y)
-        self.button.move(self.x,self.y)
-        self.button.resize(32,32)
+        #self.button.move(self.x,self.y)
+        #self.button.resize(32,32)
+        self.button.setFixedSize(32, 32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
-                                                            id_num, btn_id))
+                                                            btn_id))
         
         self.button.show()
 
@@ -25,7 +27,7 @@ class GridBtn(QMainWindow):
         self.button.setIcon(QIcon())
         print("lel")
 
-    def click_func(self, self_global, x, y, id_num, btn_id):
+    def click_func(self, self_global, x, y, btn_id):
         self.checkForAlt()
         if toggle != 0:
             self.button.setIcon(QIcon())
@@ -33,29 +35,32 @@ class GridBtn(QMainWindow):
         else:
             print((x,y))
             global world_id_num
+            global id_num
             #eval() turns the string into a variable name.
-            moduleName = eval(prefab_list[self_global.comboBox.currentIndex()])
+            moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             create = moduleName.createTile(x, y, id_num, world_id_num)
-            world_id_num += 1
-            if self_global.comboBox.currentIndex() != 0:
-                create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
-                world_id_num +=1
-                create = create + create2
+            #create = test_prefab.createTile(x, y, id_num, world_id_num)
+            id_num = create[1]
+            world_id_num = create[2]
+            #if self_global.comboBox.currentIndex() != 0:
+                #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
+                #world_id_num +=1
+                #create = create + create2
                 #print(create)
                 #print(id_num)
                 #print(world_id_num)
                 
-            else:
-                pass
+            #else:
+                #pass
                 #print(create)
                 #print(id_num)
                 #print(world_id_num)
 
-            icon = prefab_icon_list[self_global.comboBox.currentIndex()]
+            icon = prefab_icon_list[self_global.tile_list.currentRow()]
             self.button.setIcon(QIcon(icon))
             self.button.setIconSize(QSize(32,32))
 
-            totalblocks[btn_id] = create
+            totalblocks[btn_id] = create[0]
 
         #print(totalblocks)
 
@@ -110,18 +115,27 @@ class MainWindow(QMainWindow):
         gridAction.setStatusTip("Set Grid Height and Width. RESETS ALL BLOCKS.")
         gridAction.triggered.connect(self.grid_change)
 
+        createPrefabAction = QAction("&Prefab", self)
+        #createPrefabAction.setShortcut("")
+        createPrefabAction.setStatusTip("Create Your Own Prefab!")
+        createPrefabAction.triggered.connect(self.create_prefab)
 
         self.statusBar()
 
         mainMenu = self.menuBar()
         fileMenu = mainMenu.addMenu("&File")
         optionsMenu = mainMenu.addMenu("&Options")
-        optionsMenu.addAction(gridAction)
+        createMenu = mainMenu.addMenu("&Create")
+        
         fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
         fileMenu.addAction(saveAction)
         fileMenu.addAction(exportAction)
         fileMenu.addAction(exitAction)
+
+        optionsMenu.addAction(gridAction)
+
+        createMenu.addAction(createPrefabAction)
         
         self.home()
 
@@ -131,14 +145,28 @@ class MainWindow(QMainWindow):
         self.close_application()
         
     def home(self):
-        self.texture_list = QListWidget()
-        self.texture_list.addItem("texture")
+        self.central_widget = QWidget()
+        self.setCentralWidget(self.central_widget)
+        
+        self.tile_list = QListWidget()
+
+        for index, text in enumerate(prefab_text_list):
+            item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
+            self.tile_list.addItem(item)
         
         self.button_grid_layout = QGridLayout()
+        self.button_grid_layout.setSpacing(0)
 
         self.column = QHBoxLayout()
-        #self.column.addWidget(self.texture_list)
         self.column.addLayout(self.button_grid_layout)
+        self.column.addStretch(1)
+        self.column.addWidget(self.tile_list)
+        #self.column.addStretch(1)
+        
+        self.row = QVBoxLayout(self.central_widget)
+        self.row.addLayout(self.column)
+        self.row.addStretch(1)
+        self.row.addStretch(1)
         
         self.grid_change()
         
@@ -155,20 +183,22 @@ class MainWindow(QMainWindow):
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
-        name = QFileDialog.getSaveFileName(self, "Save File", "//", "*.sav")
-        file = open(name, "w")
+        name = QFileDialog.getSaveFileName(self, "Save File", "C:/", "*.sav")
+        file = open(name[1], "w")
         text = self.textEdit.toPlainText()
         file.write(text)
         file.close()
 
     def file_export(self):
-        file = open('output\output.vmf', "w")
+        name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "VMF file (*.vmf)")
+        file = open(name[0], "w")
         import export
         wholething = export.execute(totalblocks)
         print(wholething)
         file.write(wholething)
         file.close()
-        print("The .vmf has been outputted to the output folder.")
+        QMessageBox.information(self, "File Exported",
+                                "The .vmf has been outputted to %s" %(name[0]))
     def removeButtons(self):
 
         for i in reversed(range(self.button_grid_layout.count())):
@@ -183,7 +213,7 @@ class MainWindow(QMainWindow):
         #for grid_button in grid_list:
             #grid_button.button.close()
 
-        self.clearlist()
+        #self.clearlist()
         
     def grid_change(self):
         self.count=0
@@ -197,11 +227,11 @@ class MainWindow(QMainWindow):
             self.grid_x = int(text2[0])
         except ValueError:
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
-            print("Please enter a number.")
+            QMessageBox.critical(self, "Error", "Please enter a number.")
             self.grid_change()
 
         self.removeButtons()
-        self.removeDropdown()
+        #self.removeDropdown()
 
         print(self.grid_y)
         print(self.grid_x)
@@ -216,31 +246,33 @@ class MainWindow(QMainWindow):
             for y in range(self.grid_y):
                 #print("test") #testing if works
                 grid_btn = GridBtn(self, x, y, self.btn_id_count)
-                self.button_grid_layout.addWidget(grid_btn.button,x,y)
+                self.button_grid_layout.addWidget(grid_btn.button,y,x) #needs to be like this because grid_layout is counter-intuitive
+                #self.button_grid_layout.setColumnMinimumWidth(y, 32)
                 
                 grid_list.append(grid_btn)
                 totalblocks.append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
                 self.btn_id_count += 1
+            #self.button_grid_layout.setRowMinimumHeight(x, 32)
 
                 
             self.count += 1
-        self.comboBox = QComboBox(self)
-        self.comboBox.resize(128, 16)
-        for item in prefab_text_list:
-            self.comboBox.addItem(item)
-        self.comboBox.move(32*self.count+2, 22)
-        self.comboBox.show()
+        #self.comboBox = QComboBox(self)
+        #self.comboBox.resize(128, 16)
+        #for item in prefab_text_list:
+        #    self.comboBox.addItem(item)
+        #self.comboBox.move(32*self.count+2, 22)
+        #self.comboBox.show()
             
-    def removeDropdown(self):
-        try:
-            self.comboBox.deleteLater()
-            del totalblocks[:]
-            global world_id_num
-            world_id_num = 2
-        except:
-            print('ok')
-    def clearlist(self):
-        grid_list=[]
+    #def removeDropdown(self):
+     #   try:
+      #      self.comboBox.deleteLater()
+       #     del totalblocks[:]
+        #    global world_id_num
+         #   world_id_num = 2
+        #except:
+         #   print('ok')
+    #def clearlist(self):
+     #    grid_list=[]
         
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
@@ -252,22 +284,48 @@ class MainWindow(QMainWindow):
         else:
             pass
 
+    def create_prefab(self):
+        name = QFileDialog.getOpenFileName(self, "Choose .vmf File", "C:/","*.vmf")
+        prefab_icon = QFileDialog.getOpenFileName(self, "Choose Prefab Icon", "C:/","*.jpg")
+        prefab_name = QInputDialog.getText(self,"Prefab Name",
+                                     "Name of Prefab (e.g. wall_prefab):")
+        prefab_text = QInputDialog.getText(self, "Prefab Text",
+                                           "Prefab Text (e.g. Wall Tile)")
+        QMessageBox.information(self, "Files Created",
+                                createPrefab.create(name[0], prefab_name[0],
+                                                    prefab_text[0], prefab_icon[0]))
+
 #define some global variables
 id_num = 1
 world_id_num = 2
 toggle = 0
 grid_list=[]
 totalblocks = []
-prefab_list = ["ground_prefab", "wall_prefab", "wall_prefab_bottom"] # As we get more prefabs, add the filenames to this list
-prefab_text_list = ["1. Blank Tile", "2. Wall Tile (Top)", "3. Wall Tile (Bottom)"] # As we get more prefabs, add the text that will be in the comboBox to this list
-prefab_icon_list = ["icons\ground.jpg","icons\wall_top.jpg","icons\wall_bottom"]
-# Indexes for prefab_list and prefab_text_list and prefab_icon_list should match
+prefab_list = []
+prefab_text_list = []
+prefab_icon_list = []
 
+prefab_file = open("prefab_template\prefab_list.txt")
+prefab_text_file = open("prefab_template\prefab_text_list.txt")
+prefab_icon_file = open("prefab_template\prefab_icon_list.txt")
+
+for line in prefab_file.readlines():
+        prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
+
+for line in prefab_text_file.readlines():
+        prefab_text_list.append(line[:-1] if line.endswith("\n") else line)
+
+for line in prefab_icon_file.readlines():
+    prefab_icon_list.append(line[:-1] if line.endswith("\n") else line)
+
+for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+    file.close()
 
 #imports that need prefab_list to be defined
 for item in prefab_list:
     globals()[item] = importlib.import_module(item)
-
+    print("import", item)
+    
 #Main Program
 app = QApplication(sys.argv)
 gui = MainWindow()
