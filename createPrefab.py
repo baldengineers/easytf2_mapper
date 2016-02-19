@@ -55,8 +55,6 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history):
       #print(py_list)
 
     txt_list[txt_list.index("INSERT_VAR")] = "%s%d" %(var, var_num)
-
-    #print("txt_list: ", txt_list)
   
 
 def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon):
