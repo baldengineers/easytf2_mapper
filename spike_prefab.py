@@ -3,7 +3,7 @@ import os
 def createTile(posx, posy, id_num, world_id_num):
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
-    f = open('prefab_template/spire_prefab.txt', 'r+')
+    f = open('prefab_template/spike_prefab.txt', 'r+')
     lines = f.readlines() #gathers each line of the prefab and puts numbers them
     x1 = posx*512
     y1 = posy*-512
