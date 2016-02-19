@@ -5,6 +5,7 @@ from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
 import createPrefab
+import light_create
 #check todo every time you open this
 #TODO: make number keys change the dropdown option
 #TODO: add prefabs
@@ -55,6 +56,7 @@ class GridBtn(QWidget):
                 #print(create)
                 #print(id_num)
                 #print(world_id_num)
+                #this is obsolete -anson
 
             icon = prefab_icon_list[self_global.tile_list.currentRow()]
             self.button.setIcon(QIcon(icon))
@@ -105,6 +107,11 @@ class MainWindow(QMainWindow):
         newAction.setStatusTip("Create a New File")
         #newAction.triggered.connect()
 
+        changeLightAction = QAction("&Change Lighting", self)
+        changeLightAction.setShortcut("Ctrl+j")
+        changeLightAction.setStatusTip("Change the environment lighting of the map.")
+        changeLightAction.triggered.connect(self.change_light)
+        
         exportAction = QAction("&Export", self)
         exportAction.setShortcut("Ctrl+e")
         exportAction.setStatusTip("Export as .vmf")
@@ -117,7 +124,7 @@ class MainWindow(QMainWindow):
 
         createPrefabAction = QAction("&Prefab", self)
         #createPrefabAction.setShortcut("")
-        createPrefabAction.setStatusTip("Create Your Own Prefab!")
+        createPrefabAction.setStatusTip("Create Your Own Prefab! View the readme for a good idea on formatting.")
         createPrefabAction.triggered.connect(self.create_prefab)
 
         self.statusBar()
@@ -134,6 +141,7 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(exitAction)
 
         optionsMenu.addAction(gridAction)
+        optionsMenu.addAction(changeLightAction)
 
         createMenu.addAction(createPrefabAction)
         
@@ -190,6 +198,7 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
+        totalblocks.append(currentlight)
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "VMF file (*.vmf)")
         file = open(name[0], "w")
         import export
@@ -273,7 +282,32 @@ class MainWindow(QMainWindow):
          #   print('ok')
     #def clearlist(self):
      #    grid_list=[]
-        
+    def change_light(self):
+        r_input = QInputDialog.getText(self, ("Red light level 0-255"),
+                                       ("Put in the red light ambiance level, 0-255:"))
+        g_input = QInputDialog.getText(self, ("Green light level 0-255"),
+                                       ("Put in the green light ambiance level, 0-255:"))
+        b_input = QInputDialog.getText(self, ("Blue light level 0-255"),
+                                       ("Put in the blue light ambiance level, 0-255:"))
+        light_input = QInputDialog.getText(self, ("Brightness level"),
+                                       ("Put in the brightness level desired:"))
+        try:
+            global r_input, g_input, b_input, light_input, world_id_num
+            r_input = int(r_input[0])
+            g_input = int(g_input[0])
+            b_input = int(b_input[0])
+            light_input = int(light_input[0])
+            if r_input > 255 or g_input > 255 or b_input > 255:
+                print("Error. Put in a number below 256 for each color input")
+            else:
+                pass
+        except ValueError:
+            QMessageBox.critical(self, "Error", "Please enter a number.")
+            self.change_light()
+
+        global currentlight
+        currentlight = light_create.replacevalues(r_input,g_input,b_input,light_input,world_id_num)
+
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
