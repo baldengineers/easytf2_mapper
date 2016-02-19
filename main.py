@@ -214,7 +214,7 @@ class MainWindow(QMainWindow):
         global world_id_num, count_btns, currentlight
         currentlight = currentlight.replace("world_idnum",str(world_id_num))
         entity_list[count_btns] = currentlight
-        name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "VMF file (*.vmf)")
+        name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
         file = open(name[0], "w")
         import export
         wholething = export.execute(totalblocks, entity_list)
