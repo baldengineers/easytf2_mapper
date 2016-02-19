@@ -89,7 +89,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.setGeometry(100, 25, 875, 750)
         self.setWindowTitle("Easy TF2 Mapper")
-        self.setWindowIcon(QIcon("map.ico"))
+        self.setWindowIcon(QIcon("icons\icon.ico"))
 
         #create menubar
         exitAction = QAction("&Exit", self)
