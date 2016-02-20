@@ -9,15 +9,9 @@ import light_create
 '''check todo every time you open this'''
 #TODO: add more prefabs. jony, in competitive a spire looks nothing like
 #that spire prefab lol. we'll have to change that.
-
-#LOL! I just made that as a test, named it "spire" because it looks like a
-#spire in real life. I had no previous knowledge of what a "spire" in comp
-#tf2 jargon was.
-
 #TODO: THE CREATEPREFAB NEEDS TO ADD THE ENTITIES PART OF A CUSTOM PREFAB
 #TODO: TEXTURES JESUS CHRIST ITS AN EYESORE IN HAMMER
 #TODO: skybox. will fix the lighting in game and add a final playable aspect
-
 class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -142,8 +136,12 @@ class MainWindow(QMainWindow):
         refreshPrefab = QAction("&Refresh Prefab List", self)
         refreshPrefab.setStatusTip("Refresh the list of prefabs, done after creating a new one.")
         refreshPrefab.triggered.connect(self.importprefabs)
-        self.statusBar()
 
+        changeSkybox = QAction("&Change Skybox", self)
+        changeSkybox.setStatusTip("Change the skybox of the map.")
+        changeSkybox.triggered.connect(self.change_skybox)
+        self.statusBar()
+        
         mainMenu = self.menuBar()
         fileMenu = mainMenu.addMenu("&File")
         optionsMenu = mainMenu.addMenu("&Options")
@@ -158,6 +156,7 @@ class MainWindow(QMainWindow):
         optionsMenu.addAction(gridAction)
         optionsMenu.addAction(changeLightAction)
         optionsMenu.addAction(refreshPrefab)
+        optionsMenu.addAction(changeSkybox)
 
         createMenu.addAction(createPrefabAction)
         
@@ -177,7 +176,8 @@ class MainWindow(QMainWindow):
         for index, text in enumerate(prefab_text_list):
             item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
             self.tile_list.addItem(item)
-        
+
+      
         self.button_grid_layout = QGridLayout()
         self.button_grid_layout.setSpacing(0)
 
@@ -214,13 +214,14 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        global world_id_num, count_btns, currentlight
+        global world_id_num, count_btns, currentlight, skybox
+        skybox = skybox_list[self.skybox2_list.currentRow()]
         currentlight = currentlight.replace("world_idnum",str(world_id_num))
         entity_list[count_btns] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
         file = open(name[0], "w")
         import export
-        wholething = export.execute(totalblocks, entity_list)
+        wholething = export.execute(totalblocks, entity_list, skybox)
         print(wholething)
         file.write(wholething)
         file.close()
@@ -330,11 +331,25 @@ class MainWindow(QMainWindow):
 
         global currentlight
         currentlight = light_create.replacevalues(r_input,g_input,b_input,light_input,world_id_num)
+
+    def change_skybox(self):
+        self.window = QWidget()
+        self.skybox2_list = QListWidget()
+        for index, text in enumerate(skybox_list):
+            item = QListWidgetItem(QIcon(skybox_icon_list[index]).pixmap(100,12), text)
+            self.skybox2_list.addItem(item)
+
+        self.layout = QHBoxLayout()
+        self.layout.addWidget(self.skybox2_list)
+
+        self.window.setLayout(self.layout)
+        self.window.show()
     def importprefabs(self):
         for item in prefab_list:
             globals()[item] = importlib.import_module(item)
             print("import", item)
         self.home()
+        
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
@@ -364,6 +379,8 @@ toggle = 0
 btn_id_count = 0
 grid_list=[]
 totalblocks = []
+skybox_list=[]
+skybox_icon_list=[]
 prefab_list = []
 count_btns = 0
 entity_list=[]
@@ -393,11 +410,15 @@ entity
     }
 }
 '''
+skybox = 'sky_tf2_04'
 #if the user does not change the lighting, it sticks with this.
 
 prefab_file = open("prefab_template\prefab_list.txt")
 prefab_text_file = open("prefab_template\prefab_text_list.txt")
 prefab_icon_file = open("prefab_template\prefab_icon_list.txt")
+
+skybox_file = open("prefab_template\skybox_list.txt")
+skybox_icon = open("prefab_template\skybox_icons.txt")
 
 for line in prefab_file.readlines():
     prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
@@ -409,6 +430,15 @@ for line in prefab_icon_file.readlines():
     prefab_icon_list.append(line[:-1] if line.endswith("\n") else line)
 
 for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+    file.close()
+
+for line in skybox_file.readlines():
+    skybox_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
+
+for line in skybox_icon.readlines():
+    skybox_icon_list.append(line[:-1] if line.endswith("\n") else line)
+
+for file in [skybox_file,skybox_icon]:
     file.close()
 
 #imports that need prefab_list to be defined

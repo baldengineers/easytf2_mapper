@@ -1,37 +1,11 @@
 import os
 
-def execute(totalblocks, entity_list):
+def execute(totalblocks, entity_list, skybox):
 
-    beg_template = """
-versioninfo
-{
-    "editorversion" "400"
-    "editorbuild" "7026"
-    "mapversion" "1"
-    "formatversion" "100"
-    "prefab" "0"
-}
-visgroups
-{
-}
-viewsettings
-{
-    "bSnapToGrid" "1"
-    "bShowGrid" "1"
-    "bShowLogicalGrid" "0"
-    "nGridSpacing" "64"
-    "bShow3DGrid" "0"
-}
-world
-{
-    "id" "1"
-    "mapversion" "1"
-    "classname" "worldspawn"
-    "skyname" "sky_tf2_04"
-    "maxpropscreenwidth" "-1"
-    "detailvbsp" "detail_2fort.vbsp"
-    "detailmaterial" "detail/detailsprites_2fort"
-"""
+    beg_template = open('prefab_template/beginning_template.txt', 'r+')
+    beg_template = beg_template.readlines()
+    beg_template = "".join(beg_template)
+    beg_template = beg_template.replace('CURRENT_SKYBOX',skybox)
     end_template = """ 
 cameras
 {
