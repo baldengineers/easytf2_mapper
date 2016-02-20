@@ -7,8 +7,7 @@ import importlib
 import createPrefab
 import light_create
 '''check todo every time you open this'''
-#TODO: add more prefabs. jony, in competitive a spire looks nothing like
-#that spire prefab lol. we'll have to change that.
+#TODO: more prefabs when the entitiy prefab is done
 #TODO: THE CREATEPREFAB NEEDS TO ADD THE ENTITIES PART OF A CUSTOM PREFAB
 #TODO: TEXTURES JESUS CHRIST ITS AN EYESORE IN HAMMER
 #TODO: skybox modeling. choosing a skybox is done.
