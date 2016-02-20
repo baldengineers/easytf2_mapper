@@ -4,7 +4,7 @@ run the main.py or (maybe) the main.exe
 
 Ctrl+G = resize grid. deletes all blocks.
 
-Ctrl+S = choose skybox texture
+Ctrl+S = choose skybox texture. I reccommend choosing one that you want, the default is pretty bland.
 
 Ctrl+E = export vmf. do this when you're done.
 
