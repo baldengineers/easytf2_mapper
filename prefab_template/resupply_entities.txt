@@ -48,7 +48,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(px2 y2 z2) (px3 py3 pz3) (px4 py4 pz4)"
+			"plane" "(px2 py2 pz2) (px3 py3 pz3) (px4 py4 pz4)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -59,7 +59,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(px5 py5 z5) (px6 py6 pz6) (px7 py7 pz7)"
+			"plane" "(px5 py5 pz5) (px6 py6 pz6) (px7 py7 pz7)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -134,7 +134,7 @@ entity
 	"SpawnMode" "0"
 	"StartDisabled" "0"
 	"TeamNum" "0"
-	"origin" "px10 py10 pz10"
+	"origin" "spawnx spawny spawnz"
 	editor
 	{
 		"color" "220 30 220"

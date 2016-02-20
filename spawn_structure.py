@@ -489,11 +489,11 @@ def createTile(posx, posy, id_num, world_id_num):
     px9 = (posx*512)+192
     py9 = (posy*(-512))-384
     pz9 = 63.9359
-    px10 = (posx*512)+256
-    py10 = (posy*(-512))-256
-    pz10 = 176.936
+    spawnx = (posx*512)+256
+    spawny = (posy*(-512))-256
+    spawnz = 66
 
-    var_prop_count = 10
+    var_prop_count = 9
     prop_values = "".join(lines_prop)
     valcount= "".join(lines_prop)
                 
@@ -504,7 +504,10 @@ def createTile(posx, posy, id_num, world_id_num):
     for var in ["px", "py", "pz"]:
         for count in range(1,var_prop_count+1):
             prop_values = prop_values.replace(var + str(count),str(eval(var + str(count))))
-            
+
+    prop_values = prop_values.replace("spawnx",str(spawnx))
+    prop_values = prop_values.replace("spawny",str(spawny))
+    prop_values = prop_values.replace("spawnz",str(spawnz))
     for i in range(valcount.count('id_num')):
         prop_values = prop_values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
