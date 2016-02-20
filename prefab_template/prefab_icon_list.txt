@@ -11,3 +11,4 @@ icons/wall_corner_top_left.jpg
 icons/crate_cover.jpg
 icons/spawn_red.jpg
 icons/spawn_blue.jpg
+icons/minispire.jpg

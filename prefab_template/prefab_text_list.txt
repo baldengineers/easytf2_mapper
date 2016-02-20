@@ -3,7 +3,7 @@ Wall Tile (Bottom)
 Wall Tile (Top)
 Wall Tile (Right)
 Wall Tile (Left)
-Spire
+Spike
 Corner Wall (Bottom Left)
 Corner Wall (Bottom Right)
 Corner Wall (Top Right)
@@ -11,3 +11,4 @@ Corner Wall (Top Left)
 Box Cover
 Spawn Structure Red
 Spawn Structure Blue
+Mini-Spire
