@@ -41,11 +41,10 @@ class GridBtn(QWidget):
             global id_num
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
-            create = moduleName.createTile(x, y, id_num, world_id_num, entity_num)
+            create = moduleName.createTile(x, y, id_num, world_id_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
             world_id_num = create[2]
-            entity_num = create[3]
             #if self_global.comboBox.currentIndex() != 0:
                 #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
                 #world_id_num +=1
@@ -335,12 +334,16 @@ class MainWindow(QMainWindow):
     def change_skybox(self):
         self.window = QWidget()
         self.skybox2_list = QListWidget()
+        self.skybox2_list.setIconSize(QSize(200, 25))
         for index, text in enumerate(skybox_list):
-            item = QListWidgetItem(QIcon(skybox_icon_list[index]).pixmap(100,12), text)
+            item = QListWidgetItem(QIcon(skybox_icon_list[index]), text)
             self.skybox2_list.addItem(item)
 
         self.layout = QHBoxLayout()
         self.layout.addWidget(self.skybox2_list)
+        self.window.setGeometry(150,150,400,300)
+        self.window.setWindowTitle("Choose a skybox")
+        self.window.setWindowIcon(QIcon("icons\icon.ico"))
 
         self.window.setLayout(self.layout)
         self.window.show()
@@ -374,7 +377,6 @@ class MainWindow(QMainWindow):
 #define some global variables
 id_num = 1
 world_id_num = 2
-entity_num = 1
 toggle = 0
 btn_id_count = 0
 grid_list=[]
