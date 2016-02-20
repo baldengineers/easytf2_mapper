@@ -7,7 +7,6 @@ import importlib
 import createPrefab
 import light_create
 '''check todo every time you open this'''
-#TODO: make number keys change the dropdown option /last priority
 #TODO: add more prefabs. jony, in competitive a spire looks nothing like
 #that spire prefab lol. we'll have to change that.
 #TODO: THE CREATEPREFAB NEEDS TO ADD THE ENTITIES PART OF A CUSTOM PREFAB
