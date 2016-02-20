@@ -175,7 +175,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
   "    return values, id_num, world_id_num, entity_num"
   ]
 
-  ent_code ="""    for i in range(ogvalues.count("entity_name")):
+  ent_code ="""
+    for i in range(ogvalues.count("entity_name")):
         values = values.replace("entity_name", "entity" + str(entity_num), 1)
         entity_num += entity_num
 
@@ -246,9 +247,10 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
 
      
     if not black_list_var:
+      
       if "\t" in line or "entity" in line:
         
-        if in_solid_block and line != "\t}":
+        if in_solid_block and "\t}" not in line or in_solid_block and "\t\t" in line:
           #print(line)
 
           if "(" not in line:
@@ -289,16 +291,17 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                   write_var(num_list, txt_list, py_list, var_num, value_list_history) 
                   var_num += 1
                   num_list = []
-        elif in_solid_block and line == "\t}":
+        elif in_solid_block and "\t}" in line and "\t\t" not in line:
           in_solid_block = False
-          print(line)
+          #print(line)
           txt_list.append(line)
-          import sys
-          sys.exit()
+          #import sys
+          #sys.exit()
 
 
 
         elif in_entity_block and "\"" in line:
+          #print(line)
           if "id" in line:
             for letter in line:
               try:
@@ -347,6 +350,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
           in_entity_block = False
 
         elif in_editor_block and "\t}" not in line:
+          #print(line)
           txt_list.append(line)
 
         elif in_editor_block and "\t}" in line:
@@ -367,9 +371,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
           in_entity_block = True
           txt_list.append(line)
 
-        elif "editor" in line:
-          in_editor_block = True
-          txt_list.append(line)
+        #elif "editor" in line:
+         # in_editor_block = True
+          #txt_list.append(line)
                           
 				
 				
