@@ -17,3 +17,9 @@ sky_harvest_01
 sky_harvest_night_01
 sky_halloween
 sky_rainbow_01
+sky_halloween_night_01
+sky_halloween_night2014_01
+sky_jungle_01
+sky_invasion2fort_01
+sky_well_02
+sky_outpost_01

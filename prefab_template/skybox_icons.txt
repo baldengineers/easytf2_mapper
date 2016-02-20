@@ -17,3 +17,9 @@ icons\sky_harvest_01.jpg
 icons\sky_harvest_night_01.jpg
 icons\sky_halloween.jpg
 icons\sky_rainbow_01.jpg
+icons\sky_halloween_night_01.jpg
+icons\sky_halloween_night2014_01.jpg
+icons\sky_jungle_01.jpg
+icons\sky_invasion2fort_01.jpg
+icons\sky_well_02.jpg
+icons\sky_outpost_01.jpg
