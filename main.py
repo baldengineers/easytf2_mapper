@@ -11,7 +11,6 @@ import light_create
 #TODO: THE CREATEPREFAB NEEDS TO ADD THE ENTITIES PART OF A CUSTOM PREFAB
 #TODO: TEXTURES JESUS CHRIST ITS AN EYESORE IN HAMMER
 #TODO: skybox modeling. choosing a skybox is done.
-
 class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -38,20 +37,12 @@ class GridBtn(QWidget):
             print((x,y))
             global world_id_num
             global id_num
-            global entity_num
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
-            try:
-                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num)
-            except TypeError:
-                create = moduleName.createTile(x, y, id_num, world_id_num)
+            create = moduleName.createTile(x, y, id_num, world_id_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
             world_id_num = create[2]
-            try:
-                entity_num = create[3]
-            except IndexError:
-                pass
             #if self_global.comboBox.currentIndex() != 0:
                 #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
                 #world_id_num +=1
@@ -121,7 +112,6 @@ class MainWindow(QMainWindow):
         changeLightAction.triggered.connect(self.change_light)
         
         exportAction = QAction("&Export", self)
-        exportAction.setShortcut("Ctrl+e")
         exportAction.setStatusTip("Export as .vmf")
         exportAction.triggered.connect(self.file_export)
 
@@ -216,7 +206,10 @@ class MainWindow(QMainWindow):
 
     def file_export(self):
         global world_id_num, count_btns, currentlight, skybox, skybox2_list
-        skybox = skybox_list[skybox2_list.currentRow()]
+        try:
+            skybox = skybox_list[skybox2_list.currentRow()]
+        except:
+            pass
         currentlight = currentlight.replace("world_idnum",str(world_id_num))
         entity_list[count_btns] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
@@ -335,7 +328,6 @@ class MainWindow(QMainWindow):
 
     def change_skybox(self):
         self.window = QWidget()
-        global skybox2_list
         skybox2_list = QListWidget()
         skybox2_list.setIconSize(QSize(200, 25))
         for index, text in enumerate(skybox_list):
@@ -347,7 +339,7 @@ class MainWindow(QMainWindow):
         self.window.setGeometry(150,150,400,300)
         self.window.setWindowTitle("Choose a skybox")
         self.window.setWindowIcon(QIcon("icons\icon.ico"))
-
+        global skybox2_list
         self.window.setLayout(self.layout)
         self.window.show()
     def importprefabs(self):
@@ -398,7 +390,6 @@ class MainWindow(QMainWindow):
 #define some global variables
 id_num = 1
 world_id_num = 2
-entity_num = 1
 toggle = 0
 btn_id_count = 0
 grid_list=[]
