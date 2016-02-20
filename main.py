@@ -23,7 +23,6 @@ class GridBtn(QWidget):
         self.button.setFixedSize(32, 32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
                                                             btn_id))
-        
         self.button.show()
 
     def reset_icon(self):
@@ -78,7 +77,6 @@ class GridBtn(QWidget):
             except:
                 pass
 
-
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
         if modifiers == Qt.AltModifier:
@@ -88,9 +86,6 @@ class GridBtn(QWidget):
             global toggle
             toggle = 0
         
-
-
-    
 class MainWindow(QMainWindow):
     def __init__(self):
         #create the main window
@@ -185,7 +180,6 @@ class MainWindow(QMainWindow):
             item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
             self.tile_list.addItem(item)
 
-      
         self.button_grid_layout = QGridLayout()
         self.button_grid_layout.setSpacing(0)
 
@@ -203,15 +197,14 @@ class MainWindow(QMainWindow):
         self.grid_change()
         
         self.show()
-
-
+        
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
         file = open(name, "r")
         openlines = file.readlines()
         openlinesstr = "".join(openlines)
         
-        #now, it imports the vmt, and has two versions of it; the importlines which has each
+        #now, it imports the vmf, and has two versions of it; the importlines which has each
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
@@ -222,8 +215,8 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        global world_id_num, count_btns, currentlight, skybox
-        skybox = skybox_list[self.skybox2_list.currentRow()]
+        global world_id_num, count_btns, currentlight, skybox, skybox2_list
+        skybox = skybox_list[skybox2_list.currentRow()]
         currentlight = currentlight.replace("world_idnum",str(world_id_num))
         entity_list[count_btns] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
@@ -342,14 +335,15 @@ class MainWindow(QMainWindow):
 
     def change_skybox(self):
         self.window = QWidget()
-        self.skybox2_list = QListWidget()
-        self.skybox2_list.setIconSize(QSize(200, 25))
+        global skybox2_list
+        skybox2_list = QListWidget()
+        skybox2_list.setIconSize(QSize(200, 25))
         for index, text in enumerate(skybox_list):
             item = QListWidgetItem(QIcon(skybox_icon_list[index]), text)
-            self.skybox2_list.addItem(item)
+            skybox2_list.addItem(item)
 
         self.layout = QHBoxLayout()
-        self.layout.addWidget(self.skybox2_list)
+        self.layout.addWidget(skybox2_list)
         self.window.setGeometry(150,150,400,300)
         self.window.setWindowTitle("Choose a skybox")
         self.window.setWindowIcon(QIcon("icons\icon.ico"))
