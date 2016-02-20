@@ -12,3 +12,4 @@ Box Cover
 Basic Spawn Structure Red
 Basic Spawn Structure Blue
 Mini-Spire
+test

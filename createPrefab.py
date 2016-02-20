@@ -76,16 +76,16 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon):
     file.write(item)
   file.close()
 
-  #prefab_file = open("prefab_template\\prefab_list.txt", "a")
-  #prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
-  #prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
+  prefab_file = open("prefab_template\\prefab_list.txt", "a")
+  prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
+  prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
 
-  #prefab_file.write(prefab_name + "\n")
-  #prefab_text_file.write(prefab_text + "\n")
-  #prefab_icon_file.write(prefab_icon + "\n")
+  prefab_file.write(prefab_name + "\n")
+  prefab_text_file.write(prefab_text + "\n")
+  prefab_icon_file.write(prefab_icon + "\n")
 
-  #for file in [prefab_file, prefab_text_file, prefab_icon_file]:
-   # file.close()
+  for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+    file.close()
 
   return "File Exported as \"%s\"\n" %(txt_path)
 
@@ -399,4 +399,4 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
   file.close()
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code)
 
-create("vmf_prefabs/spawn_room_blu.vmf", "test", "test", "icons/spawn_blue.jpg") 
+#create("vmf_prefabs/spawn_room_blu.vmf", "test", "test", "icons/spawn_blue.jpg") 
