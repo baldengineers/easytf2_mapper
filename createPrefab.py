@@ -3,6 +3,13 @@ This function takes a vmf file exported from hammer, then exports both a
 prefab txt template (look in prefabs folder), and a .py containing the
 algorithms to create the object
 """
+#READ!!! YOU CAN PASS WORLD_ID_NUM FOR ENTITY NUM! THEY CAN EVEN HAVE CONFLICTING NUMS IF THEYRE DIFFERENT ENTITY TYPES!
+#                   /        \
+#                /              \
+#             / _____         _____\  
+#                    |        |
+#                    |        |
+#                    |        |
 
 def write_var(num_list, txt_list, py_list, var_num, value_list_history):
   #TODO: Add a values list history, that keeps track of all the past value_lists
