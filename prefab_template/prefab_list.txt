@@ -12,3 +12,4 @@ box_cover
 spawn_structure_red
 spawn_structure_blue
 mini_spire
+test

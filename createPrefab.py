@@ -43,8 +43,12 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history):
   xyz_list = ["x", "y", "z"]
   
   for var in xyz_list:
-    
-    value = int(value_list[xyz_list.index(var)])
+
+    try:
+      value = int(value_list[xyz_list.index(var)])
+    except ValueError:
+      value = float(value_list[xyz_list.index(var)])
+      
 
     if var == "x":
       negative = ""
@@ -70,19 +74,18 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon):
   
   for item in txt_list:
     file.write(item)
-
-  prefab_file = open("prefab_template\\prefab_list.txt", "a")
-  prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
-  prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
-
-  prefab_file.write(prefab_name + "\n")
-  prefab_text_file.write(prefab_text + "\n")
-  prefab_icon_file.write(prefab_icon + "\n")
-
-  for file in [prefab_file, prefab_text_file, prefab_icon_file]:
-    file.close()
-
   file.close()
+
+  #prefab_file = open("prefab_template\\prefab_list.txt", "a")
+  #prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
+  #prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
+
+  #prefab_file.write(prefab_name + "\n")
+  #prefab_text_file.write(prefab_text + "\n")
+  #prefab_icon_file.write(prefab_icon + "\n")
+
+  #for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+   # file.close()
 
   return "File Exported as \"%s\"\n" %(txt_path)
 
@@ -130,7 +133,7 @@ def create(name, prefab_name, prefab_text, prefab_icon):
   compile_list = [
   """import os
 
-def createTile(posx, posy, id_num, world_id_num):
+def createTile(posx, posy, id_num, world_id_num, entity_num):
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
 """,
@@ -173,7 +176,7 @@ def createTile(posx, posy, id_num, world_id_num):
   ]
 
   ent_code ="""    for i in range(ogvalues.count("entity_name")):
-        values = values.replace("entity_name", "entity" + str(entity_num), 1) #NEED TO MAKE VAR CALLED ENTITY NUM PLZ
+        values = values.replace("entity_name", "entity" + str(entity_num), 1)
         entity_num += entity_num
 
 
@@ -181,6 +184,9 @@ def createTile(posx, posy, id_num, world_id_num):
 
   var_num = 1
   contains_ent = False #True if there are entities in the vmf
+  in_solid_block = False #True if in a solid code block
+  in_entity_block = False #True if in an entity code block
+  in_editor_block = False #True if in an editor cod block
   black_list_var = False #True means it IS on the blacklist, False otherwise
   value_list_history = []
   #name = "prefab_template\godplsno.vmf" #name of the vmf file, changed to allow user to open a file
@@ -235,96 +241,135 @@ def createTile(posx, posy, id_num, world_id_num):
         
     #if "\t" not in line:
      # createBlackList(line)
+
+    
+
+     
     if not black_list_var:
-      if "\t" in line:
-        if "solid" in line: #or "side" in line:# or "origin" in line: #need to add this because somehow, the solid/side
-                                              #line does not make it past "if id not in line"
+      if "\t" in line or "entity" in line:
+        
+        if in_solid_block and line != "\t}":
+          #print(line)
+
+          if "(" not in line:
+
+            if "id" not in line:
+              txt_list.append(line)
+            elif "\t\t\"id\"" in line:
+              for letter in line:
+                try:
+                  number = int(letter)
+                except ValueError:
+                  txt_list.append(letter)
+
+              if "\t\t\t" in line:
+                txt_list.insert(-2, "id_num") #need to insert because it creates a \n at the end of the line
+              else: 
+                txt_list.insert(-2, "world_idnum")
+
+            #print(txt_list)
+
+          elif "(" in line:
+            for letter in line:
+              #print(letter)
+              try:
+                number = int(letter)    
+                num_list.append(letter)
+              except ValueError:
+                if letter != "-" and letter != ".":
+                  txt_list.append(letter)
+                if letter == " ":
+                  num_list.append("SEPARATE")
+                elif letter == ".":
+                  num_list.append(".")
+                elif letter == "-":
+                  num_list.append("-")
+                elif letter == ")":
+                  #print(num_list)
+                  write_var(num_list, txt_list, py_list, var_num, value_list_history) 
+                  var_num += 1
+                  num_list = []
+        elif in_solid_block and line == "\t}":
+          in_solid_block = False
+          print(line)
+          txt_list.append(line)
+          import sys
+          sys.exit()
+
+
+
+        elif in_entity_block and "\"" in line:
+          if "id" in line:
+            for letter in line:
+              try:
+                number = int(letter)
+              except ValueError:
+                txt_list.append(letter)
+                    
+            txt_list.insert(-2, "world_idnum")
+                
+          elif "targetname" in line:
+            quote_num = 0
+            for letter in line:
+                if letter == "\"":
+                  quote_num += 1
+                if quote_num != 3:
+                  txt_list.append(letter)
+                elif letter == "\"":
+                  txt_list.append(letter)
+                          
+            txt_list.insert(-2, "entity_name")
+                
+          elif "origin" in line:
+            nums_yet = False #if True then numbers have been received
+            for letter in line:
+              
+              #print(letter)
+              try:
+                number = int(letter)    
+                num_list.append(letter)
+                nums_yet = True
+              except ValueError:
+                if letter != "-" and letter != ".":
+                  txt_list.append(letter)
+                if letter == " ":
+                  num_list.append("SEPARATE")
+                elif letter == ".":
+                  num_list.append(".")
+                elif letter == "-":
+                  num_list.append("-")
+                elif letter == "\"" and nums_yet:
+                  write_var(num_list, txt_list, py_list, var_num, value_list_history) 
+                  var_num += 1
+                  num_list = []
+
+        elif in_entity_block and "\"" not in line:
+          in_entity_block = False
+
+        elif in_editor_block and "\t}" not in line:
+          txt_list.append(line)
+
+        elif in_editor_block and "\t}" in line:
+          in_editor_block = False
+          txt_list.append(line)
+
+
+          
+                    
+        if "solid" in line and "\"" not in line: #or "side" in line:# or "origin" in line: #need to add this because somehow, the solid/side
+                          
           txt_list.append(line)
           #go until "\t}"
-
-          while "\t}" not in line:
-
-            if "(" not in line:
-
-              if "id" not in line:
-                txt_list.append(line)
-              elif "\t\t\"id\"" in line:
-                for letter in line:
-                  try:
-                    number = int(letter)
-                  except ValueError:
-                    txt_list.append(letter)
-
-                if "\t\t\t" in line:
-                  txt_list.insert(-2, "id_num") #need to insert because it creates a \n at the end of the line
-                else: 
-                  txt_list.insert(-2, "world_idnum")
-
-              #print(txt_list)
-
-            elif "(" in line:
-              for letter in line:
-                #print(letter)
-                try:
-                  number = int(letter)    
-                  num_list.append(letter)
-                except ValueError:
-                  if letter != "-":
-                    txt_list.append(letter)
-                  elif letter == " ":
-                    num_list.append("SEPARATE")
-                  elif letter == "-":
-                    num_list.append("-")
-                  elif letter == ")":
-                    write_var(num_list, txt_list, py_list, var_num, value_list_history) 
-                    var_num += 1
-                    num_list = []
-		
-          txt_list.append(line)
+          in_solid_block = True
 		
         elif "entity" in line:
           contains_ent = True
+          in_entity_block = True
           txt_list.append(line)
-          while "\"" in line:
-            #do something
-            if "id" in line:
-                  for letter in line:
-                    try:
-                          number = int(letter)
-                    except ValueError:
-                          txt_list.append(letter)
-                          
-                  txt_list.insert(-2, "world_idnum")
-                  
-            elif "targetname" in line:
-              for letter in line:
-                for item in [t,a,r,g,e,t,n,a,m,e]:
-                  if letter == "\"" or letter == item:
-                    txt_list.append(letter)
-                            
-              txt_list.insert(-2, "entity_name")
-                  
-            elif "origin" in line:
-              nums_yet = False #if True then numbers have been received
-              for letter in line:
-                
-                #print(letter)
-                try:
-                  number = int(letter)    
-                  num_list.append(letter)
-                  nums_yet = True
-                except ValueError:
-                  if letter != "-":
-                    txt_list.append(letter)
-                  elif letter == " ":
-                    num_list.append("SEPARATE")
-                  elif letter == "-":
-                    num_list.append("-")
-                  elif letter == "\"" and nums_yet:
-                    write_var(num_list, txt_list, py_list, var_num, value_list_history) 
-                    var_num += 1
-                    num_list = []                  
-                
+
+        elif "editor" in line:
+          in_editor_block = True
+          txt_list.append(line)
                           
 				
 				
@@ -335,3 +380,4 @@ def createTile(posx, posy, id_num, world_id_num):
   file.close()
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code)
 
+create("vmf_prefabs/spawn_room_blu.vmf", "test", "test", "icons/spawn_blue.jpg") 
