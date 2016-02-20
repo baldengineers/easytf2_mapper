@@ -178,8 +178,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
   ent_code ="""
     for i in range(ogvalues.count("entity_name")):
         values = values.replace("entity_name", "entity" + str(entity_num), 1)
+        values = values.replace("entity_name_same", "entity" + str(entity_num), 1)
         entity_num += entity_num
-
 
 """
 
@@ -302,7 +302,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
 
         elif in_entity_block and "\"" in line:
           #print(line)
-          if "id" in line:
+          if "id" not in line and "targetname" not in line and "origin" not in line and "associatedmodel" not in line:
+            txt_list.append(line)
+          elif "id" in line:
             for letter in line:
               try:
                 number = int(letter)
@@ -322,6 +324,18 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                   txt_list.append(letter)
                           
             txt_list.insert(-2, "entity_name")
+
+          elif "associatedmodel" in line:
+            quote_num = 0
+            for letter in line:
+                if letter == "\"":
+                  quote_num += 1
+                if quote_num != 3:
+                  txt_list.append(letter)
+                elif letter == "\"":
+                  txt_list.append(letter)
+                          
+            txt_list.insert(-2, "entity_name_same")
                 
           elif "origin" in line:
             nums_yet = False #if True then numbers have been received
@@ -345,6 +359,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                   write_var(num_list, txt_list, py_list, var_num, value_list_history) 
                   var_num += 1
                   num_list = []
+            
 
         elif in_entity_block and "\"" not in line:
           in_entity_block = False

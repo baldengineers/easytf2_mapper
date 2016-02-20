@@ -11,6 +11,7 @@ import light_create
 #TODO: THE CREATEPREFAB NEEDS TO ADD THE ENTITIES PART OF A CUSTOM PREFAB
 #TODO: TEXTURES JESUS CHRIST ITS AN EYESORE IN HAMMER
 #TODO: skybox modeling. choosing a skybox is done.
+
 class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -38,12 +39,20 @@ class GridBtn(QWidget):
             print((x,y))
             global world_id_num
             global id_num
+            global entity_num
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
-            create = moduleName.createTile(x, y, id_num, world_id_num)
+            try:
+                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num)
+            except TypeError:
+                create = moduleName.createTile(x, y, id_num, world_id_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
             world_id_num = create[2]
+            try:
+                entity_num = create[3]
+            except IndexError:
+                pass
             #if self_global.comboBox.currentIndex() != 0:
                 #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
                 #world_id_num +=1
@@ -395,6 +404,7 @@ class MainWindow(QMainWindow):
 #define some global variables
 id_num = 1
 world_id_num = 2
+entity_num = 1
 toggle = 0
 btn_id_count = 0
 grid_list=[]

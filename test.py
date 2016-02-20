@@ -961,7 +961,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
         id_num = id_num+1
     for i in range(ogvalues.count("entity_name")):
         values = values.replace("entity_name", "entity" + str(entity_num), 1)
+        values = values.replace("entity_name_same", "entity" + str(entity_num), 1)
         entity_num += entity_num
-
 
     return values, id_num, world_id_num, entity_num
