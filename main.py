@@ -218,7 +218,7 @@ class MainWindow(QMainWindow):
         file.write(wholething)
         file.close()
         QMessageBox.information(self, "File Exported",
-                                "The .vmf has been outputted to %s" %(name[0]))
+                                "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp")
     def removeButtons(self):
 
         for i in reversed(range(self.button_grid_layout.count())):
