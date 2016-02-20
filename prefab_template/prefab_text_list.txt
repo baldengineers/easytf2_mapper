@@ -9,6 +9,6 @@ Corner Wall (Bottom Right)
 Corner Wall (Top Right)
 Corner Wall (Top Left)
 Box Cover
-Spawn Structure Red
-Spawn Structure Blue
+Basic Spawn Structure Red
+Basic Spawn Structure Blue
 Mini-Spire
