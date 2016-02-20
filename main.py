@@ -129,7 +129,7 @@ class MainWindow(QMainWindow):
 
         createPrefabAction = QAction("&Prefab", self)
         #createPrefabAction.setShortcut("")
-        createPrefabAction.setStatusTip("Create Your Own Prefab! View the readme for a good idea on formatting.")
+        createPrefabAction.setStatusTip("WILL CLEAR GRID! View the readme for a good idea on formatting.")
         createPrefabAction.triggered.connect(self.create_prefab)
 
         refreshPrefab = QAction("&Refresh Prefab List", self)
@@ -138,6 +138,7 @@ class MainWindow(QMainWindow):
 
         changeSkybox = QAction("&Change Skybox", self)
         changeSkybox.setStatusTip("Change the skybox of the map.")
+        changeSkybox.setShortcut("Ctrl+s")
         changeSkybox.triggered.connect(self.change_skybox)
         self.statusBar()
         
@@ -148,7 +149,7 @@ class MainWindow(QMainWindow):
         
         fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
-        fileMenu.addAction(saveAction)
+        #fileMenu.addAction(saveAction)
         fileMenu.addAction(exportAction)
         fileMenu.addAction(exitAction)
 
@@ -348,6 +349,23 @@ class MainWindow(QMainWindow):
         self.window.setLayout(self.layout)
         self.window.show()
     def importprefabs(self):
+        prefab_text_list = []
+        prefab_icon_list = []
+        prefab_list=[]
+        prefab_file = open("prefab_template\prefab_list.txt")
+        prefab_text_file = open("prefab_template\prefab_text_list.txt")
+        prefab_icon_file = open("prefab_template\prefab_icon_list.txt")
+        for line in prefab_file.readlines():
+            prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
+
+        for line in prefab_text_file.readlines():
+            prefab_text_list.append(line[:-1] if line.endswith("\n") else line)
+
+        for line in prefab_icon_file.readlines():
+            prefab_icon_list.append(line[:-1] if line.endswith("\n") else line)
+
+        for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+            file.close()
         for item in prefab_list:
             globals()[item] = importlib.import_module(item)
             print("import", item)
@@ -373,6 +391,7 @@ class MainWindow(QMainWindow):
         QMessageBox.information(self, "Files Created",
                                 createPrefab.create(name[0], prefab_name[0],
                                                     prefab_text[0], prefab_icon[0]))
+        importprefabs()
 
 #define some global variables
 id_num = 1
@@ -414,6 +433,7 @@ entity
 '''
 skybox = 'sky_tf2_04'
 #if the user does not change the lighting, it sticks with this.
+#if the user does not choose a skybox it sticks with this
 
 prefab_file = open("prefab_template\prefab_list.txt")
 prefab_text_file = open("prefab_template\prefab_text_list.txt")
