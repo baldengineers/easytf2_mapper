@@ -47,10 +47,11 @@ class GridBtn(QWidget):
             global id_num
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
-            create = moduleName.createTile(x, y, id_num, world_id_num)
+            create = moduleName.createTile(x, y, id_num, world_id_num, entity_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
             world_id_num = create[2]
+            entity_num = create[3]
             #if self_global.comboBox.currentIndex() != 0:
                 #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
                 #world_id_num +=1
@@ -358,6 +359,7 @@ class MainWindow(QMainWindow):
 #define some global variables
 id_num = 1
 world_id_num = 2
+entity_num = 1
 toggle = 0
 btn_id_count = 0
 grid_list=[]
