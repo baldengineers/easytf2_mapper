@@ -9,4 +9,5 @@ Corner Wall (Bottom Right)
 Corner Wall (Top Right)
 Corner Wall (Top Left)
 Box Cover
-Spawn Structure
+Spawn Structure Red
+Spawn Structure Blue

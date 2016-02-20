@@ -3,7 +3,7 @@ import os
 def createTile(posx, posy, id_num, world_id_num):
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
-    f = open('prefab_template/spawn_structure.txt', 'r+')
+    f = open('prefab_template/spawn_structure_red.txt', 'r+')
     lines = f.readlines() #gathers each line of the prefab and puts numbers them
     x1 = posx*512
     y1 = posy*-512
@@ -459,7 +459,7 @@ def createTile(posx, posy, id_num, world_id_num):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
 
-    g = open('prefab_template/resupply_entities.txt', 'r+')
+    g = open('prefab_template/resupply_entities_red.txt', 'r+')
     lines_prop = g.readlines()
 
     px1 = (posx*512)+256

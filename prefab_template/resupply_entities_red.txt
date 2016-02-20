@@ -133,7 +133,7 @@ entity
 	"angles" "0 90 0"
 	"SpawnMode" "0"
 	"StartDisabled" "0"
-	"TeamNum" "0"
+	"TeamNum" "1"
 	"origin" "spawnx spawny spawnz"
 	editor
 	{
