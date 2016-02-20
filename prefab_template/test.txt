@@ -1,6 +1,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x1 y1 z1) (x2 y2 z2) (x3 y3 z3)"
@@ -11,6 +12,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x4 y4 z4) (x5 y5 z5) (x6 y6 z6)"
@@ -21,6 +23,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x7 y7 z7) (x8 y8 z8) (x9 y9 z9)"
@@ -31,6 +34,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x10 y10 z10) (x11 y11 z11) (x12 y12 z12)"
@@ -41,6 +45,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x13 y13 z13) (x14 y14 z14) (x15 y15 z15)"
@@ -51,6 +56,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x16 y16 z16) (x17 y17 z17) (x18 y18 z18)"
@@ -71,6 +77,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x19 y19 z19) (x20 y20 z20) (x21 y21 z21)"
@@ -81,6 +88,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x22 y22 z22) (x23 y23 z23) (x24 y24 z24)"
@@ -91,6 +99,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x25 y25 z25) (x26 y26 z26) (x27 y27 z27)"
@@ -101,6 +110,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x28 y28 z28) (x29 y29 z29) (x30 y30 z30)"
@@ -111,6 +121,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x31 y31 z31) (x32 y32 z32) (x33 y33 z33)"
@@ -121,6 +132,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x34 y34 z34) (x35 y35 z35) (x36 y36 z36)"
@@ -141,6 +153,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x37 y37 z37) (x38 y38 z38) (x39 y39 z39)"
@@ -151,6 +164,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x40 y40 z40) (x41 y41 z41) (x42 y42 z42)"
@@ -161,6 +175,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x43 y43 z43) (x44 y44 z44) (x45 y45 z45)"
@@ -171,6 +186,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x46 y46 z46) (x47 y47 z47) (x48 y48 z48)"
@@ -181,6 +197,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x49 y49 z49) (x50 y50 z50) (x51 y51 z51)"
@@ -191,6 +208,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x52 y52 z52) (x53 y53 z53) (x54 y54 z54)"
@@ -211,6 +229,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x55 y55 z55) (x56 y56 z56) (x57 y57 z57)"
@@ -221,6 +240,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x58 y58 z58) (x59 y59 z59) (x60 y60 z60)"
@@ -231,6 +251,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x61 y61 z61) (x62 y62 z62) (x63 y63 z63)"
@@ -241,6 +262,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x64 y64 z64) (x65 y65 z65) (x66 y66 z66)"
@@ -251,6 +273,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x67 y67 z67) (x68 y68 z68) (x69 y69 z69)"
@@ -261,6 +284,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x70 y70 z70) (x71 y71 z71) (x72 y72 z72)"
@@ -281,6 +305,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x73 y73 z73) (x74 y74 z74) (x75 y75 z75)"
@@ -291,6 +316,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x76 y76 z76) (x77 y77 z77) (x78 y78 z78)"
@@ -301,6 +327,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x79 y79 z79) (x80 y80 z80) (x81 y81 z81)"
@@ -311,6 +338,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x82 y82 z82) (x83 y83 z83) (x84 y84 z84)"
@@ -321,6 +349,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x85 y85 z85) (x86 y86 z86) (x87 y87 z87)"
@@ -331,6 +360,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x88 y88 z88) (x89 y89 z89) (x90 y90 z90)"
@@ -351,6 +381,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x91 y91 z91) (x92 y92 z92) (x93 y93 z93)"
@@ -361,6 +392,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x94 y94 z94) (x95 y95 z95) (x96 y96 z96)"
@@ -371,6 +403,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x97 y97 z97) (x98 y98 z98) (x99 y99 z99)"
@@ -381,6 +414,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x100 y100 z100) (x101 y101 z101) (x102 y102 z102)"
@@ -391,6 +425,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x103 y103 z103) (x104 y104 z104) (x105 y105 z105)"
@@ -401,6 +436,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x106 y106 z106) (x107 y107 z107) (x108 y108 z108)"
@@ -421,6 +457,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x109 y109 z109) (x110 y110 z110) (x111 y111 z111)"
@@ -431,6 +468,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x112 y112 z112) (x113 y113 z113) (x114 y114 z114)"
@@ -441,6 +479,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x115 y115 z115) (x116 y116 z116) (x117 y117 z117)"
@@ -451,6 +490,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x118 y118 z118) (x119 y119 z119) (x120 y120 z120)"
@@ -461,6 +501,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x121 y121 z121) (x122 y122 z122) (x123 y123 z123)"
@@ -471,6 +512,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x124 y124 z124) (x125 y125 z125) (x126 y126 z126)"
@@ -491,6 +533,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x127 y127 z127) (x128 y128 z128) (x129 y129 z129)"
@@ -501,6 +544,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x130 y130 z130) (x131 y131 z131) (x132 y132 z132)"
@@ -511,6 +555,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x133 y133 z133) (x134 y134 z134) (x135 y135 z135)"
@@ -521,6 +566,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x136 y136 z136) (x137 y137 z137) (x138 y138 z138)"
@@ -531,6 +577,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x139 y139 z139) (x140 y140 z140) (x141 y141 z141)"
@@ -541,6 +588,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x142 y142 z142) (x143 y143 z143) (x144 y144 z144)"
@@ -561,6 +609,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x145 y145 z145) (x146 y146 z146) (x147 y147 z147)"
@@ -571,6 +620,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x148 y148 z148) (x149 y149 z149) (x150 y150 z150)"
@@ -581,6 +631,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x151 y151 z151) (x152 y152 z152) (x153 y153 z153)"
@@ -591,6 +642,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x154 y154 z154) (x155 y155 z155) (x156 y156 z156)"
@@ -601,6 +653,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x157 y157 z157) (x158 y158 z158) (x159 y159 z159)"
@@ -611,6 +664,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x160 y160 z160) (x161 y161 z161) (x162 y162 z162)"
@@ -631,6 +685,7 @@
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x163 y163 z163) (x164 y164 z164) (x165 y165 z165)"
@@ -641,6 +696,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x166 y166 z166) (x167 y167 z167) (x168 y168 z168)"
@@ -651,6 +707,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x169 y169 z169) (x170 y170 z170) (x171 y171 z171)"
@@ -661,6 +718,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x172 y172 z172) (x173 y173 z173) (x174 y174 z174)"
@@ -671,6 +729,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x175 y175 z175) (x176 y176 z176) (x177 y177 z177)"
@@ -681,6 +740,7 @@
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x178 y178 z178) (x179 y179 z179) (x180 y180 z180)"
@@ -706,6 +766,7 @@ entity
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x181 y181 z181) (x182 y182 z182) (x183 y183 z183)"
@@ -716,6 +777,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x184 y184 z184) (x185 y185 z185) (x186 y186 z186)"
@@ -726,6 +788,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x187 y187 z187) (x188 y188 z188) (x189 y189 z189)"
@@ -736,6 +799,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x190 y190 z190) (x191 y191 z191) (x192 y192 z192)"
@@ -746,6 +810,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x193 y193 z193) (x194 y194 z194) (x195 y195 z195)"
@@ -756,6 +821,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x196 y196 z196) (x197 y197 z197) (x198 y198 z198)"
@@ -807,6 +873,7 @@ entity
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x200 y200 z200) (x201 y201 z201) (x202 y202 z202)"
@@ -817,6 +884,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x203 y203 z203) (x204 y204 z204) (x205 y205 z205)"
@@ -827,6 +895,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x206 y206 z206) (x207 y207 z207) (x208 y208 z208)"
@@ -837,6 +906,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x209 y209 z209) (x210 y210 z210) (x211 y211 z211)"
@@ -847,6 +917,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x212 y212 z212) (x213 y213 z213) (x214 y214 z214)"
@@ -857,6 +928,7 @@ entity
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x215 y215 z215) (x216 y216 z216) (x217 y217 z217)"
@@ -1004,6 +1076,7 @@ entity
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x235 y235 z235) (x236 y236 z236) (x237 y237 z237)"
@@ -1014,6 +1087,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x238 y238 z238) (x239 y239 z239) (x240 y240 z240)"
@@ -1024,6 +1098,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x241 y241 z241) (x242 y242 z242) (x243 y243 z243)"
@@ -1034,6 +1109,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x244 y244 z244) (x245 y245 z245) (x246 y246 z246)"
@@ -1044,6 +1120,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x247 y247 z247) (x248 y248 z248) (x249 y249 z249)"
@@ -1054,6 +1131,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x250 y250 z250) (x251 y251 z251) (x252 y252 z252)"
@@ -1090,6 +1168,7 @@ entity
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x254 y254 z254) (x255 y255 z255) (x256 y256 z256)"
@@ -1100,6 +1179,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x257 y257 z257) (x258 y258 z258) (x259 y259 z259)"
@@ -1110,6 +1190,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x260 y260 z260) (x261 y261 z261) (x262 y262 z262)"
@@ -1120,6 +1201,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x263 y263 z263) (x264 y264 z264) (x265 y265 z265)"
@@ -1130,6 +1212,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x266 y266 z266) (x267 y267 z267) (x268 y268 z268)"
@@ -1140,6 +1223,7 @@ entity
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x269 y269 z269) (x270 y270 z270) (x271 y271 z271)"
@@ -1167,6 +1251,7 @@ entity
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x273 y273 z273) (x274 y274 z274) (x275 y275 z275)"
@@ -1177,6 +1262,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x276 y276 z276) (x277 y277 z277) (x278 y278 z278)"
@@ -1187,6 +1273,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x279 y279 z279) (x280 y280 z280) (x281 y281 z281)"
@@ -1197,6 +1284,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x282 y282 z282) (x283 y283 z283) (x284 y284 z284)"
@@ -1207,6 +1295,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x285 y285 z285) (x286 y286 z286) (x287 y287 z287)"
@@ -1217,6 +1306,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x288 y288 z288) (x289 y289 z289) (x290 y290 z290)"
@@ -1270,6 +1360,7 @@ entity
 	solid
 	{
 		"id" "world_idnum"
+		side
 		{
 			"id" "id_num"
 			"plane" "(x293 y293 z293) (x294 y294 z294) (x295 y295 z295)"
@@ -1280,6 +1371,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x296 y296 z296) (x297 y297 z297) (x298 y298 z298)"
@@ -1290,6 +1382,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x299 y299 z299) (x300 y300 z300) (x301 y301 z301)"
@@ -1300,6 +1393,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x302 y302 z302) (x303 y303 z303) (x304 y304 z304)"
@@ -1310,6 +1404,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x305 y305 z305) (x306 y306 z306) (x307 y307 z307)"
@@ -1320,6 +1415,7 @@ entity
 			"lightmapscale" "512"
 			"smoothing_groups" "0"
 		}
+		side
 		{
 			"id" "id_num"
 			"plane" "(x308 y308 z308) (x309 y309 z309) (x310 y310 z310)"

@@ -216,7 +216,7 @@ class MainWindow(QMainWindow):
 
     def file_export(self):
         global world_id_num, count_btns, currentlight, skybox, skybox2_list
-        skybox = skybox_list[skybox2_list.currentRow()]
+        #skybox = skybox_list[skybox2_list.currentRow()]
         currentlight = currentlight.replace("world_idnum",str(world_id_num))
         entity_list[count_btns] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
