@@ -11,7 +11,7 @@ algorithms to create the object
 #                    |        |
 #                    |        |
 
-def write_var(num_list, txt_list, py_list, var_num, value_list_history):
+def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block):
   #TODO: Add a values list history, that keeps track of all the past value_lists
   #so we can see if there are duplicate value lists. 
   
@@ -39,8 +39,11 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history):
   for item in value_list:
     txt_list.insert(-1 - item_count, "INSERT_VAR")
     item_count += 2 
-  
-  xyz_list = ["x", "y", "z"]
+
+  if in_solid_block:
+    xyz_list = ["x", "y", "z"]
+  elif in_entity_block:
+    xyz_list = ["px", "py", "pz"]
   
   for var in xyz_list:
 
@@ -50,31 +53,38 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history):
       value = float(value_list[xyz_list.index(var)])
       
 
-    if var == "x":
+    if var == "x" or var == "px":
       negative = ""
-    elif var == "y":
+    elif var == "y" or var == "py":
       negative = "-"
         
-    if var == "z":
+    if var == "z" or var == "pz":
       py_list.append("%s%d = %d" %(var, var_num, value))
       #print(py_list)
     elif value == 0:
-      py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var, negative))
+      py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
       #print(py_list)
     else:
-      py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var, negative, value))
+      py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
       #print(py_list)
 
     txt_list[txt_list.index("INSERT_VAR")] = "%s%d" %(var, var_num)
   
 
-def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon):
+def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path):
   #This compiles the txt prefab template
   file = open(txt_path, "w")
   
   for item in txt_list:
     file.write(item)
   file.close()
+
+  file = open(ent_path, "w")
+
+  for item in ent_list:
+    file.write(item)
+  file.close
+    
 
   #prefab_file = open("prefab_template\\prefab_list.txt", "a")
   #prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
@@ -92,22 +102,36 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon):
   
   
 
-def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code):
+def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list):
   #This compiles the py file containing the algorithms
   
   for item in py_list:
-    compile_list.insert(compile_list.index("INSERT_PY_LIST"), "    " + item + "\n")
+    compile_list.insert(compile_list.index("#INSERT_PY_LIST"), "    " + item + "\n")
 
-  compile_list[compile_list.index("INSERT_OPEN_FILE")] = "    f = open('%s', 'r+')" %(txt_path)
+  compile_list[compile_list.index("#INSERT_OPEN_FILE")] = "    f = open('%s', 'r+')" %(txt_path)
 
-  compile_list[compile_list.index("INSERT_PY_LIST")] = ""
+  compile_list[compile_list.index("#INSERT_PY_LIST")] = ""
 
   var_count = (len(py_list) + 1)/3
 
-  compile_list[compile_list.index("INSERT_VAR_COUNT")] = "    var_count = %d" %(var_count)
+  compile_list[compile_list.index("#INSERT_VAR_COUNT")] = "    var_count = %d" %(var_count)
 
   if contains_ent:
-    compile_list[compile_list.index("INSERT_ENT_CODE")] = ent_code
+    ent_code[ent_code.index("#INSERT_ENT_OPEN_FILE")] = "\n    g = open('%s', 'r+')" %(ent_path)
+
+    for item in ent_py_list:
+      ent_code.insert(ent_code.index("#INSERT_ENT_PY_LIST"), "    " + item + "\n")
+
+    ent_code[ent_code.index("#INSERT_ENT_PY_LIST")] = ""
+
+    ent_var_count = (len(ent_py_list) + 1)/3
+
+    ent_code[ent_code.index("#INSERT_ENT_VAR_COUNT")] = "    ent_var_count = %d" %(ent_var_count)
+
+    for item in ent_code:
+      compile_list.insert(compile_list.index("#INSERT_ENT_CODE"), item)
+
+    compile_list[compile_list.index("#INSERT_ENT_CODE")] = ""
 
   file = open(py_path, "w")
   
@@ -125,7 +149,9 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code):
 def create(name, prefab_name, prefab_text, prefab_icon):
 
   py_list = []
+  ent_py_list = []
   txt_list = []
+  ent_list = []
   num_list = []
   id_num_list = []
   id_value_list = []
@@ -138,15 +164,15 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     values=[]#Values are all of the lines of a prefab that have the vertex coords
 """,
 
-  "INSERT_OPEN_FILE",
+  "#INSERT_OPEN_FILE",
 
   """
     lines = f.readlines() #gathers each line of the prefab and puts numbers them
 """,
 
-  "INSERT_PY_LIST",
+  "#INSERT_PY_LIST",
 
-  "INSERT_VAR_COUNT",
+  "#INSERT_VAR_COUNT",
 
   """
     values = "".join(lines)#converting list to string
@@ -170,49 +196,81 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1""",
 
-  "INSERT_ENT_CODE",
+  "#INSERT_ENT_CODE",
   
   "    return values, id_num, world_id_num, entity_num"
   ]
 
-  ent_code ="""
-    for i in range(ogvalues.count("entity_name")):
-        values = values.replace("entity_name", "entity" + str(entity_num), 1)
-        values = values.replace("entity_name_same", "entity" + str(entity_num), 1)
-        entity_num += entity_num
+  ent_code =["#INSERT_ENT_OPEN_FILE",
+
+             """
+    lines_ent = g.readlines()
+""",
+
+             "#INSERT_ENT_PY_LIST",
+
+             "#INSERT_ENT_VAR_COUNT",
 
 """
+    ent_values = "".join(lines_ent)
+    valcount = "".join(lines_ent)
+
+    for i in range(valcount.count('world_idnum')):
+        ent_values = ent_values.replace('world_idnum', str(world_id_num), 1)
+        world_id_num += 1
+
+    for var in ["px", "py", "pz"]:
+        for count in range(1,ent_var_count+1):
+            string = var + str(count)
+            string_var = str(eval(var + str(count)))
+
+            if var == "z":
+                ent_values = ent_values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
+            else:
+                ent_values = ent_values.replace(string + " ",string_var + " ")
+
+    for i in range(valcount.count('id_num')):
+        ent_values = ent_values.replace('id_num', str(id_num), 1)
+        id_num = id_num+1
+
+    for i in range(ogvalues.count("entity_name")):
+        ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
+        ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
+        entity_num += 1
+
+"""]
 
   var_num = 1
   contains_ent = False #True if there are entities in the vmf
   in_solid_block = False #True if in a solid code block
   in_entity_block = False #True if in an entity code block
   in_editor_block = False #True if in an editor cod block
+  solid_to_ent = False #True if you want to put the solid block into ent_list
   black_list_var = False #True means it IS on the blacklist, False otherwise
   value_list_history = []
   #name = "prefab_template\godplsno.vmf" #name of the vmf file, changed to allow user to open a file
   file = open(name, "r")
 
-  black_list = ["editorversion",
-                "editorbuild",
-                "mapversion",
-                "formatversion",
-                "prefab",
-                "bSnapToGrid",
-                "bShowGrid",
-                "bShowLogicalGrid",
-                "nGridSpacing",
-                "bShow3DGrid",
-                "mapversion",
-                "classname",
-                "skyname",
-                "maxpropscreenwidth",
-                "detailvbsp",
-                "detailmaterial",
-                "activecamera",
-                "mins",
-                "maxs",
-                "active"]
+  #black_list = ["editorversion",
+  #              "editorbuild",
+  #              "mapversion",
+  #              "formatversion",
+  #              "prefab",
+  #              "bSnapToGrid",
+  #              "bShowGrid",
+  #              "bShowLogicalGrid",
+  #              "nGridSpacing",
+  #              "bShow3DGrid",
+  #              "mapversion",
+  #              "classname",
+  #              "skyname",
+  #              "maxpropscreenwidth",
+  #              "detailvbsp",
+  #              "detailmaterial",
+  #              "activecamera",
+  #              "mins",
+  #              "maxs",
+  #              "active"]
 
   openlines = file.readlines()
 
@@ -232,13 +290,14 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
   #main loop
   #prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
   txt_path = "prefab_template/" + prefab_name + ".txt"
+  ent_path = "prefab_template/" + prefab_name + "_entities.txt"
   py_path = prefab_name + ".py"
 
   for line in openlines:
     
-    for item in black_list:
-      if item in line:
-        black_list_var = True
+    #for item in black_list:
+    #  if item in line:
+    #    black_list_var = True
         
     #if "\t" not in line:
      # createBlackList(line)
@@ -246,164 +305,171 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     
 
      
-    if not black_list_var:
+    #if not black_list_var:
+
+    which_list = "txt_list" if not solid_to_ent else "ent_list"
       
-      if "\t" in line or "entity" in line:
-        
-        if in_solid_block and "\t}" not in line or in_solid_block and "\t\t" in line:
-          #print(line)
+    if "\t" in line or "entity" in line:
+      
+      if in_solid_block and "\t}" not in line or in_solid_block and "\t\t" in line:
+        #print(line)
+        if "(" not in line:
 
-          if "(" not in line:
+          if "side" in line:
+            eval(which_list).append(line)
 
-            if "side" in line:
-              txt_list.append(line)
-
-            if "id" not in line:
-              txt_list.append(line)
-            elif "\t\t\"id\"" in line:
-              for letter in line:
-                try:
-                  number = int(letter)
-                except ValueError:
-                  txt_list.append(letter)
-
-              if "\t\t\t" in line:
-                txt_list.insert(-2, "id_num") #need to insert because it creates a \n at the end of the line
-              else: 
-                txt_list.insert(-2, "world_idnum")
-
-            #print(txt_list)
-
-          elif "(" in line:
-            for letter in line:
-              #print(letter)
-              try:
-                number = int(letter)    
-                num_list.append(letter)
-              except ValueError:
-                if letter != "-" and letter != ".":
-                  txt_list.append(letter)
-                if letter == " ":
-                  num_list.append("SEPARATE")
-                elif letter == ".":
-                  num_list.append(".")
-                elif letter == "-":
-                  num_list.append("-")
-                elif letter == ")":
-                  #print(num_list)
-                  write_var(num_list, txt_list, py_list, var_num, value_list_history) 
-                  var_num += 1
-                  num_list = []
-        elif in_solid_block and "\t}" in line and "\t\t" not in line:
-          in_solid_block = False
-          #print(line)
-          txt_list.append(line)
-          #import sys
-          #sys.exit()
-
-
-
-        elif in_entity_block and "\"" in line:
-          #print(line)
-          if "classname" in line:
-            print(line)
-            txt_list.append(line)
-          
-          if "id" not in line and "targetname" not in line and "origin" not in line and "associatedmodel" not in line:
-            txt_list.append(line)
-          elif "id" in line:
+          if "id" not in line:
+            eval(which_list).append(line)
+          elif "\t\t\"id\"" in line:
             for letter in line:
               try:
                 number = int(letter)
               except ValueError:
-                txt_list.append(letter)
-                    
-            txt_list.insert(-2, "world_idnum")
-                
-          elif "targetname" in line:
-            quote_num = 0
-            for letter in line:
-                if letter == "\"":
-                  quote_num += 1
-                if quote_num != 3:
-                  txt_list.append(letter)
-                elif letter == "\"":
-                  txt_list.append(letter)
-                          
-            txt_list.insert(-2, "entity_name")
+                eval(which_list).append(letter)
 
-          elif "associatedmodel" in line:
-            quote_num = 0
-            for letter in line:
-                if letter == "\"":
-                  quote_num += 1
-                if quote_num != 3:
-                  txt_list.append(letter)
-                elif letter == "\"":
-                  txt_list.append(letter)
-                          
-            txt_list.insert(-2, "entity_name_same")
-                
-          elif "origin" in line:
-            nums_yet = False #if True then numbers have been received
-            for letter in line:
+            if "\t\t\t" in line:
+              eval(which_list).insert(-2, "id_num") #need to insert because it creates a \n at the end of the line
+            else: 
+              eval(which_list).insert(-2, "world_idnum")
+
+          #print(txt_list)
+
+        elif "(" in line:
+          for letter in line:
+            #print(letter)
+            try:
+              number = int(letter)    
+              num_list.append(letter)
+            except ValueError:
+              if letter != "-" and letter != ".":
+                eval(which_list).append(letter)
+              if letter == " ":
+                num_list.append("SEPARATE")
+              elif letter == ".":
+                num_list.append(".")
+              elif letter == "-":
+                num_list.append("-")
+              elif letter == ")":
+                #print(num_list)
+                write_var(num_list, eval(which_list), py_list, var_num, value_list_history, in_solid_block, in_entity_block) 
+                var_num += 1
+                num_list = []
+      elif in_solid_block and "\t}" in line and "\t\t" not in line:
+        in_solid_block = False
+        #print(line)
+        eval(which_list).append(line)
+        if solid_to_ent:
+          ent_list.append("}\n")
+        solid_to_ent = False
+        #import sys
+        #sys.exit()
+
+      elif in_entity_block and "\"" in line:
+        #print(line)
+        
+        if "id" not in line and "targetname" not in line and "origin" not in line and "associatedmodel" not in line:
+          ent_list.append(line)
+        elif "id" in line:
+          for letter in line:
+            try:
+              number = int(letter)
+            except ValueError:
+              ent_list.append(letter)
+                  
+          ent_list.insert(-2, "world_idnum")
               
-              #print(letter)
-              try:
-                number = int(letter)    
-                num_list.append(letter)
-                nums_yet = True
-              except ValueError:
-                if letter != "-" and letter != ".":
-                  txt_list.append(letter)
-                if letter == " ":
-                  num_list.append("SEPARATE")
-                elif letter == ".":
-                  num_list.append(".")
-                elif letter == "-":
-                  num_list.append("-")
-                elif letter == "\"" and nums_yet:
-                  write_var(num_list, txt_list, py_list, var_num, value_list_history) 
-                  var_num += 1
-                  num_list = []
+        elif "targetname" in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "entity_name")
+
+        elif "associatedmodel" in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "entity_same")
+              
+        elif "origin" in line:
+          nums_yet = False #if True then numbers have been received
+          for letter in line:
             
-
-        elif in_entity_block and "\"" not in line:
-          in_entity_block = False
-
-        elif in_editor_block and "\t}" not in line:
-          #print(line)
-          txt_list.append(line)
-
-        elif in_editor_block and "\t}" in line:
-          in_editor_block = False
-          txt_list.append(line)
-
-
+            #print(letter)
+            try:
+              number = int(letter)    
+              num_list.append(letter)
+              nums_yet = True
+            except ValueError:
+              if letter != "-" and letter != ".":
+                ent_list.append(letter)
+              if letter == " ":
+                num_list.append("SEPARATE")
+              elif letter == ".":
+                num_list.append(".")
+              elif letter == "-":
+                num_list.append("-")
+              elif letter == "\"" and nums_yet:
+                write_var(num_list, ent_list, ent_py_list, var_num, value_list_history, in_solid_block, in_entity_block) 
+                var_num += 1
+                num_list = []
           
-                    
-        if "solid" in line and "\"" not in line: #or "side" in line:# or "origin" in line: #need to add this because somehow, the solid/side
-                          
-          txt_list.append(line)
-          #go until "\t}"
-          in_solid_block = True
-		
-        elif "entity" in line:
-          contains_ent = True
-          in_entity_block = True
-          txt_list.append(line)
 
-        #elif "editor" in line:
-         # in_editor_block = True
-          #txt_list.append(line)
-                          
-				
+      elif in_entity_block and "\"" not in line:
+        in_entity_block = False
+        if "editor" in line:
+          #print(line)
+          ent_list.append(line)
+          in_editor_block = True
+        elif "solid" in line:
+          solid_to_ent = True
+
+      elif in_editor_block and "\t}" not in line:
+        #print(line)
+        ent_list.append(line)
+
+      elif in_editor_block and "\t}" in line:
+        in_editor_block = False
+        ent_list.append(line)
+        ent_list.append("}\n")
+
+      which_list = "txt_list" if not solid_to_ent else "ent_list"
+        
+                  
+      if "solid" in line and "\"" not in line: #or "side" in line:# or "origin" in line: #need to add this because somehow, the solid/side
+                        
+        eval(which_list).append(line)
+        #go until "\t}"
+        in_solid_block = True
+              
+      elif "entity" in line:
+        contains_ent = True
+        in_entity_block = True
+        ent_list.append(line)
+        ent_list.append("{\n")
+
+      #elif "editor" in line:
+       # in_editor_block = True
+        #txt_list.append(line)
+                        
+                              
 				
 		  
 
-    black_list_var = False
+    #black_list_var = False
 
   file.close()
-  return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code)
+  return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list)
 
 create("vmf_prefabs/spawn_room_blu.vmf", "test", "test", "icons/spawn_blue.jpg") 

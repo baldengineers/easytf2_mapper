@@ -599,9 +599,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     x198 = posx*512 + (448)
     y198 = posy*-512 + (-352)
     z198 = 184
-    x199 = posx*512 + (400)
-    y199 = posy*-512 + (-431)
-    z199 = 56
     x200 = posx*512 + (352)
     y200 = posy*-512 + (-160)
     z200 = 184
@@ -656,57 +653,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     x217 = posx*512 + (352)
     y217 = posy*-512 + (-160)
     z217 = 184
-    x218 = posx*512 + (400)
-    y218 = posy*-512 + (-80)
-    z218 = 56
-    x219 = posx*512 + (287)
-    y219 = posy*-512 + (-351)
-    z219 = 73
-    x220 = posx*512 + (287)
-    y220 = posy*-512 + (-287)
-    z220 = 73
-    x221 = posx*512 + (287)
-    y221 = posy*-512 + (-223)
-    z221 = 73
-    x222 = posx*512 + (287)
-    y222 = posy*-512 + (-159)
-    z222 = 73
-    x223 = posx*512 + (223)
-    y223 = posy*-512 + (-351)
-    z223 = 73
-    x224 = posx*512 + (223)
-    y224 = posy*-512 + (-287)
-    z224 = 73
-    x225 = posx*512 + (223)
-    y225 = posy*-512 + (-223)
-    z225 = 73
-    x226 = posx*512 + (223)
-    y226 = posy*-512 + (-159)
-    z226 = 73
-    x227 = posx*512 + (159)
-    y227 = posy*-512 + (-351)
-    z227 = 73
-    x228 = posx*512 + (159)
-    y228 = posy*-512 + (-287)
-    z228 = 73
-    x229 = posx*512 + (159)
-    y229 = posy*-512 + (-223)
-    z229 = 73
-    x230 = posx*512 + (159)
-    y230 = posy*-512 + (-159)
-    z230 = 73
-    x231 = posx*512 + (95)
-    y231 = posy*-512 + (-159)
-    z231 = 73
-    x232 = posx*512 + (95)
-    y232 = posy*-512 + (-223)
-    z232 = 73
-    x233 = posx*512 + (95)
-    y233 = posy*-512 + (-287)
-    z233 = 73
-    x234 = posx*512 + (95)
-    y234 = posy*-512 + (-351)
-    z234 = 73
     x235 = posx*512 + (448)
     y235 = posy*-512 + (-64)
     z235 = 256
@@ -761,9 +707,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     x252 = posx*512 + (448)
     y252 = posy*-512 + (-64)
     z252 = 256
-    x253 = posx*512 + (504)
-    y253 = posy*-512 + (-256)
-    z253 = 120
     x254 = posx*512 + (512)
     y254 = posy*-512 + (-160)
     z254 = 176
@@ -818,9 +761,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     x271 = posx*512 + (496)
     y271 = posy*-512 + (-352)
     z271 = 176
-    x272 = posx*512 + (496)
-    y272 = posy*-512 + (-256)
-    z272 = 128
     x273 = posx*512 + (368)
     y273 = posy*-512 + (-384)
     z273 = 208
@@ -875,12 +815,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     x290 = posx*512 + (368)
     y290 = posy*-512 + (-384)
     z290 = 208
-    x291 = posx*512 + (498)
-    y291 = posy*-512 + (-256)
-    z291 = 128
-    x292 = posx*512 + (497)
-    y292 = posy*-512 + (-256)
-    z292 = 122
     x293 = posx*512 + (497)
     y293 = posy*-512 + (-352)
     z293 = 181
@@ -935,10 +869,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     x310 = posx*512 + (497)
     y310 = posy*-512 + (-352)
     z310 = 181
-    x311 = posx*512 + (525)
-    y311 = posy*-512 + (-256)
-    z311 = 128
-    var_count = 311
+    var_count = 288
     values = "".join(lines)#converting list to string
     ogvalues = "".join(lines)
     
@@ -959,9 +890,102 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     for i in range(ogvalues.count('id_num')):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
+    g = open('prefab_template/test_entities.txt', 'r+')
+    lines_ent = g.readlines()
+    px199 = posx*512 + (400)
+    py199 = posy*-512 + (-431)
+    pz199 = 56
+    px218 = posx*512 + (400)
+    py218 = posy*-512 + (-80)
+    pz218 = 56
+    px219 = posx*512 + (287)
+    py219 = posy*-512 + (-351)
+    pz219 = 73
+    px220 = posx*512 + (287)
+    py220 = posy*-512 + (-287)
+    pz220 = 73
+    px221 = posx*512 + (287)
+    py221 = posy*-512 + (-223)
+    pz221 = 73
+    px222 = posx*512 + (287)
+    py222 = posy*-512 + (-159)
+    pz222 = 73
+    px223 = posx*512 + (223)
+    py223 = posy*-512 + (-351)
+    pz223 = 73
+    px224 = posx*512 + (223)
+    py224 = posy*-512 + (-287)
+    pz224 = 73
+    px225 = posx*512 + (223)
+    py225 = posy*-512 + (-223)
+    pz225 = 73
+    px226 = posx*512 + (223)
+    py226 = posy*-512 + (-159)
+    pz226 = 73
+    px227 = posx*512 + (159)
+    py227 = posy*-512 + (-351)
+    pz227 = 73
+    px228 = posx*512 + (159)
+    py228 = posy*-512 + (-287)
+    pz228 = 73
+    px229 = posx*512 + (159)
+    py229 = posy*-512 + (-223)
+    pz229 = 73
+    px230 = posx*512 + (159)
+    py230 = posy*-512 + (-159)
+    pz230 = 73
+    px231 = posx*512 + (95)
+    py231 = posy*-512 + (-159)
+    pz231 = 73
+    px232 = posx*512 + (95)
+    py232 = posy*-512 + (-223)
+    pz232 = 73
+    px233 = posx*512 + (95)
+    py233 = posy*-512 + (-287)
+    pz233 = 73
+    px234 = posx*512 + (95)
+    py234 = posy*-512 + (-351)
+    pz234 = 73
+    px253 = posx*512 + (504)
+    py253 = posy*-512 + (-256)
+    pz253 = 120
+    px272 = posx*512 + (496)
+    py272 = posy*-512 + (-256)
+    pz272 = 128
+    px291 = posx*512 + (498)
+    py291 = posy*-512 + (-256)
+    pz291 = 128
+    px292 = posx*512 + (497)
+    py292 = posy*-512 + (-256)
+    pz292 = 122
+    px311 = posx*512 + (525)
+    py311 = posy*-512 + (-256)
+    pz311 = 128
+    ent_var_count = 23
+    ent_values = "".join(lines_ent)
+    valcount = "".join(lines_ent)
+
+    for i in range(valcount.count('world_idnum')):
+        ent_values = ent_values.replace('world_idnum', str(world_id_num), 1)
+        world_id_num += 1
+
+    for var in ["px", "py", "pz"]:
+        for count in range(1,ent_var_count+1):
+            string = var + str(count)
+            string_var = str(eval(var + str(count)))
+
+            if var == "z":
+                ent_values = ent_values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
+            else:
+                ent_values = ent_values.replace(string + " ",string_var + " ")
+
+    for i in range(valcount.count('id_num')):
+        ent_values = ent_values.replace('id_num', str(id_num), 1)
+        id_num = id_num+1
+
     for i in range(ogvalues.count("entity_name")):
-        values = values.replace("entity_name", "entity" + str(entity_num), 1)
-        values = values.replace("entity_name_same", "entity" + str(entity_num), 1)
-        entity_num += entity_num
+        ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
+        ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
+        entity_num += 1
 
     return values, id_num, world_id_num, entity_num

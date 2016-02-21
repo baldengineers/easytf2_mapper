@@ -788,7 +788,8 @@ world
 	}
 entity
 	"id" "12"
-	"associatedmodel" "entity1_same"
+	"classname" "func_regenerate"
+	"associatedmodel" "entity1"
 	"StartDisabled" "0"
 	"TeamNum" "3"
 	solid
@@ -869,6 +870,7 @@ entity
 	}
 entity
 	"id" "14"
+	"classname" "prop_dynamic"
 	"angles" "0 90 0"
 	"disablereceiveshadows" "0"
 	"disableshadows" "1"
@@ -891,11 +893,20 @@ entity
 	"solid" "15"
 	"spawnflags" "0"
 	"StartDisabled" "0"
-	"targetname" "entity2"
+	"targetname" "entity1"
 	"origin" "400 -431 z199"
+	editor
+	{
+		"color" "220 220 220"
+		"groupid" "949"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 2500]"
+	}
 entity
 	"id" "16"
-	"associatedmodel" "entity1"
+	"classname" "func_regenerate"
+	"associatedmodel" "entity2"
 	"StartDisabled" "0"
 	"TeamNum" "3"
 	solid
@@ -976,6 +987,7 @@ entity
 	}
 entity
 	"id" "18"
+	"classname" "prop_dynamic"
 	"angles" "0 270 0"
 	"disablereceiveshadows" "0"
 	"disableshadows" "1"
@@ -998,108 +1010,261 @@ entity
 	"solid" "19"
 	"spawnflags" "0"
 	"StartDisabled" "0"
-	"targetname" "entity4"
+	"targetname" "entity2"
 	"origin" "400 -80 z218"
+	editor
+	{
+		"color" "220 220 220"
+		"groupid" "956"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 2500]"
+	}
 entity
 	"id" "20"
+	"classname" "info_player_teamspawn"
+	"angles" "0 0 0"
+	"targetname" "entity4"
+	"TeamNum" "3"
+	"origin" "287 -351 z219"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
+entity
+	"id" "21"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity8"
 	"TeamNum" "3"
-	"origin" "287 -351 z219"
+	"origin" "287 -287 z220"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "21"
+	"id" "22"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity16"
 	"TeamNum" "3"
-	"origin" "287 -287 z220"
+	"origin" "287 -223 z221"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "22"
+	"id" "23"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity32"
 	"TeamNum" "3"
-	"origin" "287 -223 z221"
+	"origin" "287 -159 z222"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "23"
+	"id" "24"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity64"
 	"TeamNum" "3"
-	"origin" "287 -159 z222"
+	"origin" "223 -351 z223"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "24"
+	"id" "25"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity128"
 	"TeamNum" "3"
-	"origin" "223 -351 z223"
+	"origin" "223 -287 z224"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "25"
+	"id" "26"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity256"
 	"TeamNum" "3"
-	"origin" "223 -287 z224"
+	"origin" "223 -223 z225"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "26"
+	"id" "27"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity512"
 	"TeamNum" "3"
-	"origin" "223 -223 z225"
+	"origin" "223 -159 z226"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "27"
+	"id" "28"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity1024"
 	"TeamNum" "3"
-	"origin" "223 -159 z226"
+	"origin" "159 -351 z227"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "28"
+	"id" "29"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity2048"
 	"TeamNum" "3"
-	"origin" "159 -351 z227"
+	"origin" "159 -287 z228"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "29"
+	"id" "30"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity4096"
 	"TeamNum" "3"
-	"origin" "159 -287 z228"
+	"origin" "159 -223 z229"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "30"
+	"id" "31"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity8192"
 	"TeamNum" "3"
-	"origin" "159 -223 z229"
+	"origin" "159 -159 z230"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "31"
+	"id" "32"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity16384"
 	"TeamNum" "3"
-	"origin" "159 -159 z230"
+	"origin" "95 -159 z231"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "32"
+	"id" "33"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity32768"
 	"TeamNum" "3"
-	"origin" "95 -159 z231"
+	"origin" "95 -223 z232"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "33"
+	"id" "34"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity65536"
 	"TeamNum" "3"
-	"origin" "95 -223 z232"
+	"origin" "95 -287 z233"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
-	"id" "34"
+	"id" "35"
+	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity131072"
 	"TeamNum" "3"
-	"origin" "95 -287 z233"
-entity
-	"id" "35"
-	"angles" "0 0 0"
-	"targetname" "entity262144"
-	"TeamNum" "3"
 	"origin" "95 -351 z234"
+	editor
+	{
+		"color" "120 181 0"
+		"groupid" "963"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
 entity
 	"id" "36"
+	"classname" "func_respawnroom"
 	"StartDisabled" "0"
-	"targetname" "entity524288"
+	"targetname" "entity262144"
 	"TeamNum" "3"
 	solid
 	{
@@ -1179,6 +1344,7 @@ entity
 	}
 entity
 	"id" "38"
+	"classname" "func_respawnroomvisualizer"
 	"disablereceiveshadows" "0"
 	"disableshadows" "0"
 	"InputFilter" "0"
@@ -1271,6 +1437,7 @@ entity
 	}
 entity
 	"id" "42"
+	"classname" "trigger_multiple"
 	"filtername" "filter_blu"
 	"origin" "496 -256 z272"
 	"spawnflags" "1"
@@ -1354,6 +1521,7 @@ entity
 	}
 entity
 	"id" "44"
+	"classname" "prop_static"
 	"angles" "0 270 0"
 	"fademindist" "-1"
 	"fadescale" "1"
@@ -1362,8 +1530,17 @@ entity
 	"model" "models/props_gameplay/door_slide_large_frame.mdl45"
 	"solid" "46"
 	"origin" "498 -256 z291"
+	editor
+	{
+		"color" "220 220 220"
+		"groupid" "1281"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 2500]"
+	}
 entity
 	"id" "47"
+	"classname" "func_door"
 	"disablereceiveshadows" "0"
 	"disableshadows" "0"
 	"dmg" "0"
@@ -1382,7 +1559,7 @@ entity
 	"spawnflags" "0"
 	"spawnpos" "0"
 	"speed" "550"
-	"targetname" "entity1048576"
+	"targetname" "entity524288"
 	"unlocked_sentence" "0"
 	"wait" "-1"
 	solid
@@ -1463,6 +1640,7 @@ entity
 	}
 entity
 	"id" "49"
+	"classname" "prop_dynamic"
 	"angles" "0 270 0"
 	"disablereceiveshadows" "0"
 	"disableshadows" "1"
@@ -1488,6 +1666,14 @@ entity
 	"spawnflags" "0"
 	"StartDisabled" "0"
 	"origin" "525 -256 z311"
+	editor
+	{
+		"color" "220 220 220"
+		"groupid" "1281"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 2500]"
+	}
 }
  
 cameras
