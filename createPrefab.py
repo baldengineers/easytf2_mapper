@@ -223,14 +223,14 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     for var in ["x", "y", "z"]:
         for count in range(1,var_count+1):
             try:
-		string = var + str(count)
-		string_var = str(eval(var + str(count)))
-		if var == "z":
-		    ent_values = ent_values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
-		else:
-		    ent_values = ent_values.replace(string + " ",string_var + " ")
-	    except:
-	        pass
+                string = var + str(count)
+                string_var = str(eval(var + str(count)))
+                if var == "z":
+                    ent_values = ent_values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
+                else:
+                    ent_values = ent_values.replace(string + " ",string_var + " ")
+            except:
+                pass
 
     for i in range(valcount.count('id_num')):
         ent_values = ent_values.replace('id_num', str(id_num), 1)
@@ -468,8 +468,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
         #txt_list.append(line)
                         
                               
-				
-		  
+                
+          
 
     #black_list_var = False
 
