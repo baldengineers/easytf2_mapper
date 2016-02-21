@@ -3,14 +3,6 @@ This function takes a vmf file exported from hammer, then exports both a
 prefab txt template (look in prefabs folder), and a .py containing the
 algorithms to create the object
 """
-#READ!!! YOU CAN PASS WORLD_ID_NUM FOR ENTITY NUM! THEY CAN EVEN HAVE CONFLICTING NUMS IF THEYRE DIFFERENT ENTITY TYPES!
-#                   /        \
-#                /              \
-#             / _____         _____\  
-#                    |        |
-#                    |        |
-#                    |        |
-
 def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block):
   #TODO: Add a values list history, that keeps track of all the past value_lists
   #so we can see if there are duplicate value lists. 
@@ -86,16 +78,16 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
   file.close
     
 
-  #prefab_file = open("prefab_template\\prefab_list.txt", "a")
-  #prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
-  #prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
+  prefab_file = open("prefab_template\\prefab_list.txt", "a")
+  prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
+  prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
 
-  #prefab_file.write(prefab_name + "\n")
-  #prefab_text_file.write(prefab_text + "\n")
-  #prefab_icon_file.write(prefab_icon + "\n")
+  prefab_file.write(prefab_name + "\n")
+  prefab_text_file.write(prefab_text + "\n")
+  prefab_icon_file.write(prefab_icon + "\n")
 
-  #for file in [prefab_file, prefab_text_file, prefab_icon_file]:
-   # file.close()
+  for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+    file.close()
 
   return "File Exported as \"%s\"\n" %(txt_path)
 
@@ -198,7 +190,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
 
   "#INSERT_ENT_CODE",
   
-  "    return values, id_num, world_id_num, entity_num"
+  "    return values, id_num, world_id_num, entity_num, ent_values"
   ]
 
   ent_code =["#INSERT_ENT_OPEN_FILE",
@@ -224,16 +216,27 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
             string = var + str(count)
             string_var = str(eval(var + str(count)))
 
-            if var == "z":
+            if var == "pz":
                 ent_values = ent_values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
             else:
                 ent_values = ent_values.replace(string + " ",string_var + " ")
+    for var in ["x", "y", "z"]:
+        for count in range(1,var_count+1):
+            try:
+		string = var + str(count)
+		string_var = str(eval(var + str(count)))
+		if var == "z":
+		    ent_values = ent_values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
+		else:
+		    ent_values = ent_values.replace(string + " ",string_var + " ")
+	    except:
+	        pass
 
     for i in range(valcount.count('id_num')):
         ent_values = ent_values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
 
-    for i in range(ogvalues.count("entity_name")):
+    for i in range(valcount.count("entity_name")):
         ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
         ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
         entity_num += 1
@@ -241,10 +244,11 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
 """]
 
   var_num = 1
+  ent_var_num = 1
   contains_ent = False #True if there are entities in the vmf
   in_solid_block = False #True if in a solid code block
   in_entity_block = False #True if in an entity code block
-  in_editor_block = False #True if in an editor cod block
+  in_editor_block = False #True if in an editor cod (best game omg so good) block
   solid_to_ent = False #True if you want to put the solid block into ent_list
   black_list_var = False #True means it IS on the blacklist, False otherwise
   value_list_history = []
@@ -421,8 +425,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
               elif letter == "-":
                 num_list.append("-")
               elif letter == "\"" and nums_yet:
-                write_var(num_list, ent_list, ent_py_list, var_num, value_list_history, in_solid_block, in_entity_block) 
-                var_num += 1
+                write_var(num_list, ent_list, ent_py_list, ent_var_num, value_list_history, in_solid_block, in_entity_block) 
+                ent_var_num += 1
                 num_list = []
           
 
@@ -472,4 +476,4 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
   file.close()
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list)
 
-create("vmf_prefabs/spawn_room_blu.vmf", "test", "test", "icons/spawn_blue.jpg") 
+#create("vmf_prefabs/spawn_room_blu.vmf", "test", "test", "icons/spawn_blue.jpg") 

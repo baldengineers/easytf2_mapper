@@ -109,7 +109,7 @@ entity
 	"spawnflags" "0"
 	"StartDisabled" "0"
 	"targetname" "entity_name"
-	"origin" "px199 py199 pz199"
+	"origin" "px1 py1 pz1"
 	editor
 	{
 		"color" "220 220 220"
@@ -132,7 +132,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x200 y200 z200) (x201 y201 z201) (x202 y202 z202)"
+			"plane" "(x199 y199 z199) (x200 y200 z200) (x201 y201 z201)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -143,7 +143,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x203 y203 z203) (x204 y204 z204) (x205 y205 z205)"
+			"plane" "(x202 y202 z202) (x203 y203 z203) (x204 y204 z204)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -154,7 +154,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x206 y206 z206) (x207 y207 z207) (x208 y208 z208)"
+			"plane" "(x205 y205 z205) (x206 y206 z206) (x207 y207 z207)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 32] 0.25"
@@ -165,7 +165,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x209 y209 z209) (x210 y210 z210) (x211 y211 z211)"
+			"plane" "(x208 y208 z208) (x209 y209 z209) (x210 y210 z210)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 32] 0.25"
@@ -176,7 +176,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x212 y212 z212) (x213 y213 z213) (x214 y214 z214)"
+			"plane" "(x211 y211 z211) (x212 y212 z212) (x213 y213 z213)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 32] 0.25"
@@ -187,7 +187,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x215 y215 z215) (x216 y216 z216) (x217 y217 z217)"
+			"plane" "(x214 y214 z214) (x215 y215 z215) (x216 y216 z216)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 32] 0.25"
@@ -230,7 +230,7 @@ entity
 	"spawnflags" "0"
 	"StartDisabled" "0"
 	"targetname" "entity_name"
-	"origin" "px218 py218 pz218"
+	"origin" "px2 py2 pz2"
 	editor
 	{
 		"color" "220 220 220"
@@ -247,7 +247,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px219 py219 pz219"
+	"origin" "px3 py3 pz3"
 	editor
 	{
 		"color" "120 181 0"
@@ -264,7 +264,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px220 py220 pz220"
+	"origin" "px4 py4 pz4"
 	editor
 	{
 		"color" "120 181 0"
@@ -281,7 +281,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px221 py221 pz221"
+	"origin" "px5 py5 pz5"
 	editor
 	{
 		"color" "120 181 0"
@@ -298,7 +298,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px222 py222 pz222"
+	"origin" "px6 py6 pz6"
 	editor
 	{
 		"color" "120 181 0"
@@ -315,7 +315,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px223 py223 pz223"
+	"origin" "px7 py7 pz7"
 	editor
 	{
 		"color" "120 181 0"
@@ -332,7 +332,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px224 py224 pz224"
+	"origin" "px8 py8 pz8"
 	editor
 	{
 		"color" "120 181 0"
@@ -349,7 +349,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px225 py225 pz225"
+	"origin" "px9 py9 pz9"
 	editor
 	{
 		"color" "120 181 0"
@@ -366,7 +366,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px226 py226 pz226"
+	"origin" "px10 py10 pz10"
 	editor
 	{
 		"color" "120 181 0"
@@ -383,7 +383,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px227 py227 pz227"
+	"origin" "px11 py11 pz11"
 	editor
 	{
 		"color" "120 181 0"
@@ -400,7 +400,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px228 py228 pz228"
+	"origin" "px12 py12 pz12"
 	editor
 	{
 		"color" "120 181 0"
@@ -417,7 +417,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px229 py229 pz229"
+	"origin" "px13 py13 pz13"
 	editor
 	{
 		"color" "120 181 0"
@@ -434,7 +434,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px230 py230 pz230"
+	"origin" "px14 py14 pz14"
 	editor
 	{
 		"color" "120 181 0"
@@ -451,7 +451,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px231 py231 pz231"
+	"origin" "px15 py15 pz15"
 	editor
 	{
 		"color" "120 181 0"
@@ -468,7 +468,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px232 py232 pz232"
+	"origin" "px16 py16 pz16"
 	editor
 	{
 		"color" "120 181 0"
@@ -485,7 +485,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px233 py233 pz233"
+	"origin" "px17 py17 pz17"
 	editor
 	{
 		"color" "120 181 0"
@@ -502,7 +502,7 @@ entity
 	"angles" "0 0 0"
 	"targetname" "entity_name"
 	"TeamNum" "3"
-	"origin" "px234 py234 pz234"
+	"origin" "px18 py18 pz18"
 	editor
 	{
 		"color" "120 181 0"
@@ -525,7 +525,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x235 y235 z235) (x236 y236 z236) (x237 y237 z237)"
+			"plane" "(x217 y217 z217) (x218 y218 z218) (x219 y219 z219)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 1 0 0] 0.25"
@@ -536,7 +536,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x238 y238 z238) (x239 y239 z239) (x240 y240 z240)"
+			"plane" "(x220 y220 z220) (x221 y221 z221) (x222 y222 z222)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 1 0 0] 0.25"
@@ -547,7 +547,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x241 y241 z241) (x242 y242 z242) (x243 y243 z243)"
+			"plane" "(x223 y223 z223) (x224 y224 z224) (x225 y225 z225)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[0 -1 0 0] 0.25"
 			"vaxis" "[0 0 -1 32] 0.25"
@@ -558,7 +558,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x244 y244 z244) (x245 y245 z245) (x246 y246 z246)"
+			"plane" "(x226 y226 z226) (x227 y227 z227) (x228 y228 z228)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[0 -1 0 0] 0.25"
 			"vaxis" "[0 0 -1 32] 0.25"
@@ -569,7 +569,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x247 y247 z247) (x248 y248 z248) (x249 y249 z249)"
+			"plane" "(x229 y229 z229) (x230 y230 z230) (x231 y231 z231)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 32] 0.25"
@@ -580,7 +580,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x250 y250 z250) (x251 y251 z251) (x252 y252 z252)"
+			"plane" "(x232 y232 z232) (x233 y233 z233) (x234 y234 z234)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 32] 0.25"
@@ -603,7 +603,7 @@ entity
 	"disablereceiveshadows" "0"
 	"disableshadows" "0"
 	"InputFilter" "0"
-	"origin" "px253 py253 pz253"
+	"origin" "px19 py19 pz19"
 	"renderamt" "255"
 	"rendercolor" "255 255 255"
 	"renderfx" "0"
@@ -620,7 +620,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x254 y254 z254) (x255 y255 z255) (x256 y256 z256)"
+			"plane" "(x235 y235 z235) (x236 y236 z236) (x237 y237 z237)"
 			"material" "TOOLS/TOOLSNODRAW"
 			"uaxis" "[1 0 0 -40] 0.6"
 			"vaxis" "[0 -1 0 -10.6666] 0.6"
@@ -631,7 +631,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x257 y257 z257) (x258 y258 z258) (x259 y259 z259)"
+			"plane" "(x238 y238 z238) (x239 y239 z239) (x240 y240 z240)"
 			"material" "TOOLS/TOOLSNODRAW"
 			"uaxis" "[1 0 0 -40] 0.6"
 			"vaxis" "[0 -1 0 -10.6666] 0.6"
@@ -642,7 +642,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x260 y260 z260) (x261 y261 z261) (x262 y262 z262)"
+			"plane" "(x241 y241 z241) (x242 y242 z242) (x243 y243 z243)"
 			"material" "TOOLS/TOOLSNODRAW"
 			"uaxis" "[0 1 0 10.6666] 0.6"
 			"vaxis" "[0 0 -1 40] 0.6"
@@ -653,7 +653,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x263 y263 z263) (x264 y264 z264) (x265 y265 z265)"
+			"plane" "(x244 y244 z244) (x245 y245 z245) (x246 y246 z246)"
 			"material" "OVERLAYS/NO_ENTRY"
 			"uaxis" "[0 1 0 42.6666] 0.6"
 			"vaxis" "[0 0 -1 72] 0.6"
@@ -664,7 +664,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x266 y266 z266) (x267 y267 z267) (x268 y268 z268)"
+			"plane" "(x247 y247 z247) (x248 y248 z248) (x249 y249 z249)"
 			"material" "TOOLS/TOOLSNODRAW"
 			"uaxis" "[1 0 0 -40] 0.6"
 			"vaxis" "[0 0 -1 40] 0.6"
@@ -675,7 +675,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x269 y269 z269) (x270 y270 z270) (x271 y271 z271)"
+			"plane" "(x250 y250 z250) (x251 y251 z251) (x252 y252 z252)"
 			"material" "TOOLS/TOOLSNODRAW"
 			"uaxis" "[1 0 0 -40] 0.6"
 			"vaxis" "[0 0 -1 40] 0.6"
@@ -696,7 +696,7 @@ entity
 	"id" "world_idnum"
 	"classname" "trigger_multiple"
 	"filtername" "filter_blu"
-	"origin" "px272 py272 pz272"
+	"origin" "px20 py20 pz20"
 	"spawnflags" "1"
 	"StartDisabled" "0"
 	"wait" "1"
@@ -711,7 +711,7 @@ entity
 	"lightmapresolutiony" "32"
 	"model" "models/props_gameplay/door_slide_large_frame.mdlworld_idnum"
 	"solid" "world_idnum"
-	"origin" "px291 py291 pz291"
+	"origin" "px21 py21 pz21"
 	editor
 	{
 		"color" "220 220 220"
@@ -735,7 +735,7 @@ entity
 	"locked_sentence" "0"
 	"loopmovesound" "0"
 	"movedir" "-90 0 0"
-	"origin" "px292 py292 pz292"
+	"origin" "px22 py22 pz22"
 	"renderamt" "255"
 	"rendercolor" "255 255 255"
 	"renderfx" "0"
@@ -752,7 +752,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x293 y293 z293) (x294 y294 z294) (x295 y295 z295)"
+			"plane" "(x271 y271 z271) (x272 y272 z272) (x273 y273 z273)"
 			"material" "METAL/CHICKEN_WIRE001"
 			"uaxis" "[1 0 0 -64] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -763,7 +763,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x296 y296 z296) (x297 y297 z297) (x298 y298 z298)"
+			"plane" "(x274 y274 z274) (x275 y275 z275) (x276 y276 z276)"
 			"material" "METAL/CHICKEN_WIRE001"
 			"uaxis" "[1 0 0 -64] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -774,7 +774,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x299 y299 z299) (x300 y300 z300) (x301 y301 z301)"
+			"plane" "(x277 y277 z277) (x278 y278 z278) (x279 y279 z279)"
 			"material" "METAL/CHICKEN_WIRE001"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -785,7 +785,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x302 y302 z302) (x303 y303 z303) (x304 y304 z304)"
+			"plane" "(x280 y280 z280) (x281 y281 z281) (x282 y282 z282)"
 			"material" "METAL/CHICKEN_WIRE001"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -796,7 +796,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x305 y305 z305) (x306 y306 z306) (x307 y307 z307)"
+			"plane" "(x283 y283 z283) (x284 y284 z284) (x285 y285 z285)"
 			"material" "METAL/CHICKEN_WIRE001"
 			"uaxis" "[1 0 0 -64] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -807,7 +807,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x308 y308 z308) (x309 y309 z309) (x310 y310 z310)"
+			"plane" "(x286 y286 z286) (x287 y287 z287) (x288 y288 z288)"
 			"material" "METAL/CHICKEN_WIRE001"
 			"uaxis" "[1 0 0 -64] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -851,7 +851,7 @@ entity
 	"solid" "world_idnum"
 	"spawnflags" "0"
 	"StartDisabled" "0"
-	"origin" "px311 py311 pz311"
+	"origin" "px23 py23 pz23"
 	editor
 	{
 		"color" "220 220 220"

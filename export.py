@@ -19,12 +19,13 @@ cordon
 }
     """
     #end of file template that ends each vmf
+    print(entity_list)
     compiledblocks = "".join(totalblocks) #totalblocks will be a list of each "block" from each chunk in the map, put into 1 string here.
     compiledblocks = compiledblocks.replace('EMPTY_SLOT','')
-    #entities = "".join(entity_list)
-    #entities = entities.replace('NO_ENTITY','')
-   # whole = beg_template + compiledblocks + "}\n"+entities + end_template
-    whole = beg_template + compiledblocks + "}\n"+ end_template
+    totalentities = "".join(entity_list)
+    totalentities = totalentities.replace('NO_ENTITY','')
+    whole = beg_template + compiledblocks + "}\n"+totalentities + end_template
+    #whole = beg_template + compiledblocks + "}\n"+ end_template
 
     return whole
 

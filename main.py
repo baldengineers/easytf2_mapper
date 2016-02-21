@@ -39,6 +39,7 @@ class GridBtn(QWidget):
             global world_id_num
             global id_num
             global entity_num
+            global entity_list
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             try:
@@ -73,9 +74,9 @@ class GridBtn(QWidget):
 
             totalblocks[btn_id] = create[0]
             try:
-                entity_list[btn_id] = create[3]
+                entity_list[btn_id] = create[4]
             except:
-                pass
+                print("didnt work")
 
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
@@ -215,7 +216,7 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        global world_id_num, count_btns, currentlight, skybox, skybox2_list
+        global world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list
         #skybox = skybox_list[skybox2_list.currentRow()]
         currentlight = currentlight.replace("world_idnum",str(world_id_num))
         entity_list[count_btns] = currentlight

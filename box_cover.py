@@ -1,6 +1,6 @@
 import os
 
-def createTile(posx, posy, id_num, world_id_num):
+def createTile(posx, posy, id_num, world_id_num, entity_num):
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
     f = open('prefab_template/ground_prefab.txt', 'r+')
@@ -74,4 +74,4 @@ def createTile(posx, posy, id_num, world_id_num):
         for count in range(1,var_prop_count+1):
             prop_values = prop_values.replace(var + str(count),str(eval(var + str(count))))
 
-    return values, id_num, world_id_num, prop_values
+    return values, id_num, world_id_num, ent_num,prop_values
