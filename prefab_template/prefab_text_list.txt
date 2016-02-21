@@ -8,8 +8,5 @@ Corner Wall (Bottom Left)
 Corner Wall (Bottom Right)
 Corner Wall (Top Right)
 Corner Wall (Top Left)
-Box Cover
-Basic Spawn Structure Red
-Basic Spawn Structure Blue
 Mini-Spire
 test
