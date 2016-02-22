@@ -78,16 +78,16 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
   file.close
     
 
-  prefab_file = open("prefab_template\\prefab_list.txt", "a")
-  prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
-  prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
+  #prefab_file = open("prefab_template\\prefab_list.txt", "a")
+  #prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
+  #prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
 
-  prefab_file.write(prefab_name + "\n")
-  prefab_text_file.write(prefab_text + "\n")
-  prefab_icon_file.write(prefab_icon + "\n")
+  #prefab_file.write(prefab_name + "\n")
+  #prefab_text_file.write(prefab_text + "\n")
+  #prefab_icon_file.write(prefab_icon + "\n")
 
-  for file in [prefab_file, prefab_text_file, prefab_icon_file]:
-    file.close()
+  #for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+  #  file.close()
 
   return "File Exported as \"%s\"\n" %(txt_path)
 
@@ -248,7 +248,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
   contains_ent = False #True if there are entities in the vmf
   in_solid_block = False #True if in a solid code block
   in_entity_block = False #True if in an entity code block
-  in_editor_block = False #True if in an editor cod (best game omg so good) block
+  in_editor_block = False #True if in an editor cod (best game omg so good 8)))) block
+  in_connections_block = False #True if in a connections code block
   solid_to_ent = False #True if you want to put the solid block into ent_list
   black_list_var = False #True means it IS on the blacklist, False otherwise
   value_list_history = []
@@ -436,6 +437,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
           #print(line)
           ent_list.append(line)
           in_editor_block = True
+        elif "connections" in line:
+          ent_list.append(line)
+          in_connections_block = True
         elif "solid" in line:
           solid_to_ent = True
 
@@ -447,6 +451,14 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
         in_editor_block = False
         ent_list.append(line)
         ent_list.append("}\n")
+
+      elif in_connections_block and "\t}" not in line:
+        ent_list.append(line)
+
+      elif in_connections_block and "\t}" in line:
+        in_connections_block = False
+        ent_list.append(line)
+        solid_to_ent = True #IMPORTANT: Might need to change because solid might not always follow connections
 
       which_list = "txt_list" if not solid_to_ent else "ent_list"
         
@@ -476,4 +488,4 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
   file.close()
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list)
 
-#create("vmf_prefabs/spawn_room_blu.vmf", "test", "test", "icons/spawn_blue.jpg") 
+create("vmf_prefabs/spawn_room_blu.vmf", "test", "test", "icons/spawn_blue.jpg") 
