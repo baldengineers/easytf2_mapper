@@ -78,16 +78,16 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
   file.close
     
 
-  #prefab_file = open("prefab_template\\prefab_list.txt", "a")
-  #prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
-  #prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
+  prefab_file = open("prefab_template\\prefab_list.txt", "a")
+  prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
+  prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
 
-  #prefab_file.write(prefab_name + "\n")
-  #prefab_text_file.write(prefab_text + "\n")
-  #prefab_icon_file.write(prefab_icon + "\n")
+  prefab_file.write(prefab_name + "\n")
+  prefab_text_file.write(prefab_text + "\n")
+  prefab_icon_file.write(prefab_icon + "\n")
 
-  #for file in [prefab_file, prefab_text_file, prefab_icon_file]:
-  #  file.close()
+  for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+    file.close()
 
   return "File Exported as \"%s\"\n" %(txt_path)
 
@@ -151,7 +151,8 @@ def create(name, prefab_name, prefab_text, prefab_icon):
   compile_list = [
   """import os
 
-def createTile(posx, posy, id_num, world_id_num, entity_num):
+def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
+    
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
 """,
@@ -205,7 +206,12 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
 
 """
     ent_values = "".join(lines_ent)
+    ent_values_split = ent_values.split("\\"")
     valcount = "".join(lines_ent)
+
+    for item in ent_values_split:
+        if "entity_name" in item or "parent_name" in item:
+            placeholder_list.append(item)
 
     for i in range(valcount.count('world_idnum')):
         ent_values = ent_values.replace('world_idnum', str(world_id_num), 1)
@@ -220,6 +226,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                 ent_values = ent_values.replace(string + "\\"",string_var + "\\"") #we need to do this or else it will mess up on 2 digit numbers
             else:
                 ent_values = ent_values.replace(string + " ",string_var + " ")
+                
     for var in ["x", "y", "z"]:
         for count in range(1,var_count+1):
             try:
@@ -239,6 +246,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     for i in range(valcount.count("entity_name")):
         ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
         ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
+        if "parent_name" in placeholder_list[entity_num]:
+            ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
         entity_num += 1
 
 """]
@@ -369,7 +378,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
       elif in_entity_block and "\"" in line:
         #print(line)
         
-        if "\"id\"" not in line and "targetname" not in line and "origin" not in line and "associatedmodel" not in line:
+        if "\"id\"" not in line and "\t\"targetname\"" not in line and "\t\"origin\"" not in line and "\t\"associatedmodel\"" not in line and "\t\"parentname\"" not in line:
           ent_list.append(line)
         elif "\"id\"" in line:
           for letter in line:
@@ -380,7 +389,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                   
           ent_list.insert(-2, "world_idnum")
               
-        elif "targetname" in line:
+        elif "\t\"targetname\"" in line:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -392,7 +401,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                         
           ent_list.insert(-2, "entity_name")
 
-        elif "associatedmodel" in line:
+        elif "\t\"associatedmodel\"" in line:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -404,7 +413,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                         
           ent_list.insert(-2, "entity_same")
 
-        elif "parentname" in line:
+        elif "\t\"parentname\"" in line: 
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -416,7 +425,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                         
           ent_list.insert(-2, "parent_name")
               
-        elif "origin" in line:
+        elif "\t\"origin\"" in line:
           nums_yet = False #if True then numbers have been received
           for letter in line:
             
@@ -497,4 +506,4 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
   file.close()
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list)
 
-create("vmf_prefabs/spawn_room_blu.vmf", "test", "test", "icons/spawn_blue.jpg") 
+#create("vmf_prefabs/spawn_room_blu.vmf", "lol", "lol", "icons/spawn_blue.jpg") 

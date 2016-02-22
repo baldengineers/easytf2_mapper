@@ -1,6 +1,7 @@
 import os
 
-def createTile(posx, posy, id_num, world_id_num, entity_num):
+def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
+    
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
     f = open('prefab_template/test.txt', 'r+')
@@ -963,7 +964,12 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     pz23 = 128
     ent_var_count = 23
     ent_values = "".join(lines_ent)
+    ent_values_split = ent_values.split("\"")
     valcount = "".join(lines_ent)
+
+    for item in ent_values_split:
+        if "entity_name" in item or "parent_name" in item:
+            placeholder_list.append(item)
 
     for i in range(valcount.count('world_idnum')):
         ent_values = ent_values.replace('world_idnum', str(world_id_num), 1)
@@ -978,6 +984,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                 ent_values = ent_values.replace(string + "\"",string_var + "\"") #we need to do this or else it will mess up on 2 digit numbers
             else:
                 ent_values = ent_values.replace(string + " ",string_var + " ")
+                
     for var in ["x", "y", "z"]:
         for count in range(1,var_count+1):
             try:
@@ -997,6 +1004,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
     for i in range(valcount.count("entity_name")):
         ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
         ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
+        if "parent_name" in placeholder_list[entity_num]:
+            ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
         entity_num += 1
 
     return values, id_num, world_id_num, entity_num, ent_values

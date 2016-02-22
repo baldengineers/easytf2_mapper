@@ -43,7 +43,7 @@ class GridBtn(QWidget):
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             try:
-                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num)
+                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list)
             except TypeError:
                 create = moduleName.createTile(x, y, id_num, world_id_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
@@ -411,6 +411,7 @@ count_btns = 0
 entity_list=[]
 prefab_text_list = []
 prefab_icon_list = []
+placeholder_list = []
 currentlight = '''
 entity
 {
