@@ -970,6 +970,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
     for item in ent_values_split:
         if "entity_name" in item or "parent_name" in item:
             placeholder_list.append(item)
+            print(placeholder_list)
 
     for i in range(valcount.count('world_idnum')):
         ent_values = ent_values.replace('world_idnum', str(world_id_num), 1)
@@ -1006,6 +1007,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
         ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
         if "parent_name" in placeholder_list[entity_num]:
             ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
+            placeholder_list.remove(placeholder_list[entity_num])
         entity_num += 1
 
-    return values, id_num, world_id_num, entity_num, ent_values
+    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list

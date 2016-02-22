@@ -191,7 +191,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
 
   "#INSERT_ENT_CODE",
   
-  "    return values, id_num, world_id_num, entity_num, ent_values"
+  "    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list"
   ]
 
   ent_code =["#INSERT_ENT_OPEN_FILE",
@@ -248,6 +248,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
         ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
         if "parent_name" in placeholder_list[entity_num]:
             ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
+            placeholder_list.remove(placeholder_list[entity_num])
         entity_num += 1
 
 """]

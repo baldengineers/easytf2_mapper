@@ -40,6 +40,7 @@ class GridBtn(QWidget):
             global id_num
             global entity_num
             global entity_list
+            global placeholder_list
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             try:
@@ -51,6 +52,8 @@ class GridBtn(QWidget):
             world_id_num = create[2]
             try:
                 entity_num = create[3]
+                placeholder_list = create[5]
+                print("placeholder list: ", placeholder_list)
             except IndexError:
                 pass
             #if self_global.comboBox.currentIndex() != 0:
