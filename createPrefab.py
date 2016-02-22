@@ -320,10 +320,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
         #print(line)
         if "(" not in line:
 
-          if "side" in line:
-            eval(which_list).append(line)
-
-          if "id" not in line:
+          if "\"id\"" not in line:
             eval(which_list).append(line)
           elif "\t\t\"id\"" in line:
             for letter in line:
@@ -372,9 +369,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
       elif in_entity_block and "\"" in line:
         #print(line)
         
-        if "id" not in line and "targetname" not in line and "origin" not in line and "associatedmodel" not in line:
+        if "\"id\"" not in line and "targetname" not in line and "origin" not in line and "associatedmodel" not in line:
           ent_list.append(line)
-        elif "id" in line:
+        elif "\"id\"" in line:
           for letter in line:
             try:
               number = int(letter)

@@ -894,7 +894,7 @@ entity
 	"renderfx" "0"
 	"rendermode" "0"
 	"SetBodyGroup" "0"
-	"solid" "15"
+	"solid" "6"
 	"spawnflags" "0"
 	"StartDisabled" "0"
 	"targetname" "entity1"
@@ -910,14 +910,14 @@ entity
 }
 entity
 {
-	"id" "16"
+	"id" "15"
 	"classname" "func_regenerate"
 	"associatedmodel" "entity2"
 	"StartDisabled" "0"
 	"TeamNum" "3"
 	solid
 	{
-		"id" "17"
+		"id" "16"
 		side
 		{
 			"id" "67"
@@ -994,7 +994,7 @@ entity
 }
 entity
 {
-	"id" "18"
+	"id" "17"
 	"classname" "prop_dynamic"
 	"angles" "0 270 0"
 	"disablereceiveshadows" "0"
@@ -1015,7 +1015,7 @@ entity
 	"renderfx" "0"
 	"rendermode" "0"
 	"SetBodyGroup" "0"
-	"solid" "19"
+	"solid" "6"
 	"spawnflags" "0"
 	"StartDisabled" "0"
 	"targetname" "entity2"
@@ -1031,7 +1031,7 @@ entity
 }
 entity
 {
-	"id" "20"
+	"id" "18"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity3"
@@ -1048,7 +1048,7 @@ entity
 }
 entity
 {
-	"id" "21"
+	"id" "19"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity4"
@@ -1065,7 +1065,7 @@ entity
 }
 entity
 {
-	"id" "22"
+	"id" "20"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity5"
@@ -1082,7 +1082,7 @@ entity
 }
 entity
 {
-	"id" "23"
+	"id" "21"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity6"
@@ -1099,7 +1099,7 @@ entity
 }
 entity
 {
-	"id" "24"
+	"id" "22"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity7"
@@ -1116,7 +1116,7 @@ entity
 }
 entity
 {
-	"id" "25"
+	"id" "23"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity8"
@@ -1133,7 +1133,7 @@ entity
 }
 entity
 {
-	"id" "26"
+	"id" "24"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity9"
@@ -1150,7 +1150,7 @@ entity
 }
 entity
 {
-	"id" "27"
+	"id" "25"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity10"
@@ -1167,7 +1167,7 @@ entity
 }
 entity
 {
-	"id" "28"
+	"id" "26"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity11"
@@ -1184,7 +1184,7 @@ entity
 }
 entity
 {
-	"id" "29"
+	"id" "27"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity12"
@@ -1201,7 +1201,7 @@ entity
 }
 entity
 {
-	"id" "30"
+	"id" "28"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity13"
@@ -1218,7 +1218,7 @@ entity
 }
 entity
 {
-	"id" "31"
+	"id" "29"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity14"
@@ -1235,7 +1235,7 @@ entity
 }
 entity
 {
-	"id" "32"
+	"id" "30"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity15"
@@ -1252,7 +1252,7 @@ entity
 }
 entity
 {
-	"id" "33"
+	"id" "31"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity16"
@@ -1269,7 +1269,7 @@ entity
 }
 entity
 {
-	"id" "34"
+	"id" "32"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity17"
@@ -1286,7 +1286,7 @@ entity
 }
 entity
 {
-	"id" "35"
+	"id" "33"
 	"classname" "info_player_teamspawn"
 	"angles" "0 0 0"
 	"targetname" "entity18"
@@ -1303,14 +1303,14 @@ entity
 }
 entity
 {
-	"id" "36"
+	"id" "34"
 	"classname" "func_respawnroom"
 	"StartDisabled" "0"
 	"targetname" "entity19"
 	"TeamNum" "3"
 	solid
 	{
-		"id" "37"
+		"id" "35"
 		side
 		{
 			"id" "73"
@@ -1387,7 +1387,7 @@ entity
 }
 entity
 {
-	"id" "38"
+	"id" "36"
 	"classname" "func_respawnroomvisualizer"
 	"disablereceiveshadows" "0"
 	"disableshadows" "0"
@@ -1398,14 +1398,14 @@ entity
 	"renderfx" "0"
 	"rendermode" "0"
 	"respawnroomname" "blu_respawn_tigger"
-	"solid_to_enemies" "39"
-	"Solidity" "40"
+	"solid_to_enemies" "1"
+	"Solidity" "1"
 	"spawnflags" "2"
 	"StartDisabled" "0"
 	"vrad_brush_cast_shadows" "0"
 	solid
 	{
-		"id" "41"
+		"id" "37"
 		side
 		{
 			"id" "79"
@@ -1482,7 +1482,7 @@ entity
 }
 entity
 {
-	"id" "42"
+	"id" "38"
 	"classname" "trigger_multiple"
 	"filtername" "filter_blu"
 	"origin" "496 -256 128"
@@ -1496,7 +1496,7 @@ entity
 	}
 	solid
 	{
-		"id" "43"
+		"id" "39"
 		side
 		{
 			"id" "85"
@@ -1573,15 +1573,15 @@ entity
 }
 entity
 {
-	"id" "44"
+	"id" "40"
 	"classname" "prop_static"
 	"angles" "0 270 0"
 	"fademindist" "-1"
 	"fadescale" "1"
 	"lightmapresolutionx" "32"
 	"lightmapresolutiony" "32"
-	"model" "models/props_gameplay/door_slide_large_frame.mdl45"
-	"solid" "46"
+	"model" "models/props_gameplay/door_slide_large_frame.mdl"
+	"solid" "6"
 	"origin" "498 -256 128"
 	editor
 	{
@@ -1594,7 +1594,7 @@ entity
 }
 entity
 {
-	"id" "47"
+	"id" "41"
 	"classname" "func_door"
 	"disablereceiveshadows" "0"
 	"disableshadows" "0"
@@ -1619,7 +1619,7 @@ entity
 	"wait" "-1"
 	solid
 	{
-		"id" "48"
+		"id" "42"
 		side
 		{
 			"id" "91"
@@ -1696,7 +1696,7 @@ entity
 }
 entity
 {
-	"id" "49"
+	"id" "43"
 	"classname" "prop_dynamic"
 	"angles" "0 270 0"
 	"disablereceiveshadows" "0"
@@ -1707,7 +1707,7 @@ entity
 	"fadescale" "1"
 	"MaxAnimTime" "10"
 	"MinAnimTime" "5"
-	"model" "models/props_gameplay/door_slide_large_door.mdl50"
+	"model" "models/props_gameplay/door_slide_large_door.mdl"
 	"modelscale" "1.0"
 	"parentname" "door_blu_large_1"
 	"PerformanceMode" "0"
@@ -1719,7 +1719,7 @@ entity
 	"rendermode" "0"
 	"SetBodyGroup" "0"
 	"skin" "0"
-	"solid" "51"
+	"solid" "0"
 	"spawnflags" "0"
 	"StartDisabled" "0"
 	"origin" "525 -256 128"
@@ -1735,7 +1735,7 @@ entity
 
 entity
 {
-    "id" "52"
+    "id" "44"
     "classname" "light_environment"
     "_ambient" "255 255 255 100"
     "_ambientHDR" "-1 -1 -1 1"

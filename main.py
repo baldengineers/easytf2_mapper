@@ -193,7 +193,7 @@ class MainWindow(QMainWindow):
         self.row = QVBoxLayout(self.central_widget)
         self.row.addLayout(self.column)
         self.row.addStretch(1)
-        self.row.addStretch(1)
+        #self.row.addStretch(1)
         
         self.grid_change()
         
