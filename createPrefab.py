@@ -217,7 +217,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
             string_var = str(eval(var + str(count)))
 
             if var == "pz":
-                ent_values = ent_values.replace(string + ")",string_var + ")") #we need to do this or else it will mess up on 2 digit numbers
+                ent_values = ent_values.replace(string + "\\"",string_var + "\\"") #we need to do this or else it will mess up on 2 digit numbers
             else:
                 ent_values = ent_values.replace(string + " ",string_var + " ")
     for var in ["x", "y", "z"]:
@@ -406,6 +406,18 @@ def createTile(posx, posy, id_num, world_id_num, entity_num):
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "entity_same")
+
+        elif "parentname" in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "parent_name")
               
         elif "origin" in line:
           nums_yet = False #if True then numbers have been received
