@@ -210,7 +210,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
     valcount = "".join(lines_ent)
 
     for item in ent_values_split:
-        if "entity_name" in item or "parent_name" in item or "door_large" in item or "respawnroomname" in line:
+        if "entity_name" in item or "parent_name" in item or "door_red_large" in item:
             placeholder_list.append(item)
 
     for i in range(valcount.count('world_idnum')):
@@ -249,10 +249,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
         if "parent_name" in placeholder_list[entity_num]:
             ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
             placeholder_list.remove(placeholder_list[entity_num])
-        if "door_large" in placeholder_list[entity_num]:
-            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 2)
-        if "respawn_trigger" in placeholder_list[entity_num]:
-            ent_values = ent_values.replace("respawn_trigger", "respawn_trigger" + str(entity_num), 2)
+        if "door_red_large" in placeholder_list[entity_num]:
+            ent_values = ent_values.replace("door_red_large", "entity" + str(entity_num), 1)
         entity_num += 1
 
 """]
@@ -394,7 +392,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
                   
           ent_list.insert(-2, "world_idnum")
               
-        elif "\t\"targetname\"" in line and "respawn" not in line:
+        elif "\t\"targetname\"" in line:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -405,7 +403,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "entity_name")
-          
+
         elif "\t\"associatedmodel\"" in line:
           quote_num = 0
           for letter in line:
@@ -418,7 +416,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
                         
           ent_list.insert(-2, "entity_same")
 
-        elif "\t\"parentname\"" in line and "\"func_door\"" not in line-19: 
+        elif "\t\"parentname\"" in line not "\"func_door\"" in line-19: 
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -439,7 +437,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
                 ent_list.append(letter)
               elif letter == "\"":
                 ent_list.append(letter)
-          ent_list.insert(-2, "door_large")
+          ent_list.insert(-2, "door_red_large")
             
         elif "\t\"origin\"" in line:
           nums_yet = False #if True then numbers have been received
