@@ -77,7 +77,7 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
     file.write(item)
   file.close
     
-
+  '''
   prefab_file = open("prefab_template\\prefab_list.txt", "a")
   prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
   prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
@@ -88,6 +88,7 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
 
   for file in [prefab_file, prefab_text_file, prefab_icon_file]:
     file.close()
+  '''
 
   return "File Exported as \"%s\"\n" %(txt_path)
 
@@ -249,10 +250,11 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
         if "parent_name" in placeholder_list[entity_num]:
             ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
             placeholder_list.remove(placeholder_list[entity_num])
-        if "door_large" in placeholder_list[entity_num]:
-            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 1)
-        if "respawn_name" in placeholder_list[entity_num]:
-            ent_values = ent_values.replace("respawn_name", "respawn_name" + str(entity_num), 1)
+        
+        if "\"door_large\"" in ent_values:
+            ent_values = ent_values.replace("\"door_large\"", "\"door_large" + str(entity_num) + "\"", 2)
+        if "\"respawn_name\"" in ent_values:
+            ent_values = ent_values.replace("\"respawn_name\"", "\"respawn_name" + str(entity_num) + "\"", 2)
         entity_num += 1
 
 """]
@@ -441,7 +443,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
                         
           ent_list.insert(-2, "parent_name")
 
-        elif "\t\"parentname\"" in line and "\"func_door\"" in openlines[loopernum-19]:
+        elif "\t\"targetname\"" in line and "\"func_door\"" in openlines[loopernum-19]:
+          print("lol")
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -533,4 +536,5 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
   file.close()
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list)
 
-#create("vmf_prefabs/spawn_room_blu.vmf", "lol", "lol", "icons/spawn_blue.jpg") 
+create("vmf_prefabs/spawn_room_red.vmf", "spawn_red_prefab", "Respawn Room - Red", "icons/spawn_red.jpg")
+create("vmf_prefabs/spawn_room_blu.vmf", "spawn_blu_prefab", "Respawn Room - Blu", "icons/spawn_blue.jpg") 

@@ -1306,7 +1306,7 @@ entity
 	"id" "34"
 	"classname" "func_respawnroom"
 	"StartDisabled" "0"
-	"targetname" "respawn_name19181716151413121110987654321"
+	"targetname" "respawn_name1"
 	"TeamNum" "3"
 	solid
 	{

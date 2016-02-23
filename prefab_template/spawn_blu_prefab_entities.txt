@@ -517,7 +517,7 @@ entity
 	"id" "world_idnum"
 	"classname" "func_respawnroom"
 	"StartDisabled" "0"
-	"targetname" "entity_name"
+	"targetname" "respawn_name"
 	"TeamNum" "3"
 	solid
 	{
@@ -608,7 +608,7 @@ entity
 	"rendercolor" "255 255 255"
 	"renderfx" "0"
 	"rendermode" "0"
-	"respawnroomname" "blu_respawn_tigger"
+	"respawnroomname" "blu_respawn_trigger"
 	"solid_to_enemies" "1"
 	"Solidity" "1"
 	"spawnflags" "2"
