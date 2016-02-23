@@ -608,7 +608,7 @@ entity
 	"rendercolor" "255 255 255"
 	"renderfx" "0"
 	"rendermode" "0"
-	"respawnroomname" "blu_respawn_trigger"
+	"respawnroomname" "respawn_name"
 	"solid_to_enemies" "1"
 	"Solidity" "1"
 	"spawnflags" "2"
