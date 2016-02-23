@@ -375,7 +375,7 @@ class MainWindow(QMainWindow):
         for item in prefab_list:
             globals()[item] = importlib.import_module(item)
             print("import", item)
-        self.home()
+        #self.home()
         
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
@@ -397,7 +397,7 @@ class MainWindow(QMainWindow):
         QMessageBox.information(self, "Files Created",
                                 createPrefab.create(name[0], prefab_name[0],
                                                     prefab_text[0], prefab_icon[0]))
-        importprefabs()
+        self.importprefabs()
 
 #define some global variables
 id_num = 1

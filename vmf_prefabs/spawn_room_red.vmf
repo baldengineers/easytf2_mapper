@@ -1373,7 +1373,7 @@ entity
 	"id" "50"
 	"classname" "func_respawnroom"
 	"StartDisabled" "0"
-	"targetname" "red_respawn_tigger"
+	"targetname" "red_respawn_trigger"
 	"TeamNum" "2"
 	solid
 	{
@@ -1471,7 +1471,7 @@ entity
 	"rendercolor" "255 255 255"
 	"renderfx" "0"
 	"rendermode" "0"
-	"respawnroomname" "red_respawn_tigger"
+	"respawnroomname" "red_respawn_trigger"
 	"solid_to_enemies" "1"
 	"Solidity" "1"
 	"spawnflags" "2"
@@ -1572,8 +1572,8 @@ entity
 	"wait" "1"
 	connections
 	{
-		"OnStartTouchAll" "door_red_large_1,Open,,0,-1"
-		"OnEndTouchAll" "door_red_large_1,Close,,0,-1"
+		"OnStartTouchAll" "door_large_1,Open,,0,-1"
+		"OnEndTouchAll" "door_large_1,Close,,0,-1"
 	}
 	solid
 	{
@@ -1704,7 +1704,7 @@ entity
 	"spawnflags" "0"
 	"spawnpos" "0"
 	"speed" "550"
-	"targetname" "door_red_large_1"
+	"targetname" "door_large_1"
 	"unlocked_sentence" "0"
 	"wait" "-1"
 	solid
