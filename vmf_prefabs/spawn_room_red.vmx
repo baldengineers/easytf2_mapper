@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "7026"
-	"mapversion" "11"
+	"mapversion" "13"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -20,12 +20,12 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "11"
+	"mapversion" "13"
 	"classname" "worldspawn"
-	"skyname" "sky_tf2_04"
-	"maxpropscreenwidth" "-1"
-	"detailvbsp" "detail_2fort.vbsp"
 	"detailmaterial" "detail/detailsprites_2fort"
+	"detailvbsp" "detail_2fort.vbsp"
+	"maxpropscreenwidth" "-1"
+	"skyname" "sky_tf2_04"
 	solid
 	{
 		"id" "2"
@@ -816,27 +816,6 @@ world
 			"visgroupautoshown" "1"
 		}
 	}
-	group
-	{
-		"id" "544"
-		editor
-		{
-			"color" "220 220 220"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-		}
-	}
-	group
-	{
-		"id" "545"
-		editor
-		{
-			"color" "220 220 220"
-			"groupid" "544"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-		}
-	}
 }
 entity
 {
@@ -1373,7 +1352,7 @@ entity
 	"id" "50"
 	"classname" "func_respawnroom"
 	"StartDisabled" "0"
-	"targetname" "red_respawn_tigger"
+	"targetname" "red_respawn_trigger"
 	"TeamNum" "2"
 	solid
 	{
@@ -1471,7 +1450,7 @@ entity
 	"rendercolor" "255 255 255"
 	"renderfx" "0"
 	"rendermode" "0"
-	"respawnroomname" "red_respawn_tigger"
+	"respawnroomname" "red_respawn_trigger"
 	"solid_to_enemies" "1"
 	"Solidity" "1"
 	"spawnflags" "2"
@@ -1485,8 +1464,8 @@ entity
 			"id" "54"
 			"plane" "(496 -352 176) (496 -160 176) (512 -160 176)"
 			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[1 0 0 -40] 0.6"
-			"vaxis" "[0 -1 0 -10.6666] 0.6"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 -1 0 -53.3333] 3"
 			"rotation" "0"
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
@@ -1496,8 +1475,8 @@ entity
 			"id" "53"
 			"plane" "(496 -160 64) (496 -352 64) (512 -352 64)"
 			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[1 0 0 -40] 0.6"
-			"vaxis" "[0 -1 0 -10.6666] 0.6"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 -1 0 -53.3333] 3"
 			"rotation" "0"
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
@@ -1507,8 +1486,8 @@ entity
 			"id" "52"
 			"plane" "(496 -352 64) (496 -160 64) (496 -160 176)"
 			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[0 1 0 10.6666] 0.6"
-			"vaxis" "[0 0 -1 40] 0.6"
+			"uaxis" "[0 1 0 53.3333] 3"
+			"vaxis" "[0 0 -1 36.5714] 1.75"
 			"rotation" "0"
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
@@ -1518,8 +1497,8 @@ entity
 			"id" "51"
 			"plane" "(512 -160 64) (512 -352 64) (512 -352 176)"
 			"material" "OVERLAYS/NO_ENTRY"
-			"uaxis" "[0 1 0 42.6666] 0.6"
-			"vaxis" "[0 0 -1 72] 0.6"
+			"uaxis" "[0 1 0 213.333] 0.75"
+			"vaxis" "[0 0 -1 146.286] 0.4375"
 			"rotation" "0"
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
@@ -1529,8 +1508,8 @@ entity
 			"id" "50"
 			"plane" "(496 -160 64) (512 -160 64) (512 -160 176)"
 			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[1 0 0 -40] 0.6"
-			"vaxis" "[0 0 -1 40] 0.6"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 0 -1 36.5714] 1.75"
 			"rotation" "0"
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
@@ -1540,8 +1519,8 @@ entity
 			"id" "49"
 			"plane" "(512 -352 64) (496 -352 64) (496 -352 176)"
 			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[1 0 0 -40] 0.6"
-			"vaxis" "[0 0 -1 40] 0.6"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 0 -1 36.5714] 1.75"
 			"rotation" "0"
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
@@ -1563,6 +1542,32 @@ entity
 }
 entity
 {
+	"id" "1348"
+	"classname" "light"
+	"_constant_attn" "0"
+	"_distance" "0"
+	"_fifty_percent_distance" "0"
+	"_hardfalloff" "0"
+	"_light" "234 255 206 500"
+	"_lightHDR" "-1 -1 -1 1"
+	"_lightscaleHDR" "1"
+	"_linear_attn" "0"
+	"_quadratic_attn" "1"
+	"_zero_percent_distance" "0"
+	"spawnflags" "0"
+	"style" "0"
+	"targetname" "light"
+	"origin" "192 -256 248"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
+entity
+{
 	"id" "546"
 	"classname" "trigger_multiple"
 	"filtername" "filter_red"
@@ -1572,8 +1577,8 @@ entity
 	"wait" "1"
 	connections
 	{
-		"OnStartTouchAll" "door_red_large_1,Open,,0,-1"
-		"OnEndTouchAll" "door_red_large_1,Close,,0,-1"
+		"OnStartTouchAll" "door_large,Open,,0,-1"
+		"OnEndTouchAll" "door_large,Close,,0,-1"
 	}
 	solid
 	{
@@ -1646,16 +1651,14 @@ entity
 		}
 		editor
 		{
-			"color" "220 220 220"
+			"color" "220 30 220"
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
 	}
 	editor
 	{
-		"color" "220 220 220"
-		"groupid" "544"
-		"visgroupid" "5"
+		"color" "220 30 220"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 3000]"
@@ -1675,8 +1678,7 @@ entity
 	"origin" "498 -256 128"
 	editor
 	{
-		"color" "220 220 220"
-		"groupid" "544"
+		"color" "255 255 0"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 2500]"
@@ -1704,7 +1706,7 @@ entity
 	"spawnflags" "0"
 	"spawnpos" "0"
 	"speed" "550"
-	"targetname" "door_red_large_1"
+	"targetname" "door_large"
 	"unlocked_sentence" "0"
 	"wait" "-1"
 	solid
@@ -1778,15 +1780,14 @@ entity
 		}
 		editor
 		{
-			"color" "220 220 220"
+			"color" "220 30 220"
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
 	}
 	editor
 	{
-		"color" "220 220 220"
-		"groupid" "544"
+		"color" "220 30 220"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 500]"
@@ -1823,8 +1824,7 @@ entity
 	"origin" "525 -256 128"
 	editor
 	{
-		"color" "220 220 220"
-		"groupid" "544"
+		"color" "220 30 220"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 2500]"

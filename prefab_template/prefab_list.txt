@@ -11,3 +11,4 @@ corner_top_left
 mini_spire
 spawn_blu_prefab
 spawn_red_prefab
+shit_prefab

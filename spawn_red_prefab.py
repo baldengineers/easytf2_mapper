@@ -950,19 +950,22 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
     px19 = posx*512 + (504)
     py19 = posy*-512 + (-256)
     pz19 = 120
-    px20 = posx*512 + (496)
+    px20 = posx*512 + (192)
     py20 = posy*-512 + (-256)
-    pz20 = 128
-    px21 = posx*512 + (498)
+    pz20 = 248
+    px21 = posx*512 + (496)
     py21 = posy*-512 + (-256)
     pz21 = 128
-    px22 = posx*512 + (497)
+    px22 = posx*512 + (498)
     py22 = posy*-512 + (-256)
-    pz22 = 122
-    px23 = posx*512 + (525)
+    pz22 = 128
+    px23 = posx*512 + (497)
     py23 = posy*-512 + (-256)
-    pz23 = 128
-    ent_var_count = 23
+    pz23 = 122
+    px24 = posx*512 + (525)
+    py24 = posy*-512 + (-256)
+    pz24 = 128
+    ent_var_count = 24
     ent_values = "".join(lines_ent)
     ent_values_split = ent_values.split("\"")
     valcount = "".join(lines_ent)
@@ -1008,10 +1011,10 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
             ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
             placeholder_list.remove(placeholder_list[entity_num])
         
-        if "\"door_large\"" in ent_values:
-            ent_values = ent_values.replace("\"door_large\"", "\"door_large" + str(entity_num) + "\"", 2)
-        if "\"respawn_name\"" in ent_values:
-            ent_values = ent_values.replace("\"respawn_name\"", "\"respawn_name" + str(entity_num) + "\"", 2)
+        if "door_large" in ent_values:
+            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 3)
+        if "respawn_name" in ent_values:
+            ent_values = ent_values.replace("respawn_name", "respawn_name" + str(entity_num), 2)
         entity_num += 1
 
     return values, id_num, world_id_num, entity_num, ent_values, placeholder_list

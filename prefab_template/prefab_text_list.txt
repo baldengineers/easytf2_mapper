@@ -9,5 +9,6 @@ Corner Wall (Bottom Right)
 Corner Wall (Top Right)
 Corner Wall (Top Left)
 Mini-Spire
-Respawn Room - Blu
-Respawn Room - Red
+Respawn Room: BLU
+Respawn Room: RED
+shit

@@ -155,14 +155,14 @@ class MainWindow(QMainWindow):
         createMenu = mainMenu.addMenu("&Create")
         
         fileMenu.addAction(newAction)
-        fileMenu.addAction(openAction)
+        #fileMenu.addAction(openAction)
         #fileMenu.addAction(saveAction)
         fileMenu.addAction(exportAction)
         fileMenu.addAction(exitAction)
 
         optionsMenu.addAction(gridAction)
         optionsMenu.addAction(changeLightAction)
-        optionsMenu.addAction(refreshPrefab)
+        #optionsMenu.addAction(refreshPrefab)
         optionsMenu.addAction(changeSkybox)
 
         createMenu.addAction(createPrefabAction)
@@ -354,6 +354,7 @@ class MainWindow(QMainWindow):
 
         self.window.setLayout(self.layout)
         self.window.show()
+    '''
     def importprefabs(self):
         prefab_text_list = []
         prefab_icon_list = []
@@ -375,8 +376,9 @@ class MainWindow(QMainWindow):
         for item in prefab_list:
             globals()[item] = importlib.import_module(item)
             print("import", item)
-        #self.home()
-        
+        self.home()
+    '''
+    #fix this later, it has a breaking bugs if it works
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
@@ -394,10 +396,10 @@ class MainWindow(QMainWindow):
                                      "Name of Prefab (e.g. wall_prefab):")
         prefab_text = QInputDialog.getText(self, "Prefab Text",
                                            "Prefab Text (e.g. Wall Tile)")
-        QMessageBox.information(self, "Files Created",
+        QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                 createPrefab.create(name[0], prefab_name[0],
                                                     prefab_text[0], prefab_icon[0]))
-        self.importprefabs()
+        #self.importprefabs()
 
 #define some global variables
 id_num = 1
