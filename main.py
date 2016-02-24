@@ -139,9 +139,9 @@ class MainWindow(QMainWindow):
         createPrefabAction.setStatusTip("WILL CLEAR GRID! View the readme for a good idea on formatting.")
         createPrefabAction.triggered.connect(self.create_prefab)
 
-        refreshPrefab = QAction("&Refresh Prefab List", self)
-        refreshPrefab.setStatusTip("Refresh the list of prefabs, done after creating a new one.")
-        refreshPrefab.triggered.connect(self.importprefabs)
+        #refreshPrefab = QAction("&Refresh Prefab List", self)
+        #refreshPrefab.setStatusTip("Refresh the list of prefabs, done after creating a new one.")
+        #refreshPrefab.triggered.connect(self.importprefabs)
 
         changeSkybox = QAction("&Change Skybox", self)
         changeSkybox.setStatusTip("Change the skybox of the map.")
