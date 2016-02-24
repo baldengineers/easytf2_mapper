@@ -413,7 +413,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
                   
           ent_list.insert(-2, "world_idnum")
               
-        elif "\t\"targetname\"" in line and "respawn_trigger" not in line and "\"func_door\"" not in openlines[loopernum-19]:
+        elif "\t\"targetname\"" in line and "respawn_trigger" not in line and "\"func_door\"" not in openlines[loopernum-19] and "filter_activator_tfteam" not in openlines[loopernum-2]:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -435,7 +435,28 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "respawn_name")
-
+        elif "\t\"targetname\"" in line and "filter_blu" in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "filter_blu")
+        elif "\t\"targetname\"" in line and "filter_red" in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "filter_red")
         elif "\t\"associatedmodel\"" in line:
           quote_num = 0
           for letter in line:

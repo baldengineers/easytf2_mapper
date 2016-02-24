@@ -965,7 +965,10 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
     px24 = posx*512 + (498)
     py24 = posy*-512 + (-256)
     pz24 = 122
-    ent_var_count = 24
+    px25 = posx*512 + (319)
+    py25 = posy*-512 + (-108)
+    pz25 = 73
+    ent_var_count = 25
     ent_values = "".join(lines_ent)
     ent_values_split = ent_values.split("\"")
     valcount = "".join(lines_ent)

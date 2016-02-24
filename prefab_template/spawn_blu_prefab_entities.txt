@@ -969,3 +969,19 @@ entity
 		}
 	}
 }
+entity
+{
+	"id" "world_idnum"
+	"classname" "filter_activator_tfteam"
+	"Negated" "0"
+	"targetname" "filter_blu"
+	"TeamNum" "3"
+	"origin" "px25 py25 pz25"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
