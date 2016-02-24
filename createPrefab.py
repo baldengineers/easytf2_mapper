@@ -77,7 +77,6 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
     file.write(item)
   file.close
     
-  
   prefab_file = open("prefab_template\\prefab_list.txt", "a")
   prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
   prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
@@ -88,7 +87,6 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
 
   for file in [prefab_file, prefab_text_file, prefab_icon_file]:
     file.close()
-  
 
   return "File Exported as \"%s\"\n" %(txt_path)
 
@@ -251,10 +249,10 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
             ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
             placeholder_list.remove(placeholder_list[entity_num])
         
-        if "door_large" in ent_values:
-            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
-        if "respawn_name" in ent_values:
-            ent_values = ent_values.replace("respawn_name", "respawn_name" + str(entity_num), 2)
+        if "\\"door_large\\"" in ent_values:
+            ent_values = ent_values.replace("\\"door_large\\"", "\\"door_large" + str(entity_num) + "\\"", 4)
+        if "\\"respawn_name\\"" in ent_values:
+            ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
         entity_num += 1
 
 """]
