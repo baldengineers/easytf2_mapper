@@ -1012,7 +1012,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
             placeholder_list.remove(placeholder_list[entity_num])
         
         if "door_large" in ent_values:
-            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 3)
+            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
         if "respawn_name" in ent_values:
             ent_values = ent_values.replace("respawn_name", "respawn_name" + str(entity_num), 2)
         entity_num += 1

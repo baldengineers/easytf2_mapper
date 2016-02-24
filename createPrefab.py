@@ -252,7 +252,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
             placeholder_list.remove(placeholder_list[entity_num])
         
         if "door_large" in ent_values:
-            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 3)
+            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
         if "respawn_name" in ent_values:
             ent_values = ent_values.replace("respawn_name", "respawn_name" + str(entity_num), 2)
         entity_num += 1
@@ -448,7 +448,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
                         
           ent_list.insert(-2, "entity_same")
 
-        elif "\t\"parentname\"" in line and "\"func_door\"" not in openlines[loopernum-19] and "connections" not in openlines[loopernum-3] and "connections" not in openlines[loopernum-2]: 
+        elif "\t\"parentname\"" in line and "\"func_door\"" not in openlines[loopernum-19] and "prop_dynamic" not in openlines[loopernum-12]: 
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -459,6 +459,17 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "parent_name")
+        elif "\t\"parentname\"" in line and "prop_dynamic" in openlines[loopernum-12]: 
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "door_large")
         elif "\t\"targetname\"" in line and "\"func_door\"" in openlines[loopernum-19]:
           quote_num = 0
           for letter in line:

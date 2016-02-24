@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "7026"
-	"mapversion" "14"
+	"mapversion" "17"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -20,7 +20,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "3"
+	"mapversion" "17"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites_2fort"
 	"detailvbsp" "detail_2fort.vbsp"
@@ -1702,7 +1702,7 @@ entity
 	"renderamt" "255"
 	"rendercolor" "255 255 255"
 	"renderfx" "0"
-	"rendermode" "10"
+	"rendermode" "0"
 	"spawnflags" "0"
 	"spawnpos" "0"
 	"speed" "550"
@@ -1808,7 +1808,7 @@ entity
 	"MinAnimTime" "5"
 	"model" "models/props_gameplay/door_slide_large_door.mdl"
 	"modelscale" "1.0"
-	"parentname" "door_red_large_1"
+	"parentname" "door_large"
 	"PerformanceMode" "0"
 	"pressuredelay" "0"
 	"RandomAnimation" "0"
