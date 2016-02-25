@@ -56,7 +56,7 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     elif value == 0:
       py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
       #print(py_list)
-    else:
+    else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
       py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
       #print(py_list)
 
