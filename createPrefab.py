@@ -310,7 +310,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
   #prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
   txt_path = "prefab_template/" + prefab_name + ".txt"
   ent_path = "prefab_template/" + prefab_name + "_entities.txt"
-  py_path = prefab_name + ".py"
+  py_path = "prefabs/" + prefab_name + ".py"
   loopernum = 0
   for line in openlines:
     
