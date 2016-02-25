@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "7026"
-	"mapversion" "27"
+	"mapversion" "30"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -20,7 +20,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "27"
+	"mapversion" "30"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites_2fort"
 	"detailvbsp" "detail_2fort.vbsp"
@@ -1744,10 +1744,10 @@ entity
 	"forceclosed" "0"
 	"health" "0"
 	"ignoredebris" "0"
-	"lip" "0"
+	"lip" "-2"
 	"locked_sentence" "0"
 	"loopmovesound" "0"
-	"movedir" "0 0 0"
+	"movedir" "-90 0 0"
 	"origin" "498 -256 122.5"
 	"renderamt" "255"
 	"rendercolor" "255 255 255"
@@ -1766,7 +1766,7 @@ entity
 		{
 			"id" "282"
 			"plane" "(497 -352 181) (497 -160 181) (499 -160 181)"
-			"material" "METAL/CHICKEN_WIRE001"
+			"material" "METAL/METALDOOR001"
 			"uaxis" "[1 0 0 -64] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
@@ -1777,7 +1777,7 @@ entity
 		{
 			"id" "281"
 			"plane" "(497 -160 64) (497 -352 64) (499 -352 64)"
-			"material" "METAL/CHICKEN_WIRE001"
+			"material" "METAL/METALDOOR001"
 			"uaxis" "[1 0 0 -64] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
@@ -1788,7 +1788,7 @@ entity
 		{
 			"id" "280"
 			"plane" "(497 -352 64) (497 -160 64) (497 -160 181)"
-			"material" "METAL/CHICKEN_WIRE001"
+			"material" "METAL/METALDOOR001"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
@@ -1799,7 +1799,7 @@ entity
 		{
 			"id" "279"
 			"plane" "(499 -160 64) (499 -352 64) (499 -352 181)"
-			"material" "METAL/CHICKEN_WIRE001"
+			"material" "METAL/METALDOOR001"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
@@ -1810,7 +1810,7 @@ entity
 		{
 			"id" "278"
 			"plane" "(497 -160 64) (499 -160 64) (499 -160 181)"
-			"material" "METAL/CHICKEN_WIRE001"
+			"material" "METAL/METALDOOR001"
 			"uaxis" "[1 0 0 -64] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
@@ -1821,7 +1821,7 @@ entity
 		{
 			"id" "277"
 			"plane" "(499 -352 64) (497 -352 64) (497 -352 181)"
-			"material" "METAL/CHICKEN_WIRE001"
+			"material" "METAL/METALDOOR001"
 			"uaxis" "[1 0 0 -64] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"

@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "7026"
-	"mapversion" "18"
+	"mapversion" "19"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -20,7 +20,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "18"
+	"mapversion" "19"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites_2fort"
 	"detailvbsp" "detail_2fort.vbsp"
@@ -1738,7 +1738,7 @@ entity
 		{
 			"id" "88"
 			"plane" "(497 -352 64) (497 -160 64) (497 -160 181)"
-			"material" "METAL/CHICKEN_WIRE001"
+			"material" "METAL/METALDOOR001"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
@@ -1749,7 +1749,7 @@ entity
 		{
 			"id" "87"
 			"plane" "(499 -160 64) (499 -352 64) (499 -352 181)"
-			"material" "METAL/CHICKEN_WIRE001"
+			"material" "METAL/METALDOOR001"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
