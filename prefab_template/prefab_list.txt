@@ -9,7 +9,9 @@ corner_bottom_right
 corner_top_right
 corner_top_left
 mini_spire
-spawn_red_prefab
-spawn_blu_prefab
 mini_spire_down
+spawn_red_prefab
 spawn_red_prefab_up
+spawn_red_prefab_down
+spawn_red_prefab_left
+spawn_blu_prefab
