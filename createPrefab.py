@@ -38,7 +38,6 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     xyz_list = ["px", "py", "pz"]
   
   for var in xyz_list:
-
     try:
       value = int(value_list[xyz_list.index(var)])
     except ValueError:
@@ -615,5 +614,5 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
   file.close()
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list)
 
-#create("vmf_prefabs/spawn_room_red.vmf", "spawn_red_prefab", "Respawn Room - Red", "icons/spawn_red.jpg")
+#create("vmf_prefabs/spawn_room_red_up.vmf", "spawn_red_prefab_up", "Respawn Room - Red - Up", "icons/spawn_red_up.jpg")
 #create("vmf_prefabs/spawn_room_blu.vmf", "spawn_blu_prefab", "Respawn Room - Blu", "icons/spawn_blue.jpg") 

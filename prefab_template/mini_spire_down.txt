@@ -1,38 +1,10 @@
-versioninfo
-{
-	"editorversion" "400"
-	"editorbuild" "7026"
-	"mapversion" "3"
-	"formatversion" "100"
-	"prefab" "0"
-}
-visgroups
-{
-}
-viewsettings
-{
-	"bSnapToGrid" "1"
-	"bShowGrid" "1"
-	"bShowLogicalGrid" "0"
-	"nGridSpacing" "16"
-	"bShow3DGrid" "0"
-}
-world
-{
-	"id" "1"
-	"mapversion" "3"
-	"classname" "worldspawn"
-	"detailmaterial" "detail/detailsprites_2fort"
-	"detailvbsp" "detail_2fort.vbsp"
-	"maxpropscreenwidth" "-1"
-	"skyname" "sky_tf2_04"
 	solid
 	{
-		"id" "308"
+		"id" "world_idnum"
 		side
 		{
-			"id" "162"
-			"plane" "(512 -512 64) (0 -512 64) (0 0 64)"
+			"id" "id_num"
+			"plane" "(x1 y1 z1) (x2 y2 z2) (x3 y3 z3)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -42,8 +14,8 @@ world
 		}
 		side
 		{
-			"id" "163"
-			"plane" "(512 0 0) (0 0 0) (0 -512 0)"
+			"id" "id_num"
+			"plane" "(x4 y4 z4) (x5 y5 z5) (x6 y6 z6)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -53,8 +25,8 @@ world
 		}
 		side
 		{
-			"id" "164"
-			"plane" "(512 -512 0) (0 -512 0) (0 -512 64)"
+			"id" "id_num"
+			"plane" "(x7 y7 z7) (x8 y8 z8) (x9 y9 z9)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -64,8 +36,8 @@ world
 		}
 		side
 		{
-			"id" "165"
-			"plane" "(0 0 0) (512 0 0) (512 0 64)"
+			"id" "id_num"
+			"plane" "(x10 y10 z10) (x11 y11 z11) (x12 y12 z12)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -75,8 +47,8 @@ world
 		}
 		side
 		{
-			"id" "166"
-			"plane" "(0 -512 0) (0 0 0) (0 0 64)"
+			"id" "id_num"
+			"plane" "(x13 y13 z13) (x14 y14 z14) (x15 y15 z15)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -86,8 +58,8 @@ world
 		}
 		side
 		{
-			"id" "167"
-			"plane" "(512 0 0) (512 -512 0) (512 -512 64)"
+			"id" "id_num"
+			"plane" "(x16 y16 z16) (x17 y17 z17) (x18 y18 z18)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -104,11 +76,11 @@ world
 	}
 	solid
 	{
-		"id" "309"
+		"id" "world_idnum"
 		side
 		{
-			"id" "215"
-			"plane" "(448 -128 192) (384 -128 192) (384 -64 192)"
+			"id" "id_num"
+			"plane" "(x19 y19 z19) (x20 y20 z20) (x21 y21 z21)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -118,8 +90,8 @@ world
 		}
 		side
 		{
-			"id" "214"
-			"plane" "(448 -64 176) (384 -64 176) (384 -128 176)"
+			"id" "id_num"
+			"plane" "(x22 y22 z22) (x23 y23 z23) (x24 y24 z24)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -129,8 +101,8 @@ world
 		}
 		side
 		{
-			"id" "213"
-			"plane" "(448 -128 176) (384 -128 176) (384 -128 192)"
+			"id" "id_num"
+			"plane" "(x25 y25 z25) (x26 y26 z26) (x27 y27 z27)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -140,8 +112,8 @@ world
 		}
 		side
 		{
-			"id" "212"
-			"plane" "(384 -64 176) (448 -64 176) (448 -64 192)"
+			"id" "id_num"
+			"plane" "(x28 y28 z28) (x29 y29 z29) (x30 y30 z30)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -151,8 +123,8 @@ world
 		}
 		side
 		{
-			"id" "211"
-			"plane" "(384 -128 176) (384 -64 176) (384 -64 192)"
+			"id" "id_num"
+			"plane" "(x31 y31 z31) (x32 y32 z32) (x33 y33 z33)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -162,8 +134,8 @@ world
 		}
 		side
 		{
-			"id" "210"
-			"plane" "(448 -64 176) (448 -128 176) (448 -128 192)"
+			"id" "id_num"
+			"plane" "(x34 y34 z34) (x35 y35 z35) (x36 y36 z36)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -180,11 +152,11 @@ world
 	}
 	solid
 	{
-		"id" "310"
+		"id" "world_idnum"
 		side
 		{
-			"id" "221"
-			"plane" "(128 -128 192) (64 -128 192) (64 -64 192)"
+			"id" "id_num"
+			"plane" "(x37 y37 z37) (x38 y38 z38) (x39 y39 z39)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -194,8 +166,8 @@ world
 		}
 		side
 		{
-			"id" "220"
-			"plane" "(128 -64 176) (64 -64 176) (64 -128 176)"
+			"id" "id_num"
+			"plane" "(x40 y40 z40) (x41 y41 z41) (x42 y42 z42)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -205,8 +177,8 @@ world
 		}
 		side
 		{
-			"id" "219"
-			"plane" "(128 -128 176) (64 -128 176) (64 -128 192)"
+			"id" "id_num"
+			"plane" "(x43 y43 z43) (x44 y44 z44) (x45 y45 z45)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -216,8 +188,8 @@ world
 		}
 		side
 		{
-			"id" "218"
-			"plane" "(64 -64 176) (128 -64 176) (128 -64 192)"
+			"id" "id_num"
+			"plane" "(x46 y46 z46) (x47 y47 z47) (x48 y48 z48)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -227,8 +199,8 @@ world
 		}
 		side
 		{
-			"id" "217"
-			"plane" "(64 -128 176) (64 -64 176) (64 -64 192)"
+			"id" "id_num"
+			"plane" "(x49 y49 z49) (x50 y50 z50) (x51 y51 z51)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -238,8 +210,8 @@ world
 		}
 		side
 		{
-			"id" "216"
-			"plane" "(128 -64 176) (128 -128 176) (128 -128 192)"
+			"id" "id_num"
+			"plane" "(x52 y52 z52) (x53 y53 z53) (x54 y54 z54)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -256,11 +228,11 @@ world
 	}
 	solid
 	{
-		"id" "311"
+		"id" "world_idnum"
 		side
 		{
-			"id" "227"
-			"plane" "(384 -352 64) (384 -384 64) (448 -384 64)"
+			"id" "id_num"
+			"plane" "(x55 y55 z55) (x56 y56 z56) (x57 y57 z57)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -270,8 +242,8 @@ world
 		}
 		side
 		{
-			"id" "226"
-			"plane" "(384 -128 192) (384 -128 176) (448 -128 176)"
+			"id" "id_num"
+			"plane" "(x58 y58 z58) (x59 y59 z59) (x60 y60 z60)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -281,8 +253,8 @@ world
 		}
 		side
 		{
-			"id" "225"
-			"plane" "(384 -384 64) (384 -352 64) (384 -128 176)"
+			"id" "id_num"
+			"plane" "(x61 y61 z61) (x62 y62 z62) (x63 y63 z63)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -292,8 +264,8 @@ world
 		}
 		side
 		{
-			"id" "224"
-			"plane" "(448 -128 192) (448 -128 176) (448 -352 64)"
+			"id" "id_num"
+			"plane" "(x64 y64 z64) (x65 y65 z65) (x66 y66 z66)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -303,8 +275,8 @@ world
 		}
 		side
 		{
-			"id" "223"
-			"plane" "(448 -384 64) (384 -384 64) (384 -128 192)"
+			"id" "id_num"
+			"plane" "(x67 y67 z67) (x68 y68 z68) (x69 y69 z69)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -314,8 +286,8 @@ world
 		}
 		side
 		{
-			"id" "222"
-			"plane" "(448 -128 176) (384 -128 176) (384 -352 64)"
+			"id" "id_num"
+			"plane" "(x70 y70 z70) (x71 y71 z71) (x72 y72 z72)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -332,11 +304,11 @@ world
 	}
 	solid
 	{
-		"id" "312"
+		"id" "world_idnum"
 		side
 		{
-			"id" "233"
-			"plane" "(64 -352 64) (64 -384 64) (128 -384 64)"
+			"id" "id_num"
+			"plane" "(x73 y73 z73) (x74 y74 z74) (x75 y75 z75)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -346,8 +318,8 @@ world
 		}
 		side
 		{
-			"id" "232"
-			"plane" "(64 -128 192) (64 -128 176) (128 -128 176)"
+			"id" "id_num"
+			"plane" "(x76 y76 z76) (x77 y77 z77) (x78 y78 z78)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -357,8 +329,8 @@ world
 		}
 		side
 		{
-			"id" "231"
-			"plane" "(64 -384 64) (64 -352 64) (64 -128 176)"
+			"id" "id_num"
+			"plane" "(x79 y79 z79) (x80 y80 z80) (x81 y81 z81)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -368,8 +340,8 @@ world
 		}
 		side
 		{
-			"id" "230"
-			"plane" "(128 -128 192) (128 -128 176) (128 -352 64)"
+			"id" "id_num"
+			"plane" "(x82 y82 z82) (x83 y83 z83) (x84 y84 z84)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -379,8 +351,8 @@ world
 		}
 		side
 		{
-			"id" "229"
-			"plane" "(128 -384 64) (64 -384 64) (64 -128 192)"
+			"id" "id_num"
+			"plane" "(x85 y85 z85) (x86 y86 z86) (x87 y87 z87)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -390,8 +362,8 @@ world
 		}
 		side
 		{
-			"id" "228"
-			"plane" "(128 -128 176) (64 -128 176) (64 -352 64)"
+			"id" "id_num"
+			"plane" "(x88 y88 z88) (x89 y89 z89) (x90 y90 z90)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -408,11 +380,11 @@ world
 	}
 	solid
 	{
-		"id" "313"
+		"id" "world_idnum"
 		side
 		{
-			"id" "239"
-			"plane" "(384 -128 192) (128 -128 192) (128 -64 192)"
+			"id" "id_num"
+			"plane" "(x91 y91 z91) (x92 y92 z92) (x93 y93 z93)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -422,8 +394,8 @@ world
 		}
 		side
 		{
-			"id" "238"
-			"plane" "(384 -64 176) (128 -64 176) (128 -128 176)"
+			"id" "id_num"
+			"plane" "(x94 y94 z94) (x95 y95 z95) (x96 y96 z96)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -433,8 +405,8 @@ world
 		}
 		side
 		{
-			"id" "237"
-			"plane" "(384 -128 176) (128 -128 176) (128 -128 192)"
+			"id" "id_num"
+			"plane" "(x97 y97 z97) (x98 y98 z98) (x99 y99 z99)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -444,8 +416,8 @@ world
 		}
 		side
 		{
-			"id" "236"
-			"plane" "(128 -64 176) (384 -64 176) (384 -64 192)"
+			"id" "id_num"
+			"plane" "(x100 y100 z100) (x101 y101 z101) (x102 y102 z102)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -455,8 +427,8 @@ world
 		}
 		side
 		{
-			"id" "235"
-			"plane" "(128 -128 176) (128 -64 176) (128 -64 192)"
+			"id" "id_num"
+			"plane" "(x103 y103 z103) (x104 y104 z104) (x105 y105 z105)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -466,8 +438,8 @@ world
 		}
 		side
 		{
-			"id" "234"
-			"plane" "(384 -64 176) (384 -128 176) (384 -128 192)"
+			"id" "id_num"
+			"plane" "(x106 y106 z106) (x107 y107 z107) (x108 y108 z108)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -484,11 +456,11 @@ world
 	}
 	solid
 	{
-		"id" "314"
+		"id" "world_idnum"
 		side
 		{
-			"id" "245"
-			"plane" "(384 -384 256) (128 -384 256) (128 -224 256)"
+			"id" "id_num"
+			"plane" "(x109 y109 z109) (x110 y110 z110) (x111 y111 z111)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -498,8 +470,8 @@ world
 		}
 		side
 		{
-			"id" "244"
-			"plane" "(128 -384 192) (128 -384 256) (384 -384 256)"
+			"id" "id_num"
+			"plane" "(x112 y112 z112) (x113 y113 z113) (x114 y114 z114)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -509,8 +481,8 @@ world
 		}
 		side
 		{
-			"id" "243"
-			"plane" "(128 -128 192) (128 -224 256) (128 -384 256)"
+			"id" "id_num"
+			"plane" "(x115 y115 z115) (x116 y116 z116) (x117 y117 z117)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -520,8 +492,8 @@ world
 		}
 		side
 		{
-			"id" "242"
-			"plane" "(384 -384 192) (384 -384 256) (384 -224 256)"
+			"id" "id_num"
+			"plane" "(x118 y118 z118) (x119 y119 z119) (x120 y120 z120)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -531,8 +503,8 @@ world
 		}
 		side
 		{
-			"id" "241"
-			"plane" "(384 -224 256) (128 -224 256) (128 -128 192)"
+			"id" "id_num"
+			"plane" "(x121 y121 z121) (x122 y122 z122) (x123 y123 z123)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -542,8 +514,8 @@ world
 		}
 		side
 		{
-			"id" "240"
-			"plane" "(128 -128 192) (128 -384 192) (384 -384 192)"
+			"id" "id_num"
+			"plane" "(x124 y124 z124) (x125 y125 z125) (x126 y126 z126)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -560,11 +532,11 @@ world
 	}
 	solid
 	{
-		"id" "315"
+		"id" "world_idnum"
 		side
 		{
-			"id" "251"
-			"plane" "(320 -192 64) (192 -192 64) (192 -320 64)"
+			"id" "id_num"
+			"plane" "(x127 y127 z127) (x128 y128 z128) (x129 y129 z129)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -574,8 +546,8 @@ world
 		}
 		side
 		{
-			"id" "250"
-			"plane" "(320 -320 192) (192 -320 192) (192 -192 192)"
+			"id" "id_num"
+			"plane" "(x130 y130 z130) (x131 y131 z131) (x132 y132 z132)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[1 0 0 0] 0.25"
@@ -585,8 +557,8 @@ world
 		}
 		side
 		{
-			"id" "249"
-			"plane" "(320 -320 64) (192 -320 64) (192 -320 192)"
+			"id" "id_num"
+			"plane" "(x133 y133 z133) (x134 y134 z134) (x135 y135 z135)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -596,8 +568,8 @@ world
 		}
 		side
 		{
-			"id" "248"
-			"plane" "(192 -192 64) (320 -192 64) (320 -192 192)"
+			"id" "id_num"
+			"plane" "(x136 y136 z136) (x137 y137 z137) (x138 y138 z138)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -607,8 +579,8 @@ world
 		}
 		side
 		{
-			"id" "247"
-			"plane" "(192 -320 64) (192 -192 64) (192 -192 192)"
+			"id" "id_num"
+			"plane" "(x139 y139 z139) (x140 y140 z140) (x141 y141 z141)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -618,8 +590,8 @@ world
 		}
 		side
 		{
-			"id" "246"
-			"plane" "(320 -192 64) (320 -320 64) (320 -320 192)"
+			"id" "id_num"
+			"plane" "(x142 y142 z142) (x143 y143 z143) (x144 y144 z144)"
 			"material" "DEV/DEV_BLENDMEASURE"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -634,14 +606,3 @@ world
 			"visgroupautoshown" "1"
 		}
 	}
-}
-cameras
-{
-	"activecamera" "-1"
-}
-cordon
-{
-	"mins" "(-1024 -1024 -1024)"
-	"maxs" "(1024 1024 1024)"
-	"active" "0"
-}

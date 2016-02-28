@@ -11,3 +11,5 @@ Corner Wall (Top Left)
 Mini-Spire
 Respawn Room - Red
 Respawn Room - Blu
+Mini-Spire - down
+Respawn Room - Red - Up
