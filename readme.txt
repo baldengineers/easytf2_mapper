@@ -13,7 +13,6 @@ Ctrl+J = Change environmental lighting
 Alt+click on a square with a prefab on it to remove it.
 
 When creating a prefab, make it in the lower right quadrant of the grid, with one corner touching the origin.
-Make the ground a 64 high 512*512 block for uniformity. Also, there will be a list of names that certain entities need to be called for
-the createPrefab to work. wtf?
+Make the ground a 64 high 512*512 block for uniformity. Report bugs with this to toadsrc@gmail.com.
 
 After exporting, open the .vmf in hammer to make it into a .bsp.
