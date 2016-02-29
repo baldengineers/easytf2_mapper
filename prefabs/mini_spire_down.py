@@ -458,4 +458,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
 
     for i in range(ogvalues.count('id_num')):
         values = values.replace('id_num', str(id_num), 1)
-        id_num = id_num+1#INSERT_ENT_CODE    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list
+        id_num = id_num+1
+
+    return values, id_num, world_id_num, entity_num, placeholder_list

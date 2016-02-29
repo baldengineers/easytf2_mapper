@@ -162,7 +162,7 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(exitAction)
 
         optionsMenu.addAction(gridAction)
-        optionsMenu.addAction(changeLightAction)
+        #optionsMenu.addAction(changeLightAction)
         #optionsMenu.addAction(refreshPrefab)
         optionsMenu.addAction(changeSkybox)
 
@@ -220,9 +220,22 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        global world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list
-        #skybox = skybox_list[skybox2_list.currentRow()]
+        global world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list
+        try:
+            skybox = skybox_list[skybox2_list.currentRow()]
+        except:
+            pass
+        try:
+            skyboxlight = skybox_light_list[skybox2_list.currentRow()]
+        except:
+            pass
+        try:
+            skyboxangle = skybox_angle_list[skybox2_list.currentRow()]
+        except:
+            pass
         currentlight = currentlight.replace("world_idnum",str(world_id_num))
+        currentlight = currentlight.replace("CURRENT_LIGHT",skyboxlight)
+        currentlight = currentlight.replace("CURRENT_ANGLE",skyboxangle)
         entity_list[count_btns] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
         file = open(name[0], "w")
@@ -411,6 +424,8 @@ btn_id_count = 0
 grid_list=[]
 totalblocks = []
 skybox_list=[]
+skybox_light_list=[]
+skybox_angle_list=[]
 skybox_icon_list=[]
 prefab_list = []
 count_btns = 0
@@ -426,10 +441,10 @@ entity
     "_ambient" "255 255 255 100"
     "_ambientHDR" "-1 -1 -1 1"
     "_AmbientScaleHDR" "1"
-    "_light" "255 255 255 200"
+    "_light" "CURRENT_LIGHT"
     "_lightHDR" "-1 -1 -1 1"
     "_lightscaleHDR" "1"
-    "angles" "0 0 0"
+    "angles" "CURRENT_ANGLE"
     "pitch" "0"
     "SunSpreadAngle" "0"
     "origin" "0 0 73"
@@ -443,6 +458,8 @@ entity
 }
 '''
 skybox = 'sky_tf2_04'
+skyboxlight = '255 255 255 200'
+skyboxangle = '0 0 0'
 #if the user does not change the lighting, it sticks with this.
 #if the user does not choose a skybox it sticks with this
 
@@ -452,6 +469,8 @@ prefab_icon_file = open("prefab_template\prefab_icon_list.txt")
 
 skybox_file = open("prefab_template\skybox_list.txt")
 skybox_icon = open("prefab_template\skybox_icons.txt")
+skybox_light = open("prefab_template\skybox_light.txt")
+skybox_angle = open("prefab_template\skybox_angle.txt") 
 
 for line in prefab_file.readlines():
     prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
@@ -462,16 +481,19 @@ for line in prefab_text_file.readlines():
 for line in prefab_icon_file.readlines():
     prefab_icon_list.append(line[:-1] if line.endswith("\n") else line)
 
-for file in [prefab_file, prefab_text_file, prefab_icon_file]:
-    file.close()
-
 for line in skybox_file.readlines():
     skybox_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
 
 for line in skybox_icon.readlines():
     skybox_icon_list.append(line[:-1] if line.endswith("\n") else line)
 
-for file in [skybox_file,skybox_icon]:
+for line in skybox_light.readlines():
+    skybox_light_list.append(line[:-1] if line.endswith("\n") else line)
+
+for line in skybox_angle.readlines():
+    skybox_angle_list.append(line[:-1] if line.endswith("\n") else line)
+    
+for file in [prefab_file, prefab_text_file, prefab_icon_file,skybox_file,skybox_icon,skybox_angle,skybox_light]:
     file.close()
 
 #imports that need prefab_list to be defined
