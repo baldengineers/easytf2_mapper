@@ -169,6 +169,7 @@ class MainWindow(QMainWindow):
         createMenu.addAction(createPrefabAction)
         
         self.home()
+        self.change_skybox()
 
     def closeEvent(self, event):
         #closeEvent runs close_application when the x button is pressed
@@ -221,21 +222,17 @@ class MainWindow(QMainWindow):
 
     def file_export(self):
         global world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list
+        skybox = skybox_list[skybox2_list.currentRow()]
+        skyboxlight = skybox_light_list[skybox2_list.currentRow()]
+        skyboxangle = skybox_angle_list[skybox2_list.currentRow()]
+
         try:
-            skybox = skybox_list[skybox2_list.currentRow()]
+            currentlight = currentlight.replace("world_idnum",str(world_id_num))
+            currentlight = currentlight.replace("CURRENT_LIGHT",skyboxlight)
+            currentlight = currentlight.replace("CURRENT_ANGLE",skyboxangle)
         except:
-            pass
-        try:
-            skyboxlight = skybox_light_list[skybox2_list.currentRow()]
-        except:
-            pass
-        try:
-            skyboxangle = skybox_angle_list[skybox2_list.currentRow()]
-        except:
-            pass
-        currentlight = currentlight.replace("world_idnum",str(world_id_num))
-        currentlight = currentlight.replace("CURRENT_LIGHT",skyboxlight)
-        currentlight = currentlight.replace("CURRENT_ANGLE",skyboxangle)
+            QMessageBox.critical(self, "Error", "Please choose a skybox.")
+            self.change_skybox()
         entity_list[count_btns] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
         file = open(name[0], "w")
@@ -458,8 +455,8 @@ entity
 }
 '''
 skybox = 'sky_tf2_04'
-skyboxlight = '255 255 255 200'
-skyboxangle = '0 0 0'
+#skyboxlight = '255 255 255 200'
+#skyboxangle = '0 0 0'
 #if the user does not change the lighting, it sticks with this.
 #if the user does not choose a skybox it sticks with this
 

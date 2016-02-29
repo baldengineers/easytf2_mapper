@@ -460,4 +460,4 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
 
-    return values, id_num, world_id_num, entity_num, placeholder_list
+    return values, id_num, world_id_num
