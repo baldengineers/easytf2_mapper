@@ -4,4 +4,4 @@ Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in deve
 <p>
 _CURRENTLY IN BETA 0.0.8, functional if you have fair hammer know-how._
 <p>
-READ THE README.TXT FOR INFO
+*READ THE README.TXT FOR INFO*
