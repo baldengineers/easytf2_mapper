@@ -123,6 +123,8 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
 
     compile_list[compile_list.index("#INSERT_ENT_CODE")] = ""
 
+  compile_list.append("    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list" if contains_ent else "    return values, id_num, world_id_num")
+
   file = open(py_path, "w")
   
   for item in compile_list:
@@ -189,7 +191,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
 
   "#INSERT_ENT_CODE",
   
-  "    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list"
+  #"    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list"
   ]
 
   ent_code =["#INSERT_ENT_OPEN_FILE",
