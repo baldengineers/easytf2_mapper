@@ -180,8 +180,8 @@ class MainWindow(QMainWindow):
         #self.labelLayout = QHBoxLayout(self)
 
         self.buttonLabel = QLabel("Rotation:",self)
-        #self.listLabel = QLabel("List of prefabs:",self)
-        #self.gridLabel = QLabel("Grid:",self)
+        self.listLabel = QLabel("List of prefabs:",self)
+        self.gridLabel = QLabel("Grid:",self)
 
         #self.labelLayout.addWidget(self.gridLabel)
         #self.labelLayout.addWidget(self.listLabel)
@@ -214,14 +214,22 @@ class MainWindow(QMainWindow):
         for index, text in enumerate(prefab_text_list):
             item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
             self.tile_list.addItem(item)
-
+        
+        self.tile_list_layout = QVBoxLayout()
+        self.tile_list_layout.addWidget(self.listLabel)
+        self.tile_list_layout.addWidget(self.tile_list)
+        
         self.button_grid_layout = QGridLayout()
         self.button_grid_layout.setSpacing(0)
-
+        
+        self.button_grid_all = QVBoxLayout()
+        self.button_grid_all.addWidget(self.gridLabel)
+        self.button_grid_all.addLayout(self.button_grid_layout)
+        
         self.column = QHBoxLayout()
-        self.column.addLayout(self.button_grid_layout)
+        self.column.addLayout(self.button_grid_all)
         self.column.addStretch(1)
-        self.column.addWidget(self.tile_list)
+        self.column.addLayout(self.tile_list_layout)
         #self.column.addLayout(self.button_rotate_layout)
         #self.column.addStretch(1)
         
