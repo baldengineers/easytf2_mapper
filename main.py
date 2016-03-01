@@ -179,7 +179,38 @@ class MainWindow(QMainWindow):
     def home(self):
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
+        #self.labelLayout = QHBoxLayout(self)
+
+        self.buttonLabel = QLabel("Rotation:",self)
+        #self.listLabel = QLabel("List of prefabs:",self)
+        #self.gridLabel = QLabel("Grid:",self)
+
+        #self.labelLayout.addWidget(self.gridLabel)
+        #self.labelLayout.addWidget(self.listLabel)
+        #self.labelLayout.setContentsMargins(0,0,0,0)
+        #self.labelLayout.setSpacing(10)
         
+
+        self.rotateCW = QPushButton("",self)
+        self.rotateCW.setIcon(QIcon('icons/rotate_cw.jpg'))
+        self.rotateCW.setIconSize(QSize(40,40))
+        self.rotateCW.setFixedSize(QSize(40,40))
+
+        self.rotateCCW = QPushButton("",self)
+        self.rotateCCW.setIcon(QIcon('icons/rotate_ccw.jpg'))
+        self.rotateCCW.setIconSize(QSize(40,40))
+        self.rotateCCW.setFixedSize(QSize(40,40))
+
+        #sets rotation value. 0 = right, 1 = down, 2 = left, 3 = right
+        self.rotateCW.clicked.connect(lambda:self.rotateCW_func())
+        self.rotateCCW.clicked.connect(lambda:self.rotateCCW_func())
+        
+        self.button_rotate_layout = QHBoxLayout()
+        self.button_rotate_layout.addWidget(self.buttonLabel)
+        self.button_rotate_layout.addWidget(self.rotateCW)
+        self.button_rotate_layout.addWidget(self.rotateCCW)
+        self.button_rotate_layout.addStretch(1)
+                               
         self.tile_list = QListWidget()
 
         for index, text in enumerate(prefab_text_list):
@@ -193,16 +224,35 @@ class MainWindow(QMainWindow):
         self.column.addLayout(self.button_grid_layout)
         self.column.addStretch(1)
         self.column.addWidget(self.tile_list)
+        #self.column.addLayout(self.button_rotate_layout)
         #self.column.addStretch(1)
         
         self.row = QVBoxLayout(self.central_widget)
+        #self.row.addLayout(self.labelLayout)
         self.row.addLayout(self.column)
+        self.row.addLayout(self.button_rotate_layout)
         self.row.addStretch(1)
         #self.row.addStretch(1)
         
         self.grid_change()
         
         self.show()
+    def rotateCW_func(self):
+        global rotation
+        if rotation < 3:
+            rotation = rotation + 1
+        else:
+            rotation = 0
+        #print(rotation)
+    def rotateCCW_func(self):
+        global rotation
+        if rotation == 0:
+            rotation = 3
+        else:
+            rotation = rotation - 1
+        #print(rotation)
+ 
+        
         
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
@@ -277,6 +327,7 @@ class MainWindow(QMainWindow):
         self.form.addRow(self.okay_btn)
 
         self.window.setLayout(self.form)
+        self.window.setWindowTitle("Set Grid Size")
         self.window.exec_()
         '''
         text = QInputDialog.getText(self,("Get Grid Y"),
@@ -492,6 +543,7 @@ class MainWindow(QMainWindow):
 
 #define some global variables
 id_num = 1
+rotation = 0
 world_id_num = 2
 entity_num = 1
 toggle = 0
