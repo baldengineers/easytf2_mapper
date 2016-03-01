@@ -121,12 +121,12 @@ class MainWindow(QMainWindow):
         #newAction.triggered.connect()
 
         changeLightAction = QAction("&Change Lighting", self)
-        changeLightAction.setShortcut("Ctrl+j")
+        changeLightAction.setShortcut("Ctrl+J")
         changeLightAction.setStatusTip("Change the environment lighting of the map.")
         changeLightAction.triggered.connect(self.change_light)
         
         exportAction = QAction("&Export", self)
-        exportAction.setShortcut("Ctrl+e")
+        exportAction.setShortcut("Ctrl+E")
         exportAction.setStatusTip("Export as .vmf")
         exportAction.triggered.connect(self.file_export)
 
@@ -136,8 +136,8 @@ class MainWindow(QMainWindow):
         gridAction.triggered.connect(self.grid_change)
 
         createPrefabAction = QAction("&Prefab", self)
-        #createPrefabAction.setShortcut("")
-        createPrefabAction.setStatusTip("WILL CLEAR GRID! View the readme for a good idea on formatting.")
+        createPrefabAction.setShortcut("Ctrl+I")
+        createPrefabAction.setStatusTip("View the readme for a good idea on formatting Hammer Prefabs.")
         createPrefabAction.triggered.connect(self.create_prefab)
 
         #refreshPrefab = QAction("&Refresh Prefab List", self)
@@ -262,13 +262,33 @@ class MainWindow(QMainWindow):
     def grid_change(self):
         self.count=0
         self.btn_id_count = 0
+
+        self.window = QDialog(self)
+
+        self.text = QLineEdit()
+        self.text2 = QLineEdit()
+
+        self.okay_btn = QPushButton("OK",self)
+        self.okay_btn.clicked.connect(lambda: self.grid_change_func(self.text.displayText(), self.text2.displayText()))
+
+        self.form = QFormLayout()
+        self.form.addRow("Set Grid Height:",self.text)
+        self.form.addRow("Set Grid Width:",self.text2)
+        self.form.addRow(self.okay_btn)
+
+        self.window.setLayout(self.form)
+        self.window.exec_()
+        '''
         text = QInputDialog.getText(self,("Get Grid Y"),
                                      ("Grid Height:"))                                    
         text2 = QInputDialog.getText(self,("Get Grid X"),
                                      ("Grid Width:"))
+        '''
+    def grid_change_func(self,x,y):
+        self.window.deleteLater()
         try:
-            self.grid_y = int(text[0])
-            self.grid_x = int(text2[0])
+            self.grid_y = int(y)
+            self.grid_x = int(x)
         except ValueError:
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
             QMessageBox.critical(self, "Error", "Please enter a number.")
@@ -349,7 +369,7 @@ class MainWindow(QMainWindow):
         currentlight = light_create.replacevalues(r_input,g_input,b_input,light_input,world_id_num)
 
     def change_skybox(self):
-        self.window = QWidget()
+        self.window = QDialog(self)
         global skybox2_list
         skybox2_list = QListWidget()
         skybox2_list.setIconSize(QSize(200, 25))
@@ -364,7 +384,7 @@ class MainWindow(QMainWindow):
         self.window.setWindowIcon(QIcon("icons\icon.ico"))
 
         self.window.setLayout(self.layout)
-        self.window.show()
+        self.window.exec_()
     '''
     def importprefabs(self):
         prefab_text_list = []
@@ -401,15 +421,73 @@ class MainWindow(QMainWindow):
             pass
 
     def create_prefab(self):
+        '''
         name = QFileDialog.getOpenFileName(self, "Choose .vmf File", "C:/","*.vmf")
         prefab_icon = QFileDialog.getOpenFileName(self, "Choose Prefab Icon", "C:/","*.jpg")
         prefab_name = QInputDialog.getText(self,"Prefab Name",
                                      "Name of Prefab (e.g. wall_prefab):")
         prefab_text = QInputDialog.getText(self, "Prefab Text",
                                            "Prefab Text (e.g. Wall Tile)")
-        QMessageBox.information(self, "Files Created, restart to see the prefab.",
-                                createPrefab.create(name[0], prefab_name[0],
-                                                    prefab_text[0], prefab_icon[0]))
+        '''
+        self.window = QDialog(self)
+        self.textLineEdit = QLineEdit()
+        self.nameLineEdit = QLineEdit()
+        
+        self.vmfTextEdit = QLineEdit()
+        self.iconTextEdit = QLineEdit()
+        
+        self.vmfBrowse = QPushButton("Browse",self)
+        self.vmfBrowse.clicked.connect(lambda: self.vmfTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .vmf File", "C:/","*.vmf")[0]))
+        
+        self.iconBrowse = QPushButton("Browse",self)
+        self.iconBrowse.clicked.connect(lambda: self.iconTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .jpg File", "C:/","*.jpg")[0]))
+
+        self.vmfLayout = QHBoxLayout()
+        self.vmfLayout.addWidget(self.vmfTextEdit)
+        self.vmfLayout.addWidget(self.vmfBrowse)
+        self.vmfBrowse.setWindowModality(Qt.NonModal)
+        
+        self.iconLayout = QHBoxLayout()
+        self.iconLayout.addWidget(self.iconTextEdit)
+        self.iconLayout.addWidget(self.iconBrowse)
+
+        self.okay_btn = QPushButton("Create Prefab", self)
+        #self.okay_btn.setFixedSize(100,25)
+
+        self.blankstring = QWidget()
+
+        self.okay_btn_layout = QHBoxLayout()
+        self.okay_btn_layout.addStretch(1)
+        self.okay_btn_layout.addWidget(self.okay_btn)
+
+        self.okay_btn.clicked.connect(lambda: QMessageBox.information(self, "Files Created, restart to see the prefab.",
+                                                                      createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
+                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText())))
+
+        self.rotCheckBox = QCheckBox()
+        
+        
+        self.form = QFormLayout()
+        self.form.addRow("Prefab Text:", self.textLineEdit)
+        self.form.addRow("Prefab Name:", self.nameLineEdit)
+        self.form.addRow("VMF file (.vmf):", self.vmfLayout)
+        self.form.addRow("JPG file (.jpg):", self.iconLayout)
+        self.form.addRow("Make Rotations?", self.rotCheckBox)
+        for i in range(5):
+            self.form.addRow(self.blankstring)
+        self.form.addRow(self.okay_btn_layout)
+
+        
+        self.window.setGeometry(150,150,400,300)
+        self.window.setWindowTitle("Create Prefab")
+        self.window.setWindowIcon(QIcon("icons\icon.ico"))
+        #self.window.setWindowModality(Qt.WindowModal)
+
+        self.window.setLayout(self.form)
+        self.window.exec_()
+
+        
+        
         #self.importprefabs()
 
 #define some global variables

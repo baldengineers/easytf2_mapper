@@ -1,0 +1,21 @@
+entity
+{
+	"id" "world_idnum"
+	"classname" "prop_static"
+	"angles" "0 0 0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"model" "models/props_gameplay/resupply_locker.mdl"
+	"skin" "0"
+	"solid" "6"
+	"origin" "px1 py1 pz1"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 500]"
+	}
+}
