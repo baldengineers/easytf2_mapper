@@ -215,6 +215,7 @@ class MainWindow(QMainWindow):
             item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
             self.tile_list.addItem(item)
         
+        #contains label and list vertically
         self.tile_list_layout = QVBoxLayout()
         self.tile_list_layout.addWidget(self.listLabel)
         self.tile_list_layout.addWidget(self.tile_list)
@@ -222,6 +223,7 @@ class MainWindow(QMainWindow):
         self.button_grid_layout = QGridLayout()
         self.button_grid_layout.setSpacing(0)
         
+        #contains label and grid vertically
         self.button_grid_all = QVBoxLayout()
         self.button_grid_all.addWidget(self.gridLabel)
         self.button_grid_all.addLayout(self.button_grid_layout)
