@@ -225,6 +225,7 @@ class MainWindow(QMainWindow):
         
         #contains label and grid vertically
         self.button_grid_all = QVBoxLayout()
+        self.button_grid_all.addLayout(self.button_rotate_layout)
         self.button_grid_all.addWidget(self.gridLabel)
         self.button_grid_all.addLayout(self.button_grid_layout)
         
@@ -238,7 +239,7 @@ class MainWindow(QMainWindow):
         self.row = QVBoxLayout(self.central_widget)
         #self.row.addLayout(self.labelLayout)
         self.row.addLayout(self.column)
-        self.row.addLayout(self.button_rotate_layout)
+        #self.row.addLayout(self.button_rotate_layout)
         self.row.addStretch(1)
         #self.row.addStretch(1)
         
