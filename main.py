@@ -40,14 +40,10 @@ class GridBtn(QWidget):
             global entity_num
             global entity_list
             global placeholder_list
-            global rotation
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             try:
-                try:
-                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation)
-                except TypeError:
-                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list)
+                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list)
             except TypeError:
                 create = moduleName.createTile(x, y, id_num, world_id_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
@@ -493,6 +489,7 @@ class MainWindow(QMainWindow):
         prefab_text = QInputDialog.getText(self, "Prefab Text",
                                            "Prefab Text (e.g. Wall Tile)")
         '''
+        
         self.window = QDialog(self)
         self.textLineEdit = QLineEdit()
         self.nameLineEdit = QLineEdit()
@@ -526,7 +523,7 @@ class MainWindow(QMainWindow):
 
         self.okay_btn.clicked.connect(lambda: QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                       createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
-                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText())))
+                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked())))
 
         self.rotCheckBox = QCheckBox()
         
