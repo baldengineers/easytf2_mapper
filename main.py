@@ -13,7 +13,6 @@ import light_create
 
 class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
-        global rotation
         super(GridBtn, self).__init__()
         self.button = QPushButton("", self_global)
         self.x = 32*x
@@ -22,13 +21,13 @@ class GridBtn(QWidget):
         #self.button.resize(32,32)
         self.button.setFixedSize(32, 32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
-                                                            btn_id, rotation))
+                                                            btn_id))
         self.button.show()
 
     def reset_icon(self):
         self.button.setIcon(QIcon())
 
-    def click_func(self, self_global, x, y, btn_id, rotation):
+    def click_func(self, self_global, x, y, btn_id):
         self.checkForAlt()
         if toggle != 0:
             self.button.setIcon(QIcon())
@@ -41,12 +40,16 @@ class GridBtn(QWidget):
             global entity_num
             global entity_list
             global placeholder_list
+            global rotation
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             try:
-                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation)
+                try:
+                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation)
+                except TypeError:
+                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list)
             except TypeError:
-                create = moduleName.createTile(x, y, id_num, world_id_num, rotation)
+                create = moduleName.createTile(x, y, id_num, world_id_num)
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
             world_id_num = create[2]

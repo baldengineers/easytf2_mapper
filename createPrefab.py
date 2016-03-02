@@ -151,7 +151,7 @@ def create(name, prefab_name, prefab_text, prefab_icon):
   compile_list = [
   """import os
 
-def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
+def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, rotation):
     
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
@@ -255,6 +255,11 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list):
         if "\\"respawn_name\\"" in ent_values:
             ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
         entity_num += 1
+
+"""]
+
+  rot_code = ["""
+
 
 """]
 
