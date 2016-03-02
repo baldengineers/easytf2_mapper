@@ -163,6 +163,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     lines = f.readlines() #gathers each line of the prefab and puts numbers them
 """,
 
+  "#INSERT_ROT_IF",
+
   "#INSERT_PY_LIST",
 
   "#INSERT_VAR_COUNT",
@@ -189,6 +191,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1""",
 
+  "#INSERT_ROT_CODE",
+
   "#INSERT_ENT_CODE",
   
   #"    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list"
@@ -200,9 +204,13 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     lines_ent = g.readlines()
 """,
 
+             "#INSERT_ROT_ENT_IF",
+
              "#INSERT_ENT_PY_LIST",
 
              "#INSERT_ENT_VAR_COUNT",
+
+             "#INSERT_ROT_ENT_CODE",
 
 """
     ent_values = "".join(lines_ent)
@@ -259,9 +267,20 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 """]
 
   rot_code = ["""
-
-
-"""]
+    if rotation == 0:
+""",
+"""
+    if rotation == 1:
+""",
+    "#INSERT_ROT_1_PY_LIST",
+"""
+    if rotation == 2:
+""",
+    "#INSERT_ROT_2_PY_LIST",
+"""
+    if rotation == 3:
+""",
+    "#INSERT_ROT_3_PY_LIST",]
 
   var_num = 1
   ent_var_num = 1
@@ -617,6 +636,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
           
 
     #black_list_var = False
+  if rot_enabled:
+    for count in (len(py_list) + 1)/3:
+      pass
 
   file.close()
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list)
