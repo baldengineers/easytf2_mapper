@@ -16,3 +16,7 @@ When creating a prefab, make it in the lower right quadrant of the grid, with on
 Make the ground a 64 high 512*512 block for uniformity. Report bugs with this to toadsrc@gmail.com.
 
 After exporting, open the .vmf in hammer to make it into a .bsp.
+
+
+TODO: https://srinikom.github.io/pyside-docs/PySide/QtGui/QScrollArea.html add scroll box for the grid, and remove limits on
+amount of buttons in the grid.

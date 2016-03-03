@@ -8,9 +8,7 @@ import importlib
 import createPrefab
 import light_create
 '''check todo every time you open this'''
-#TODO: more prefabs when the entitiy prefab is done
-#TODO: THE CREATEPREFAB NEEDS TO ADD THE ENTITIES PART OF A CUSTOM PREFAB
-#TODO: TEXTURES JESUS CHRIST ITS AN EYESORE IN HAMMER
+#TODO: more prefabs, mo betta
 #TODO: skybox modeling. choosing a skybox is done.
 
 class GridBtn(QWidget):
@@ -19,8 +17,8 @@ class GridBtn(QWidget):
         self.button = QPushButton("", self_global)
         self.x = 32*x
         self.y = 20+(32*y)
-        #self.button.move(self.x,self.y)
-        #self.button.resize(32,32)
+        self.button.move(self.x,self.y)
+        self.button.resize(32,32)
         self.button.setFixedSize(32, 32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
                                                             btn_id))
@@ -80,7 +78,7 @@ class GridBtn(QWidget):
             try:
                 entity_list[btn_id] = create[4]
             except:
-                print("didnt work")
+                pass#ear por el pueblo occidental
 
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
@@ -179,30 +177,114 @@ class MainWindow(QMainWindow):
     def home(self):
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
+        #self.labelLayout = QHBoxLayout(self)
+
+        self.scrollArea = QScrollArea(self)
+        self.scrollArea.setBackgroundRole(QPalette.Light)
+
+        self.scrollArea.setGeometry(QRect(5, 140, 580, 580))
+        self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+
+
+
+        self.buttonLabel = QLabel("Rotation:",self)
+        self.listLabel = QLabel("List of prefabs:",self)
+        self.gridLabel = QLabel("Grid:",self)
+
+        #self.labelLayout.addWidget(self.gridLabel)
+        #self.labelLayout.addWidget(self.listLabel)
+        #self.labelLayout.setContentsMargins(0,0,0,0)
+        #self.labelLayout.setSpacing(10)
         
+
+        self.rotateCW = QPushButton("",self)
+        self.rotateCW.setIcon(QIcon('icons/rotate_cw.jpg'))
+        self.rotateCW.setIconSize(QSize(40,40))
+        self.rotateCW.setFixedSize(QSize(40,40))
+
+        self.rotateCCW = QPushButton("",self)
+        self.rotateCCW.setIcon(QIcon('icons/rotate_ccw.jpg'))
+        self.rotateCCW.setIconSize(QSize(40,40))
+        self.rotateCCW.setFixedSize(QSize(40,40))
+
+        #sets rotation value. 0 = right, 1 = down, 2 = left, 3 = right
+        self.rotateCW.clicked.connect(lambda:self.rotateCW_func())
+        self.rotateCCW.clicked.connect(lambda:self.rotateCCW_func())
+        
+        self.button_rotate_layout = QHBoxLayout()
+        self.button_rotate_layout.addWidget(self.buttonLabel)
+        self.button_rotate_layout.addWidget(self.rotateCW)
+        self.button_rotate_layout.addWidget(self.rotateCCW)
+        self.button_rotate_layout.addStretch(1)
+                               
         self.tile_list = QListWidget()
 
+
+        
         for index, text in enumerate(prefab_text_list):
             item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
             self.tile_list.addItem(item)
-
+        
+        #contains label and list vertically
+        self.tile_list_layout = QVBoxLayout()
+        self.tile_list_layout.addWidget(self.listLabel)
+        self.tile_list_layout.addWidget(self.tile_list)
+        
         self.button_grid_layout = QGridLayout()
         self.button_grid_layout.setSpacing(0)
+        #self.layout_grid = QBoxLayout()
+        
+        self.grid_widget = QWidget()
+        self.grid_widget.setLayout(self.button_grid_layout)
+        self.scrollArea.setWidget(self.grid_widget)
+        self.scrollArea.ensureWidgetVisible(self.grid_widget)
+        self.scrollArea.setWidgetResizable(True)
 
+        self.scrollFrame = QLabel(self.scrollArea)
+        self.scrollFrame.setFrameStyle(QFrame.Panel | QFrame.Raised)
+        #self.scrollFrame.setLineWidth(2)
+        self.scrollFrame.setGeometry(QRect(0,0,580,580))
+
+        #contains label and grid vertically
+        self.button_grid_all = QVBoxLayout()
+        self.button_grid_all.addLayout(self.button_rotate_layout)
+        self.button_grid_all.addWidget(self.gridLabel)
+        self.button_grid_all.addWidget(self.scrollFrame)
+        
         self.column = QHBoxLayout()
-        self.column.addLayout(self.button_grid_layout)
+        self.column.addLayout(self.button_grid_all)
         self.column.addStretch(1)
-        self.column.addWidget(self.tile_list)
+        self.column.addLayout(self.tile_list_layout)
+        #self.column.addLayout(self.button_rotate_layout)
         #self.column.addStretch(1)
         
         self.row = QVBoxLayout(self.central_widget)
+        #self.row.addLayout(self.labelLayout)
         self.row.addLayout(self.column)
+        #self.row.addLayout(self.button_rotate_layout)
         self.row.addStretch(1)
         #self.row.addStretch(1)
         
         self.grid_change()
         
         self.show()
+    def rotateCW_func(self):
+        global rotation
+        if rotation < 3:
+            rotation = rotation + 1
+        else:
+            rotation = 0
+        #print(rotation)
+    def rotateCCW_func(self):
+        global rotation
+        if rotation == 0:
+            rotation = 3
+        else:
+            rotation = rotation - 1
+        #print(rotation)
+ 
+        
         
     def file_open(self):
         name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
@@ -277,6 +359,7 @@ class MainWindow(QMainWindow):
         self.form.addRow(self.okay_btn)
 
         self.window.setLayout(self.form)
+        self.window.setWindowTitle("Set Grid Size")
         self.window.exec_()
         '''
         text = QInputDialog.getText(self,("Get Grid Y"),
@@ -299,12 +382,6 @@ class MainWindow(QMainWindow):
 
         print(self.grid_y)
         print(self.grid_x)
-        if self.grid_y >= 23:
-            print("y value too big! Please print a number. (less than 23)")
-            self.grid_change()
-        elif self.grid_x >= 26:
-            print("x value too big! Please print a number. (less than 26)")
-            self.grid_change()
 
         for x in range(self.grid_x):
             for y in range(self.grid_y):
@@ -312,6 +389,7 @@ class MainWindow(QMainWindow):
                 grid_btn = GridBtn(self, x, y, self.btn_id_count)
                 self.button_grid_layout.addWidget(grid_btn.button,y,x) #needs to be like this because grid_layout is counter-intuitive
                 #self.button_grid_layout.setColumnMinimumWidth(y, 32)
+                #self.layout_grid.addWidget(grid_btn.button,x,y)
                 
                 grid_list.append(grid_btn)
                 totalblocks.append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
@@ -429,6 +507,7 @@ class MainWindow(QMainWindow):
         prefab_text = QInputDialog.getText(self, "Prefab Text",
                                            "Prefab Text (e.g. Wall Tile)")
         '''
+        
         self.window = QDialog(self)
         self.textLineEdit = QLineEdit()
         self.nameLineEdit = QLineEdit()
@@ -462,7 +541,7 @@ class MainWindow(QMainWindow):
 
         self.okay_btn.clicked.connect(lambda: QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                       createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
-                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText())))
+                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked())))
 
         self.rotCheckBox = QCheckBox()
         
@@ -492,6 +571,7 @@ class MainWindow(QMainWindow):
 
 #define some global variables
 id_num = 1
+rotation = 0
 world_id_num = 2
 entity_num = 1
 toggle = 0
