@@ -179,6 +179,14 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.central_widget)
         #self.labelLayout = QHBoxLayout(self)
 
+        self.scrollArea = QScrollArea(self)
+        self.scrollArea.setBackgroundRole(QPalette.Dark)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setGeometry(QRect(12, 180, 1000, 570))
+        self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scrollArea.ensureVisible(0,0)
+
+
         self.buttonLabel = QLabel("Rotation:",self)
         self.listLabel = QLabel("List of prefabs:",self)
         self.gridLabel = QLabel("Grid:",self)
@@ -211,6 +219,8 @@ class MainWindow(QMainWindow):
                                
         self.tile_list = QListWidget()
 
+
+        
         for index, text in enumerate(prefab_text_list):
             item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
             self.tile_list.addItem(item)
@@ -221,13 +231,17 @@ class MainWindow(QMainWindow):
         self.tile_list_layout.addWidget(self.tile_list)
         
         self.button_grid_layout = QGridLayout()
-        self.button_grid_layout.setSpacing(0)
-        
+        self.button_grid_layout.setSpacing(1)
+
+
+
+        self.scrollArea.setLayout(self.button_grid_layout)
+
         #contains label and grid vertically
         self.button_grid_all = QVBoxLayout()
         self.button_grid_all.addLayout(self.button_rotate_layout)
         self.button_grid_all.addWidget(self.gridLabel)
-        self.button_grid_all.addLayout(self.button_grid_layout)
+        self.button_grid_all.addWidget(self.scrollArea)
         
         self.column = QHBoxLayout()
         self.column.addLayout(self.button_grid_all)
