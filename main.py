@@ -17,7 +17,7 @@ class GridBtn(QWidget):
         self.button = QPushButton("", self_global)
         self.x = 32*x
         self.y = 20+(32*y)
-        self.button.move(self.x,self.y)
+        #self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.setFixedSize(32, 32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
@@ -175,16 +175,25 @@ class MainWindow(QMainWindow):
         self.close_application()
         
     def home(self):
+        global ifon, ifon2
+        if ifon == 1:
+            self.text_1 = 0
+            self.text_2 = 0
+            ifon = 0
+        else:
+            self.text_1 = int(self.text.displayText())
+            self.text_2 = int(self.text2.displayText())
+        print(self.text_1,self.text_2)
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
         #self.labelLayout = QHBoxLayout(self)
+        if self.text_1 > 14 or self.text_2 > 14:
+            self.scrollArea = QScrollArea(self)
+            self.scrollArea.setBackgroundRole(QPalette.Light)
 
-        self.scrollArea = QScrollArea(self)
-        self.scrollArea.setBackgroundRole(QPalette.Light)
-
-        self.scrollArea.setGeometry(QRect(5, 140, 580, 580))
-        self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+            self.scrollArea.setGeometry(QRect(5, 140, 580, 580))
+            self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+            self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
 
 
 
@@ -233,24 +242,29 @@ class MainWindow(QMainWindow):
         
         self.button_grid_layout = QGridLayout()
         self.button_grid_layout.setSpacing(0)
-        #self.layout_grid = QBoxLayout()
         
-        self.grid_widget = QWidget()
-        self.grid_widget.setLayout(self.button_grid_layout)
-        self.scrollArea.setWidget(self.grid_widget)
-        self.scrollArea.ensureWidgetVisible(self.grid_widget)
-        self.scrollArea.setWidgetResizable(True)
+        #self.layout_grid = QBoxLayout()
+        if self.text_1 > 14 or self.text_2 > 14:
+            self.grid_widget = QWidget()
+            self.grid_widget.setLayout(self.button_grid_layout)
+            self.scrollArea.setWidget(self.grid_widget)
+            self.scrollArea.ensureWidgetVisible(self.grid_widget)
+            self.scrollArea.setWidgetResizable(True)
 
-        self.scrollFrame = QLabel(self.scrollArea)
-        self.scrollFrame.setFrameStyle(QFrame.Panel | QFrame.Raised)
-        #self.scrollFrame.setLineWidth(2)
-        self.scrollFrame.setGeometry(QRect(0,0,580,580))
+            self.scrollFrame = QLabel(self.scrollArea)
+            self.scrollFrame.setFrameStyle(QFrame.Panel | QFrame.Raised)
+            #self.scrollFrame.setLineWidth(2)
+            self.scrollFrame.setGeometry(QRect(0,0,580,580))
 
         #contains label and grid vertically
         self.button_grid_all = QVBoxLayout()
         self.button_grid_all.addLayout(self.button_rotate_layout)
         self.button_grid_all.addWidget(self.gridLabel)
-        self.button_grid_all.addWidget(self.scrollFrame)
+        if self.text_1 > 14 or self.text_2 > 14:
+            self.button_grid_all.addWidget(self.scrollFrame)
+            print("work")
+        else:
+            self.button_grid_all.addLayout(self.button_grid_layout)
         
         self.column = QHBoxLayout()
         self.column.addLayout(self.button_grid_all)
@@ -266,7 +280,11 @@ class MainWindow(QMainWindow):
         self.row.addStretch(1)
         #self.row.addStretch(1)
         
-        self.grid_change()
+        if ifon2 == 1:
+            self.grid_change()
+            ifon2 = 0
+        else:
+            pass
         
         self.show()
     def rotateCW_func(self):
@@ -403,6 +421,7 @@ class MainWindow(QMainWindow):
 
                 
         self.count += 1
+        #self.home()
         #self.comboBox = QComboBox(self)
         #self.comboBox.resize(128, 16)
         #for item in prefab_text_list:
@@ -582,6 +601,8 @@ skybox_list=[]
 skybox_light_list=[]
 skybox_angle_list=[]
 skybox_icon_list=[]
+ifon = 1
+ifon2 = 1
 prefab_list = []
 count_btns = 0
 entity_list=[]
