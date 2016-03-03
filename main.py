@@ -17,8 +17,8 @@ class GridBtn(QWidget):
         self.button = QPushButton("", self_global)
         self.x = 32*x
         self.y = 20+(32*y)
-        #self.button.move(self.x,self.y)
-        #self.button.resize(32,32)
+        self.button.move(self.x,self.y)
+        self.button.resize(32,32)
         self.button.setFixedSize(32, 32)
         self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
                                                             btn_id))
@@ -78,7 +78,7 @@ class GridBtn(QWidget):
             try:
                 entity_list[btn_id] = create[4]
             except:
-                print("didnt work")
+                pass#ear por el pueblo occidental
 
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
@@ -180,11 +180,12 @@ class MainWindow(QMainWindow):
         #self.labelLayout = QHBoxLayout(self)
 
         self.scrollArea = QScrollArea(self)
-        self.scrollArea.setBackgroundRole(QPalette.Dark)
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setGeometry(QRect(12, 180, 1000, 570))
+        self.scrollArea.setBackgroundRole(QPalette.Light)
+
+        self.scrollArea.setGeometry(QRect(5, 140, 580, 580))
         self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scrollArea.ensureVisible(0,0)
+        self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+
 
 
         self.buttonLabel = QLabel("Rotation:",self)
@@ -231,17 +232,25 @@ class MainWindow(QMainWindow):
         self.tile_list_layout.addWidget(self.tile_list)
         
         self.button_grid_layout = QGridLayout()
-        self.button_grid_layout.setSpacing(1)
+        self.button_grid_layout.setSpacing(0)
+        #self.layout_grid = QBoxLayout()
+        
+        self.grid_widget = QWidget()
+        self.grid_widget.setLayout(self.button_grid_layout)
+        self.scrollArea.setWidget(self.grid_widget)
+        self.scrollArea.ensureWidgetVisible(self.grid_widget)
+        self.scrollArea.setWidgetResizable(True)
 
-
-
-        self.scrollArea.setLayout(self.button_grid_layout)
+        self.scrollFrame = QLabel(self.scrollArea)
+        self.scrollFrame.setFrameStyle(QFrame.Panel | QFrame.Raised)
+        #self.scrollFrame.setLineWidth(2)
+        self.scrollFrame.setGeometry(QRect(0,0,580,580))
 
         #contains label and grid vertically
         self.button_grid_all = QVBoxLayout()
         self.button_grid_all.addLayout(self.button_rotate_layout)
         self.button_grid_all.addWidget(self.gridLabel)
-        self.button_grid_all.addWidget(self.scrollArea)
+        self.button_grid_all.addWidget(self.scrollFrame)
         
         self.column = QHBoxLayout()
         self.column.addLayout(self.button_grid_all)
@@ -373,12 +382,6 @@ class MainWindow(QMainWindow):
 
         print(self.grid_y)
         print(self.grid_x)
-        if self.grid_y >= 23:
-            print("y value too big! Please print a number. (less than 23)")
-            self.grid_change()
-        elif self.grid_x >= 26:
-            print("x value too big! Please print a number. (less than 26)")
-            self.grid_change()
 
         for x in range(self.grid_x):
             for y in range(self.grid_y):
@@ -386,6 +389,7 @@ class MainWindow(QMainWindow):
                 grid_btn = GridBtn(self, x, y, self.btn_id_count)
                 self.button_grid_layout.addWidget(grid_btn.button,y,x) #needs to be like this because grid_layout is counter-intuitive
                 #self.button_grid_layout.setColumnMinimumWidth(y, 32)
+                #self.layout_grid.addWidget(grid_btn.button,x,y)
                 
                 grid_list.append(grid_btn)
                 totalblocks.append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
