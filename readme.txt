@@ -8,7 +8,7 @@ Ctrl+S = choose skybox texture. I reccommend choosing one that you want, the def
 
 Ctrl+E = export vmf. do this when you're done.
 
-Ctrl+J = Change environmental lighting
+Ctrl+J = Change environmental lighting (obsolete)
 
 Alt+click on a square with a prefab on it to remove it.
 
