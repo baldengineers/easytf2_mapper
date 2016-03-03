@@ -18,5 +18,5 @@ Make the ground a 64 high 512*512 block for uniformity. Report bugs with this to
 After exporting, open the .vmf in hammer to make it into a .bsp.
 
 
-TODO: https://srinikom.github.io/pyside-docs/PySide/QtGui/QScrollArea.html add scroll box for the grid, and remove limits on
-amount of buttons in the grid.
+TODO: http://pythonhosted.org/PyInstaller/ create redistributable package. as a side note, we need to manually add every single prefab
+.py, as pyinstaller cannot detect modules imported with the modification of sys.path
