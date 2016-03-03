@@ -6,5 +6,4 @@ Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in deve
 _CURRENTLY IN BETA 0.1.1, functional if you have fair hammer know-how._
 <p>
 *READ THE README.TXT FOR INFO*
-<p>
-*_jony, work on the rotation_branch._*
+
