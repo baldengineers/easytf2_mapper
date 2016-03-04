@@ -7,6 +7,7 @@ from PySide.QtGui import *
 import importlib
 import createPrefab
 import light_create
+import subprocess
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
 #TODO: skybox modeling. choosing a skybox is done.
@@ -118,6 +119,11 @@ class MainWindow(QMainWindow):
         newAction.setStatusTip("Create a New File")
         #newAction.triggered.connect()
 
+        hammerAction = QAction("&Open Hammer",self)
+        hammerAction.setShortcut("Ctrl+H")
+        hammerAction.setStatusTip("Opens up Hammer.")
+        hammerAction.triggered.connect(self.open_hammer)
+
         changeLightAction = QAction("&Change Lighting", self)
         changeLightAction.setShortcut("Ctrl+J")
         changeLightAction.setStatusTip("Change the environment lighting of the map.")
@@ -144,7 +150,7 @@ class MainWindow(QMainWindow):
 
         changeSkybox = QAction("&Change Skybox", self)
         changeSkybox.setStatusTip("Change the skybox of the map.")
-        changeSkybox.setShortcut("Ctrl+s")
+        changeSkybox.setShortcut("Ctrl+B")
         changeSkybox.triggered.connect(self.change_skybox)
         self.statusBar()
         
@@ -158,6 +164,7 @@ class MainWindow(QMainWindow):
         #fileMenu.addAction(saveAction)
         fileMenu.addAction(exportAction)
         fileMenu.addAction(exitAction)
+        fileMenu.addAction(hammerAction)
 
         optionsMenu.addAction(gridAction)
         #optionsMenu.addAction(changeLightAction)
@@ -168,6 +175,33 @@ class MainWindow(QMainWindow):
         
         self.home()
         self.change_skybox()
+    def open_hammer(self):
+        self.open_file()
+        if "loaded_first_time" not in self.files:
+            hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","Hammer Executable (*.exe *.bat)")
+            hammer_location = str(hammer_location[0])
+            self.file.write("loaded_first_time\n")
+            self.file.write(hammer_location)
+            self.file.close()
+            subprocess.Popen(hammer_location)
+        else:
+            try:
+                subprocess.Popen(self.fileloaded[1])
+            except:
+                self.pootup = QMessageBox()
+                self.pootup.setText("ERROR!")
+                self.pootup.setInformativeText("Hammer executable/batch moved or renamed!")
+                self.pootup.exec_()
+                self.file.close()
+                os.remove("startupcache/startup.su")
+                self.open_hammer()
+    def open_file(self):
+        try:
+            self.file = open("startupcache/startup.su", "r+")
+        except:
+            self.file = open("startupcache/startup.su", "w+")
+        self.fileloaded = self.file.readlines()
+        self.files = "".join(self.fileloaded)
 
     def closeEvent(self, event):
         #closeEvent runs close_application when the x button is pressed
@@ -182,7 +216,11 @@ class MainWindow(QMainWindow):
         self.scrollArea = QScrollArea(self)
         self.scrollArea.setBackgroundRole(QPalette.Light)
 
-        self.scrollArea.setGeometry(QRect(5, 140, 580, 580))
+    
+        try:
+            self.scrollArea.setGeometry(QRect(5, 140, self.grid_x, self.grid_y))
+        except:
+            self.scrollArea.setGeometry(QRect(5,140,580,580))
         self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
 
@@ -243,14 +281,15 @@ class MainWindow(QMainWindow):
 
         self.scrollFrame = QLabel(self.scrollArea)
         self.scrollFrame.setFrameStyle(QFrame.Panel | QFrame.Raised)
-        #self.scrollFrame.setLineWidth(2)
-        self.scrollFrame.setGeometry(QRect(0,0,580,580))
+        #self.scrollFrame.setGeometry(QRect(0,0,580,580))
+        self.scrollFrameLayout = QGridLayout()
+        self.scrollFrameLayout.addWidget(self.scrollFrame)
 
         #contains label and grid vertically
         self.button_grid_all = QVBoxLayout()
         self.button_grid_all.addLayout(self.button_rotate_layout)
         self.button_grid_all.addWidget(self.gridLabel)
-        self.button_grid_all.addWidget(self.scrollFrame)
+        self.button_grid_all.addLayout(self.scrollFrameLayout)
         
         self.column = QHBoxLayout()
         self.column.addLayout(self.button_grid_all)
