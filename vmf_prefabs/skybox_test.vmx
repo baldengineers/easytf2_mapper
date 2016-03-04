@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "7069"
-	"mapversion" "2"
+	"mapversion" "1"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -20,19 +20,19 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "2"
+	"mapversion" "1"
 	"classname" "worldspawn"
-	"detailmaterial" "detail/detailsprites_2fort"
-	"detailvbsp" "detail_2fort.vbsp"
-	"maxpropscreenwidth" "-1"
 	"skyname" "sky_tf2_04"
+	"maxpropscreenwidth" "-1"
+	"detailvbsp" "detail_2fort.vbsp"
+	"detailmaterial" "detail/detailsprites_2fort"
 	solid
 	{
 		"id" "2"
 		side
 		{
 			"id" "1"
-			"plane" "(-64 -576 512) (-64 0 512) (0 0 512)"
+			"plane" "(0 0 512) (64 0 512) (64 -512 512)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -43,7 +43,7 @@ world
 		side
 		{
 			"id" "2"
-			"plane" "(-64 0 0) (-64 -576 0) (0 -576 0)"
+			"plane" "(0 -512 0) (64 -512 0) (64 0 0)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -54,7 +54,7 @@ world
 		side
 		{
 			"id" "3"
-			"plane" "(-64 -576 0) (-64 0 0) (-64 0 512)"
+			"plane" "(0 0 512) (0 -512 512) (0 -512 0)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -65,7 +65,7 @@ world
 		side
 		{
 			"id" "4"
-			"plane" "(0 0 0) (0 -576 0) (0 -576 512)"
+			"plane" "(64 0 0) (64 -512 0) (64 -512 512)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -76,7 +76,7 @@ world
 		side
 		{
 			"id" "5"
-			"plane" "(-64 0 0) (0 0 0) (0 0 512)"
+			"plane" "(64 0 512) (0 0 512) (0 0 0)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -87,7 +87,7 @@ world
 		side
 		{
 			"id" "6"
-			"plane" "(0 -576 0) (-64 -576 0) (-64 -576 512)"
+			"plane" "(64 -512 0) (0 -512 0) (0 -512 512)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
