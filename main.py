@@ -177,7 +177,7 @@ class MainWindow(QMainWindow):
         self.change_skybox()
     def open_hammer(self):
         hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","*.exe *.bat","*.bat")
-        subprocess.call(hammer_location)
+        subprocess.check_call(hammer_location)
 
     def closeEvent(self, event):
         #closeEvent runs close_application when the x button is pressed
