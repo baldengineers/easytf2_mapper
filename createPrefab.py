@@ -3,7 +3,7 @@ This function takes a vmf file exported from hammer, then exports both a
 prefab txt template (look in prefabs folder), and a .py containing the
 algorithms to create the object
 """
-def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block):
+def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled):
   #TODO: Add a values list history, that keeps track of all the past value_lists
   #so we can see if there are duplicate value lists. 
   
@@ -36,24 +36,43 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     xyz_list = ["x", "y", "z"]
   elif in_entity_block:
     xyz_list = ["px", "py", "pz"]
+	
+  #xyz_dict only to	be used for rotations
+  if rot_enabled:
+	xyz_dict = {"rot1":{"x" : "y", "y" : "neg_x", "z" : "z"},
+				"rot2":{"x" : "neg_x", "y" : "neg_y", "z" : "z"},
+				"rot3":{"x" : "neg_y", "y": "x", "z" : "z"}}
+  else:
+	xyz_dict = [""]
   
   for var in xyz_list:
     try:
       value = int(value_list[xyz_list.index(var)])
     except ValueError:
       value = float(value_list[xyz_list.index(var)])
-      
+    
 
-    if var == "x" or var == "px":
-      negative = ""
-    elif var == "y" or var == "py":
-      negative = "-"
+	for item in xyz_dict:
+	  if rot_enabled:
+		var = xyz_dict[item][var]
+		
+		
+	  if var == "x" or var == "px":
+	    negative = ""
+	  elif var == "y" or var == "py":
+	    negative = "-"
+	  
+	  
         
     if var == "z" or var == "pz":
       py_list.append("%s%d = %d" %(var, var_num, value))
+	  if rot_enabled:
+		rot_py_list.append("%s%d = %d" %(var, var_num, value))
       #print(py_list)
     elif value == 0:
       py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
+	  if rot_enabled:
+		rot_py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
       #print(py_list)
     else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
       py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
@@ -142,6 +161,7 @@ def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled):
 
   py_list = []
   ent_py_list = []
+  rot_py_list = []
   txt_list = []
   ent_list = []
   num_list = []
@@ -392,7 +412,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 num_list.append("-")
               elif letter == ")":
                 #print(num_list)
-                write_var(num_list, eval(which_list), py_list, var_num, value_list_history, in_solid_block, in_entity_block) 
+                write_var(num_list, eval(which_list), py_list, var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled) 
                 var_num += 1
                 num_list = []
       elif in_solid_block and "\t}" in line and "\t\t" not in line:
@@ -578,7 +598,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               elif letter == "-":
                 num_list.append("-")
               elif letter == "\"" and nums_yet:
-                write_var(num_list, ent_list, ent_py_list, ent_var_num, value_list_history, in_solid_block, in_entity_block) 
+                write_var(num_list, ent_list, ent_py_list, ent_var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled) 
                 ent_var_num += 1
                 num_list = []
           
