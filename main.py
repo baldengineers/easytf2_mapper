@@ -188,10 +188,13 @@ class MainWindow(QMainWindow):
             try:
                 subprocess.Popen(self.fileloaded[1])
             except:
-                self.pootup = QMessageBox()
-                self.pootup.setText("ERROR!")
-                self.pootup.setInformativeText("Hammer executable/batch moved or renamed!")
-                self.pootup.exec_()
+                #self.pootup = QMessageBox()
+                #self.pootup.setText("ERROR!")
+                #self.pootup.setInformativeText("Hammer executable/batch moved or renamed!")
+                #self.pootup.exec_()
+
+                
+                QMessageBox.critical(self, "Error", "Hammer executable/batch moved or renamed!")
                 self.file.close()
                 os.remove("startupcache/startup.su")
                 self.open_hammer()
