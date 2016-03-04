@@ -178,14 +178,23 @@ class MainWindow(QMainWindow):
     def open_hammer(self):
         self.open_file()
         if "loaded_first_time" not in self.files:
-            hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","Hammer Executable (hammer.exe hammer.bat)")
+            hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","Hammer Executable (*.exe *.bat)")
             hammer_location = str(hammer_location[0])
             self.file.write("loaded_first_time\n")
             self.file.write(hammer_location)
             self.file.close()
             subprocess.Popen(hammer_location)
         else:
-            subprocess.Popen(self.fileloaded[1])
+            try:
+                subprocess.Popen(self.fileloaded[1])
+            except:
+                self.pootup = QMessageBox()
+                self.pootup.setText("ERROR!")
+                self.pootup.setInformativeText("Hammer executable/batch moved or renamed!")
+                self.pootup.exec_()
+                self.file.close()
+                os.remove("startupcache/startup.su")
+                self.open_hammer()
     def open_file(self):
         try:
             self.file = open("startupcache/startup.su", "r+")
