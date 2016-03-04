@@ -37,13 +37,13 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
   elif in_entity_block:
     xyz_list = ["px", "py", "pz"]
 	
-  #xyz_dict only to	be used for rotations
+  #xyz_dict only to be used for rotations
   if rot_enabled:
-	xyz_dict = {"rot1":{"x" : "y", "y" : "neg_x", "z" : "z"},
-				"rot2":{"x" : "neg_x", "y" : "neg_y", "z" : "z"},
-				"rot3":{"x" : "neg_y", "y": "x", "z" : "z"}}
+    xyz_dict = {"rot1":{"x" : "y", "y" : "neg_x", "z" : "z"},
+		"rot2":{"x" : "neg_x", "y" : "neg_y", "z" : "z"},
+		"rot3":{"x" : "neg_y", "y": "x", "z" : "z"}}
   else:
-	xyz_dict = [""]
+    xyz_dict = [""]
   
   for var in xyz_list:
     try:
@@ -52,31 +52,31 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
       value = float(value_list[xyz_list.index(var)])
     
 
-	for item in xyz_dict:
-	  if rot_enabled:
-		var = xyz_dict[item][var]
-		
-		
-	  if var == "x" or var == "px":
-	    negative = ""
-	  elif var == "y" or var == "py":
-	    negative = "-"
+    for item in xyz_dict:
+      if rot_enabled:
+        var = xyz_dict[item][var]
+	
+	
+      if var == "x" or var == "px":
+        negative = ""
+      elif var == "y" or var == "py":
+        negative = "-"
 	  
 	  
         
-    if var == "z" or var == "pz":
-      py_list.append("%s%d = %d" %(var, var_num, value))
-	  if rot_enabled:
-		rot_py_list.append("%s%d = %d" %(var, var_num, value))
-      #print(py_list)
-    elif value == 0:
-      py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
-	  if rot_enabled:
-		rot_py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
-      #print(py_list)
-    else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
-      py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
-      #print(py_list)
+      if var == "z" or var == "pz":
+        py_list.append("%s%d = %d" %(var, var_num, value))
+        if rot_enabled:
+          rot_py_list.append("%s%d = %d" %(var, var_num, value))
+        #print(py_list)
+      elif value == 0:
+        py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
+        if rot_enabled:
+          rot_py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
+        #print(py_list)
+      else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
+        py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
+        #print(py_list)
 
     txt_list[txt_list.index("INSERT_VAR")] = "%s%d" %(var, var_num)
   
