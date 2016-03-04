@@ -189,6 +189,7 @@ echo Executing "location_x" %*
 start "" "location_x" %*'''
         hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","Hammer Executable (hammer.exe hammer.bat)")
         hammer_location = str(hammer_location[0])
+        '''
         if "hammer.exe" in hammer_location:
             print("xd")
             loc = hammer_location.replace("hammer.exe","")
@@ -198,7 +199,8 @@ start "" "location_x" %*'''
             f.write(batch_text)
             f.close()
             hammer_location = "hammer_run.bat"
-        subprocess.check_call(hammer_location)
+        '''
+        subprocess.Popen(hammer_location)
 
     def closeEvent(self, event):
         #closeEvent runs close_application when the x button is pressed
