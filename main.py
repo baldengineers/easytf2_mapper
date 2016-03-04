@@ -365,8 +365,10 @@ class MainWindow(QMainWindow):
         print(wholething)
         file.write(wholething)
         file.close()
+        hammerbutton = QPushButton()
+        hammerbutton.clicked.connect(self.open_hammer)
         QMessageBox.information(self, "File Exported",
-                                "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp")
+                                "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp",hammerbutton)
     def removeButtons(self):
 
         for i in reversed(range(self.button_grid_layout.count())):
