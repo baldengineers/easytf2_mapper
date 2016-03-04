@@ -150,7 +150,7 @@ class MainWindow(QMainWindow):
 
         changeSkybox = QAction("&Change Skybox", self)
         changeSkybox.setStatusTip("Change the skybox of the map.")
-        changeSkybox.setShortcut("Ctrl+s")
+        changeSkybox.setShortcut("Ctrl+B")
         changeSkybox.triggered.connect(self.change_skybox)
         self.statusBar()
         
