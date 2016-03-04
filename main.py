@@ -176,7 +176,28 @@ class MainWindow(QMainWindow):
         self.home()
         self.change_skybox()
     def open_hammer(self):
-        hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","Hammer File (*.exe *.bat)")
+        batch_text = '''
+@echo off
+:: Batch file to launch Hammer editor with proper environment
+
+:: Confirm VPROJECT variable is set
+call "poot_check_sdk_env.bat"
+
+:: Launch Hammer
+echo Starting hammer...
+echo Executing "location_x" %*
+start "" "location_x" %*'''
+        hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","Hammer Executable (hammer.exe hammer.bat)")
+        hammer_location = str(hammer_location[0])
+        if "hammer.exe" in hammer_location:
+            print("xd")
+            loc = hammer_location.replace("hammer.exe","")
+            f = open("hammer_run.bat", "w+")
+            batch_text = batch_text.replace("location_x",hammer_location)
+            batch_text = batch_text.replace("poot_",loc)
+            f.write(batch_text)
+            f.close()
+            hammer_location = "hammer_run.bat"
         subprocess.check_call(hammer_location)
 
     def closeEvent(self, event):
