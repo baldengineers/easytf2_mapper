@@ -10,6 +10,8 @@ Ctrl+E = export vmf. do this when you're done.
 
 Ctrl+J = Change environmental lighting (obsolete)
 
+Ctrl+H = Opens Hammer. The first time you do this, you will have to point the program to your hammer.exe
+
 Alt+click on a square with a prefab on it to remove it.
 
 When creating a prefab, make it in the lower right quadrant of the grid, with one corner touching the origin.
