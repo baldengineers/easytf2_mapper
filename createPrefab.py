@@ -56,9 +56,9 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     for item in xyz_dict:
       if rot_enabled:
         orig_var = var
-        print(xyz_dict[item])
-        print(item)
-        print(orig_var)
+        #print(xyz_dict[item])
+        #print(item)
+        #print(orig_var)
         var = xyz_dict[item][orig_var]
       if xyz_dict[item]["addx"] and orig_var == "x":
         addval = "+ 512"
@@ -76,19 +76,28 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
 	  
         
       if var == "z" or var == "pz":
-        py_list.append("%s%d = %d" %(var, var_num, value))
         if rot_enabled:
           rot_py_list.append("%s%s%d = %d" %(item, orig_var, var_num, value))
+          if item == "#ROT0":
+            py_list.append("%s%d = %d" %(orig_var, var_num, value))
+        else:
+          py_list.append("%s%d = %d" %(var, var_num, value))
         #print(py_list)
       elif value == 0:
-        py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
         if rot_enabled:
           rot_py_list.append("%s%s%d = %s%s%s*%s512 %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", "pos", actualvar, negative, addval))
+          if item == "#ROT0":
+            py_list.append("%s%d = %s%s*%s512" %(orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
+        else:
+          py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
         #print(py_list)
       else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
-        py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
         if rot_enabled:
           rot_py_list.append("%s%s%d = %s%s%s*%s512 + (%d) %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", "pos", actualvar, negative, value, addval))
+          if item == "#ROT0":
+            py_list.append("%s%d = %s%s*%s512 + (%d)" %(orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
+        else:
+          py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
         #print(py_list)
 
       var = orig_var
@@ -140,7 +149,7 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
 
   compile_list[compile_list.index("#INSERT_PY_LIST")] = ""
 
-  var_count = (len(py_list) + 1)/4
+  var_count = (len(py_list) + 1)
 
   compile_list[compile_list.index("#INSERT_VAR_COUNT")] = "\n    var_count = %d" %(var_count/3)
   
@@ -280,7 +289,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
     for i in range(ogvalues.count('id_num')):
         values = values.replace('id_num', str(id_num), 1)
-        id_num = id_num+1""",
+        id_num = id_num+1
+""",
 
   "#INSERT_ENT_CODE",
   
