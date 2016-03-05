@@ -1,5 +1,5 @@
 # easytf2_mapper
-##in broken state: sort of
+##in broken state: createPrefab is adding automatic rotations and is borked.
 ###this branch is the current development branch, will be merged to master once rotation is complete.
 Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in development; not close to being in fully working order. Send bugs, ideas, and suggestions to toadsrc@gmail.com.
 <p>
