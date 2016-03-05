@@ -692,7 +692,7 @@ class MainWindow(QMainWindow):
         
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                       createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
-                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked())))
+                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked()))
         
         
         
