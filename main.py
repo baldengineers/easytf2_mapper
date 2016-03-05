@@ -72,19 +72,22 @@ class GridBtn(QWidget):
                 #print(id_num)
                 #print(world_id_num)
                 #this is obsolete -anson
-
-            try:
-                current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
-                current_prefab_icon_list = current_prefab_icon_list.readlines()
-                current_prefab_icon_list = current_prefab_icon_list[self_global.tile_list.currentRow()]
-                current_prefab_icon_list = open(current_prefab_icon_list, 'r+')
-                icon = current_prefab_icon_list[rotation]
-                self.button.setIcon(QIcon(icon))
-                self.button.setIconSize(QSize(32,32))
-            except:
-                icon = prefab_icon_list[self_global.tile_list.currentRow()]
-                self.button.setIcon(QIcon(icon))
-                self.button.setIconSize(QSize(32,32))
+            ###
+            ###
+            ###FOR THIS TO WORK, WE NEED TO ADD ALL THE PREFABS & THEIR ICONS TO THE LIST
+            ###BUT FUCK ME I'M TIRED
+            ''' 
+            current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
+            current_prefab_icon_list = current_prefab_icon_list.readlines()
+            current_prefab_icon_list = current_prefab_icon_list[self_global.tile_list.currentRow()]
+            current_prefab_icon_list = open(current_prefab_icon_list, 'r+')
+            icon = current_prefab_icon_list[rotation]
+            self.button.setIcon(QIcon(icon))
+            self.button.setIconSize(QSize(32,32))
+            '''
+            icon = prefab_icon_list[self_global.tile_list.currentRow()]
+            self.button.setIcon(QIcon(icon))
+            self.button.setIconSize(QSize(32,32))
 
 
             totalblocks[btn_id] = create[0]
