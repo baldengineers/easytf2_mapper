@@ -6,6 +6,7 @@ from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
 import createPrefab
+import image as im
 import generateSkybox
 import light_create
 import subprocess
@@ -72,9 +73,19 @@ class GridBtn(QWidget):
                 #print(world_id_num)
                 #this is obsolete -anson
 
-            icon = prefab_icon_list[self_global.tile_list.currentRow()]
-            self.button.setIcon(QIcon(icon))
-            self.button.setIconSize(QSize(32,32))
+            try:
+                current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
+                current_prefab_icon_list = current_prefab_icon_list.readlines()
+                current_prefab_icon_list = current_prefab_icon_list[self_global.tile_list.currentRow()]
+                current_prefab_icon_list = open(current_prefab_icon_list, 'r+')
+                icon = current_prefab_icon_list[rotation]
+                self.button.setIcon(QIcon(icon))
+                self.button.setIconSize(QSize(32,32))
+            except:
+                icon = prefab_icon_list[self_global.tile_list.currentRow()]
+                self.button.setIcon(QIcon(icon))
+                self.button.setIconSize(QSize(32,32))
+
 
             totalblocks[btn_id] = create[0]
             try:
@@ -633,9 +644,7 @@ class MainWindow(QMainWindow):
         self.okay_btn_layout.addStretch(1)
         self.okay_btn_layout.addWidget(self.okay_btn)
 
-        self.okay_btn.clicked.connect(lambda: QMessageBox.information(self, "Files Created, restart to see the prefab.",
-                                                                      createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
-                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked())))
+        self.okay_btn.clicked.connect(lambda: self.create_run_func())
 
         self.rotCheckBox = QCheckBox()
         
@@ -658,7 +667,30 @@ class MainWindow(QMainWindow):
 
         self.window.setLayout(self.form)
         self.window.exec_()
+    def create_run_func(self):
 
+        self.ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
+        self.icondir = str(self.nameLineEdit.displayText())
+        g = open("prefab_template/rot_prefab_list.txt",'r+')
+        g.write("prefab_template/iconlists/"+icondir+".txt")
+        g.close()
+        self.imageRot = im.open(self.iconTextEdit.displayText())
+        self.imageRot.save(self.icondir+"_right.jpg")
+        self.imageRot.rotate(90)
+        self.imageRot.save(self.icondir+"_down.jpg")
+        self.imageRot.rotate(90)
+        self.imageRot.save(self.icondir+"_left.jpg")
+        self.imageRot.rotate(90)
+        self.imageRot.save(self.icondir+"_up.jpg")
+        f = open("prefab_template/iconlists/"+icondir+".txt","w+")
+        for i in self.ext_list:
+            f.write("icons/"+self.icondir+i+"\n")
+        f.close()
+        
+        QMessageBox.information(self, "Files Created, restart to see the prefab.",
+                                                                      createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
+                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked())))
+        
         
         
         #self.importprefabs()
