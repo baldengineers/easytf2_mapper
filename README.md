@@ -1,5 +1,5 @@
 # easytf2_mapper
-##in broken state: no
+##in broken state: no. this branch is the stable release. check rotation_branch for a more functional yet more buggy version.
 ###testing branch for rotations: rotation_branch. Check for latest updates there.
 Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in development; not close to being in fully working order. Send bugs, ideas, and suggestions to toadsrc@gmail.com.
 <p>
