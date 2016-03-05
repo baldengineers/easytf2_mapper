@@ -38,10 +38,10 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     xyz_list = ["px", "py", "pz"]
 	
   #xyz_dict only to be used for rotations
-  xyz_dict = {"#ROT0":{"x" : "x", "y" : "y", "z" : "z", "addx" : False, "addy" : False},
-              "#ROT1":{"x" : "y", "y" : "neg_x", "z" : "z", "addx" : True, "addy" : False},
-	      "#ROT2":{"x" : "neg_x", "y" : "neg_y", "z" : "z", "addx" : True, "addy" : True},
-	      "#ROT3":{"x" : "neg_y", "y": "x", "z" : "z", "addx" : False, "addy" : True}}
+  xyz_dict = {"#ROT0":{"x" : "x", "y" : "y", "z" : "z", "addx" : False, "suby" : False},
+              "#ROT1":{"x" : "y", "y" : "neg_x", "z" : "z", "addx" : True, "suby" : False},
+	      "#ROT2":{"x" : "neg_x", "y" : "neg_y", "z" : "z", "addx" : True, "suby" : True},
+	      "#ROT3":{"x" : "neg_y", "y": "x", "z" : "z", "addx" : False, "suby" : True}}
   #print(xyz_dict)
 
   actualvar = ""
@@ -54,6 +54,9 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     
   
     for item in xyz_dict:
+      py_list_text = ""
+      rot_py_list_text = ""
+      
       if rot_enabled:
         orig_var = var
         #print(xyz_dict[item])
@@ -63,7 +66,7 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
       if xyz_dict[item]["addx"] and orig_var == "x":
         addval = "+ 512"
       elif xyz_dict[item]["addy"] and orig_var == "y":
-        addval = "+ 512"
+        addval = "- 512"
       else:
         addval = ""
 	
@@ -77,27 +80,37 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
         
       if var == "z" or var == "pz":
         if rot_enabled:
-          rot_py_list.append("%s%s%d = %d" %(item, orig_var, var_num, value))
+          py_list_text = "%s%d = %d" %(orig_var, var_num, value)
+          rot_py_list_text = "%s%s%d = %d" %(item, orig_var, var_num, value)
+          rot_py_list.append(rot_py_list_text)
           if item == "#ROT0":
-            py_list.append("%s%d = %d" %(orig_var, var_num, value))
+            py_list.append(py_list_text)
         else:
-          py_list.append("%s%d = %d" %(var, var_num, value))
+          py_list_text = "%s%d = %d" %(orig_var, var_num, value)
+          py_list.append(py_list_text)
         #print(py_list)
       elif value == 0:
         if rot_enabled:
-          rot_py_list.append("%s%s%d = %s%s%s*%s512 %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", "pos", actualvar, negative, addval))
+          py_list_text = "%s%d = %s%s*%s512" %(orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative)
+          rot_py_list_text = "%s%s%d = %s%s%s*%s512 %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", "pos", actualvar, negative, addval)
+          #subtract_text = " - (%s%s*%s512 + 256)" %("pos", var[-1] if var.startswith("p") else var, negative)
+          rot_py_list.append(rot_py_list_text)
           if item == "#ROT0":
-            py_list.append("%s%d = %s%s*%s512" %(orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
+            py_list.append(py_list_text)
         else:
-          py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
+          py_list_text = "%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative)
+          py_list.append(py_list_text)
         #print(py_list)
       else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
         if rot_enabled:
-          rot_py_list.append("%s%s%d = %s%s%s*%s512 + (%d) %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", "pos", actualvar, negative, value, addval))
+          py_list_text = "%s%d = %s%s*%s512 + (%d)" %(orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value)
+          rot_py_list_text = "%s%s%d = %s%s%s*%s512 + (%d) %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", "pos", actualvar, negative, value, addval)
+          rot_py_list.append(rot_py_list_text)
           if item == "#ROT0":
-            py_list.append("%s%d = %s%s*%s512 + (%d)" %(orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
+            py_list.append(py_list_text)
         else:
-          py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
+          py_list_text = "%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value)
+          py_list.append(py_list_text)
         #print(py_list)
 
       var = orig_var
