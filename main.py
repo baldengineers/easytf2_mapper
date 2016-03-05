@@ -6,6 +6,7 @@ from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
 import createPrefab
+import generateSkybox
 import light_create
 import subprocess
 '''check todo every time you open this'''
@@ -354,10 +355,35 @@ class MainWindow(QMainWindow):
         file.close()
 
     def file_export(self):
-        global world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list
+        global id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list
+        skyboxgeolist = []
+        skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, 512 minimum recommended):"))
+        try:
+            skyboxz = int(skyboxz[0])
+        except:
+            QMessageBox.critical(self, "Error", "Please enter a number.")
+            self.file_export()
         #generate skybox stuff now
         #POPUP ASKING FOR SKYBOX HEIGHT
-        #generateSkybox.createSkyboxLeft(self.grid_x,self.grid_y,skyboxz,id_num,world_id_num)
+        create = generateSkybox.createSkyboxLeft(grid_x,grid_y,skyboxz,id_num,world_id_num)
+        skyboxgeolist.append(create[0])
+        id_num = create[1]
+        world_id_num = create[2]
+        create = generateSkybox.createSkyboxNorth(grid_x,grid_y,skyboxz,id_num,world_id_num)
+        skyboxgeolist.append(create[0])
+        id_num = create[1]
+        world_id_num = create[2]
+        create = generateSkybox.createSkyboxRight(grid_x,grid_y,skyboxz,id_num,world_id_num)
+        skyboxgeolist.append(create[0])
+        id_num = create[1]
+        world_id_num = create[2]
+        create = generateSkybox.createSkyboxTop(grid_x,grid_y,skyboxz,id_num,world_id_num)
+        skyboxgeolist.append(create[0])
+        id_num = create[1]
+        world_id_num = create[2]
+        create = generateSkybox.createSkyboxSouth(grid_x,grid_y,skyboxz,id_num,world_id_num)
+        skyboxgeolist.append(create[0])
+    
         skybox = skybox_list[skybox2_list.currentRow()]
         skyboxlight = skybox_light_list[skybox2_list.currentRow()]
         skyboxangle = skybox_angle_list[skybox2_list.currentRow()]
@@ -373,7 +399,7 @@ class MainWindow(QMainWindow):
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
         file = open(name[0], "w")
         import export
-        wholething = export.execute(totalblocks, entity_list, skybox)
+        wholething = export.execute(totalblocks, entity_list, skybox,skyboxgeolist)
         print(wholething)
         file.write(wholething)
         file.close()
@@ -433,6 +459,7 @@ class MainWindow(QMainWindow):
                                      ("Grid Width:"))
         '''
     def grid_change_func(self,x,y):
+        global grid_y, grid_x
         self.window.deleteLater()
         try:
             self.grid_y = int(y)
@@ -468,6 +495,8 @@ class MainWindow(QMainWindow):
 
                 
         self.count += 1
+        grid_y = self.grid_y
+        grid_x = self.grid_x
         #self.comboBox = QComboBox(self)
         #self.comboBox.resize(128, 16)
         #for item in prefab_text_list:

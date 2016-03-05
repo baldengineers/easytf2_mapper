@@ -1,11 +1,12 @@
 import os
 
-def execute(totalblocks, entity_list, skybox):
+def execute(totalblocks, entity_list, skybox, skyboxgeolist):
 
     beg_template = open('prefab_template/beginning_template.txt', 'r+')
     beg_template = beg_template.readlines()
     beg_template = "".join(beg_template)
     beg_template = beg_template.replace('CURRENT_SKYBOX',skybox)
+    skyboxgeolist = "".join(skyboxgeolist)
     end_template = """ 
 cameras
 {
@@ -24,7 +25,7 @@ cordon
     compiledblocks = compiledblocks.replace('EMPTY_SLOT','')
     totalentities = "".join(entity_list)
     totalentities = totalentities.replace('NO_ENTITY','')
-    whole = beg_template + compiledblocks + "}\n"+totalentities + end_template
+    whole = beg_template + compiledblocks + skyboxgeolist + "}\n"+totalentities + end_template
     #whole = beg_template + compiledblocks + "}\n"+ end_template
 
     return whole

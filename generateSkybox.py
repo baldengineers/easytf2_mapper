@@ -79,7 +79,7 @@ def createSkyboxSouth(gridx,gridy,skyboxz,id_num,world_id_num):
     values = "".join(lines)
     ogvalues = "".join(lines)
     values = values.replace("skyboxz",str(skyboxz))
-    values = values.replace("ynum",str((gridx*512)-64))
+    values = values.replace("ynum",str((gridy*-512)-64))
     values = values.replace("numy",str(gridy*-512))
     values = values.replace("numx",str(gridx*512))
     values = values.replace("world_idnum",str(world_id_num))
