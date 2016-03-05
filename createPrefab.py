@@ -3,6 +3,20 @@ This function takes a vmf file exported from hammer, then exports both a
 prefab txt template (look in prefabs folder), and a .py containing the
 algorithms to create the object
 """
+import math
+import collections
+
+def rotatePoint(centerPoint,point,angle):
+    """Rotates a point around another centerPoint. Angle is in degrees.
+    Rotation is counter-clockwise"""
+    angle = math.radians(angle)
+    temp_point = point[0]-centerPoint[0] , point[1]-centerPoint[1]
+    temp_point = ( temp_point[0]*math.cos(angle)-temp_point[1]*math.sin(angle) , temp_point[0]*math.sin(angle)+temp_point[1]*math.cos(angle))
+    temp_point = temp_point[0]+centerPoint[0] , temp_point[1]+centerPoint[1]
+    return temp_point
+
+#print(rotatePoint((0,0),(5,3),90))
+
 def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled):
   #TODO: Add a values list history, that keeps track of all the past value_lists
   #so we can see if there are duplicate value lists. 
@@ -38,13 +52,14 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     xyz_list = ["px", "py", "pz"]
 	
   #xyz_dict only to be used for rotations
-  xyz_dict = {"#ROT0":{"x" : "x", "y" : "y", "z" : "z", "addx" : False, "suby" : False},
-              "#ROT1":{"x" : "y", "y" : "neg_x", "z" : "z", "addx" : True, "suby" : False},
-	      "#ROT2":{"x" : "neg_x", "y" : "neg_y", "z" : "z", "addx" : True, "suby" : True},
-	      "#ROT3":{"x" : "neg_y", "y": "x", "z" : "z", "addx" : False, "suby" : True}}
+  #xyz_dict = {"#ROT0":{"x" : "x", "y" : "y", "z" : "z", "addx" : False, "suby" : False},
+  #            "#ROT1":{"x" : "y", "y" : "neg_x", "z" : "z", "addx" : True, "suby" : False},
+  #	      "#ROT2":{"x" : "neg_x", "y" : "neg_y", "z" : "z", "addx" : True, "suby" : True},
+  #	      "#ROT3":{"x" : "neg_y", "y": "x", "z" : "z", "addx" : False, "suby" : True}}
   #print(xyz_dict)
+  #xyz_dict = collections.OrderedDict(sorted(xyz_dict.items()))
 
-  actualvar = ""
+  #actualvar = ""
   
   for var in xyz_list:
     try:
@@ -53,78 +68,116 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
       value = float(value_list[xyz_list.index(var)])
     
   
-    for item in xyz_dict:
-      py_list_text = ""
-      rot_py_list_text = ""
+    #for item in xyz_dict:
+    py_list_text = ""
+      #rot_py_list_text = ""
+      #print(item)
       
-      if rot_enabled:
-        orig_var = var
+      #if rot_enabled:
+        #orig_var = var
         #print(xyz_dict[item])
         #print(item)
         #print(orig_var)
-        var = xyz_dict[item][orig_var]
+        #var = xyz_dict[item][orig_var]
+
+        #if item == "#ROT1":
+        #  degrees = 270
+        #elif item == "#ROT2":
+        #  degrees = 180
+        #elif item == "#ROT3":
+        #  degrees = 90
+        #else:
+        #  degrees = 0
 
         
-      if xyz_dict[item]["addx"] and orig_var == "x":
-        addval = "+ 512"
-      elif xyz_dict[item]["suby"] and orig_var == "y":
-        addval = "- 512"
-      else:
-        addval = ""
+      #if xyz_dict[item]["addx"] and orig_var == "x":
+      #  addval = "+ 512"
+      #elif xyz_dict[item]["suby"] and orig_var == "y":
+      #  addval = "- 512"
+      #else:
+      #  addval = ""
 	
-      if var == "x" or var == "px" or var == "neg_x":
-        negative = 1
-        actualvar = "x"
-      elif var == "y" or var == "py" or var == "neg_y":
-        negative = -1
-        actualvar = "y"
-        
-      if var == "z" or var == "pz":
-        if rot_enabled:
-          py_list_text = "%s%d = %d" %(orig_var, var_num, value)
-          if item == "#ROT0":
-            py_list.append(py_list_text)
-          else:
-            rot_py_list_text = "%s%s%d = %d" %(item, orig_var, var_num, value)
-            rot_py_list.append(rot_py_list_text)
-        else:
-          py_list_text = "%s%d = %d" %(orig_var, var_num, value)
-          py_list.append(py_list_text)
-        #print(py_list)
-      elif value == 0:
-        if rot_enabled:
-          py_list_text = "%s%d = pos%s*%d*512" %(orig_var, var_num, var[-1] if var.startswith("p") else var, negative)
-          if item == "#ROT0":
-            py_list.append(py_list_text)
-          else:
-            center_origin_text = "(pos%s*%d*512)" %(actualvar[-1] if actualvar.startswith("p") else actualvar, negative)
-            #rot_py_list_text = "%s%s%d = %s%s*%d*512 %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, negative, addval)
-            rot_py_list_text = "%s%s%d = %s(%s + (pos%s-1)*%d*512 %s)" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, actualvar, -1*negative, addval)
-            #subtract_text = " - (%s%s*%s512 + 256)" %("pos", var[-1] if var.startswith("p") else var, negative)
-            rot_py_list.append(rot_py_list_text)
-        else:
-          py_list_text = "%s%d = pos%s*%d*512" %(var, var_num, var[-1] if var.startswith("p") else var, negative)
-          py_list.append(py_list_text)
-        #print(py_list)
-      else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
-        if rot_enabled:
-          py_list_text = "%s%d = pos%s*%d*512 + (%d)" %(orig_var, var_num, var[-1] if var.startswith("p") else var, negative, value)
-          if item == "#ROT0":
-            py_list.append(py_list_text)
-          else:
-            center_origin_text = "(pos%s*%d*512 + %d)" %(actualvar, negative, value)
-            #rot_py_list_text = "%s%s%d = %s%s*%d*512 + (%d) %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, negative, value, addval)
-            rot_py_list_text = "%s%s%d = %s(%s + (pos%s-1)*%d*512 %s)" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, actualvar, -1*negative, addval)
-            rot_py_list.append(rot_py_list_text)
-        else:
-          py_list_text = "%s%d = pos%s*%d*512 + (%d)" %(var, var_num, var[-1] if var.startswith("p") else var, negative, value)
-          py_list.append(py_list_text)
-        #print(py_list)
+    if var == "x" or var == "px":# or var == "neg_x":
+      negative = 1
+      #actualvar = "x"
+    elif var == "y" or var == "py" or var == "neg_y":
+      negative = -1
+      #actualvar = "y"
+      
+    if var == "z" or var == "pz":
+      #if rot_enabled:
+        #py_list_text = "%s%d = %d" %(orig_var, var_num, value)
+        #if item == "#ROT0":
+          #py_list.append(py_list_text)
+        #else:
+          #rot_py_list_text = "%s%s%d = %d" %(item, orig_var, var_num, value)
+          #rot_py_list.append(rot_py_list_text)
+      #else:
+      py_list_text = "%s%d = %d" %(var, var_num, value)
+      py_list.append(py_list_text)
+      #print(py_list)
+    elif value == 0:
+      #if rot_enabled:
+        #py_list_text = "%s%d = pos%s*%d*512" %(orig_var, var_num, var[-1] if var.startswith("p") else var, negative)
+        #if item == "#ROT0":
+        #  py_list.append(py_list_text)
+        #else:
+          #center_origin_text = "(pos%s*%d*512)" %(actualvar[-1] if actualvar.startswith("p") else actualvar, negative)
+          #rot_py_list_text = "%s%s%d = %s%s*%d*512 %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, negative, addval)
+          #rot_py_list_text = "%s%s%d = %s(%s + pos%s*%d*512 %s)" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, actualvar, -1*negative, addval)
+          #subtract_text = " - (%s%s*%s512 + 256)" %("pos", var[-1] if var.startswith("p") else var, negative)
+          #print(py_list)
+          #print(var_num)
+          #rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d])" %(item, orig_var, var_num, py_list[-3], py_list[-2], degrees, 0 if var == "x" else 1)
+          #rot_py_list.append(rot_py_list_text)
+      #else:
+      py_list_text = "%s%d = pos%s*%d*512" %(var, var_num, var[-1] if var.startswith("p") else var, negative)
+      py_list.append(py_list_text)
+      #print(py_list)
+    else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
+      #if rot_enabled:
+        #py_list_text = "%s%d = pos%s*%d*512 + (%d)" %(orig_var, var_num, var[-1] if var.startswith("p") else var, negative, value)
+        #if item == "#ROT0":
+        #  py_list.append(py_list_text)
+        #else:
+          #center_origin_text = "(pos%s*%d*512 + %d)" %(actualvar, negative, value)
+          #rot_py_list_text = "%s%s%d = %s%s*%d*512 + (%d) %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, negative, value, addval)
+          #rot_py_list_text = "%s%s%d = %s(%s + pos%s*%d*512 %s)" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, actualvar, -1*negative, addval)
+          #rot_py_list_text = "%s%s%d = rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d]" %(item, orig_var, var_num, py_list[(var_num)-1], py_list[var_num], degrees, 0 if var == "x" else 1)
+          #rot_py_list.append(rot_py_list_text)
+          #pass
+      #else:
+      py_list_text = "%s%d = pos%s*%d*512 + (%d)" %(var, var_num, var[-1] if var.startswith("p") else var, negative, value)
+      py_list.append(py_list_text)
+      #print(py_list)
 
-      var = orig_var
+    #var = orig_var
 
     txt_list[txt_list.index("INSERT_VAR")] = "%s%d" %(var, var_num)
-  
+
+  rot_list = ["#ROT1", "#ROT2", "#ROT3"]
+
+  for item in rot_list:
+    if item == "#ROT1":
+      degrees = 270
+    elif item == "#ROT2":
+      degrees = 180
+    elif item == "#ROT3":
+      degrees = 90
+    else:
+      degrees = 0
+    
+    for var in xyz_list:
+      if var == "z" or var == "pz":
+        rot_py_list_text = "%s%s%d = %s" %(item, var, var_num, py_list[-1][py_list[-1].index("=") + 2:])
+        rot_py_list.append(rot_py_list_text)
+      elif value == 0:
+        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" else 1)
+        rot_py_list.append(rot_py_list_text)
+      else:
+        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" else 1)
+        rot_py_list.append(rot_py_list_text)
+
 
 def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path):
   #This compiles the txt prefab template
@@ -269,6 +322,14 @@ def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled):
   value_list = []
   compile_list = [
   """import os
+import math
+
+def rotatePoint(centerPoint,point,angle):
+    angle = math.radians(angle)
+    temp_point = point[0]-centerPoint[0] , point[1]-centerPoint[1]
+    temp_point = ( temp_point[0]*math.cos(angle)-temp_point[1]*math.sin(angle) , temp_point[0]*math.sin(angle)+temp_point[1]*math.cos(angle))
+    temp_point = temp_point[0]+centerPoint[0] , temp_point[1]+centerPoint[1]
+    return temp_point
 
 def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, rotation):
     
