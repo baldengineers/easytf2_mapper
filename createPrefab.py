@@ -140,6 +140,9 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
   
     compile_list.insert(compile_list.index("#INSERT_ROT_IF"), rot_code[0] + "\n")
     compile_list[compile_list.index("#INSERT_ROT_IF")] = ""
+    
+    ent_code.insert(ent_code.index("#INSERT_ROT_IF"), rot_code[0] + "\n")
+    ent_code[ent_code.index("#INSERT_ROT_IF")] = ""
   
     for item in rot_py_list:
       if "#ROT1" in item:
@@ -154,7 +157,24 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
       	compile_list.insert(compile_list.index("#INSERT_ROT_CODE"), item)
       	
     compile_list[compile_list.index("#INSERT_ROT_CODE")] = ""
+
       
+    for item in rot_ent_py_list:
+      if "#ROT1" in item:
+        rot_code.insert(rot_code.index("#INSERT_ROT_1_PY_LIST"), "        " + item[5:] + "\n")
+      elif "#ROT2" in item:
+      	rot_code.insert(rot_code.index("#INSERT_ROT_2_PY_LIST"), "        " + item[5:] + "\n")
+      elif "#ROT3" in item:
+      	rot_code.insert(rot_code.index("#INSERT_ROT_3_PY_LIST"), "        " + item[5:] + "\n")
+      	
+    for index, item in enumerate(rot_code):
+      if not index == 0:
+        ent_code.insert(ent_code.index("#INSERT_ROT_ENT_CODE"), item)
+        
+    ent_code[ent_code.index("#INSERT_ROT_ENT_CODE")] = ""
+    
+    
+    
     rot_code[rot_code.index("#INSERT_ROT_1_PY_LIST")] = ""
     rot_code[rot_code.index("#INSERT_ROT_2_PY_LIST")] = ""
     rot_code[rot_code.index("#INSERT_ROT_3_PY_LIST")] = ""
@@ -261,13 +281,13 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     lines_ent = g.readlines()
 """,
 
-             "#INSERT_ROT_ENT_IF",
+             "#INSERT_ROT_IF",
 
              "#INSERT_ENT_PY_LIST",
 
-             "#INSERT_ENT_VAR_COUNT",
-
              "#INSERT_ROT_ENT_CODE",
+             
+             "#INSERT_ENT_VAR_COUNT",
 
 """
     ent_values = "".join(lines_ent)
