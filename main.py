@@ -355,6 +355,9 @@ class MainWindow(QMainWindow):
 
     def file_export(self):
         global world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list
+        #generate skybox stuff now
+        #POPUP ASKING FOR SKYBOX HEIGHT
+        #generateSkybox.createSkyboxLeft(self.grid_x,self.grid_y,skyboxz,id_num,world_id_num)
         skybox = skybox_list[skybox2_list.currentRow()]
         skyboxlight = skybox_light_list[skybox2_list.currentRow()]
         skyboxangle = skybox_angle_list[skybox2_list.currentRow()]
