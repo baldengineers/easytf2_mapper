@@ -1,19 +1,10 @@
-world
-{
-	"id" "world_idnum"
-	"mapversion" "1"
-	"classname" "worldspawn"
-	"skyname" "sky_tf2_04"
-	"maxpropscreenwidth" "-1"
-	"detailvbsp" "detail_2fort.vbsp"
-	"detailmaterial" "detail/detailsprites_2fort"
 	solid
 	{
 		"id" "world_idnum"
 		side
 		{
 			"id" "id_num"
-			"plane" "(x1 y1 skyboxz) (x2 y2 skyboxz) (x3 y3 skyboxz)"
+			"plane" "(-64 ynum skyboxz) (-64 0 skyboxz) (0 0 skyboxz)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -24,7 +15,7 @@ world
 		side
 		{
 			"id" "id_num"
-			"plane" "(x4 y4 0) (x5 y5 0) (x6 y6 0)"
+			"plane" "(-64 0 0) (-64 ynum 0) (0 ynum 0)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -35,7 +26,7 @@ world
 		side
 		{
 			"id" "id_num"
-			"plane" "(x1 y1 skyboxz) (x7 y7 skyboxz) (x4 y4 0)"
+			"plane" "(-64 ynum 0) (-64 0 0) (-64 0 skyboxz)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -46,7 +37,7 @@ world
 		side
 		{
 			"id" "id_num"
-			"plane" "(x6 y6 0) (x5 y5 0) (x3 y3 skyboxz)"
+			"plane" "(0 0 0) (0 ynum 0) (0 ynum skyboxz)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -57,7 +48,7 @@ world
 		side
 		{
 			"id" "id_num"
-			"plane" "(x2 y2 skyboxz) (x8 y8 skyboxz) (x9 y9 0)"
+			"plane" "(-64 0 0) (0 0 0) (0 0 skyboxz)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -68,7 +59,7 @@ world
 		side
 		{
 			"id" "id_num"
-			"plane" "(x5 y5 0) (x4 y4 0) (x7 y7 skyboxz)"
+			"plane" "(0 ynum 0) (-64 ynum 0) (-64 ynum skyboxz)"
 			"material" "TOOLS/TOOLSSKYBOX"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -83,4 +74,3 @@ world
 			"visgroupautoshown" "1"
 		}
 	}
-}
