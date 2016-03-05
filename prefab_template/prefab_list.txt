@@ -15,3 +15,5 @@ spawn_red_prefab_up
 spawn_red_prefab_down
 spawn_red_prefab_left
 spawn_blu_prefab
+rotation_test
+rotation_test

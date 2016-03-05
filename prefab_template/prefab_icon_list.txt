@@ -15,3 +15,5 @@ icons/spawn_red_up.jpg
 icons/spawn_red_down.jpg
 icons/spawn_red_left.jpg
 icons/spawn_blue.jpg
+icons/crate_cover.jpg
+icons/crate_cover.jpg
