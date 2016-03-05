@@ -1,19 +1,23 @@
 """
 This function takes a vmf file exported from hammer, then exports both a
-prefab txt template (look in prefabs folder), and a .py containing the
-algorithms to create the object
+prefab txt template (look in prefab_template folder), and a .py containing the
+algorithms to create the object (look in the prefabs folder)
 """
-import math
-import collections
 
-def rotatePoint(centerPoint,point,angle):
-    """Rotates a point around another centerPoint. Angle is in degrees.
-    Rotation is counter-clockwise"""
-    angle = math.radians(angle)
-    temp_point = point[0]-centerPoint[0] , point[1]-centerPoint[1]
-    temp_point = ( temp_point[0]*math.cos(angle)-temp_point[1]*math.sin(angle) , temp_point[0]*math.sin(angle)+temp_point[1]*math.cos(angle))
-    temp_point = temp_point[0]+centerPoint[0] , temp_point[1]+centerPoint[1]
-    return temp_point
+
+
+
+#import math
+#import collections
+
+#def rotatePoint(centerPoint,point,angle):
+#    """Rotates a point around another centerPoint. Angle is in degrees.
+#    Rotation is counter-clockwise"""
+#    angle = math.radians(angle)
+#    temp_point = point[0]-centerPoint[0] , point[1]-centerPoint[1]
+#    temp_point = ( temp_point[0]*math.cos(angle)-temp_point[1]*math.sin(angle) , temp_point[0]*math.sin(angle)+temp_point[1]*math.cos(angle))
+#    temp_point = temp_point[0]+centerPoint[0] , temp_point[1]+centerPoint[1]
+#    return temp_point
 
 #print(rotatePoint((0,0),(5,3),90))
 
@@ -172,10 +176,10 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
         rot_py_list_text = "%s%s%d = %s" %(item, var, var_num, py_list[-1][py_list[-1].index("=") + 2:])
         rot_py_list.append(rot_py_list_text)
       elif value == 0:
-        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" else 1)
+        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" else 1)
         rot_py_list.append(rot_py_list_text)
       else:
-        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" else 1)
+        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" else 1)
         rot_py_list.append(rot_py_list_text)
 
 

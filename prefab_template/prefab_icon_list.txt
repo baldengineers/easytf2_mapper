@@ -20,3 +20,5 @@ icons/crate_cover.jpg
 icons/crate_cover.jpg
 icons/crate_cover.jpg
 icons/crate_cover.jpg
+icons/crate_cover.jpg
+icons/crate_cover.jpg
