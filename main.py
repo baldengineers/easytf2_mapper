@@ -32,6 +32,7 @@ class GridBtn(QWidget):
 
     def click_func(self, self_global, x, y, btn_id):
         self.checkForAlt()
+        global rotation
         if toggle != 0:
             self.button.setIcon(QIcon())
             totalblocks[btn_id] = 'EMPTY_SLOT'
@@ -46,9 +47,13 @@ class GridBtn(QWidget):
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             try:
-                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list,rotation)
-            except TypeError:
-                create = moduleName.createTile(x, y, id_num, world_id_num)
+                try:
+                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation)
+                except TypeError:
+                    create = moduleName.createTile(x, y, id_num, world_id_num)
+            except:
+                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list)
+                
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
             world_id_num = create[2]
@@ -76,18 +81,26 @@ class GridBtn(QWidget):
             ###
             ###FOR THIS TO WORK, WE NEED TO ADD ALL THE PREFABS & THEIR ICONS TO THE LIST
             ###BUT FUCK ME I'M TIRED
-            ''' 
-            current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
-            current_prefab_icon_list = current_prefab_icon_list.readlines()
-            current_prefab_icon_list = current_prefab_icon_list[self_global.tile_list.currentRow()]
-            current_prefab_icon_list = open(current_prefab_icon_list, 'r+')
-            icon = current_prefab_icon_list[rotation]
-            self.button.setIcon(QIcon(icon))
-            self.button.setIconSize(QSize(32,32))
-            '''
-            icon = prefab_icon_list[self_global.tile_list.currentRow()]
-            self.button.setIcon(QIcon(icon))
-            self.button.setIconSize(QSize(32,32))
+            try:
+                #print(rotation)
+                current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
+                current_prefab_icon_list = current_prefab_icon_list.readlines()
+                current_prefab_icon_list = current_prefab_icon_list[self_global.tile_list.currentRow()]
+                if "\n" in current_prefab_icon_list:
+                    current_prefab_icon_list = current_prefab_icon_list[:-1]
+                current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
+                current_prefab_icon_list = current_prefab_icon_list.readlines()
+                icon = current_prefab_icon_list[rotation]
+                if "\n" in icon:
+                    icon = icon[:-1]
+                print(icon)
+                self.button.setIcon(QIcon(icon))
+                self.button.setIconSize(QSize(32,32))
+            except Exception as e:
+                print(str(e))
+                icon = prefab_icon_list[self_global.tile_list.currentRow()]
+                self.button.setIcon(QIcon(icon))
+                self.button.setIconSize(QSize(32,32))
 
 
             totalblocks[btn_id] = create[0]
