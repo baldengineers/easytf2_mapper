@@ -6,7 +6,7 @@ Ctrl+G = resize grid. deletes all blocks.
 
 Ctrl+S = choose skybox texture. I reccommend choosing one that you want, the default is pretty bland.
 
-Ctrl+E = export vmf. do this when you're done.
+Ctrl+E = export vmf. do this when you're done. This will export, then give you an option to launch your .vmf into hammer.
 
 Ctrl+J = Change environmental lighting (obsolete)
 
