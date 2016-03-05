@@ -54,7 +54,7 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
 
     for item in xyz_dict:
       if rot_enabled:
-      	orig_var = var
+        orig_var = var
         var = xyz_dict[item][var]
 	
       if var == "x" or var == "px" or var == "neg_x":
