@@ -39,9 +39,9 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
 	
   #xyz_dict only to be used for rotations
   if rot_enabled:
-    xyz_dict = {"rot1":{"x" : "y", "y" : "neg_x", "z" : "z"},
-		"rot2":{"x" : "neg_x", "y" : "neg_y", "z" : "z"},
-		"rot3":{"x" : "neg_y", "y": "x", "z" : "z"}}
+    xyz_dict = {"#ROT1":{"x" : "y", "y" : "neg_x", "z" : "z", "addx" : True, "addy" : False},
+		"#ROT2":{"x" : "neg_x", "y" : "neg_y", "z" : "z", "addx" : True, "addy" : True},
+		"#ROT3":{"x" : "neg_y", "y": "x", "z" : "z", "addx" : False, "addy" : True}}
   else:
     xyz_dict = [""]
   
@@ -62,22 +62,27 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
       elif var == "y" or var == "py" or var == "neg_y":
         negative = "-"
 	  
-	  
+      if xyz_dict[item][addx] and orig_var == "x":
+        addval = "+ 512"
+      elif xyz_dict[item][addy] and orig_var == "y":
+      	addval = "+ 512"
+      else:
+      	addval = ""
         
       if var == "z" or var == "pz":
         py_list.append("%s%d = %d" %(var, var_num, value))
         if rot_enabled:
-          rot_py_list.append("%s%d = %d" %(orig_var, var_num, value))
+          rot_py_list.append("%s%s%d = %d" %(item, orig_var, var_num, value))
         #print(py_list)
       elif value == 0:
         py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
         if rot_enabled:
-          rot_py_list.append("%s%s%d = %s%s*%s512" %("-1*" if "neg" in var else "", orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
+          rot_py_list.append("%s%s%s%d = %s%s*%s512 %s" %(item, "-1*" if "neg" in var else "", orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, addval))
         #print(py_list)
       else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
         py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
         if rot_enabled:
-          rot_py_list.append("%s%s%d = %s%s*%s512 + (%d)" %("-1*" if "neg" in var else "", orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
+          rot_py_list.append("%s%s%s%d = %s%s*%s512 + (%d) %s" %(item, "-1*" if "neg" in var else "", orig_var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value, addval))
         #print(py_list)
 
     txt_list[txt_list.index("INSERT_VAR")] = "%s%d" %(var, var_num)
@@ -113,7 +118,7 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
   
   
 
-def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list):
+def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list):
   #This compiles the py file containing the algorithms
   if rot_enabled:
     rot_indent = "    "
@@ -133,14 +138,26 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
   
   if rot_enabled:
   
-    compile_list.insert(compile_list.index("#INSERT_ROT_IF"), rot_code[1] + "\n")
+    compile_list.insert(compile_list.index("#INSERT_ROT_IF"), rot_code[0] + "\n")
+    compile_list[compile_list.index("#INSERT_ROT_IF")] = ""
   
     for item in rot_py_list:
-      rot_code.insert(rot_code.index("#INSERT_ROT_1_PY_LIST"), "        " + item + "\n")
+      if "#ROT1" in item:
+        rot_code.insert(rot_code.index("#INSERT_ROT_1_PY_LIST"), "        " + item[5:] + "\n")
+      elif "#ROT2" in item:
+      	rot_code.insert(rot_code.index("#INSERT_ROT_2_PY_LIST"), "        " + item[5:] + "\n")
+      elif "#ROT3" in item:
+      	rot_code.insert(rot_code.index("#INSERT_ROT_3_PY_LIST"), "        " + item[5:] + "\n")
+      	
+    for index, item in enumerate(rot_code):
+      if not index == 0:
+      	compile_list.insert(compile_list.index("#INSERT_ROT_CODE"), item)
+      	
+    compile_list[compile_list.index("#INSERT_ROT_CODE")] = ""
       
     rot_code[rot_code.index("#INSERT_ROT_1_PY_LIST")] = ""
-    
-    
+    rot_code[rot_code.index("#INSERT_ROT_2_PY_LIST")] = ""
+    rot_code[rot_code.index("#INSERT_ROT_3_PY_LIST")] = ""
       
     
   
@@ -181,6 +198,7 @@ def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled):
   py_list = []
   ent_py_list = []
   rot_py_list = []
+  rot_ent_py_list = []
   txt_list = []
   ent_list = []
   num_list = []
@@ -309,15 +327,15 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     if rotation == 0:
 """,
 """
-    if rotation == 1:
+    elif rotation == 1:
 """,
     "#INSERT_ROT_1_PY_LIST",
 """
-    if rotation == 2:
+    elif rotation == 2:
 """,
     "#INSERT_ROT_2_PY_LIST",
 """
-    if rotation == 3:
+    elif rotation == 3:
 """,
     "#INSERT_ROT_3_PY_LIST",]
 
@@ -326,7 +344,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
   contains_ent = False #True if there are entities in the vmf
   in_solid_block = False #True if in a solid code block
   in_entity_block = False #True if in an entity code block
-  in_editor_block = False #True if in an editor cod (best game omg so good 8)))) block
+  in_editor_block = False #True if in an editor cod (i luv dat gme) block
   in_connections_block = False #True if in a connections code block
   solid_to_ent = False #True if you want to put the solid block into ent_list
   black_list_var = False #True means it IS on the blacklist, False otherwise
@@ -617,7 +635,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               elif letter == "-":
                 num_list.append("-")
               elif letter == "\"" and nums_yet:
-                write_var(num_list, ent_list, ent_py_list, ent_var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled) 
+                write_var(num_list, ent_list, ent_py_list, ent_var_num, value_list_history, in_solid_block, in_entity_block, rot_ent_py_list, rot_enabled) 
                 ent_var_num += 1
                 num_list = []
           
@@ -680,7 +698,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
       pass
 
   file.close()
-  return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list)
+  return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list)
 
 #create("vmf_prefabs/spawn_room_red_up.vmf", "spawn_red_prefab_up", "Respawn Room - Red - Up", "icons/spawn_red_up.jpg")
 #create("vmf_prefabs/spawn_room_blu.vmf", "spawn_blu_prefab", "Respawn Room - Blu", "icons/spawn_blue.jpg") 
