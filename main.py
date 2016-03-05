@@ -122,7 +122,7 @@ class MainWindow(QMainWindow):
         hammerAction = QAction("&Open Hammer",self)
         hammerAction.setShortcut("Ctrl+H")
         hammerAction.setStatusTip("Opens up Hammer.")
-        hammerAction.triggered.connect(self.open_hammer)
+        hammerAction.triggered.connect(lambda: self.open_hammer(0,"null"))
 
         changeLightAction = QAction("&Change Lighting", self)
         changeLightAction.setShortcut("Ctrl+J")
@@ -175,7 +175,7 @@ class MainWindow(QMainWindow):
         
         self.home()
         self.change_skybox()
-    def open_hammer(self):
+    def open_hammer(self,loaded,file):
         self.open_file()
         if "loaded_first_time" not in self.files:
             hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","Hammer Executable (*.exe *.bat)")
@@ -183,21 +183,30 @@ class MainWindow(QMainWindow):
             self.file.write("loaded_first_time\n")
             self.file.write(hammer_location)
             self.file.close()
-            subprocess.Popen(hammer_location)
+            if loaded == 1:
+                subprocess.Popen(hammer_location +" "+ file)
+                #print("work")
+            else:
+                subprocess.Popen(hammer_location)
         else:
             try:
-                subprocess.Popen(self.fileloaded[1])
-            except:
+                if loaded == 1:
+                    subprocess.Popen(self.fileloaded[1] + " "+file)
+                    #print("work")
+                else:
+                    subprocess.Popen(self.fileloaded[1])
+            except Exception as e:
+                print(str(e))
                 #self.pootup = QMessageBox()
                 #self.pootup.setText("ERROR!")
                 #self.pootup.setInformativeText("Hammer executable/batch moved or renamed!")
                 #self.pootup.exec_()
 
                 
-                QMessageBox.critical(self, "Error", "Hammer executable/batch moved or renamed!")
-                self.file.close()
-                os.remove("startupcache/startup.su")
-                self.open_hammer()
+                #QMessageBox.critical(self, "Error", "Hammer executable/batch moved or renamed!")
+                #self.file.close()
+                #os.remove("startupcache/startup.su")
+                #self.open_hammer(0,"null")
     def open_file(self):
         try:
             self.file = open("startupcache/startup.su", "r+")
@@ -365,10 +374,19 @@ class MainWindow(QMainWindow):
         print(wholething)
         file.write(wholething)
         file.close()
-        hammerbutton = QPushButton()
-        hammerbutton.clicked.connect(self.open_hammer)
-        QMessageBox.information(self, "File Exported",
-                                "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp",hammerbutton)
+        popup = QMessageBox(self, "File Exported",
+                                "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp")
+        popup.setWindowTitle("File Exported")
+        popup.setText("The .vmf has been outputted to %s" %(name[0]))
+        popup.setInformativeText(" Open it in hammer to compile as a .bsp")
+        hammerButton = popup.addButton("Open Hammer",QMessageBox.ActionRole)
+        exitButton = popup.addButton("OK",QMessageBox.ActionRole)
+        popup.exec_()
+        if popup.clickedButton() == hammerButton:
+            self.open_hammer(1,name[0])
+        if popup.clickedButton() == exitButton:
+            popup.deleteLater()
+            
     def removeButtons(self):
 
         for i in reversed(range(self.button_grid_layout.count())):
