@@ -1,0 +1,4 @@
+icons/respawn_red_right.jpg
+icons/respawn_red_down.jpg
+icons/respawn_red_left.jpg
+icons/respawn_red_up.jpg

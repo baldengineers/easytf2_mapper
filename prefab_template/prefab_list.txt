@@ -16,7 +16,3 @@ spawn_red_prefab_down
 spawn_red_prefab_left
 spawn_blu_prefab
 rotation_test
-spawn_room_red
-spawn_room_red
-spawn_room_red
-spawn_room_red

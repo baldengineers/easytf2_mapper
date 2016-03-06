@@ -452,17 +452,33 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
             ent_values = ent_values.replace("\\"door_large\\"", "\\"door_large" + str(entity_num) + "\\"", 4)
         if "\\"respawn_name\\"" in ent_values:
             ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
+        if "ROTATION_FIGURE" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("ROTATION_FIGURE","0 0 0")
+            elif rotation == 1:
+                ent_values = ent_values.replace("ROTATION_FIGURE","0 90 0")
+            elif rotation == 2:
+                ent_values = ent_values.replace("ROTATION_FIGURE","0 180 0")
+            elif rotation == 3:
+                ent_values = ent_values.replace("ROTATION_FIGURE","0 270 0")
+        if "DOOR_VALUE" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("DOOR_FIGURE","0 270 0")
+            elif rotation == 1:
+                ent_values = ent_values.replace("DOOR_FIGURE","0 180 0")
+            elif rotation == 2:
+                ent_values = ent_values.replace("DOOR_FIGURE","0 90 0")
+            elif rotation == 3:
+                ent_values = ent_values.replace("DOOR_FIGURE","0 0 0")
+        
         entity_num += 1
 
-    values = values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
-    values = values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
-    values = values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
-    values = values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
+    values = values.replace('"[0 0 0 1] 0.25"','"[0 1 0 1] 0.25"')
+    values = values.replace('"[0 0 1 0] 0.25"','"[0 1 0 1] 0.25"')
+    values = values.replace('"[0 1 0 0] 0.25"','"[0 1 0 1] 0.25"')       
+    values = values.replace('"[1 0 0 0] 0.25"','"[0 1 0 1] 0.25"')
 
-    ent_values = ent_values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
-    ent_values = ent_values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
-    ent_values = ent_values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
-    ent_values = ent_values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
+
 
 """]
 
@@ -653,7 +669,28 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               ent_list.append(letter)
                   
           ent_list.insert(-2, "world_idnum")
-              
+        elif "angles" in line and "info_player_teamspawn" in openlines[loopernum-1]:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "ROTATION_FIGURE")
+        elif "angles" in line and "door" in openlines[loopernum+9]:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "DOOR_FIGURE")
         elif "\t\"targetname\"" in line and "respawn_trigger" not in line and "\"func_door\"" not in openlines[loopernum-19] and "filter_activator_tfteam" not in openlines[loopernum-2]:
           quote_num = 0
           for letter in line:
@@ -710,7 +747,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                         
           ent_list.insert(-2, "entity_same")
 
-        elif "\t\"parentname\"" in line and "\"func_door\"" not in openlines[loopernum-19] and "prop_dynamic" not in openlines[loopernum-12]: 
+        elif "\t\"parentname\"" in line and "\"func_door\"" not in openlines[loopernum-19] and "door" not in openlines[loopernum-2]: 
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -721,7 +758,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "parent_name")
-        elif "\t\"parentname\"" in line and "prop_dynamic" in openlines[loopernum-12]: 
+        elif "\t\"parentname\"" in line and "door" in openlines[loopernum-2]: 
           quote_num = 0
           for letter in line:
               if letter == "\"":
