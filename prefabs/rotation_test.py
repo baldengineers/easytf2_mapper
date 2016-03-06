@@ -478,19 +478,13 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     for i in range(ogvalues.count('id_num')):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
-    '''
-    try:
-        if rotation == 1:
-            values = values.replace('"[0 1 0 0] 0.25"','"[1 0 0 0] 0.25"')
-        elif rotation == 2:
-            values = values.replace('"[0 1 0 0] 0.25"','"[0 0 1 0] 0.25"')
-        elif rotation == 3:
-            values = values.replace('"[0 1 0 0] 0.25"','"[0 0 0 1] 0.25"')
-    except:
-        print(grp)
-    '''    
-
     
+
+    values = values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
+    values = values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
+    values = values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
+    values = values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
+    '''
     for i in lines2:
         if rotation == 3:
             if "[0 0 -1 0]" not in i+1 and "[0 -1 0 0]" not in i+1:
@@ -565,7 +559,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
             else:
                 pass
     values = values.replace('tempo','')
-        
+    '''   
         
 #INSERT_ENT_CODE
     return values, id_num, world_id_num
