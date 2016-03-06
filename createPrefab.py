@@ -24,7 +24,6 @@ algorithms to create the object (look in the prefabs folder)
 def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled):
   #TODO: Add a values list history, that keeps track of all the past value_lists
   #so we can see if there are duplicate value lists. 
-  
   value_list = []
   #item count needs to be -1 so that the initial "SEPARATE" makes the var 0
   num_count = -1
@@ -376,6 +375,17 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     for i in range(ogvalues.count('id_num')):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
+
+    try:
+        if rotation == 1:
+            values = values.replace('"[0 1 0 0] 0.25"','"[1 0 0 0] 0.25"')
+        elif rotation == 2:
+            values = values.replace('"[0 1 0 0] 0.25"','"[0 0 1 0] 0.25"')
+        elif rotation == 3:
+            values = values.replace('"[0 1 0 0] 0.25"','"[0 0 0 1] 0.25"')
+    except:
+        pass
+        
 """,
 
   "#INSERT_ENT_CODE",

@@ -1,31 +1,31 @@
 versioninfo
 {
-    "editorversion" "400"
-    "editorbuild" "7026"
-    "mapversion" "1"
-    "formatversion" "100"
-    "prefab" "0"
+	"editorversion" "400"
+	"editorbuild" "7069"
+	"mapversion" "2"
+	"formatversion" "100"
+	"prefab" "0"
 }
 visgroups
 {
 }
 viewsettings
 {
-    "bSnapToGrid" "1"
-    "bShowGrid" "1"
-    "bShowLogicalGrid" "0"
-    "nGridSpacing" "64"
-    "bShow3DGrid" "0"
+	"bSnapToGrid" "1"
+	"bShowGrid" "1"
+	"bShowLogicalGrid" "0"
+	"nGridSpacing" "64"
+	"bShow3DGrid" "0"
 }
 world
 {
-    "id" "1"
-    "mapversion" "1"
-    "classname" "worldspawn"
-    "skyname" "sky_tf2_04"
-    "maxpropscreenwidth" "-1"
-    "detailvbsp" "detail_2fort.vbsp"
-    "detailmaterial" "detail/detailsprites_2fort"
+	"id" "1"
+	"mapversion" "2"
+	"classname" "worldspawn"
+	"detailmaterial" "detail/detailsprites_2fort"
+	"detailvbsp" "detail_2fort.vbsp"
+	"maxpropscreenwidth" "-1"
+	"skyname" "sky_tf2_04"
 	solid
 	{
 		"id" "4"
@@ -34,7 +34,7 @@ world
 			"id" "13"
 			"plane" "(0 -512 64) (0 0 64) (512 0 64)"
 			"material" "BRICK/BLENDCOBBLETOCOBBLESNOW001"
-			"uaxis" "[0 0 0 1] 0.25"
+			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -45,7 +45,7 @@ world
 			"id" "14"
 			"plane" "(512 -512 0) (512 0 0) (0 0 0)"
 			"material" "BRICK/BLENDCOBBLETOCOBBLESNOW001"
-			"uaxis" "[0 0 0 1] 0.25"
+			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -78,7 +78,7 @@ world
 			"id" "17"
 			"plane" "(0 0 64) (0 -512 64) (0 -512 0)"
 			"material" "BRICK/BLENDCOBBLETOCOBBLESNOW001"
-			"uaxis" "[0 0 0 1] 0.25"
+			"uaxis" "[0 1 0 1] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -89,7 +89,7 @@ world
 			"id" "18"
 			"plane" "(512 0 0) (512 -512 0) (512 -512 64)"
 			"material" "BRICK/BLENDCOBBLETOCOBBLESNOW001"
-			"uaxis" "[0 0 0 1] 0.25"
+			"uaxis" "[0 1 0 1] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -110,7 +110,7 @@ world
 			"id" "19"
 			"plane" "(192 -320 320) (192 -128 320) (320 -128 320)"
 			"material" "BRICK/BLENDCOBBLETOCOBBLESNOW001"
-			"uaxis" "[0 0 0 1] 0.25"
+			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -121,7 +121,7 @@ world
 			"id" "20"
 			"plane" "(320 -320 64) (320 -128 64) (192 -128 64)"
 			"material" "BRICK/BLENDCOBBLETOCOBBLESNOW001"
-			"uaxis" "[0 0 0 1] 0.25"
+			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -154,7 +154,7 @@ world
 			"id" "23"
 			"plane" "(192 -128 320) (192 -320 320) (192 -320 64)"
 			"material" "BRICK/BLENDCOBBLETOCOBBLESNOW001"
-			"uaxis" "[0 0 0 1] 0.25"
+			"uaxis" "[0 1 0 1] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -165,7 +165,7 @@ world
 			"id" "24"
 			"plane" "(320 -128 64) (320 -320 64) (320 -320 320)"
 			"material" "BRICK/BLENDCOBBLETOCOBBLESNOW001"
-			"uaxis" "[0 0 0 1] 0.25"
+			"uaxis" "[0 1 0 1] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -405,7 +405,8 @@ world
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
-	}	solid
+	}
+	solid
 	{
 		"id" "7"
 		side
@@ -480,7 +481,8 @@ world
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
-	}	solid
+	}
+	solid
 	{
 		"id" "8"
 		side
@@ -555,7 +557,8 @@ world
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
-	}	solid
+	}
+	solid
 	{
 		"id" "9"
 		side
@@ -630,7 +633,8 @@ world
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
-	}	solid
+	}
+	solid
 	{
 		"id" "10"
 		side
@@ -705,39 +709,37 @@ world
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
-	}}
-
+	}
+}
 entity
 {
-    "id" "10"
-    "classname" "light_environment"
-    "_ambient" "255 255 255 100"
-    "_ambientHDR" "-1 -1 -1 1"
-    "_AmbientScaleHDR" "1"
-    "_light" "216 207 194 700"
-    "_lightHDR" "-1 -1 -1 1"
-    "_lightscaleHDR" "1"
-    "angles" "0 145 0"
-    "pitch" "0"
-    "SunSpreadAngle" "0"
-    "origin" "0 0 73"
-    editor
-    {
-        "color" "220 30 220"
-        "visgroupshown" "1"
-        "visgroupautoshown" "1"
-        "logicalpos" "[0 500]"
-    }
+	"id" "10"
+	"classname" "light_environment"
+	"_ambient" "255 255 255 100"
+	"_ambientHDR" "-1 -1 -1 1"
+	"_AmbientScaleHDR" "1"
+	"_light" "216 207 194 700"
+	"_lightHDR" "-1 -1 -1 1"
+	"_lightscaleHDR" "1"
+	"angles" "0 145 0"
+	"pitch" "0"
+	"SunSpreadAngle" "0"
+	"origin" "0 0 73"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 500]"
+	}
 }
- 
 cameras
 {
-    "activecamera" "-1"
+	"activecamera" "-1"
 }
 cordon
 {
-    "mins" "(-1024 -1024 -1024)"
-    "maxs" "(1024 1024 1024)"
-    "active" "0"
+	"mins" "(-1024 -1024 -1024)"
+	"maxs" "(1024 1024 1024)"
+	"active" "0"
 }
-    
