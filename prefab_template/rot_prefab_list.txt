@@ -16,3 +16,4 @@ respawn_room_red_down_icon_list.txt
 respawn_room_red_left_icon_list.txt
 respawn_room_blu_right_icon_list.txt
 rotation_test_icon_list.txt
+red_icon_list.txt

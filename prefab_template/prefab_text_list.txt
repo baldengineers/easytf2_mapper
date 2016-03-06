@@ -16,3 +16,7 @@ Respawn Room - Red - Down
 Respawn Room - Red - Left
 Respawn Room - Blu - Right
 rotation test
+Respawn Room - Red
+Respawn Room - Red
+Respawn Room - Red
+Respawn Room - Red

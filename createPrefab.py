@@ -175,10 +175,10 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
         rot_py_list_text = "%s%s%d = %s" %(item, var, var_num, py_list[-1][py_list[-1].index("=") + 2:])
         rot_py_list.append(rot_py_list_text)
       elif value == 0:
-        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" else 1)
+        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" or var == "px" else 1)
         rot_py_list.append(rot_py_list_text)
       else:
-        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" else 1)
+        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" or var == "px" else 1)
         rot_py_list.append(rot_py_list_text)
 
 
@@ -232,23 +232,23 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
   
   if rot_enabled:
   
-    compile_list.insert(compile_list.index("#INSERT_ROT_IF"), rot_code[0] + "\n")
+    compile_list.insert(compile_list.index("#INSERT_ROT_IF"), rot_code[0][0] + "\n")
     compile_list[compile_list.index("#INSERT_ROT_IF")] = ""
     
-    ent_code.insert(ent_code.index("#INSERT_ROT_IF"), rot_code[0] + "\n")
+    ent_code.insert(ent_code.index("#INSERT_ROT_IF"), rot_code[1][0] + "\n")
     ent_code[ent_code.index("#INSERT_ROT_IF")] = ""
 
     for item in rot_py_list:
       if "#ROT0" in item:
-        rot_code.insert(rot_code.index("#INSERT_ROT_0_PY_LIST"), "        " + item[5:] + "\n")
+        rot_code[0].insert(rot_code[0].index("#INSERT_ROT_0_PY_LIST\n"), "        " + item[5:] + "\n")
       elif "#ROT1" in item:
-        rot_code.insert(rot_code.index("#INSERT_ROT_1_PY_LIST"), "        " + item[5:] + "\n")
+        rot_code[0].insert(rot_code[0].index("#INSERT_ROT_1_PY_LIST\n"), "        " + item[5:] + "\n")
       elif "#ROT2" in item:
-        rot_code.insert(rot_code.index("#INSERT_ROT_2_PY_LIST"), "        " + item[5:] + "\n")
+        rot_code[0].insert(rot_code[0].index("#INSERT_ROT_2_PY_LIST\n"), "        " + item[5:] + "\n")
       elif "#ROT3" in item:
-        rot_code.insert(rot_code.index("#INSERT_ROT_3_PY_LIST"), "        " + item[5:] + "\n")
+        rot_code[0].insert(rot_code[0].index("#INSERT_ROT_3_PY_LIST\n"), "        " + item[5:] + "\n")
         
-    for index, item in enumerate(rot_code):
+    for index, item in enumerate(rot_code[0]):
       if not index == 0:
         compile_list.insert(compile_list.index("#INSERT_ROT_CODE"), item)
         
@@ -257,25 +257,25 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
       
     for item in rot_ent_py_list:
       if "#ROT0" in item:
-        rot_code.insert(rot_code.index("#INSERT_ROT_0_PY_LIST"), "        " + item[5:] + "\n")
+        rot_code[1].insert(rot_code[1].index("#INSERT_ROT_0_PY_LIST\n"), "        " + item[5:] + "\n")
       elif "#ROT1" in item:
-        rot_code.insert(rot_code.index("#INSERT_ROT_1_PY_LIST"), "        " + item[5:] + "\n")
+        rot_code[1].insert(rot_code[1].index("#INSERT_ROT_1_PY_LIST\n"), "        " + item[5:] + "\n")
       elif "#ROT2" in item:
-        rot_code.insert(rot_code.index("#INSERT_ROT_2_PY_LIST"), "        " + item[5:] + "\n")
+        rot_code[1].insert(rot_code[1].index("#INSERT_ROT_2_PY_LIST\n"), "        " + item[5:] + "\n")
       elif "#ROT3" in item:
-        rot_code.insert(rot_code.index("#INSERT_ROT_3_PY_LIST"), "        " + item[5:] + "\n")
+        rot_code[1].insert(rot_code[1].index("#INSERT_ROT_3_PY_LIST\n"), "        " + item[5:] + "\n")
         
-    for index, item in enumerate(rot_code):
-      if not index == 1:
+    for index, item in enumerate(rot_code[1]):
+      if not index == 0:
         ent_code.insert(ent_code.index("#INSERT_ROT_ENT_CODE"), item)
         
     ent_code[ent_code.index("#INSERT_ROT_ENT_CODE")] = ""
     
     
-    rot_code[rot_code.index("#INSERT_ROT_0_PY_LIST")] = ""
-    rot_code[rot_code.index("#INSERT_ROT_1_PY_LIST")] = ""
-    rot_code[rot_code.index("#INSERT_ROT_2_PY_LIST")] = ""
-    rot_code[rot_code.index("#INSERT_ROT_3_PY_LIST")] = ""
+    #rot_code[rot_code.index("#INSERT_ROT_0_PY_LIST")] = ""
+    #rot_code[rot_code.index("#INSERT_ROT_1_PY_LIST")] = ""
+    #rot_code[rot_code.index("#INSERT_ROT_2_PY_LIST")] = ""
+    #rot_code[rot_code.index("#INSERT_ROT_3_PY_LIST")] = ""
     
     
   
@@ -287,7 +287,7 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
 
     ent_code[ent_code.index("#INSERT_ENT_PY_LIST")] = ""
 
-    ent_var_count = (len(ent_py_list) + 1)/3
+    ent_var_count = (len(ent_py_list) + 1)
 
     ent_code[ent_code.index("#INSERT_ENT_VAR_COUNT")] = "    ent_var_count = %d" %(ent_var_count/3)
 
@@ -466,22 +466,39 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
 """]
 
-  rot_code = ["""
+  rot_code = [["""
     if rotation == 0:
 """,
-    "#INSERT_ROT_0_PY_LIST",
+    "#INSERT_ROT_0_PY_LIST\n",
 """
     elif rotation == 1:
 """,
-    "#INSERT_ROT_1_PY_LIST",
+    "#INSERT_ROT_1_PY_LIST\n",
 """
     elif rotation == 2:
 """,
-    "#INSERT_ROT_2_PY_LIST",
+    "#INSERT_ROT_2_PY_LIST\n",
 """
     elif rotation == 3:
 """,
-    "#INSERT_ROT_3_PY_LIST",]
+    "#INSERT_ROT_3_PY_LIST\n"],
+
+["""
+    if rotation == 0:
+""",
+    "#INSERT_ROT_0_PY_LIST\n",
+"""
+    elif rotation == 1:
+""",
+    "#INSERT_ROT_1_PY_LIST\n",
+"""
+    elif rotation == 2:
+""",
+    "#INSERT_ROT_2_PY_LIST\n",
+"""
+    elif rotation == 3:
+""",
+    "#INSERT_ROT_3_PY_LIST\n"]]
 
   var_num = 1
   ent_var_num = 1
@@ -845,5 +862,5 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list, rot_enabled)
 
 #create("vmf_prefabs/rotation_test.vmf", "rotation_test","Rotation Test", "icons/crate_cover.jpg",True)
-#create("vmf_prefabs/spawn_room_red_up.vmf", "spawn_red_prefab_up", "Respawn Room - Red - Up", "icons/spawn_red_up.jpg")
+#create("vmf_prefabs/spawn_room_red.vmf", "spawn_room_red", "Respawn Room - Red", "icons/spawn_red.jpg", True)
 #create("vmf_prefabs/spawn_room_blu.vmf", "spawn_blu_prefab", "Respawn Room - Blu", "icons/spawn_blue.jpg") 
