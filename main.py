@@ -50,9 +50,11 @@ class GridBtn(QWidget):
                 try:
                     try:
                         create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation)
-                    except:
+                    except Exception as e:
+                        print(str(e))
                         create = moduleName.createTile(x, y, id_num, world_id_num)
-                except:
+                except Exception as e:
+                    print(str(e))
                     create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list)
             except Exception as e:
                 create = moduleName.createTile(x, y, id_num, world_id_num, rotation)
@@ -696,13 +698,13 @@ class MainWindow(QMainWindow):
         self.imageRot = Image.open(self.iconTextEdit.displayText())
         self.imageRot.save("icons/"+self.icondir+"_right.jpg")
         self.imageRot2 = Image.open(self.iconTextEdit.displayText())
-        self.imageRot2 = self.imageRot2.rotate(90)
+        self.imageRot2 = self.imageRot2.rotate(270)
         self.imageRot2.save("icons/"+self.icondir+"_down.jpg")
         self.imageRot3 = Image.open(self.iconTextEdit.displayText())
         self.imageRot3 = self.imageRot3.rotate(180)
         self.imageRot3.save("icons/"+self.icondir+"_left.jpg")
         self.imageRot4 = Image.open(self.iconTextEdit.displayText())
-        self.imageRot4 = self.imageRot4.rotate(270)
+        self.imageRot4 = self.imageRot4.rotate(90)
         self.imageRot4.save("icons/"+self.icondir+"_up.jpg")
         f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
         for i in self.ext_list:

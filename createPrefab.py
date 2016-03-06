@@ -454,6 +454,16 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
             ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
         entity_num += 1
 
+    values = values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
+    values = values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
+    values = values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
+    values = values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
+
+    ent_values = ent_values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
+    ent_values = ent_values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
+    ent_values = ent_values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
+    ent_values = ent_values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
+
 """]
 
   rot_code = ["""
