@@ -4093,27 +4093,33 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
             ent_values = ent_values.replace("\"door_large\"", "\"door_large" + str(entity_num) + "\"", 4)
         if "\"respawn_name\"" in ent_values:
             ent_values = ent_values.replace("\"respawn_name\"", "\"respawn_name" + str(entity_num) + "\"", 2)
+        if "ROTATION_FIGURE" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("ROTATION_FIGURE","0 0 0")
+            elif rotation == 1:
+                ent_values = ent_values.replace("ROTATION_FIGURE","0 90 0")
+            elif rotation == 2:
+                ent_values = ent_values.replace("ROTATION_FIGURE","0 180 0")
+            elif rotation == 3:
+                ent_values = ent_values.replace("ROTATION_FIGURE","0 270 0")
+        if "DOOR_FIGURE" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("DOOR_FIGURE","0 270 0")
+            elif rotation == 1:
+                ent_values = ent_values.replace("DOOR_FIGURE","0 180 0")
+            elif rotation == 2:
+                ent_values = ent_values.replace("DOOR_FIGURE","0 90 0")
+            elif rotation == 3:
+                ent_values = ent_values.replace("DOOR_FIGURE","0 0 0")
+        
         entity_num += 1
 
-    values = values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
-    values = values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
-    values = values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
-    values = values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
+    values = values.replace('"[0 0 0 1] 0.25"','"[0 1 0 1] 0.25"')
+    values = values.replace('"[0 0 1 0] 0.25"','"[0 1 0 1] 0.25"')
+    values = values.replace('"[0 1 0 0] 0.25"','"[0 1 0 1] 0.25"')       
+    values = values.replace('"[1 0 0 0] 0.25"','"[0 1 0 1] 0.25"')
 
-    if rotation == 0:
-        ent_values = ent_values.replace("ROTATION_FIGURE","0 0 0")
-    if rotation == 1:
-        ent_values = ent_values.replace("ROTATION_FIGURE","0 90 0")
-    if rotation == 2:
-        ent_values = ent_values.replace("ROTATION_FIGURE","0 180 0")
-    if rotation == 3:
-        ent_values = ent_values.replace("ROTATION_FIGURE","0 270 0")
-    
 
-    ent_values = ent_values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
-    ent_values = ent_values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
-    ent_values = ent_values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
-    ent_values = ent_values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
 
 
     return values, id_num, world_id_num, entity_num, ent_values, placeholder_list

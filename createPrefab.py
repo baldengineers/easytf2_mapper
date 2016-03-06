@@ -461,7 +461,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_values = ent_values.replace("ROTATION_FIGURE","0 180 0")
             elif rotation == 3:
                 ent_values = ent_values.replace("ROTATION_FIGURE","0 270 0")
-        if "DOOR_VALUE" in ent_values:
+        if "DOOR_FIGURE" in ent_values:
             if rotation == 0:
                 ent_values = ent_values.replace("DOOR_FIGURE","0 270 0")
             elif rotation == 1:
@@ -689,7 +689,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
               elif letter == "\"":
                 ent_list.append(letter)
-                        
+          print("doop")              
           ent_list.insert(-2, "DOOR_FIGURE")
         elif "\t\"targetname\"" in line and "respawn_trigger" not in line and "\"func_door\"" not in openlines[loopernum-19] and "filter_activator_tfteam" not in openlines[loopernum-2]:
           quote_num = 0
