@@ -335,6 +335,7 @@ class MainWindow(QMainWindow):
         self.button_grid_all = QVBoxLayout()
         self.button_grid_all.addLayout(self.button_rotate_layout)
         self.button_grid_all.addWidget(self.gridLabel)
+        self.button_grid_all.addWidget(self.scrollArea)
 
 #PPPPPPPLLLLLLLLLLLLEEEEEEEAAAAAAAASSSSSSSSSEEEEEEEEEEEEHHHHHHHLLLLLEEEEPPPP
         self.button_grid_all.addStretch(1) #need to add or else gridLabel is not visible. Perhaps hidden under the scrollArea? plzhlep
