@@ -307,6 +307,7 @@ class MainWindow(QMainWindow):
         self.button_rotate_layout.addStretch(1)
                                
         self.tile_list = QListWidget()
+        self.tile_list.setMaximumWidth(200)
 
 
         
@@ -354,7 +355,7 @@ class MainWindow(QMainWindow):
         
         self.column = QHBoxLayout()
         self.column.addLayout(self.button_grid_all)
-        self.column.addStretch(1)
+        #self.column.addStretch(1)
         self.column.addLayout(self.tile_list_layout)
         #self.column.addLayout(self.button_rotate_layout)
         #self.column.addStretch(1)
@@ -556,22 +557,27 @@ class MainWindow(QMainWindow):
         self.scrollArea.setWidgetResizable(True)
 
         
-        if not self.grid_y > 16 and not self.grid_x > 16:
+        #if not self.grid_y > 16 and not self.grid_x > 16:
             #self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, self.grid_y*32+32))
-            self.button_grid_layout.setRowStretch(self.grid_y + 1, 1)
-            self.button_grid_layout.setColumnStretch(self.grid_x + 1, 1)
-            self.button_grid_all.addStretch(1)
+        self.button_grid_layout.setRowStretch(self.grid_y + 1, 1)
+        self.button_grid_layout.setColumnStretch(self.grid_x + 1, 1)
+            #self.button_grid_all.addStretch(1)
             #print('don\'t restrict size')
+        '''
         elif self.grid_y > 16 and self.grid_x > 16:
             #self.scrollArea.setGeometry(QRect(0,0,16*32+32, 16*32+32))
             #print('restrict both')
-            self.button_grid_all.takeAt(2)
-        #elif self.grid_y > 16:
+            #self.button_grid_all.takeAt(2)
+            pass
+        elif self.grid_y > 16:
+            self.button_grid_layout.setColumnStretch(self.grid_x + 1, 1)
             #self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, 16*32+32))
             #print('restrict y')
-        #elif self.grid_x > 16:
+        elif self.grid_x > 16:
+            self.button_grid_layout.setRowStretch(self.grid_y + 1, 1)
+            #self.button_grid_all.addStretch(1)
             #self.scrollArea.setGeometry(QRect(0,0,16*32+32, self.grid_y*32+32))
-
+        '''
         #self.scrollFrameLayout.addWidget(self.scrollArea)
 
 
