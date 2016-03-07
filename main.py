@@ -263,11 +263,16 @@ class MainWindow(QMainWindow):
 
     
         try:
-            self.scrollArea.setGeometry(QRect(5, 140, self.grid_x*32, self.grid_y*32))
+            self.scrollArea.setGeometry(QRect(0, 0, self.grid_x*32, self.grid_y*32))
         except:
-            self.scrollArea.setGeometry(QRect(5,140,580,580))
-        self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+            self.scrollArea.setGeometry(QRect(0,0,580,580))
+        try:
+            if self.grid_x > 16:
+                self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+            if self.grid_y > 16:
+                self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        except:
+            pass
 
 
 
@@ -330,15 +335,19 @@ class MainWindow(QMainWindow):
         #self.scrollFrameLayout = QVBoxLayout()
         #self.scrollFrameLayout.addWidget(self.scrollFrame)
         #self.scrollFrameLayout.addWidget(self.scrollArea)
-
         #contains label and grid vertically
+        self.gridLayout = QVBoxLayout()
+        self.gridLayout.addWidget(self.gridLabel)
+        self.gridLayout.addWidget(self.scrollArea)
         self.button_grid_all = QVBoxLayout()
+        self.button_grid_all.addStretch(0)
+        #self.button_grid_all.setSpacing(0)
         self.button_grid_all.addLayout(self.button_rotate_layout)
-        self.button_grid_all.addWidget(self.gridLabel)
-        self.button_grid_all.addWidget(self.scrollArea)
-
+        self.button_grid_all.addLayout(self.gridLayout)
+        #self.button_grid_all.addWidget(self.scrollArea)
+    
 #PPPPPPPLLLLLLLLLLLLEEEEEEEAAAAAAAASSSSSSSSSEEEEEEEEEEEEHHHHHHHLLLLLEEEEPPPP
-        self.button_grid_all.addStretch(1) #need to add or else gridLabel is not visible. Perhaps hidden under the scrollArea? plzhlep
+        #self.button_grid_all.addStretch(1) #need to add or else gridLabel is not visible. Perhaps hidden under the scrollArea? plzhlep
         #self.button_grid_all.addWidget(self.scrollArea)
 #^^^^^^^^^^^^^^^^^^^^^^^^^^HEEEELLLLLPPPPPPP^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         
@@ -535,21 +544,34 @@ class MainWindow(QMainWindow):
         self.count += 1
         grid_y = self.grid_y
         grid_x = self.grid_x
+        self.scrollArea.deleteLater()
+        self.scrollArea = QScrollArea(self)
+        self.scrollArea.setBackgroundRole(QPalette.Light)
 
+        self.grid_widget = QWidget()
+        self.grid_widget.setLayout(self.button_grid_layout)
+        self.scrollArea.setWidget(self.grid_widget)
+        self.scrollArea.ensureWidgetVisible(self.grid_widget)
+        self.scrollArea.setWidgetResizable(True)
+        
         if not self.grid_y > 16 and not self.grid_x > 16:
-            self.scrollArea.setGeometry(QRect(5, 140, self.grid_x*32+32, self.grid_y*32+32))
+            self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, self.grid_y*32+32))
             #print('don\'t restrict size')
         elif self.grid_y > 16 and self.grid_x > 16:
-            self.scrollArea.setGeometry(QRect(5, 140, 16*32+32, 16*32+32))
+            self.scrollArea.setGeometry(QRect(0,0,16*32+32, 16*32+32))
             #print('restrict both')
         elif self.grid_y > 16:
-            self.scrollArea.setGeometry(QRect(5, 140, self.grid_x*32+32, 16*32+32))
+            self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, 16*32+32))
             #print('restrict y')
         elif self.grid_x > 16:
-            self.scrollArea.setGeometry(QRect(5, 140, 16*32+32, self.grid_y*32+32))
+            self.scrollArea.setGeometry(QRect(0,0,16*32+32, self.grid_y*32+32))
 
         #self.scrollFrameLayout.addWidget(self.scrollArea)
 
+
+        
+        self.gridLayout.addWidget(self.scrollArea)
+        self.button_grid_all.addLayout(self.gridLayout)
         
             #print('restrict x')
         #self.comboBox = QComboBox(self)
