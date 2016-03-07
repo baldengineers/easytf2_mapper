@@ -340,10 +340,11 @@ class MainWindow(QMainWindow):
         self.gridLayout.addWidget(self.gridLabel)
         self.gridLayout.addWidget(self.scrollArea)
         self.button_grid_all = QVBoxLayout()
-        self.button_grid_all.addStretch(0)
+        #self.button_grid_all.addStretch(0)
         #self.button_grid_all.setSpacing(0)
         self.button_grid_all.addLayout(self.button_rotate_layout)
         self.button_grid_all.addLayout(self.gridLayout)
+        #self.button_grid_all.addStretch(1)
         #self.button_grid_all.addWidget(self.scrollArea)
     
 #PPPPPPPLLLLLLLLLLLLEEEEEEEAAAAAAAASSSSSSSSSEEEEEEEEEEEEHHHHHHHLLLLLEEEEPPPP
@@ -362,7 +363,7 @@ class MainWindow(QMainWindow):
         #self.row.addLayout(self.labelLayout)
         self.row.addLayout(self.column)
         #self.row.addLayout(self.button_rotate_layout)
-        self.row.addStretch(1)
+        #self.row.addStretch(1)
         #self.row.addStretch(1)
         
         self.grid_change()
@@ -492,8 +493,8 @@ class MainWindow(QMainWindow):
         self.okay_btn.clicked.connect(lambda: self.grid_change_func(self.text.displayText(), self.text2.displayText()))
 
         self.form = QFormLayout()
-        self.form.addRow("Set Grid Height:",self.text)
-        self.form.addRow("Set Grid Width:",self.text2)
+        self.form.addRow("Set Grid Width:",self.text)
+        self.form.addRow("Set Grid Height:",self.text2)
         self.form.addRow(self.okay_btn)
 
         self.window.setLayout(self.form)
@@ -553,18 +554,23 @@ class MainWindow(QMainWindow):
         self.scrollArea.setWidget(self.grid_widget)
         self.scrollArea.ensureWidgetVisible(self.grid_widget)
         self.scrollArea.setWidgetResizable(True)
+
         
         if not self.grid_y > 16 and not self.grid_x > 16:
-            self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, self.grid_y*32+32))
+            #self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, self.grid_y*32+32))
+            self.button_grid_layout.setRowStretch(self.grid_y + 1, 1)
+            self.button_grid_layout.setColumnStretch(self.grid_x + 1, 1)
+            self.button_grid_all.addStretch(1)
             #print('don\'t restrict size')
         elif self.grid_y > 16 and self.grid_x > 16:
-            self.scrollArea.setGeometry(QRect(0,0,16*32+32, 16*32+32))
+            #self.scrollArea.setGeometry(QRect(0,0,16*32+32, 16*32+32))
             #print('restrict both')
-        elif self.grid_y > 16:
-            self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, 16*32+32))
+            self.button_grid_all.takeAt(2)
+        #elif self.grid_y > 16:
+            #self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, 16*32+32))
             #print('restrict y')
-        elif self.grid_x > 16:
-            self.scrollArea.setGeometry(QRect(0,0,16*32+32, self.grid_y*32+32))
+        #elif self.grid_x > 16:
+            #self.scrollArea.setGeometry(QRect(0,0,16*32+32, self.grid_y*32+32))
 
         #self.scrollFrameLayout.addWidget(self.scrollArea)
 
