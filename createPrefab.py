@@ -452,24 +452,42 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
             ent_values = ent_values.replace("\\"door_large\\"", "\\"door_large" + str(entity_num) + "\\"", 4)
         if "\\"respawn_name\\"" in ent_values:
             ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
-        if "ROTATION_FIGURE" in ent_values:
+        if "\\"ROTATION_RIGHT\\"" in ent_values:
             if rotation == 0:
-                ent_values = ent_values.replace("ROTATION_FIGURE","0 0 0")
+                ent_values = ent_values.replace("\\"ROTATION_RIGHT\\"","0 0 0",1)
             elif rotation == 1:
-                ent_values = ent_values.replace("ROTATION_FIGURE","0 90 0")
+                ent_values = ent_values.replace("\\"ROTATION_RIGHT\\"","0 270 0",1)
             elif rotation == 2:
-                ent_values = ent_values.replace("ROTATION_FIGURE","0 180 0")
+                ent_values = ent_values.replace("\\"ROTATION_RIGHT\\"","0 180 0",1)
             elif rotation == 3:
-                ent_values = ent_values.replace("ROTATION_FIGURE","0 270 0")
-        if "DOOR_FIGURE" in ent_values:
+                ent_values = ent_values.replace("\\"ROTATION_RIGHT\\"","0 90 0",1)
+        if "\\"ROTATION_UP\\"" in ent_values:
             if rotation == 0:
-                ent_values = ent_values.replace("DOOR_FIGURE","0 270 0")
+                ent_values = ent_values.replace("\\"ROTATION_UP\\"","0 90 0",1)
             elif rotation == 1:
-                ent_values = ent_values.replace("DOOR_FIGURE","0 180 0")
+                ent_values = ent_values.replace("\\"ROTATION_UP\\"","0 0 0",1)
             elif rotation == 2:
-                ent_values = ent_values.replace("DOOR_FIGURE","0 90 0")
+                ent_values = ent_values.replace("\\"ROTATION_UP\\"","0 270 0",1)
             elif rotation == 3:
-                ent_values = ent_values.replace("DOOR_FIGURE","0 0 0")
+                ent_values = ent_values.replace("\\"ROTATION_UP\\"","0 180 0",1)
+        if "\\"ROTATION_LEFT\\"" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("\\"ROTATION_LEFT\\"","0 180 0",1)
+            elif rotation == 1:
+                ent_values = ent_values.replace("\\"ROTATION_LEFT\\"","0 90 0",1)
+            elif rotation == 2:
+                ent_values = ent_values.replace("\\"ROTATION_LEFT\\"","0 0 0",1)
+            elif rotation == 3:
+                ent_values = ent_values.replace("\\"ROTATION_LEFT\\"","0 270 0",1)
+        if "\\"ROTATION_DOWN\\"" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("\\"ROTATION_DOWN\\"","0 270 0",1)
+            elif rotation == 1:
+                ent_values = ent_values.replace("\\"ROTATION_DOWN\\"","0 180 0",1)
+            elif rotation == 2:
+                ent_values = ent_values.replace("\\"ROTATION_DOWN\\"","0 90 0",1)
+            elif rotation == 3:
+                ent_values = ent_values.replace("\\"ROTATION_DOWN\\"","0 0 0",1)
         
         entity_num += 1
 
@@ -669,7 +687,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               ent_list.append(letter)
                   
           ent_list.insert(-2, "world_idnum")
-        elif "angles" in line and "info_player_teamspawn" in openlines[loopernum-1]:
+        elif "\"0 0 0\"" in line:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -679,8 +697,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               elif letter == "\"":
                 ent_list.append(letter)
                         
-          ent_list.insert(-2, "ROTATION_FIGURE")
-        elif "angles" in line and "door" in openlines[loopernum+9]:
+          ent_list.insert(-2, "ROTATION_RIGHT")
+        elif "\"0 90 0\"" in line:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -689,8 +707,30 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
               elif letter == "\"":
                 ent_list.append(letter)
-          print("doop")              
-          ent_list.insert(-2, "DOOR_FIGURE")
+                        
+          ent_list.insert(-2, "ROTATION_UP")
+        elif "\"0 180 0\"" in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "ROTATION_LEFT")
+        elif "\"0 270 0\"" in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "ROTATION_DOWN")
         elif "\t\"targetname\"" in line and "respawn_trigger" not in line and "\"func_door\"" not in openlines[loopernum-19] and "filter_activator_tfteam" not in openlines[loopernum-2]:
           quote_num = 0
           for letter in line:
