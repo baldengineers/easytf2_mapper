@@ -1,0 +1,4 @@
+icons/respawn_test_3_right.jpg
+icons/respawn_test_3_down.jpg
+icons/respawn_test_3_left.jpg
+icons/respawn_test_3_up.jpg

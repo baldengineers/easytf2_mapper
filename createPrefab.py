@@ -375,6 +375,42 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     for i in range(ogvalues.count('id_num')):
         values = values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
+        if "ROTATION_RIGHT" in values:
+            if rotation == 0:
+                values = values.replace("ROTATION_RIGHT","0 0 0",1)
+            elif rotation == 1:
+                values = values.replace("ROTATION_RIGHT","0 270 0",1)
+            elif rotation == 2:
+                values = values.replace("ROTATION_RIGHT","0 180 0",1)
+            elif rotation == 3:
+                values = values.replace("ROTATION_RIGHT","0 90 0",1)
+        if "ROTATION_UP" in values:
+            if rotation == 0:
+                values = values.replace("ROTATION_UP","0 90 0",1)
+            elif rotation == 1:
+                values = values.replace("ROTATION_UP","0 0 0",1)
+            elif rotation == 2:
+                values = values.replace("ROTATION_UP","0 270 0",1)
+            elif rotation == 3:
+                values = values.replace("ROTATION_UP","0 180 0",1)
+        if "ROTATION_LEFT" in values:
+            if rotation == 0:
+                values = values.replace("ROTATION_LEFT","0 180 0",1)
+            elif rotation == 1:
+                values = values.replace("ROTATION_LEFT","0 90 0",1)
+            elif rotation == 2:
+                values = values.replace("ROTATION_LEFT","0 0 0",1)
+            elif rotation == 3:
+                values = values.replace("ROTATION_LEFT","0 270 0",1)
+        if "ROTATION_DOWN" in values:
+            if rotation == 0:
+                values = values.replace("ROTATION_DOWN","0 270 0",1)
+            elif rotation == 1:
+                values = values.replace("ROTATION_DOWN","0 180 0",1)
+            elif rotation == 2:
+                values = values.replace("ROTATION_DOWN","0 90 0",1)
+            elif rotation == 3:
+                values = values.replace("ROTATION_DOWN","0 0 0",1)
 
     values = values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
     values = values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
@@ -452,49 +488,49 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
             ent_values = ent_values.replace("\\"door_large\\"", "\\"door_large" + str(entity_num) + "\\"", 4)
         if "\\"respawn_name\\"" in ent_values:
             ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
-        if "\\"ROTATION_RIGHT\\"" in ent_values:
+        if "ROTATION_RIGHT" in ent_values:
             if rotation == 0:
-                ent_values = ent_values.replace("\\"ROTATION_RIGHT\\"","0 0 0",1)
+                ent_values = ent_values.replace("ROTATION_RIGHT","0 0 0",1)
             elif rotation == 1:
-                ent_values = ent_values.replace("\\"ROTATION_RIGHT\\"","0 270 0",1)
+                ent_values = ent_values.replace("ROTATION_RIGHT","0 270 0",1)
             elif rotation == 2:
-                ent_values = ent_values.replace("\\"ROTATION_RIGHT\\"","0 180 0",1)
+                ent_values = ent_values.replace("ROTATION_RIGHT","0 180 0",1)
             elif rotation == 3:
-                ent_values = ent_values.replace("\\"ROTATION_RIGHT\\"","0 90 0",1)
-        if "\\"ROTATION_UP\\"" in ent_values:
+                ent_values = ent_values.replace("ROTATION_RIGHT","0 90 0",1)
+        if "ROTATION_UP" in ent_values:
             if rotation == 0:
-                ent_values = ent_values.replace("\\"ROTATION_UP\\"","0 90 0",1)
+                ent_values = ent_values.replace("ROTATION_UP","0 90 0",1)
             elif rotation == 1:
-                ent_values = ent_values.replace("\\"ROTATION_UP\\"","0 0 0",1)
+                ent_values = ent_values.replace("ROTATION_UP","0 0 0",1)
             elif rotation == 2:
-                ent_values = ent_values.replace("\\"ROTATION_UP\\"","0 270 0",1)
+                ent_values = ent_values.replace("ROTATION_UP","0 270 0",1)
             elif rotation == 3:
-                ent_values = ent_values.replace("\\"ROTATION_UP\\"","0 180 0",1)
-        if "\\"ROTATION_LEFT\\"" in ent_values:
+                ent_values = ent_values.replace("ROTATION_UP","0 180 0",1)
+        if "ROTATION_LEFT" in ent_values:
             if rotation == 0:
-                ent_values = ent_values.replace("\\"ROTATION_LEFT\\"","0 180 0",1)
+                ent_values = ent_values.replace("ROTATION_LEFT","0 180 0",1)
             elif rotation == 1:
-                ent_values = ent_values.replace("\\"ROTATION_LEFT\\"","0 90 0",1)
+                ent_values = ent_values.replace("ROTATION_LEFT","0 90 0",1)
             elif rotation == 2:
-                ent_values = ent_values.replace("\\"ROTATION_LEFT\\"","0 0 0",1)
+                ent_values = ent_values.replace("ROTATION_LEFT","0 0 0",1)
             elif rotation == 3:
-                ent_values = ent_values.replace("\\"ROTATION_LEFT\\"","0 270 0",1)
-        if "\\"ROTATION_DOWN\\"" in ent_values:
+                ent_values = ent_values.replace("ROTATION_LEFT","0 270 0",1)
+        if "ROTATION_DOWN" in ent_values:
             if rotation == 0:
-                ent_values = ent_values.replace("\\"ROTATION_DOWN\\"","0 270 0",1)
+                ent_values = ent_values.replace("ROTATION_DOWN","0 270 0",1)
             elif rotation == 1:
-                ent_values = ent_values.replace("\\"ROTATION_DOWN\\"","0 180 0",1)
+                ent_values = ent_values.replace("ROTATION_DOWN","0 180 0",1)
             elif rotation == 2:
-                ent_values = ent_values.replace("\\"ROTATION_DOWN\\"","0 90 0",1)
+                ent_values = ent_values.replace("ROTATION_DOWN","0 90 0",1)
             elif rotation == 3:
-                ent_values = ent_values.replace("\\"ROTATION_DOWN\\"","0 0 0",1)
+                ent_values = ent_values.replace("ROTATION_DOWN","0 0 0",1)
         
         entity_num += 1
 
-    values = values.replace('"[0 0 0 1] 0.25"','"[0 1 0 1] 0.25"')
-    values = values.replace('"[0 0 1 0] 0.25"','"[0 1 0 1] 0.25"')
-    values = values.replace('"[0 1 0 0] 0.25"','"[0 1 0 1] 0.25"')       
-    values = values.replace('"[1 0 0 0] 0.25"','"[0 1 0 1] 0.25"')
+    ent_values = ent_values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
+    ent_values = ent_values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
+    ent_values = ent_values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
+    ent_values = ent_values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
 
 
 
@@ -687,7 +723,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               ent_list.append(letter)
                   
           ent_list.insert(-2, "world_idnum")
-        elif "\"0 0 0\"" in line:
+        elif '"angles" "0 0 0"' in line:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -698,7 +734,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "ROTATION_RIGHT")
-        elif "\"0 90 0\"" in line:
+        elif '"angles" "0 90 0"' in line:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -709,7 +745,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "ROTATION_UP")
-        elif "\"0 180 0\"" in line:
+        elif '"angles" "0 180 0"' in line:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -720,7 +756,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "ROTATION_LEFT")
-        elif "\"0 270 0\"" in line:
+        elif '"angles" "0 270 0"' in line:
           quote_num = 0
           for letter in line:
               if letter == "\"":
