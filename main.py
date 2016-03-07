@@ -65,7 +65,7 @@ class GridBtn(QWidget):
             try:
                 entity_num = create[3]
                 placeholder_list = create[5]
-                print("placeholder list: ", placeholder_list)
+                #print("placeholder list: ", placeholder_list)
             except IndexError:
                 pass
             #if self_global.comboBox.currentIndex() != 0:
@@ -98,7 +98,7 @@ class GridBtn(QWidget):
                 icon = current_prefab_icon_list[rotation]
                 if "\n" in icon:
                     icon = icon[:-1]
-                print(icon)
+                #print(icon)
                 self.button.setIcon(QIcon(icon))
                 self.button.setIconSize(QSize(32,32))
             except Exception as e:
@@ -263,7 +263,7 @@ class MainWindow(QMainWindow):
 
     
         try:
-            self.scrollArea.setGeometry(QRect(5, 140, self.grid_x, self.grid_y))
+            self.scrollArea.setGeometry(QRect(5, 140, self.grid_x*32, self.grid_y*32))
         except:
             self.scrollArea.setGeometry(QRect(5,140,580,580))
         self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
@@ -324,17 +324,22 @@ class MainWindow(QMainWindow):
         self.scrollArea.ensureWidgetVisible(self.grid_widget)
         self.scrollArea.setWidgetResizable(True)
 
-        self.scrollFrame = QLabel(self.scrollArea)
-        self.scrollFrame.setFrameStyle(QFrame.Panel | QFrame.Raised)
+        #self.scrollFrame = QLabel(self.scrollArea)
+        #self.scrollFrame.setFrameStyle(QFrame.Panel | QFrame.Raised)
         #self.scrollFrame.setGeometry(QRect(0,0,580,580))
-        self.scrollFrameLayout = QGridLayout()
-        self.scrollFrameLayout.addWidget(self.scrollFrame)
+        #self.scrollFrameLayout = QVBoxLayout()
+        #self.scrollFrameLayout.addWidget(self.scrollFrame)
+        #self.scrollFrameLayout.addWidget(self.scrollArea)
 
         #contains label and grid vertically
         self.button_grid_all = QVBoxLayout()
         self.button_grid_all.addLayout(self.button_rotate_layout)
         self.button_grid_all.addWidget(self.gridLabel)
-        self.button_grid_all.addLayout(self.scrollFrameLayout)
+
+#PPPPPPPLLLLLLLLLLLLEEEEEEEAAAAAAAASSSSSSSSSEEEEEEEEEEEEHHHHHHHLLLLLEEEEPPPP
+        self.button_grid_all.addStretch(1) #need to add or else gridLabel is not visible. Perhaps hidden under the scrollArea? plzhlep
+        #self.button_grid_all.addWidget(self.scrollArea)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^HEEEELLLLLPPPPPPP^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         
         self.column = QHBoxLayout()
         self.column.addLayout(self.button_grid_all)
@@ -432,7 +437,7 @@ class MainWindow(QMainWindow):
         file = open(name[0], "w")
         import export
         wholething = export.execute(totalblocks, entity_list, skybox,skyboxgeolist)
-        print(wholething)
+        #print(wholething)
         file.write(wholething)
         file.close()
         popup = QMessageBox(self, "File Exported",
@@ -498,14 +503,14 @@ class MainWindow(QMainWindow):
             self.grid_x = int(x)
         except ValueError:
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
-            QMessageBox.critical(self, "Error", "Please enter a number.")
+            QMessageBox.critical(self.window, "Error", "Please enter a number.")
             self.grid_change()
 
         self.removeButtons()
         #self.removeDropdown()
 
-        print(self.grid_y)
-        print(self.grid_x)
+        #print(self.grid_y)
+        #print(self.grid_x)
 
         for x in range(self.grid_x):
             for y in range(self.grid_y):
@@ -529,6 +534,23 @@ class MainWindow(QMainWindow):
         self.count += 1
         grid_y = self.grid_y
         grid_x = self.grid_x
+
+        if not self.grid_y > 16 and not self.grid_x > 16:
+            self.scrollArea.setGeometry(QRect(5, 140, self.grid_x*32+32, self.grid_y*32+32))
+            #print('don\'t restrict size')
+        elif self.grid_y > 16 and self.grid_x > 16:
+            self.scrollArea.setGeometry(QRect(5, 140, 16*32+32, 16*32+32))
+            #print('restrict both')
+        elif self.grid_y > 16:
+            self.scrollArea.setGeometry(QRect(5, 140, self.grid_x*32+32, 16*32+32))
+            #print('restrict y')
+        elif self.grid_x > 16:
+            self.scrollArea.setGeometry(QRect(5, 140, 16*32+32, self.grid_y*32+32))
+
+        #self.scrollFrameLayout.addWidget(self.scrollArea)
+
+        
+            #print('restrict x')
         #self.comboBox = QComboBox(self)
         #self.comboBox.resize(128, 16)
         #for item in prefab_text_list:
