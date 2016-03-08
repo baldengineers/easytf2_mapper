@@ -10,9 +10,3 @@ corner_wall_top_right_icon_list.txt
 corner_wall_top_left_icon_list.txt
 mini_spire_icon_list.txt
 mini_spire_down_icon_list.txt
-respawn_room_red_right_icon_list.txt
-respawn_room_red_up_icon_list.txt
-respawn_room_red_down_icon_list.txt
-respawn_room_red_left_icon_list.txt
-respawn_room_blu_right_icon_list.txt
-rotation_test_icon_list.txt

@@ -10,9 +10,3 @@ corner_top_right
 corner_top_left
 mini_spire
 mini_spire_down
-spawn_red_prefab
-spawn_red_prefab_up
-spawn_red_prefab_down
-spawn_red_prefab_left
-spawn_blu_prefab
-rotation_test

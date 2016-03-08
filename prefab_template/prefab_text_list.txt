@@ -10,9 +10,3 @@ Corner Wall (Top Right)
 Corner Wall (Top Left)
 Mini-Spire
 Mini-Spire - down
-Respawn Room - Red - Right
-Respawn Room - Red - Up
-Respawn Room - Red - Down
-Respawn Room - Red - Left
-Respawn Room - Blu - Right
-rotation test

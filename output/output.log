@@ -1,0 +1,435 @@
+
+
+
+materialPath: C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf\materials
+Loading C:\Users\Anson\Documents\GitHub\easytf2_mapper\output\output.vmf
+ConVarRef mat_reduceparticles doesn't point to an existing ConVar
+Patching WVT material: maps/output/dev/dev_blendmeasure_wvt_patch
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...10**** leaked ****
+Entity prop_dynamic (255.00 -525.00 128.00) leaked!
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (1056.0 0.0 552.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (1056.0 0.0 -8.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (1568.0 0.0 288.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (1024.0 32.0 552.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (1024.0 32.0 -8.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (1024.0 544.0 288.0)
+Leaf 0 contents: CONTENTS_SOLID 
+Leaf 1 contents: 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (1536.0 1024.0 288.0)
+Leaf 0 contents: 
+Leaf 1 contents: CONTENTS_SOLID 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+
+FindPortalSide: Couldn't find a good match for which brush to assign to a portal near (2048.0 512.0 288.0)
+Leaf 0 contents: 
+Leaf 1 contents: CONTENTS_SOLID 
+viscontents (node 0 contents ^ node 1 contents): CONTENTS_SOLID 
+This means that none of the brushes in leaf 0 or 1 that touches the portal has CONTENTS_SOLID 
+Check for a huge brush enclosing the coordinates above that has contents CONTENTS_SOLID 
+Candidate brush IDs: 
+
+*** Suppressing further FindPortalSide errors.... ***
+Processing areas...done (0)
+Building Faces...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+*** Error: Skybox vtf files for skybox/sky_tf2_04 weren't compiled with the same size texture and/or same flags!
+Can't load skybox file skybox/sky_tf2_04 to build the default cubemap!
+*** Error: Skybox vtf files for skybox/sky_tf2_04 weren't compiled with the same size texture and/or same flags!
+Can't load skybox file skybox/sky_tf2_04 to build the default cubemap!
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (16464 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 10 texinfos to 7
+Reduced 8 texdatas to 7 (178 bytes to 157)
+Writing C:\Users\Anson\Documents\GitHub\easytf2_mapper\output\output.bsp
+Wrote ZIP buffer, estimated size 463, actual size 383
+0 seconds elapsed
+
+
+
+8 threads
+reading c:\users\anson\documents\github\easytf2_mapper\output\output.bsp
+reading c:\users\anson\documents\github\easytf2_mapper\output\output.prt
+LoadPortals: couldn't read c:\users\anson\documents\github\easytf2_mapper\output\output.prt
+
+
+
+[Reading texlights from 'lights.rad']
+[56 texlights parsed from 'lights.rad']
+
+Loading c:\users\anson\documents\github\easytf2_mapper\output\output.bsp
+No vis information, direct lighting only.
+164 faces
+1 degenerate faces
+80439 square feet [11583312.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+4 direct lights
+0...1. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+2 warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+3 warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+4 warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+5 warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+6...7... warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+8 warning - face vectors parallel to face normal. bad lighting will be produced
+...9.. warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+10Build Patch/Sample Hash Table(s).....Done<0.0000 sec>
+0...1.. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+2 warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+3 warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+4. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+5 warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+.6...7.. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+8 warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+..9.. warning - face vectors parallel to face normal. bad lighting will be produced
+. warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+ warning - face vectors parallel to face normal. bad lighting will be produced
+10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                  13/1024          624/49152    ( 1.3%) 
+brushes                 39/8192          468/98304    ( 0.5%) 
+brushsides             241/65536        1928/524288   ( 0.4%) 
+planes                 188/65536        3760/1310720  ( 0.3%) 
+vertexes               265/65536        3180/786432   ( 0.4%) 
+nodes                  153/65536        4896/2097152  ( 0.2%) 
+texinfos                 7/12288         504/884736   ( 0.1%) 
+texdata                  7/2048          224/65536    ( 0.3%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                  164/65536        9184/3670016  ( 0.3%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces              144/65536        8064/3670016  ( 0.2%) 
+leaves                 167/65536        5344/2097152  ( 0.3%) 
+leaffaces              176/65536         352/131072   ( 0.3%) 
+leafbrushes             43/65536          86/131072   ( 0.1%) 
+areas                    3/256            24/2048     ( 1.2%) 
+surfedges             1302/512000       5208/2048000  ( 0.3%) 
+edges                  743/256000       2972/1024000  ( 0.3%) 
+LDR worldlights          4/8192          352/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips              8/32768          80/327680   ( 0.0%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices           105/65536         210/131072   ( 0.2%) 
+cubemapsamples           0/1024            0/16384    ( 0.0%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]         776/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]           0/16777216 ( 0.0%) 
+entdata               [variable]       12073/393216   ( 3.1%) 
+LDR ambient table      167/65536         668/262144   ( 0.3%) 
+HDR ambient table      167/65536         668/262144   ( 0.3%) 
+LDR leaf ambient       917/65536       25676/1835008  ( 1.4%) 
+HDR leaf ambient       167/65536        4676/1835008  ( 0.3%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/292      ( 0.3%) 
+pakfile               [variable]         383/0        ( 0.0%) 
+physics               [variable]       16464/4194304  ( 0.4%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 398
+Writing c:\users\anson\documents\github\easytf2_mapper\output\output.bsp
+2 seconds elapsed

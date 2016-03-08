@@ -1,0 +1,4 @@
+icons/respawn_room_red_right.jpg
+icons/respawn_room_red_down.jpg
+icons/respawn_room_red_left.jpg
+icons/respawn_room_red_up.jpg

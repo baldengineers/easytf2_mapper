@@ -527,11 +527,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         
         entity_num += 1
 
-    ent_values = ent_values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
-    ent_values = ent_values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
-    ent_values = ent_values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
-    ent_values = ent_values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
-
 
 
 """]
@@ -648,7 +643,35 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         if "(" not in line:
 
           if "\"id\"" not in line:
-            eval(which_list).append(line)
+            if "\"uaxis\"" in line:
+              #print("jonathan \"XD\" liu")
+              quote_num = 0
+              for letter in line:
+                  if letter == "\"":
+                    quote_num += 1
+                  if quote_num != 3:
+                    eval(which_list).append(letter)
+                  elif letter == "\"":
+                    eval(which_list).append(letter)
+                              
+              eval(which_list).insert(-2, "[1 0 0 1] 0.25")
+
+            else:
+              eval(which_list).append(line)
+            '''
+            elif "\"vaxis\"" in line:
+              #print("jonathan \"XD\" liu")
+              quote_num = 0
+              for letter in line:
+                  if letter == "\"":
+                    quote_num += 1
+                  if quote_num != 3:
+                    eval(which_list).append(letter)
+                  elif letter == "\"":
+                    eval(which_list).append(letter)
+                              
+              eval(which_list).insert(-2, "[0 0 1 0] 0.25")
+            '''
           elif "\t\t\"id\"" in line:
             for letter in line:
               try:
@@ -661,8 +684,10 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
             else: 
               eval(which_list).insert(-2, "world_idnum")
 
-          #print(txt_list)
+          
 
+          #print(txt_list)
+        
         elif "(" in line:
           for letter in line:
             #print(letter)
@@ -683,6 +708,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 write_var(num_list, eval(which_list), py_list, var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled) 
                 var_num += 1
                 num_list = []
+
       elif in_solid_block and "\t}" in line and "\t\t" not in line:
         in_solid_block = False
         #print(line)
@@ -698,7 +724,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         '''
         #doesn't work yet
         #add things you want to add placeholders to, to white_list
-        white_list = ["\"id\"", "\t\"targetname\"", "\t\"origin\"",
+        white_list = ["\"id\"", "\t\"targetname\"",
+          print("jonathan \"XD\" liu")
+                      "\t\"origin\"",
                       "\t\"associatedmodel\"", "\t\"parentname\"",
                       "\t\"respawnroomname\""]
 
@@ -713,7 +741,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
           print(line)
 
         '''
-        if "\"id\"" not in line and "\t\"targetname\"" not in line and "\t\"origin\"" not in line and "\t\"associatedmodel\"" not in line and "\t\"parentname\"" not in line and "\t\"respawnroomname\"" not in line:
+        if "\"id\"" not in line and "\t\"targetname\"" not in line and "\t\"origin\"" not in line and "\t\"associatedmodel\"" not in line and "\t\"parentname\"" not in line and "\t\"respawnroomname\"" not in line and "\"angles\"" not in line:
           ent_list.append(line)
         elif "\"id\"" in line:
           for letter in line:
@@ -723,7 +751,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               ent_list.append(letter)
                   
           ent_list.insert(-2, "world_idnum")
-        elif '"angles" "0 0 0"' in line:
+
+        elif "\"angles\" \"0 0 0\"" in line:
+          #print("jonathan \"XD\" liu")
           quote_num = 0
           for letter in line:
               if letter == "\"":

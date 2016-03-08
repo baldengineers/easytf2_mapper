@@ -12,8 +12,6 @@ import light_create
 import subprocess
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
-#TODO: skybox modeling. choosing a skybox is done.
-
 class GridBtn(QWidget):
     def __init__(self, self_global, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -44,6 +42,7 @@ class GridBtn(QWidget):
             global entity_num
             global entity_list
             global placeholder_list
+            global icon
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             try:
@@ -277,6 +276,7 @@ class MainWindow(QMainWindow):
 
 
         self.buttonLabel = QLabel("Rotation:",self)
+        self.currentLabel = QLabel("Current Rotation:",self)
         self.listLabel = QLabel("List of prefabs:",self)
         self.gridLabel = QLabel("Grid:",self)
 
@@ -284,7 +284,11 @@ class MainWindow(QMainWindow):
         #self.labelLayout.addWidget(self.listLabel)
         #self.labelLayout.setContentsMargins(0,0,0,0)
         #self.labelLayout.setSpacing(10)
-        
+
+        self.current = QPushButton("",self)
+        self.current.setIcon(QIcon(''))
+        self.current.setIconSize(QSize(40,40))
+        self.current.setFixedSize(QSize(40,40))
 
         self.rotateCW = QPushButton("",self)
         self.rotateCW.setIcon(QIcon('icons/rotate_cw.jpg'))
@@ -304,6 +308,8 @@ class MainWindow(QMainWindow):
         self.button_rotate_layout.addWidget(self.buttonLabel)
         self.button_rotate_layout.addWidget(self.rotateCW)
         self.button_rotate_layout.addWidget(self.rotateCCW)
+        self.button_rotate_layout.addWidget(self.currentLabel)
+        self.button_rotate_layout.addWidget(self.current)
         self.button_rotate_layout.addStretch(1)
                                
         self.tile_list = QListWidget()
@@ -314,7 +320,8 @@ class MainWindow(QMainWindow):
         for index, text in enumerate(prefab_text_list):
             item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
             self.tile_list.addItem(item)
-        
+
+
         #contains label and list vertically
         self.tile_list_layout = QVBoxLayout()
         self.tile_list_layout.addWidget(self.listLabel)
@@ -368,22 +375,41 @@ class MainWindow(QMainWindow):
         #self.row.addStretch(1)
         
         self.grid_change()
+        '''
+        while True:
+            try:
+                if self.tile_list.currentItemChanged:
+                    self.changeIcon()
+            except:
+                pass
+        '''
         
         self.show()
+
     def rotateCW_func(self):
         global rotation
         if rotation < 3:
             rotation = rotation + 1
         else:
             rotation = 0
-        #print(rotation)
+        self.changeIcon()
     def rotateCCW_func(self):
         global rotation
         if rotation == 0:
             rotation = 3
         else:
             rotation = rotation - 1
-        #print(rotation)
+        self.changeIcon()
+    def changeIcon(self):
+        try:
+            self.current.setIcon(QIcon(icon))
+            self.current.setIconSize(QSize(32,32))
+        except Exception as e:
+            #print(str(e))
+            icon = prefab_icon_list[self.tile_list.currentRow()]
+            self.current.setIcon(QIcon(icon))
+            self.current.setIconSize(QSize(32,32))
+
  
         
         
