@@ -15,5 +15,3 @@ def reset(num):
         cur_str = "".join(cur_list)
         file.write(cur_str)
         file.close()
-reset(2)
-
