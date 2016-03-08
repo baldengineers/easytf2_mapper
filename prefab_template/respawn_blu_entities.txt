@@ -1,47 +1,10 @@
 entity
 {
 	"id" "world_idnum"
-	"classname" "prop_dynamic"
-	"angles" "ROTATION_UP"
-	"disablereceiveshadows" "0"
-	"disableshadows" "1"
-	"ExplodeDamage" "0"
-	"ExplodeRadius" "0"
-	"fademindist" "-1"
-	"fadescale" "1"
-	"MaxAnimTime" "10"
-	"MinAnimTime" "5"
-	"model" "models/props_gameplay/resupply_locker.mdl"
-	"modelscale" "1.0"
-	"PerformanceMode" "0"
-	"pressuredelay" "0"
-	"RandomAnimation" "0"
-	"renderamt" "255"
-	"rendercolor" "255 255 255"
-	"renderfx" "0"
-	"rendermode" "0"
-	"SetBodyGroup" "0"
-	"solid" "6"
-	"spawnflags" "0"
-	"StartDisabled" "0"
-	"targetname" "entity_name"
-	"origin" "px1 py1 pz1"
-	editor
-	{
-		"color" "220 220 220"
-		"groupid" "3"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 2500]"
-	}
-}
-entity
-{
-	"id" "world_idnum"
 	"classname" "func_regenerate"
 	"associatedmodel" "entity_same"
 	"StartDisabled" "0"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	solid
 	{
 		"id" "world_idnum"
@@ -73,7 +36,7 @@ entity
 			"plane" "(x205 y205 z205) (x206 y206 z206) (x207 y207 z207)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
 			"rotation" "0"
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
@@ -84,7 +47,7 @@ entity
 			"plane" "(x208 y208 z208) (x209 y209 z209) (x210 y210 z210)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
 			"rotation" "0"
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
@@ -95,7 +58,7 @@ entity
 			"plane" "(x211 y211 z211) (x212 y212 z212) (x213 y213 z213)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
 			"rotation" "0"
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
@@ -106,7 +69,128 @@ entity
 			"plane" "(x214 y214 z214) (x215 y215 z215) (x216 y216 z216)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
+			"rotation" "0"
+			"lightmapscale" "32"
+			"smoothing_groups" "0"
+		}
+		editor
+		{
+			"color" "220 220 220"
+			"visgroupshown" "1"
+			"visgroupautoshown" "1"
+		}
+	}
+}
+entity
+{
+	"id" "world_idnum"
+	"classname" "prop_dynamic"
+	"angles" "ROTATION_UP"
+	"disablereceiveshadows" "0"
+	"disableshadows" "1"
+	"ExplodeDamage" "0"
+	"ExplodeRadius" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"MaxAnimTime" "10"
+	"MinAnimTime" "5"
+	"model" "models/props_gameplay/resupply_locker.mdl"
+	"modelscale" "1.0"
+	"PerformanceMode" "0"
+	"pressuredelay" "0"
+	"RandomAnimation" "0"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"SetBodyGroup" "0"
+	"solid" "6"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"targetname" "entity_name"
+	"origin" "px1 py1 pz1"
+	editor
+	{
+		"color" "220 220 220"
+		"groupid" "949"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 2500]"
+	}
+}
+entity
+{
+	"id" "world_idnum"
+	"classname" "func_regenerate"
+	"associatedmodel" "entity_same"
+	"StartDisabled" "0"
+	"TeamNum" "3"
+	solid
+	{
+		"id" "world_idnum"
+		side
+		{
+			"id" "id_num"
+			"plane" "(x217 y217 z217) (x218 y218 z218) (x219 y219 z219)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "32"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x220 y220 z220) (x221 y221 z221) (x222 y222 z222)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "32"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x223 y223 z223) (x224 y224 z224) (x225 y225 z225)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
+			"rotation" "0"
+			"lightmapscale" "32"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x226 y226 z226) (x227 y227 z227) (x228 y228 z228)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
+			"rotation" "0"
+			"lightmapscale" "32"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x229 y229 z229) (x230 y230 z230) (x231 y231 z231)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
+			"rotation" "0"
+			"lightmapscale" "32"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x232 y232 z232) (x233 y233 z233) (x234 y234 z234)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
 			"rotation" "0"
 			"lightmapscale" "32"
 			"smoothing_groups" "0"
@@ -150,7 +234,7 @@ entity
 	editor
 	{
 		"color" "220 220 220"
-		"groupid" "10"
+		"groupid" "956"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 2500]"
@@ -159,99 +243,15 @@ entity
 entity
 {
 	"id" "world_idnum"
-	"classname" "func_regenerate"
-	"associatedmodel" "entity_same"
-	"StartDisabled" "0"
-	"TeamNum" "2"
-	solid
-	{
-		"id" "world_idnum"
-		side
-		{
-			"id" "id_num"
-			"plane" "(x217 y217 z217) (x218 y218 z218) (x219 y219 z219)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 -1 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "32"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x220 y220 z220) (x221 y221 z221) (x222 y222 z222)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 -1 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "32"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x223 y223 z223) (x224 y224 z224) (x225 y225 z225)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "32"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x226 y226 z226) (x227 y227 z227) (x228 y228 z228)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "32"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x229 y229 z229) (x230 y230 z230) (x231 y231 z231)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "32"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x232 y232 z232) (x233 y233 z233) (x234 y234 z234)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "32"
-			"smoothing_groups" "0"
-		}
-		editor
-		{
-			"color" "220 220 220"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-		}
-	}
-}
-entity
-{
-	"id" "world_idnum"
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px3 py3 pz3"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -263,12 +263,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px4 py4 pz4"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -280,12 +280,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px5 py5 pz5"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -297,12 +297,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px6 py6 pz6"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -314,12 +314,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px7 py7 pz7"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -331,12 +331,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px8 py8 pz8"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -348,12 +348,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px9 py9 pz9"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -365,12 +365,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px10 py10 pz10"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -382,12 +382,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px11 py11 pz11"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -399,12 +399,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px12 py12 pz12"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -416,12 +416,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px13 py13 pz13"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -433,12 +433,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px14 py14 pz14"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -450,12 +450,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px15 py15 pz15"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -467,12 +467,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px16 py16 pz16"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -484,12 +484,12 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px17 py17 pz17"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -501,228 +501,23 @@ entity
 	"classname" "info_player_teamspawn"
 	"angles" "ROTATION_RIGHT"
 	"targetname" "entity_name"
-	"TeamNum" "2"
+	"TeamNum" "3"
 	"origin" "px18 py18 pz18"
 	editor
 	{
-		"color" "106 123 0"
-		"groupid" "17"
+		"color" "120 181 0"
+		"groupid" "963"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
-	}
-}
-entity
-{
-	"id" "world_idnum"
-	"classname" "func_respawnroom"
-	"StartDisabled" "0"
-	"targetname" "respawn_name"
-	"TeamNum" "2"
-	solid
-	{
-		"id" "world_idnum"
-		side
-		{
-			"id" "id_num"
-			"plane" "(x235 y235 z235) (x236 y236 z236) (x237 y237 z237)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 -1 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x238 y238 z238) (x239 y239 z239) (x240 y240 z240)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 -1 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x241 y241 z241) (x242 y242 z242) (x243 y243 z243)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x244 y244 z244) (x245 y245 z245) (x246 y246 z246)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x247 y247 z247) (x248 y248 z248) (x249 y249 z249)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x250 y250 z250) (x251 y251 z251) (x252 y252 z252)"
-			"material" "TOOLS/TOOLSTRIGGER"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		editor
-		{
-			"color" "220 30 220"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-		}
-	}
-}
-entity
-{
-	"id" "world_idnum"
-	"classname" "func_respawnroomvisualizer"
-	"disablereceiveshadows" "0"
-	"disableshadows" "0"
-	"InputFilter" "0"
-	"origin" "px19 py19 pz19"
-	"renderamt" "255"
-	"rendercolor" "255 255 255"
-	"renderfx" "0"
-	"rendermode" "0"
-	"respawnroomname" "respawn_name"
-	"solid_to_enemies" "1"
-	"Solidity" "1"
-	"spawnflags" "2"
-	"StartDisabled" "0"
-	"vrad_brush_cast_shadows" "0"
-	solid
-	{
-		"id" "world_idnum"
-		side
-		{
-			"id" "id_num"
-			"plane" "(x253 y253 z253) (x254 y254 z254) (x255 y255 z255)"
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 -1 0 -53.3333] 3"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x256 y256 z256) (x257 y257 z257) (x258 y258 z258)"
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 -1 0 -53.3333] 3"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x259 y259 z259) (x260 y260 z260) (x261 y261 z261)"
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 36.5714] 1.75"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x262 y262 z262) (x263 y263 z263) (x264 y264 z264)"
-			"material" "OVERLAYS/NO_ENTRY"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 146.286] 0.4375"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x265 y265 z265) (x266 y266 z266) (x267 y267 z267)"
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 36.5714] 1.75"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x268 y268 z268) (x269 y269 z269) (x270 y270 z270)"
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 36.5714] 1.75"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		editor
-		{
-			"color" "220 30 220"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-		}
-	}
-}
-entity
-{
-	"id" "world_idnum"
-	"classname" "light"
-	"_constant_attn" "0"
-	"_distance" "0"
-	"_fifty_percent_distance" "0"
-	"_hardfalloff" "0"
-	"_light" "234 255 206 500"
-	"_lightHDR" "-1 -1 -1 1"
-	"_lightscaleHDR" "1"
-	"_linear_attn" "0"
-	"_quadratic_attn" "1"
-	"_zero_percent_distance" "0"
-	"spawnflags" "0"
-	"style" "0"
-	"targetname" "entity_name"
-	"origin" "px20 py20 pz20"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 0]"
 	}
 }
 entity
 {
 	"id" "world_idnum"
 	"classname" "trigger_multiple"
-	"filtername" "filter_red"
-	"origin" "px21 py21 pz21"
+	"filtername" "filter_blu"
+	"origin" "px19 py19 pz19"
 	"spawnflags" "1"
 	"StartDisabled" "0"
 	"wait" "1"
@@ -737,7 +532,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x271 y271 z271) (x272 y272 z272) (x273 y273 z273)"
+			"plane" "(x235 y235 z235) (x236 y236 z236) (x237 y237 z237)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -748,7 +543,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x274 y274 z274) (x275 y275 z275) (x276 y276 z276)"
+			"plane" "(x238 y238 z238) (x239 y239 z239) (x240 y240 z240)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
@@ -759,7 +554,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x277 y277 z277) (x278 y278 z278) (x279 y279 z279)"
+			"plane" "(x241 y241 z241) (x242 y242 z242) (x243 y243 z243)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -770,7 +565,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x280 y280 z280) (x281 y281 z281) (x282 y282 z282)"
+			"plane" "(x244 y244 z244) (x245 y245 z245) (x246 y246 z246)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -781,7 +576,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x283 y283 z283) (x284 y284 z284) (x285 y285 z285)"
+			"plane" "(x247 y247 z247) (x248 y248 z248) (x249 y249 z249)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -792,7 +587,7 @@ entity
 		side
 		{
 			"id" "id_num"
-			"plane" "(x286 y286 z286) (x287 y287 z287) (x288 y288 z288)"
+			"plane" "(x250 y250 z250) (x251 y251 z251) (x252 y252 z252)"
 			"material" "TOOLS/TOOLSTRIGGER"
 			"uaxis" "[1 0 0 1] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
@@ -802,7 +597,7 @@ entity
 		}
 		editor
 		{
-			"color" "220 30 220"
+			"color" "220 220 220"
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
@@ -819,115 +614,14 @@ entity
 	"lightmapresolutiony" "32"
 	"model" "models/props_gameplay/door_slide_large_frame.mdl"
 	"solid" "6"
-	"origin" "px22 py22 pz22"
+	"origin" "px20 py20 pz20"
 	editor
 	{
-		"color" "255 255 0"
+		"color" "220 220 220"
+		"groupid" "1281"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 2500]"
-	}
-}
-entity
-{
-	"id" "world_idnum"
-	"classname" "func_door"
-	"disablereceiveshadows" "0"
-	"disableshadows" "0"
-	"dmg" "0"
-	"forceclosed" "0"
-	"health" "0"
-	"ignoredebris" "0"
-	"lip" "0"
-	"locked_sentence" "0"
-	"loopmovesound" "0"
-	"movedir" "-90 0 0"
-	"origin" "px23 py23 pz23"
-	"renderamt" "255"
-	"rendercolor" "255 255 255"
-	"renderfx" "0"
-	"rendermode" "0"
-	"spawnflags" "0"
-	"spawnpos" "0"
-	"speed" "550"
-	"targetname" "door_large"
-	"unlocked_sentence" "0"
-	"wait" "-1"
-	solid
-	{
-		"id" "world_idnum"
-		side
-		{
-			"id" "id_num"
-			"plane" "(x289 y289 z289) (x290 y290 z290) (x291 y291 z291)"
-			"material" "METAL/CHICKEN_WIRE001"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 -1 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "512"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x292 y292 z292) (x293 y293 z293) (x294 y294 z294)"
-			"material" "METAL/CHICKEN_WIRE001"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 -1 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "512"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x295 y295 z295) (x296 y296 z296) (x297 y297 z297)"
-			"material" "METAL/METALDOOR001"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "512"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x298 y298 z298) (x299 y299 z299) (x300 y300 z300)"
-			"material" "METAL/METALDOOR001"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "512"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x301 y301 z301) (x302 y302 z302) (x303 y303 z303)"
-			"material" "METAL/CHICKEN_WIRE001"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "512"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "id_num"
-			"plane" "(x304 y304 z304) (x305 y305 z305) (x306 y306 z306)"
-			"material" "METAL/CHICKEN_WIRE001"
-			"uaxis" "[1 0 0 1] 0.25"
-			"vaxis" "[0 0 -1 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "512"
-			"smoothing_groups" "0"
-		}
-		editor
-		{
-			"color" "220 30 220"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-		}
 	}
 }
 entity
@@ -958,10 +652,11 @@ entity
 	"solid" "0"
 	"spawnflags" "0"
 	"StartDisabled" "0"
-	"origin" "px24 py24 pz24"
+	"origin" "px21 py21 pz21"
 	editor
 	{
-		"color" "220 30 220"
+		"color" "220 220 220"
+		"groupid" "1281"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 2500]"
@@ -970,10 +665,317 @@ entity
 entity
 {
 	"id" "world_idnum"
+	"classname" "func_respawnroom"
+	"StartDisabled" "0"
+	"targetname" "respawn_name"
+	"TeamNum" "3"
+	solid
+	{
+		"id" "world_idnum"
+		side
+		{
+			"id" "id_num"
+			"plane" "(x253 y253 z253) (x254 y254 z254) (x255 y255 z255)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x256 y256 z256) (x257 y257 z257) (x258 y258 z258)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x259 y259 z259) (x260 y260 z260) (x261 y261 z261)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x262 y262 z262) (x263 y263 z263) (x264 y264 z264)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x265 y265 z265) (x266 y266 z266) (x267 y267 z267)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x268 y268 z268) (x269 y269 z269) (x270 y270 z270)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 32] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupshown" "1"
+			"visgroupautoshown" "1"
+		}
+	}
+}
+entity
+{
+	"id" "world_idnum"
+	"classname" "func_respawnroomvisualizer"
+	"disablereceiveshadows" "0"
+	"disableshadows" "0"
+	"InputFilter" "0"
+	"origin" "px22 py22 pz22"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"respawnroomname" "respawn_name"
+	"solid_to_enemies" "1"
+	"Solidity" "1"
+	"spawnflags" "2"
+	"StartDisabled" "0"
+	"vrad_brush_cast_shadows" "0"
+	solid
+	{
+		"id" "world_idnum"
+		side
+		{
+			"id" "id_num"
+			"plane" "(x271 y271 z271) (x272 y272 z272) (x273 y273 z273)"
+			"material" "TOOLS/TOOLSNODRAW"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 -10.6666] 0.6"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x274 y274 z274) (x275 y275 z275) (x276 y276 z276)"
+			"material" "TOOLS/TOOLSNODRAW"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 -10.6666] 0.6"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x277 y277 z277) (x278 y278 z278) (x279 y279 z279)"
+			"material" "TOOLS/TOOLSNODRAW"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 40] 0.6"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x280 y280 z280) (x281 y281 z281) (x282 y282 z282)"
+			"material" "OVERLAYS/NO_ENTRY"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 146.286] 0.4375"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x283 y283 z283) (x284 y284 z284) (x285 y285 z285)"
+			"material" "TOOLS/TOOLSNODRAW"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 40] 0.6"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x286 y286 z286) (x287 y287 z287) (x288 y288 z288)"
+			"material" "TOOLS/TOOLSNODRAW"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 40] 0.6"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupshown" "1"
+			"visgroupautoshown" "1"
+		}
+	}
+}
+entity
+{
+	"id" "world_idnum"
+	"classname" "light"
+	"_constant_attn" "0"
+	"_distance" "0"
+	"_fifty_percent_distance" "0"
+	"_hardfalloff" "0"
+	"_light" "206 255 234 500"
+	"_lightHDR" "-1 -1 -1 1"
+	"_lightscaleHDR" "1"
+	"_linear_attn" "0"
+	"_quadratic_attn" "1"
+	"_zero_percent_distance" "0"
+	"spawnflags" "0"
+	"style" "0"
+	"targetname" "entity_name"
+	"origin" "px23 py23 pz23"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
+entity
+{
+	"id" "world_idnum"
+	"classname" "func_door"
+	"disablereceiveshadows" "0"
+	"disableshadows" "0"
+	"dmg" "0"
+	"forceclosed" "0"
+	"health" "0"
+	"ignoredebris" "0"
+	"lip" "-2"
+	"locked_sentence" "0"
+	"loopmovesound" "0"
+	"movedir" "-90 0 0"
+	"origin" "px24 py24 pz24"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"spawnflags" "0"
+	"spawnpos" "0"
+	"speed" "500"
+	"targetname" "door_large"
+	"unlocked_sentence" "0"
+	"wait" "-1"
+	solid
+	{
+		"id" "world_idnum"
+		side
+		{
+			"id" "id_num"
+			"plane" "(x289 y289 z289) (x290 y290 z290) (x291 y291 z291)"
+			"material" "METAL/METALDOOR001"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 -640] 0.25"
+			"rotation" "0"
+			"lightmapscale" "512"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x292 y292 z292) (x293 y293 z293) (x294 y294 z294)"
+			"material" "METAL/METALDOOR001"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 -640] 0.25"
+			"rotation" "0"
+			"lightmapscale" "512"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x295 y295 z295) (x296 y296 z296) (x297 y297 z297)"
+			"material" "METAL/METALDOOR001"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 724] 0.25"
+			"rotation" "0"
+			"lightmapscale" "512"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x298 y298 z298) (x299 y299 z299) (x300 y300 z300)"
+			"material" "METAL/METALDOOR001"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 724] 0.25"
+			"rotation" "0"
+			"lightmapscale" "512"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x301 y301 z301) (x302 y302 z302) (x303 y303 z303)"
+			"material" "METAL/METALDOOR001"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 724] 0.25"
+			"rotation" "0"
+			"lightmapscale" "512"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x304 y304 z304) (x305 y305 z305) (x306 y306 z306)"
+			"material" "METAL/METALDOOR001"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 724] 0.25"
+			"rotation" "0"
+			"lightmapscale" "512"
+			"smoothing_groups" "0"
+		}
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupshown" "1"
+			"visgroupautoshown" "1"
+		}
+	}
+}
+entity
+{
+	"id" "world_idnum"
 	"classname" "filter_activator_tfteam"
 	"Negated" "0"
-	"targetname" "filter_red"
-	"TeamNum" "2"
+	"targetname" "filter_blu"
+	"TeamNum" "3"
 	"origin" "px25 py25 pz25"
 	editor
 	{

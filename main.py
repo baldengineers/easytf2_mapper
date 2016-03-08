@@ -321,7 +321,7 @@ class MainWindow(QMainWindow):
             item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
             self.tile_list.addItem(item)
 
-
+        self.tile_list.currentItemChanged.connect(self.changeIcon)
         #contains label and list vertically
         self.tile_list_layout = QVBoxLayout()
         self.tile_list_layout.addWidget(self.listLabel)
@@ -401,11 +401,22 @@ class MainWindow(QMainWindow):
             rotation = rotation - 1
         self.changeIcon()
     def changeIcon(self):
+        global rotation
         try:
-            self.current.setIcon(QIcon(icon))
+            current_prefab_icon_list2 = open('prefab_template/rot_prefab_list.txt', 'r+')
+            current_prefab_icon_list2 = current_prefab_icon_list2.readlines()
+            current_prefab_icon_list2 = current_prefab_icon_list2[self.tile_list.currentRow()]
+            if "\n" in current_prefab_icon_list2:
+                current_prefab_icon_list2 = current_prefab_icon_list2[:-1]
+            current_prefab_icon_list2 = open('prefab_template/iconlists/'+current_prefab_icon_list2, 'r+')
+            current_prefab_icon_list2 = current_prefab_icon_list2.readlines()
+            icon2 = current_prefab_icon_list2[rotation]
+            if "\n" in icon2:
+                icon2 = icon2[:-1]
+            self.current.setIcon(QIcon(icon2))
             self.current.setIconSize(QSize(32,32))
         except Exception as e:
-            #print(str(e))
+            print(str(e))
             icon = prefab_icon_list[self.tile_list.currentRow()]
             self.current.setIcon(QIcon(icon))
             self.current.setIconSize(QSize(32,32))

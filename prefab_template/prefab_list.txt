@@ -10,3 +10,5 @@ corner_top_right
 corner_top_left
 mini_spire
 mini_spire_down
+respawn_red
+respawn_blu

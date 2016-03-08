@@ -10,3 +10,5 @@ corner_wall_top_right_icon_list.txt
 corner_wall_top_left_icon_list.txt
 mini_spire_icon_list.txt
 mini_spire_down_icon_list.txt
+respawn_red_icon_list.txt
+respawn_blu_icon_list.txt
