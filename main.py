@@ -165,6 +165,11 @@ class MainWindow(QMainWindow):
         exportAction.setShortcut("Ctrl+E")
         exportAction.setStatusTip("Export as .vmf")
         exportAction.triggered.connect(self.file_export)
+        
+        removeAction = QAction("&Remove Last Prefab(s)",self)
+        removeAction.setShortcut("Ctrl+R")
+        removeAction.setStatusTip("Delete a variable amount of prefabs from the end of the list")
+        removeAction.triggered.connect(self.remove_prefabs)
 
         gridAction = QAction("&Set Grid Size", self)
         gridAction.setShortcut("Ctrl+G")
@@ -199,10 +204,10 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(hammerAction)
 
         optionsMenu.addAction(gridAction)
-        #optionsMenu.addAction(changeLightAction)
-        #optionsMenu.addAction(refreshPrefab)
         optionsMenu.addAction(changeSkybox)
-
+        #optionsMenu.addAction(removeAction)
+        #UNTESTED AT SCHOOL
+        
         createMenu.addAction(createPrefabAction)
         
         self.home()
@@ -246,6 +251,15 @@ class MainWindow(QMainWindow):
             self.file = open("startupcache/startup.su", "w+")
         self.fileloaded = self.file.readlines()
         self.files = "".join(self.fileloaded)
+    def remove_prefabs(self):
+        import removeText
+        num = QInputDialog.getText(self,("Remove Prefabs"),("Remove x number of prefabs from the back of the list."))
+        try:
+            num = int(num[0])
+        except:
+            QMessageBox.critical(self, "Error", "Please enter a number.")
+            self.remove_prefab()
+        removeText(num)
 
     def closeEvent(self, event):
         #closeEvent runs close_application when the x button is pressed
