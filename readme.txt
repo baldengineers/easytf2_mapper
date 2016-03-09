@@ -1,6 +1,7 @@
 readme:
 
-run the main.py or (maybe) the main.exe
+Install either the source code or executable. If you have the executable, run the EasyTF2Mapper.exe, or if you have the
+source code, run main.py
 
 Ctrl+G = resize grid. deletes all blocks.
 
@@ -8,17 +9,23 @@ Ctrl+S = choose skybox texture. I reccommend choosing one that you want, the def
 
 Ctrl+E = export vmf. do this when you're done. This will export, then give you an option to launch your .vmf into hammer.
 
-Ctrl+J = Change environmental lighting (obsolete)
+Ctrl+I = Create your own prefab. When creating a prefab, make it in the lower right quadrant of the grid, with one corner touching the
+origin. Make the ground a 64 high 512*512 block for uniformity. Report bugs with this to toadsrc@gmail.com, as this is probably the
+buggiest part of the program.
 
-Ctrl+H = Opens Hammer. The first time you do this, you will have to point the program to your hammer.exe
+Ctrl+H = Opens Hammer. The first time you do this, you will have to point the program to your hammer.exe.
 
-Alt+click on a square with a prefab on it to remove it.
+Ctrl+B = Choose skybox from a list. This will make the skybox of the rendered map the one you chose.
 
-When creating a prefab, make it in the lower right quadrant of the grid, with one corner touching the origin.
-Make the ground a 64 high 512*512 block for uniformity. Report bugs with this to toadsrc@gmail.com.
+Ctrl+R = Remove a variable amount of prefabs from the end of the list. Really only used by developers.
 
-After exporting, open the .vmf in hammer to make it into a .bsp.
+Ctrl+Q/Alt+f4 = Quit
+
+Alt+click on a square with a prefab on it to remove whatever was on it.
 
 
-TODO: http://pythonhosted.org/PyInstaller/ create redistributable package. as a side note, we need to manually add every single prefab
-.py, as pyinstaller cannot detect modules imported with the modification of sys.path
+
+After exporting, open the .vmf in hammer, or choose the option on the popup to load your file straight into hammer.
+
+
+copyright 2016, Bald Engineers. Hammer, a Source Engine mapping tool belongs to Valve Corporation.
