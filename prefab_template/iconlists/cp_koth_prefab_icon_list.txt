@@ -1,0 +1,4 @@
+icons/cp_koth_prefab_right.jpg
+icons/cp_koth_prefab_down.jpg
+icons/cp_koth_prefab_left.jpg
+icons/cp_koth_prefab_up.jpg

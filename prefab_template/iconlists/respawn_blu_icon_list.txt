@@ -1,0 +1,4 @@
+icons/respawn_blu_right.jpg
+icons/respawn_blu_down.jpg
+icons/respawn_blu_left.jpg
+icons/respawn_blu_up.jpg

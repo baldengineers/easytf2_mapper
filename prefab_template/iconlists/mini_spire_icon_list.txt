@@ -1,0 +1,4 @@
+icons/mini_spire_right.jpg
+icons/mini_spire_down.jpg
+icons/mini_spire_left.jpg
+icons/mini_spire_up.jpg

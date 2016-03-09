@@ -1,0 +1,4 @@
+icons/spawn_test_right.jpg
+icons/spawn_test_down.jpg
+icons/spawn_test_left.jpg
+icons/spawn_test_up.jpg

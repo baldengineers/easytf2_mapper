@@ -1,0 +1,4 @@
+icons/corner_right.jpg
+icons/corner_down.jpg
+icons/corner_left.jpg
+icons/corner_up.jpg

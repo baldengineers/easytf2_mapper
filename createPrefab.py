@@ -1,12 +1,29 @@
 """
 This function takes a vmf file exported from hammer, then exports both a
-prefab txt template (look in prefabs folder), and a .py containing the
-algorithms to create the object
+prefab txt template (look in prefab_template folder), and a .py containing the
+algorithms to create the object (look in the prefabs folder)
 """
-def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block):
+
+
+
+
+#import math
+#import collections
+
+#def rotatePoint(centerPoint,point,angle):
+#    """Rotates a point around another centerPoint. Angle is in degrees.
+#    Rotation is counter-clockwise"""
+#    angle = math.radians(angle)
+#    temp_point = point[0]-centerPoint[0] , point[1]-centerPoint[1]
+#    temp_point = ( temp_point[0]*math.cos(angle)-temp_point[1]*math.sin(angle) , temp_point[0]*math.sin(angle)+temp_point[1]*math.cos(angle))
+#    temp_point = temp_point[0]+centerPoint[0] , temp_point[1]+centerPoint[1]
+#    return temp_point
+
+#print(rotatePoint((0,0),(5,3),90))
+
+def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled):
   #TODO: Add a values list history, that keeps track of all the past value_lists
   #so we can see if there are duplicate value lists. 
-  
   value_list = []
   #item count needs to be -1 so that the initial "SEPARATE" makes the var 0
   num_count = -1
@@ -36,31 +53,134 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     xyz_list = ["x", "y", "z"]
   elif in_entity_block:
     xyz_list = ["px", "py", "pz"]
+	
+  #xyz_dict only to be used for rotations
+  #xyz_dict = {"#ROT0":{"x" : "x", "y" : "y", "z" : "z", "addx" : False, "suby" : False},
+  #            "#ROT1":{"x" : "y", "y" : "neg_x", "z" : "z", "addx" : True, "suby" : False},
+  #	      "#ROT2":{"x" : "neg_x", "y" : "neg_y", "z" : "z", "addx" : True, "suby" : True},
+  #	      "#ROT3":{"x" : "neg_y", "y": "x", "z" : "z", "addx" : False, "suby" : True}}
+  #print(xyz_dict)
+  #xyz_dict = collections.OrderedDict(sorted(xyz_dict.items()))
+
+  #actualvar = ""
   
   for var in xyz_list:
     try:
       value = int(value_list[xyz_list.index(var)])
     except ValueError:
       value = float(value_list[xyz_list.index(var)])
+    
+  
+    #for item in xyz_dict:
+    py_list_text = ""
+      #rot_py_list_text = ""
+      #print(item)
       
+      #if rot_enabled:
+        #orig_var = var
+        #print(xyz_dict[item])
+        #print(item)
+        #print(orig_var)
+        #var = xyz_dict[item][orig_var]
 
-    if var == "x" or var == "px":
-      negative = ""
-    elif var == "y" or var == "py":
-      negative = "-"
+        #if item == "#ROT1":
+        #  degrees = 270
+        #elif item == "#ROT2":
+        #  degrees = 180
+        #elif item == "#ROT3":
+        #  degrees = 90
+        #else:
+        #  degrees = 0
+
         
+      #if xyz_dict[item]["addx"] and orig_var == "x":
+      #  addval = "+ 512"
+      #elif xyz_dict[item]["suby"] and orig_var == "y":
+      #  addval = "- 512"
+      #else:
+      #  addval = ""
+	
+    if var == "x" or var == "px":# or var == "neg_x":
+      negative = 1
+      #actualvar = "x"
+    elif var == "y" or var == "py" or var == "neg_y":
+      negative = -1
+      #actualvar = "y"
+      
     if var == "z" or var == "pz":
-      py_list.append("%s%d = %d" %(var, var_num, value))
+      #if rot_enabled:
+        #py_list_text = "%s%d = %d" %(orig_var, var_num, value)
+        #if item == "#ROT0":
+          #py_list.append(py_list_text)
+        #else:
+          #rot_py_list_text = "%s%s%d = %d" %(item, orig_var, var_num, value)
+          #rot_py_list.append(rot_py_list_text)
+      #else:
+      py_list_text = "%s%d = %d" %(var, var_num, value)
+      py_list.append(py_list_text)
       #print(py_list)
     elif value == 0:
-      py_list.append("%s%d = %s%s*%s512" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative))
+      #if rot_enabled:
+        #py_list_text = "%s%d = pos%s*%d*512" %(orig_var, var_num, var[-1] if var.startswith("p") else var, negative)
+        #if item == "#ROT0":
+        #  py_list.append(py_list_text)
+        #else:
+          #center_origin_text = "(pos%s*%d*512)" %(actualvar[-1] if actualvar.startswith("p") else actualvar, negative)
+          #rot_py_list_text = "%s%s%d = %s%s*%d*512 %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, negative, addval)
+          #rot_py_list_text = "%s%s%d = %s(%s + pos%s*%d*512 %s)" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, actualvar, -1*negative, addval)
+          #subtract_text = " - (%s%s*%s512 + 256)" %("pos", var[-1] if var.startswith("p") else var, negative)
+          #print(py_list)
+          #print(var_num)
+          #rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d])" %(item, orig_var, var_num, py_list[-3], py_list[-2], degrees, 0 if var == "x" else 1)
+          #rot_py_list.append(rot_py_list_text)
+      #else:
+      py_list_text = "%s%d = pos%s*%d*512" %(var, var_num, var[-1] if var.startswith("p") else var, negative)
+      py_list.append(py_list_text)
       #print(py_list)
     else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
-      py_list.append("%s%d = %s%s*%s512 + (%d)" %(var, var_num, "pos", var[-1] if var.startswith("p") else var, negative, value))
+      #if rot_enabled:
+        #py_list_text = "%s%d = pos%s*%d*512 + (%d)" %(orig_var, var_num, var[-1] if var.startswith("p") else var, negative, value)
+        #if item == "#ROT0":
+        #  py_list.append(py_list_text)
+        #else:
+          #center_origin_text = "(pos%s*%d*512 + %d)" %(actualvar, negative, value)
+          #rot_py_list_text = "%s%s%d = %s%s*%d*512 + (%d) %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, negative, value, addval)
+          #rot_py_list_text = "%s%s%d = %s(%s + pos%s*%d*512 %s)" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, actualvar, -1*negative, addval)
+          #rot_py_list_text = "%s%s%d = rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d]" %(item, orig_var, var_num, py_list[(var_num)-1], py_list[var_num], degrees, 0 if var == "x" else 1)
+          #rot_py_list.append(rot_py_list_text)
+          #pass
+      #else:
+      py_list_text = "%s%d = pos%s*%d*512 + (%d)" %(var, var_num, var[-1] if var.startswith("p") else var, negative, value)
+      py_list.append(py_list_text)
       #print(py_list)
 
+    #var = orig_var
+
     txt_list[txt_list.index("INSERT_VAR")] = "%s%d" %(var, var_num)
-  
+
+  rot_list = ["#ROT1", "#ROT2", "#ROT3"]
+
+  for item in rot_list:
+    if item == "#ROT1":
+      degrees = 270
+    elif item == "#ROT2":
+      degrees = 180
+    elif item == "#ROT3":
+      degrees = 90
+    else:
+      degrees = 0
+    
+    for var in xyz_list:
+      if var == "z" or var == "pz":
+        rot_py_list_text = "%s%s%d = %s" %(item, var, var_num, py_list[-1][py_list[-1].index("=") + 2:])
+        rot_py_list.append(rot_py_list_text)
+      elif value == 0:
+        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" or var == "px" else 1)
+        rot_py_list.append(rot_py_list_text)
+      else:
+        rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" or var == "px" else 1)
+        rot_py_list.append(rot_py_list_text)
+
 
 def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path):
   #This compiles the txt prefab template
@@ -92,38 +212,91 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
   
   
 
-def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list):
+def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list, rot_enabled):
   #This compiles the py file containing the algorithms
-  
+  if rot_enabled:
+    rot_indent = "    "
+  else:
+    rot_indent = ""
+    
   for item in py_list:
-    compile_list.insert(compile_list.index("#INSERT_PY_LIST"), "    " + item + "\n")
+    compile_list.insert(compile_list.index("#INSERT_PY_LIST"), rot_indent + "    " + item + "\n")
 
   compile_list[compile_list.index("#INSERT_OPEN_FILE")] = "    f = open('%s', 'r+')" %(txt_path)
 
   compile_list[compile_list.index("#INSERT_PY_LIST")] = ""
 
-  var_count = (len(py_list) + 1)/3
+  var_count = (len(py_list) + 1)
 
-  compile_list[compile_list.index("#INSERT_VAR_COUNT")] = "    var_count = %d" %(var_count)
+  compile_list[compile_list.index("#INSERT_VAR_COUNT")] = "\n    var_count = %d" %(var_count/3)
+  
+  if rot_enabled:
+  
+    compile_list.insert(compile_list.index("#INSERT_ROT_IF"), rot_code[0][0] + "\n")
+    compile_list[compile_list.index("#INSERT_ROT_IF")] = ""
+    
+    ent_code.insert(ent_code.index("#INSERT_ROT_IF"), rot_code[1][0] + "\n")
+    ent_code[ent_code.index("#INSERT_ROT_IF")] = ""
 
+    for item in rot_py_list:
+      if "#ROT0" in item:
+        rot_code[0].insert(rot_code[0].index("#INSERT_ROT_0_PY_LIST\n"), "        " + item[5:] + "\n")
+      elif "#ROT1" in item:
+        rot_code[0].insert(rot_code[0].index("#INSERT_ROT_1_PY_LIST\n"), "        " + item[5:] + "\n")
+      elif "#ROT2" in item:
+        rot_code[0].insert(rot_code[0].index("#INSERT_ROT_2_PY_LIST\n"), "        " + item[5:] + "\n")
+      elif "#ROT3" in item:
+        rot_code[0].insert(rot_code[0].index("#INSERT_ROT_3_PY_LIST\n"), "        " + item[5:] + "\n")
+        
+    for index, item in enumerate(rot_code[0]):
+      if not index == 0:
+        compile_list.insert(compile_list.index("#INSERT_ROT_CODE"), item)
+        
+    compile_list[compile_list.index("#INSERT_ROT_CODE")] = ""
+
+      
+    for item in rot_ent_py_list:
+      if "#ROT0" in item:
+        rot_code[1].insert(rot_code[1].index("#INSERT_ROT_0_PY_LIST\n"), "        " + item[5:] + "\n")
+      elif "#ROT1" in item:
+        rot_code[1].insert(rot_code[1].index("#INSERT_ROT_1_PY_LIST\n"), "        " + item[5:] + "\n")
+      elif "#ROT2" in item:
+        rot_code[1].insert(rot_code[1].index("#INSERT_ROT_2_PY_LIST\n"), "        " + item[5:] + "\n")
+      elif "#ROT3" in item:
+        rot_code[1].insert(rot_code[1].index("#INSERT_ROT_3_PY_LIST\n"), "        " + item[5:] + "\n")
+        
+    for index, item in enumerate(rot_code[1]):
+      if not index == 0:
+        ent_code.insert(ent_code.index("#INSERT_ROT_ENT_CODE"), item)
+        
+    ent_code[ent_code.index("#INSERT_ROT_ENT_CODE")] = ""
+    
+    
+    #rot_code[rot_code.index("#INSERT_ROT_0_PY_LIST")] = ""
+    #rot_code[rot_code.index("#INSERT_ROT_1_PY_LIST")] = ""
+    #rot_code[rot_code.index("#INSERT_ROT_2_PY_LIST")] = ""
+    #rot_code[rot_code.index("#INSERT_ROT_3_PY_LIST")] = ""
+    
+    
+  
   if contains_ent:
     ent_code[ent_code.index("#INSERT_ENT_OPEN_FILE")] = "\n    g = open('%s', 'r+')" %(ent_path)
 
     for item in ent_py_list:
-      ent_code.insert(ent_code.index("#INSERT_ENT_PY_LIST"), "    " + item + "\n")
+      ent_code.insert(ent_code.index("#INSERT_ENT_PY_LIST"), rot_indent + "    " + item + "\n")
 
     ent_code[ent_code.index("#INSERT_ENT_PY_LIST")] = ""
 
-    ent_var_count = (len(ent_py_list) + 1)/3
+    ent_var_count = (len(ent_py_list) + 1)
 
-    ent_code[ent_code.index("#INSERT_ENT_VAR_COUNT")] = "    ent_var_count = %d" %(ent_var_count)
+    ent_code[ent_code.index("#INSERT_ENT_VAR_COUNT")] = "    ent_var_count = %d" %(ent_var_count/3)
 
     for item in ent_code:
       compile_list.insert(compile_list.index("#INSERT_ENT_CODE"), item)
 
     compile_list[compile_list.index("#INSERT_ENT_CODE")] = ""
 
-  compile_list.append("    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list" if contains_ent else "    return values, id_num, world_id_num")
+  compile_list.append("\n    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list" if contains_ent else "\n    return values, id_num, world_id_num")
 
   file = open(py_path, "w")
   
@@ -142,6 +315,8 @@ def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled):
 
   py_list = []
   ent_py_list = []
+  rot_py_list = []
+  rot_ent_py_list = []
   txt_list = []
   ent_list = []
   num_list = []
@@ -150,6 +325,14 @@ def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled):
   value_list = []
   compile_list = [
   """import os
+import math
+
+def rotatePoint(centerPoint,point,angle):
+    angle = math.radians(angle)
+    temp_point = point[0]-centerPoint[0] , point[1]-centerPoint[1]
+    temp_point = ( temp_point[0]*math.cos(angle)-temp_point[1]*math.sin(angle) , temp_point[0]*math.sin(angle)+temp_point[1]*math.cos(angle))
+    temp_point = temp_point[0]+centerPoint[0] , temp_point[1]+centerPoint[1]
+    return temp_point
 
 def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, rotation):
     
@@ -166,6 +349,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
   "#INSERT_ROT_IF",
 
   "#INSERT_PY_LIST",
+  
+  "#INSERT_ROT_CODE",
 
   "#INSERT_VAR_COUNT",
 
@@ -189,9 +374,50 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
     for i in range(ogvalues.count('id_num')):
         values = values.replace('id_num', str(id_num), 1)
-        id_num = id_num+1""",
+        id_num = id_num+1
+        if "ROTATION_RIGHT" in values:
+            if rotation == 0:
+                values = values.replace("ROTATION_RIGHT","0 0 0",1)
+            elif rotation == 1:
+                values = values.replace("ROTATION_RIGHT","0 270 0",1)
+            elif rotation == 2:
+                values = values.replace("ROTATION_RIGHT","0 180 0",1)
+            elif rotation == 3:
+                values = values.replace("ROTATION_RIGHT","0 90 0",1)
+        if "ROTATION_UP" in values:
+            if rotation == 0:
+                values = values.replace("ROTATION_UP","0 90 0",1)
+            elif rotation == 1:
+                values = values.replace("ROTATION_UP","0 0 0",1)
+            elif rotation == 2:
+                values = values.replace("ROTATION_UP","0 270 0",1)
+            elif rotation == 3:
+                values = values.replace("ROTATION_UP","0 180 0",1)
+        if "ROTATION_LEFT" in values:
+            if rotation == 0:
+                values = values.replace("ROTATION_LEFT","0 180 0",1)
+            elif rotation == 1:
+                values = values.replace("ROTATION_LEFT","0 90 0",1)
+            elif rotation == 2:
+                values = values.replace("ROTATION_LEFT","0 0 0",1)
+            elif rotation == 3:
+                values = values.replace("ROTATION_LEFT","0 270 0",1)
+        if "ROTATION_DOWN" in values:
+            if rotation == 0:
+                values = values.replace("ROTATION_DOWN","0 270 0",1)
+            elif rotation == 1:
+                values = values.replace("ROTATION_DOWN","0 180 0",1)
+            elif rotation == 2:
+                values = values.replace("ROTATION_DOWN","0 90 0",1)
+            elif rotation == 3:
+                values = values.replace("ROTATION_DOWN","0 0 0",1)
 
-  "#INSERT_ROT_CODE",
+    values = values.replace('"[0 0 0 1] 0.25"','"[1 1 1 1] 0.25"')
+    values = values.replace('"[0 0 1 0] 0.25"','"[1 1 1 1] 0.25"')
+    values = values.replace('"[0 1 0 0] 0.25"','"[1 1 1 1] 0.25"')       
+    values = values.replace('"[1 0 0 0] 0.25"','"[1 1 1 1] 0.25"')
+        
+""",
 
   "#INSERT_ENT_CODE",
   
@@ -204,13 +430,13 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     lines_ent = g.readlines()
 """,
 
-             "#INSERT_ROT_ENT_IF",
+             "#INSERT_ROT_IF",
 
              "#INSERT_ENT_PY_LIST",
 
-             "#INSERT_ENT_VAR_COUNT",
-
              "#INSERT_ROT_ENT_CODE",
+             
+             "#INSERT_ENT_VAR_COUNT",
 
 """
     ent_values = "".join(lines_ent)
@@ -252,42 +478,101 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         id_num = id_num+1
 
     for i in range(valcount.count("entity_name")):
-        ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
-        ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
-        if "parent_name" in placeholder_list[entity_num]:
-            ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
-            placeholder_list.remove(placeholder_list[entity_num])
-        
-        if "\\"door_large\\"" in ent_values:
-            ent_values = ent_values.replace("\\"door_large\\"", "\\"door_large" + str(entity_num) + "\\"", 4)
-        if "\\"respawn_name\\"" in ent_values:
-            ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
-        entity_num += 1
+        try:
+            ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
+            ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
+            if "parent_name" in placeholder_list[entity_num]:
+                ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
+                placeholder_list.remove(placeholder_list[entity_num])
+            
+            if "door_large" in ent_values:
+                ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
+            if "\\"respawn_name\\"" in ent_values:
+                ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
+            if "ROTATION_RIGHT" in ent_values:
+                if rotation == 0:
+                    ent_values = ent_values.replace("ROTATION_RIGHT","0 0 0",1)
+                elif rotation == 1:
+                    ent_values = ent_values.replace("ROTATION_RIGHT","0 270 0",1)
+                elif rotation == 2:
+                    ent_values = ent_values.replace("ROTATION_RIGHT","0 180 0",1)
+                elif rotation == 3:
+                    ent_values = ent_values.replace("ROTATION_RIGHT","0 90 0",1)
+            if "ROTATION_UP" in ent_values:
+                if rotation == 0:
+                    ent_values = ent_values.replace("ROTATION_UP","0 90 0",1)
+                elif rotation == 1:
+                    ent_values = ent_values.replace("ROTATION_UP","0 0 0",1)
+                elif rotation == 2:
+                    ent_values = ent_values.replace("ROTATION_UP","0 270 0",1)
+                elif rotation == 3:
+                    ent_values = ent_values.replace("ROTATION_UP","0 180 0",1)
+            if "ROTATION_LEFT" in ent_values:
+                if rotation == 0:
+                    ent_values = ent_values.replace("ROTATION_LEFT","0 180 0",1)
+                elif rotation == 1:
+                    ent_values = ent_values.replace("ROTATION_LEFT","0 90 0",1)
+                elif rotation == 2:
+                    ent_values = ent_values.replace("ROTATION_LEFT","0 0 0",1)
+                elif rotation == 3:
+                    ent_values = ent_values.replace("ROTATION_LEFT","0 270 0",1)
+            if "ROTATION_DOWN" in ent_values:
+                if rotation == 0:
+                    ent_values = ent_values.replace("ROTATION_DOWN","0 270 0",1)
+                elif rotation == 1:
+                    ent_values = ent_values.replace("ROTATION_DOWN","0 180 0",1)
+                elif rotation == 2:
+                    ent_values = ent_values.replace("ROTATION_DOWN","0 90 0",1)
+                elif rotation == 3:
+                    ent_values = ent_values.replace("ROTATION_DOWN","0 0 0",1)
+            
+            entity_num += 1
+        except:
+            pass
+
 
 """]
 
-  rot_code = ["""
+  rot_code = [["""
     if rotation == 0:
 """,
+    "#INSERT_ROT_0_PY_LIST\n",
 """
-    if rotation == 1:
+    elif rotation == 1:
 """,
-    "#INSERT_ROT_1_PY_LIST",
+    "#INSERT_ROT_1_PY_LIST\n",
 """
-    if rotation == 2:
+    elif rotation == 2:
 """,
-    "#INSERT_ROT_2_PY_LIST",
+    "#INSERT_ROT_2_PY_LIST\n",
 """
-    if rotation == 3:
+    elif rotation == 3:
 """,
-    "#INSERT_ROT_3_PY_LIST",]
+    "#INSERT_ROT_3_PY_LIST\n"],
+
+["""
+    if rotation == 0:
+""",
+    "#INSERT_ROT_0_PY_LIST\n",
+"""
+    elif rotation == 1:
+""",
+    "#INSERT_ROT_1_PY_LIST\n",
+"""
+    elif rotation == 2:
+""",
+    "#INSERT_ROT_2_PY_LIST\n",
+"""
+    elif rotation == 3:
+""",
+    "#INSERT_ROT_3_PY_LIST\n"]]
 
   var_num = 1
   ent_var_num = 1
   contains_ent = False #True if there are entities in the vmf
   in_solid_block = False #True if in a solid code block
   in_entity_block = False #True if in an entity code block
-  in_editor_block = False #True if in an editor cod (best game omg so good 8)))) block
+  in_editor_block = False #True if in an editor cod (i luv dat gme) block
   in_connections_block = False #True if in a connections code block
   solid_to_ent = False #True if you want to put the solid block into ent_list
   black_list_var = False #True means it IS on the blacklist, False otherwise
@@ -360,7 +645,35 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         if "(" not in line:
 
           if "\"id\"" not in line:
-            eval(which_list).append(line)
+            if "\"uaxis\"" in line:
+              #print("jonathan \"XD\" liu")
+              quote_num = 0
+              for letter in line:
+                  if letter == "\"":
+                    quote_num += 1
+                  if quote_num != 3:
+                    eval(which_list).append(letter)
+                  elif letter == "\"":
+                    eval(which_list).append(letter)
+                              
+              eval(which_list).insert(-2, "[1 0 0 1] 0.25")
+
+            else:
+              eval(which_list).append(line)
+            '''
+            elif "\"vaxis\"" in line:
+              #print("jonathan \"XD\" liu")
+              quote_num = 0
+              for letter in line:
+                  if letter == "\"":
+                    quote_num += 1
+                  if quote_num != 3:
+                    eval(which_list).append(letter)
+                  elif letter == "\"":
+                    eval(which_list).append(letter)
+                              
+              eval(which_list).insert(-2, "[0 0 1 0] 0.25")
+            '''
           elif "\t\t\"id\"" in line:
             for letter in line:
               try:
@@ -373,8 +686,10 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
             else: 
               eval(which_list).insert(-2, "world_idnum")
 
-          #print(txt_list)
+          
 
+          #print(txt_list)
+        
         elif "(" in line:
           for letter in line:
             #print(letter)
@@ -392,9 +707,10 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 num_list.append("-")
               elif letter == ")":
                 #print(num_list)
-                write_var(num_list, eval(which_list), py_list, var_num, value_list_history, in_solid_block, in_entity_block) 
+                write_var(num_list, eval(which_list), py_list, var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled) 
                 var_num += 1
                 num_list = []
+
       elif in_solid_block and "\t}" in line and "\t\t" not in line:
         in_solid_block = False
         #print(line)
@@ -410,7 +726,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         '''
         #doesn't work yet
         #add things you want to add placeholders to, to white_list
-        white_list = ["\"id\"", "\t\"targetname\"", "\t\"origin\"",
+        white_list = ["\"id\"", "\t\"targetname\"",
+          print("jonathan \"XD\" liu")
+                      "\t\"origin\"",
                       "\t\"associatedmodel\"", "\t\"parentname\"",
                       "\t\"respawnroomname\""]
 
@@ -425,7 +743,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
           print(line)
 
         '''
-        if "\"id\"" not in line and "\t\"targetname\"" not in line and "\t\"origin\"" not in line and "\t\"associatedmodel\"" not in line and "\t\"parentname\"" not in line and "\t\"respawnroomname\"" not in line:
+        if "\"id\"" not in line and "\t\"targetname\"" not in line and "\t\"origin\"" not in line and "\t\"associatedmodel\"" not in line and "\t\"parentname\"" not in line and "\t\"respawnroomname\"" not in line and "\"angles\"" not in line:
           ent_list.append(line)
         elif "\"id\"" in line:
           for letter in line:
@@ -435,7 +753,52 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               ent_list.append(letter)
                   
           ent_list.insert(-2, "world_idnum")
-              
+
+        elif "\"angles\" \"0 0 0\"" in line:
+          #print("jonathan \"XD\" liu")
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "ROTATION_RIGHT")
+        elif '"angles" "0 90 0"' in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "ROTATION_UP")
+        elif '"angles" "0 180 0"' in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "ROTATION_LEFT")
+        elif '"angles" "0 270 0"' in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "ROTATION_DOWN")
         elif "\t\"targetname\"" in line and "respawn_trigger" not in line and "\"func_door\"" not in openlines[loopernum-19] and "filter_activator_tfteam" not in openlines[loopernum-2]:
           quote_num = 0
           for letter in line:
@@ -492,7 +855,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                         
           ent_list.insert(-2, "entity_same")
 
-        elif "\t\"parentname\"" in line and "\"func_door\"" not in openlines[loopernum-19] and "prop_dynamic" not in openlines[loopernum-12]: 
+        elif "\t\"parentname\"" in line and "\"func_door\"" not in openlines[loopernum-19] and "door" not in openlines[loopernum-2]: 
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -503,7 +866,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "parent_name")
-        elif "\t\"parentname\"" in line and "prop_dynamic" in openlines[loopernum-12]: 
+        elif "\t\"parentname\"" in line and "door" in openlines[loopernum-2]: 
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -578,7 +941,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               elif letter == "-":
                 num_list.append("-")
               elif letter == "\"" and nums_yet:
-                write_var(num_list, ent_list, ent_py_list, ent_var_num, value_list_history, in_solid_block, in_entity_block) 
+                write_var(num_list, ent_list, ent_py_list, ent_var_num, value_list_history, in_solid_block, in_entity_block, rot_ent_py_list, rot_enabled) 
                 ent_var_num += 1
                 num_list = []
           
@@ -636,12 +999,13 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
           
 
     #black_list_var = False
-  if rot_enabled:
-    for count in (len(py_list) + 1)/3:
-      pass
+  #if rot_enabled:
+   # for count in (int(len(py_list) + 1))/3:
+    #  pass
 
   file.close()
-  return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list)
+  return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list, rot_enabled)
 
-#create("vmf_prefabs/spawn_room_red_up.vmf", "spawn_red_prefab_up", "Respawn Room - Red - Up", "icons/spawn_red_up.jpg")
+#create("vmf_prefabs/rotation_test.vmf", "rotation_test","Rotation Test", "icons/crate_cover.jpg",True)
+#create("vmf_prefabs/spawn_room_red.vmf", "spawn_room_red", "Respawn Room - Red", "icons/spawn_red.jpg", True)
 #create("vmf_prefabs/spawn_room_blu.vmf", "spawn_blu_prefab", "Respawn Room - Blu", "icons/spawn_blue.jpg") 

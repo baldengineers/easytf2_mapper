@@ -1,0 +1,4 @@
+icons/wall_right.jpg
+icons/wall_down.jpg
+icons/wall_left.jpg
+icons/wall_up.jpg

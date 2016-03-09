@@ -1,17 +1,8 @@
 Blank Tile
-Wall Tile (Bottom)
-Wall Tile (Top)
-Wall Tile (Right)
-Wall Tile (Left)
 Spike
-Corner Wall (Bottom Left)
-Corner Wall (Bottom Right)
-Corner Wall (Top Right)
-Corner Wall (Top Left)
+Respawn Room (RED)
+Respawn Room (BLU)
+Corner
 Mini-Spire
-Mini-Spire - down
-Respawn Room - Red - Right
-Respawn Room - Red - Up
-Respawn Room - Red - Down
-Respawn Room - Red - Left
-Respawn Room - Blu - Right
+Wall
+Control Point (KOTH)

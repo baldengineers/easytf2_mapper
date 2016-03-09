@@ -1,0 +1,4 @@
+icons/rotation_test_right.jpg
+icons/rotation_test_down.jpg
+icons/rotation_test_left.jpg
+icons/rotation_test_up.jpg
