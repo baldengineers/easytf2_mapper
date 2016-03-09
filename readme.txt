@@ -1,7 +1,7 @@
 readme:
 
 Install either the source code or executable. If you have the executable, run the EasyTF2Mapper.exe, or if you have the
-source code, run main.py
+source code, run main.py. A more in-depth instruction can be found on the wiki here: https://github.com/baldengineers/easytf2_mapper/wiki/Installation
 
 Ctrl+G = resize grid. deletes all blocks.
 
