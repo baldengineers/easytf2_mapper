@@ -5,3 +5,4 @@ respawn_blu
 corner
 mini_spire
 wall_prefab
+cp_koth_prefab

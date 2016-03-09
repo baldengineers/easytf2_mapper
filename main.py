@@ -43,8 +43,10 @@ class GridBtn(QWidget):
             global entity_list
             global placeholder_list
             global icon
+            global rotation
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
+            #print(rotation)
             try:
                 try:
                     try:
@@ -111,7 +113,7 @@ class GridBtn(QWidget):
             try:
                 entity_list[btn_id] = create[4]
             except:
-                pass#ear por el pueblo occidental
+                pass
 
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
@@ -913,7 +915,8 @@ for file in [prefab_file, prefab_text_file, prefab_icon_file,skybox_file,skybox_
 
 for item in prefab_list:
     globals()[item] = importlib.import_module(item)
-    print("import", item)   
+    print("import", item)
+global rotation
 #Main Program
 app = QApplication(sys.argv)
 gui = MainWindow()

@@ -5,3 +5,4 @@ Respawn Room (BLU)
 Corner
 Mini-Spire
 Wall
+Control Point (KOTH)
