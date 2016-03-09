@@ -198,7 +198,7 @@ class MainWindow(QMainWindow):
         optionsMenu = mainMenu.addMenu("&Options")
         createMenu = mainMenu.addMenu("&Create")
         
-        fileMenu.addAction(newAction)
+        #fileMenu.addAction(newAction)
         #fileMenu.addAction(openAction)
         #fileMenu.addAction(saveAction)
         fileMenu.addAction(exportAction)
