@@ -1,14 +1,7 @@
 icons/ground.jpg
-icons/wall_bottom.jpg
-icons/wall_top.jpg
-icons/wall_right.jpg
-icons/wall_left.jpg
 icons/spire.jpg
-icons/wall_corner_bottom_left.jpg
-icons/wall_corner_bottom_right.jpg
-icons/wall_corner_top_right.jpg
-icons/wall_corner_top_left.jpg
-icons/minispire.jpg
-icons/minispire_down.jpg
 icons/spawn_red.jpg
 icons/spawn_blue.jpg
+icons/wall_corner_bottom_left.jpg
+icons/minispire.jpg
+icons/wall_right.jpg

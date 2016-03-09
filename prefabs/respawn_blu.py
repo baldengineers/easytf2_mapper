@@ -4125,8 +4125,8 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
             ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
             placeholder_list.remove(placeholder_list[entity_num])
         
-        if "\"door_large\"" in ent_values:
-            ent_values = ent_values.replace("\"door_large\"", "\"door_large" + str(entity_num) + "\"", 4)
+        if "door_large" in ent_values:
+            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
         if "\"respawn_name\"" in ent_values:
             ent_values = ent_values.replace("\"respawn_name\"", "\"respawn_name" + str(entity_num) + "\"", 2)
         if "ROTATION_RIGHT" in ent_values:

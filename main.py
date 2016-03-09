@@ -205,7 +205,7 @@ class MainWindow(QMainWindow):
 
         optionsMenu.addAction(gridAction)
         optionsMenu.addAction(changeSkybox)
-        #optionsMenu.addAction(removeAction)
+        optionsMenu.addAction(removeAction)
         #UNTESTED AT SCHOOL
         
         createMenu.addAction(createPrefabAction)
@@ -253,13 +253,13 @@ class MainWindow(QMainWindow):
         self.files = "".join(self.fileloaded)
     def remove_prefabs(self):
         import removeText
-        num = QInputDialog.getText(self,("Remove Prefabs"),("Remove x number of prefabs from the back of the list."))
+        num = QInputDialog.getText(self,("Remove Prefabs"),("Remove x number of prefabs from the back of the list. REQUIRES RESTART"))
         try:
             num = int(num[0])
         except:
             QMessageBox.critical(self, "Error", "Please enter a number.")
             self.remove_prefab()
-        removeText(num)
+        removeText.reset(num)
 
     def closeEvent(self, event):
         #closeEvent runs close_application when the x button is pressed
@@ -504,10 +504,10 @@ class MainWindow(QMainWindow):
         file.write(wholething)
         file.close()
         popup = QMessageBox(self, "File Exported",
-                                "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp")
+                                "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
         popup.setWindowTitle("File Exported")
         popup.setText("The .vmf has been outputted to %s" %(name[0]))
-        popup.setInformativeText(" Open it in hammer to compile as a .bsp")
+        popup.setInformativeText(" Open it in hammer to compile as a .bsp. Check out the wiki <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">here</a> for fixing errors with textures.")
         hammerButton = popup.addButton("Open Hammer",QMessageBox.ActionRole)
         exitButton = popup.addButton("OK",QMessageBox.ActionRole)
         popup.exec_()

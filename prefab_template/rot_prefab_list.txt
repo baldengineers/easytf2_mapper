@@ -1,14 +1,7 @@
 blank_tile_icon_list.txt
-wall_tile_bottom_icon_list.txt
-wall_tile_top_icon_list.txt
-wall_tile_right_icon_list.txt
-wall_tile_left_icon_list.txt
 spike_icon_list.txt
-corner_wall_bottom_left_icon_list.txt
-corner_wall_bottom_right_icon_list.txt
-corner_wall_top_right_icon_list.txt
-corner_wall_top_left_icon_list.txt
-mini_spire_icon_list.txt
-mini_spire_down_icon_list.txt
 respawn_red_icon_list.txt
 respawn_blu_icon_list.txt
+corner_icon_list.txt
+mini_spire_icon_list.txt
+wall_prefab_icon_list.txt

@@ -1,0 +1,4 @@
+icons/wall_prefab_right.jpg
+icons/wall_prefab_down.jpg
+icons/wall_prefab_left.jpg
+icons/wall_prefab_up.jpg
