@@ -8,7 +8,8 @@ _CURRENTLY IN BETA 1.0.0. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_
 *READ THE README.TXT FOR INFO*
 <p>
 <p>
-To install, download either the latest zip from [here](https://github.com/baldengineers/easytf2_mapper/tree/master/latestwinredist) or [here](https://github.com/baldengineers/easytf2_mapper/wiki/Windows-Redistributable). Unzip this to your desired directory, and run the main .exe.
+## to install:
+To install on windows (without Python or any modules for it), download either the latest zip from [here](https://github.com/baldengineers/easytf2_mapper/tree/master/latestwinredist) or [here](https://github.com/baldengineers/easytf2_mapper/wiki/Windows-Redistributable). Unzip this to your desired directory, and run the main .exe.
 
 To edit source code in addition to having the program, download [Python 3.4](https://www.python.org/downloads/release/python-343/) or later, and install [these modules](https://github.com/baldengineers/easytf2_mapper/wiki/Required-Modules-(Source)). Documentaion will be created as development slows.
 
