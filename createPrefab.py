@@ -478,55 +478,57 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         id_num = id_num+1
 
     for i in range(valcount.count("entity_name")):
-        ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
-        ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
-        if "parent_name" in placeholder_list[entity_num]:
-            ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
-            placeholder_list.remove(placeholder_list[entity_num])
-        
-        if "door_large" in ent_values:
-            ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
-        if "\\"respawn_name\\"" in ent_values:
-            ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
-        if "ROTATION_RIGHT" in ent_values:
-            if rotation == 0:
-                ent_values = ent_values.replace("ROTATION_RIGHT","0 0 0",1)
-            elif rotation == 1:
-                ent_values = ent_values.replace("ROTATION_RIGHT","0 270 0",1)
-            elif rotation == 2:
-                ent_values = ent_values.replace("ROTATION_RIGHT","0 180 0",1)
-            elif rotation == 3:
-                ent_values = ent_values.replace("ROTATION_RIGHT","0 90 0",1)
-        if "ROTATION_UP" in ent_values:
-            if rotation == 0:
-                ent_values = ent_values.replace("ROTATION_UP","0 90 0",1)
-            elif rotation == 1:
-                ent_values = ent_values.replace("ROTATION_UP","0 0 0",1)
-            elif rotation == 2:
-                ent_values = ent_values.replace("ROTATION_UP","0 270 0",1)
-            elif rotation == 3:
-                ent_values = ent_values.replace("ROTATION_UP","0 180 0",1)
-        if "ROTATION_LEFT" in ent_values:
-            if rotation == 0:
-                ent_values = ent_values.replace("ROTATION_LEFT","0 180 0",1)
-            elif rotation == 1:
-                ent_values = ent_values.replace("ROTATION_LEFT","0 90 0",1)
-            elif rotation == 2:
-                ent_values = ent_values.replace("ROTATION_LEFT","0 0 0",1)
-            elif rotation == 3:
-                ent_values = ent_values.replace("ROTATION_LEFT","0 270 0",1)
-        if "ROTATION_DOWN" in ent_values:
-            if rotation == 0:
-                ent_values = ent_values.replace("ROTATION_DOWN","0 270 0",1)
-            elif rotation == 1:
-                ent_values = ent_values.replace("ROTATION_DOWN","0 180 0",1)
-            elif rotation == 2:
-                ent_values = ent_values.replace("ROTATION_DOWN","0 90 0",1)
-            elif rotation == 3:
-                ent_values = ent_values.replace("ROTATION_DOWN","0 0 0",1)
-        
-        entity_num += 1
-
+        try:
+            ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
+            ent_values = ent_values.replace("entity_same", "entity" + str(entity_num), 1)
+            if "parent_name" in placeholder_list[entity_num]:
+                ent_values = ent_values.replace("parent_name", "entity" + str(entity_num), 1)
+                placeholder_list.remove(placeholder_list[entity_num])
+            
+            if "door_large" in ent_values:
+                ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
+            if "\\"respawn_name\\"" in ent_values:
+                ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
+            if "ROTATION_RIGHT" in ent_values:
+                if rotation == 0:
+                    ent_values = ent_values.replace("ROTATION_RIGHT","0 0 0",1)
+                elif rotation == 1:
+                    ent_values = ent_values.replace("ROTATION_RIGHT","0 270 0",1)
+                elif rotation == 2:
+                    ent_values = ent_values.replace("ROTATION_RIGHT","0 180 0",1)
+                elif rotation == 3:
+                    ent_values = ent_values.replace("ROTATION_RIGHT","0 90 0",1)
+            if "ROTATION_UP" in ent_values:
+                if rotation == 0:
+                    ent_values = ent_values.replace("ROTATION_UP","0 90 0",1)
+                elif rotation == 1:
+                    ent_values = ent_values.replace("ROTATION_UP","0 0 0",1)
+                elif rotation == 2:
+                    ent_values = ent_values.replace("ROTATION_UP","0 270 0",1)
+                elif rotation == 3:
+                    ent_values = ent_values.replace("ROTATION_UP","0 180 0",1)
+            if "ROTATION_LEFT" in ent_values:
+                if rotation == 0:
+                    ent_values = ent_values.replace("ROTATION_LEFT","0 180 0",1)
+                elif rotation == 1:
+                    ent_values = ent_values.replace("ROTATION_LEFT","0 90 0",1)
+                elif rotation == 2:
+                    ent_values = ent_values.replace("ROTATION_LEFT","0 0 0",1)
+                elif rotation == 3:
+                    ent_values = ent_values.replace("ROTATION_LEFT","0 270 0",1)
+            if "ROTATION_DOWN" in ent_values:
+                if rotation == 0:
+                    ent_values = ent_values.replace("ROTATION_DOWN","0 270 0",1)
+                elif rotation == 1:
+                    ent_values = ent_values.replace("ROTATION_DOWN","0 180 0",1)
+                elif rotation == 2:
+                    ent_values = ent_values.replace("ROTATION_DOWN","0 90 0",1)
+                elif rotation == 3:
+                    ent_values = ent_values.replace("ROTATION_DOWN","0 0 0",1)
+            
+            entity_num += 1
+        except:
+            pass
 
 
 """]
