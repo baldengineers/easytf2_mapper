@@ -13,5 +13,7 @@ To install on windows (without Python or any modules for it), download either th
 
 To edit source code in addition to having the program, download [Python 3.4](https://www.python.org/downloads/release/python-343/) or later, and install [these modules](https://github.com/baldengineers/easytf2_mapper/wiki/Required-Modules-(Source)). Documentaion will be created as development slows.
 
+_*BEFORE INSTALLING AND RUNNING, CHECK THE LATEST [RELEASES](https://github.com/baldengineers/easytf2_mapper/releases) FPR KNOWN BUGS*_
+
 ## help!
 If you require assistance, first check out [the wiki](https://github.com/baldengineers/easytf2_mapper/wiki), and then try emailing the team at toadsrc@gmail.com. Responses may not be instant, but feedback is appreciated.
