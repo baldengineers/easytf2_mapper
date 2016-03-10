@@ -10,6 +10,8 @@ _CURRENTLY IN BETA 1.0.5. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_
 ## to install:
 [here](https://github.com/baldengineers/easytf2_mapper/wiki/Installation) is an easy instruction set for installing this.
 
+After that, read the tutorial for more information and instructions. https://github.com/baldengineers/easytf2_mapper/wiki/Tutorial
+
 _*BEFORE INSTALLING AND RUNNING, CHECK THE LATEST [RELEASES](https://github.com/baldengineers/easytf2_mapper/releases) FOR KNOWN BUGS*_
 
 ## bugs
