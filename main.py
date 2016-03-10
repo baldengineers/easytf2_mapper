@@ -401,7 +401,7 @@ class MainWindow(QMainWindow):
             lines = f.readlines()
         if "startup" not in lines:
             self.popup = QMessageBox(self)
-            self.popup.setGeometry(100,25,500,250)
+            self.popup.setGeometry(100,100,500,250)
             self.popup.setWindowTitle("First Launch")
             self.popup.setInformativeText("You haven't launched this before! Try looking at the <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">wiki</a> for help!")
             self.popup.setText("First Launch!")
@@ -557,6 +557,13 @@ class MainWindow(QMainWindow):
         
     def grid_change(self):
         self.count=0
+        try:
+            del entity_list
+            del totalblocks
+        except:
+            pass
+        entity_list = []
+        totalblocks = []
         self.btn_id_count = 0
 
         self.window = QDialog(self)
@@ -584,6 +591,7 @@ class MainWindow(QMainWindow):
     def grid_change_func(self,x,y):
         global grid_y, grid_x
         self.window.deleteLater()
+
         try:
             self.grid_y = int(y)
             self.grid_x = int(x)
@@ -616,7 +624,7 @@ class MainWindow(QMainWindow):
         entity_list.append("lighting slot")
         #print(totalblocks)
 
-                
+        #print(entity_list)        
         self.count += 1
         grid_y = self.grid_y
         grid_x = self.grid_x
