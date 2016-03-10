@@ -210,7 +210,6 @@ class MainWindow(QMainWindow):
         optionsMenu.addAction(gridAction)
         optionsMenu.addAction(changeSkybox)
         optionsMenu.addAction(removeAction)
-        #UNTESTED AT SCHOOL
         
         createMenu.addAction(createPrefabAction)
         
@@ -277,6 +276,7 @@ class MainWindow(QMainWindow):
 
         self.scrollArea = QScrollArea(self)
         self.scrollArea.setBackgroundRole(QPalette.Light)
+
 
     
         try:
@@ -392,6 +392,24 @@ class MainWindow(QMainWindow):
         #self.row.addLayout(self.button_rotate_layout)
         #self.row.addStretch(1)
         #self.row.addStretch(1)
+        
+        try:
+            f = open('startupcache/firsttime.su', 'r+')
+            lines = f.readlines()
+        except:
+            f = open('startupcache/firsttime.su','w+')
+            lines = f.readlines()
+        if "startup" not in lines:
+            self.popup = QMessageBox(self, "First Launch", "")
+            self.popup.setGeometry(100,25,500,250)
+            self.popup.setWindowTitle("First Launch")
+            self.popup.setInformativeText("You haven't launched this before! Try looking at the <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">wiki</a> for help!")
+            self.popup.setText("First Launch!")
+            self.popup.exec_()
+            f.write("startup")
+            f.close
+        else:
+            pass
         
         self.grid_change()
         '''
