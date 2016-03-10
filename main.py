@@ -23,6 +23,8 @@ class GridBtn(QWidget):
         self.button.setFixedSize(32, 32)
         self.button.pressed.connect(lambda: self.click_func(self_global, x, y,
                                                             btn_id))
+        self.button.setMouseTracking(True)
+        self.button.installEventFilter(self)
         self.button.show()
 
     def reset_icon(self):
