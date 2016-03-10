@@ -12,5 +12,7 @@ _CURRENTLY IN BETA 1.0.5. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_
 
 _*BEFORE INSTALLING AND RUNNING, CHECK THE LATEST [RELEASES](https://github.com/baldengineers/easytf2_mapper/releases) FOR KNOWN BUGS*_
 
+## bugs
+A list of currently known bugs can be found here: https://github.com/baldengineers/easytf2_mapper/wiki/Currently-known-bugs
 ## help!
 If you require assistance, first check out [the wiki](https://github.com/baldengineers/easytf2_mapper/wiki), and then try emailing the team at toadsrc@gmail.com. Responses may not be instant, but feedback is appreciated.
