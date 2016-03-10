@@ -42,7 +42,7 @@ entity
 	"classname" "tf_gamerules"
 	"ctf_overtime" "1"
 	"hud_type" "0"
-	"targetname" "entity_name"
+	"targetname" "koth_gamerules"
 	"origin" "px3 py3 pz3"
 	editor
 	{
@@ -226,21 +226,6 @@ entity
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
-	}
-}
-entity
-{
-	"id" "3"
-	"classname" "tf_logic_koth"
-	"timer_length" "180"
-	"unlock_point" "20"
-	"origin" "256 -128 73"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 500]"
 	}
 }
 entity

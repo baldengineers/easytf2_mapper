@@ -400,7 +400,7 @@ class MainWindow(QMainWindow):
             f = open('startupcache/firsttime.su','w+')
             lines = f.readlines()
         if "startup" not in lines:
-            self.popup = QMessageBox(self, "First Launch", "")
+            self.popup = QMessageBox(self)
             self.popup.setGeometry(100,25,500,250)
             self.popup.setWindowTitle("First Launch")
             self.popup.setInformativeText("You haven't launched this before! Try looking at the <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">wiki</a> for help!")
