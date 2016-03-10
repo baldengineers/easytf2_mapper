@@ -21,7 +21,7 @@ Ctrl+R = Remove a variable amount of prefabs from the end of the list. Really on
 
 Ctrl+Q/Alt+f4 = Quit
 
-Alt+click on a square with a prefab on it to remove whatever was on it.
+Ctrl+click on a square with a prefab on it to remove whatever was on it.
 
 
 

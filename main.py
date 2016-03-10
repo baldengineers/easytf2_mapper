@@ -21,7 +21,7 @@ class GridBtn(QWidget):
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.setFixedSize(32, 32)
-        self.button.clicked.connect(lambda: self.click_func(self_global, x, y,
+        self.button.pressed.connect(lambda: self.click_func(self_global, x, y,
                                                             btn_id))
         self.button.show()
 
@@ -117,7 +117,7 @@ class GridBtn(QWidget):
 
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
-        if modifiers == Qt.AltModifier:
+        if modifiers == Qt.ControlModifier:
             global toggle
             toggle = 1
         else:
@@ -236,16 +236,16 @@ class MainWindow(QMainWindow):
                     subprocess.Popen(self.fileloaded[1])
             except Exception as e:
                 print(str(e))
-                #self.pootup = QMessageBox()
-                #self.pootup.setText("ERROR!")
-                #self.pootup.setInformativeText("Hammer executable/batch moved or renamed!")
-                #self.pootup.exec_()
+                self.pootup = QMessageBox()
+                self.pootup.setText("ERROR!")
+                self.pootup.setInformativeText("Hammer executable/batch moved or renamed!")
+                self.pootup.exec_()
 
                 
-                #QMessageBox.critical(self, "Error", "Hammer executable/batch moved or renamed!")
-                #self.file.close()
-                #os.remove("startupcache/startup.su")
-                #self.open_hammer(0,"null")
+                QMessageBox.critical(self, "Error", "Hammer executable/batch moved or renamed!")
+                self.file.close()
+                os.remove("startupcache/startup.su")
+                self.open_hammer(0,"null")
     def open_file(self):
         try:
             self.file = open("startupcache/startup.su", "r+")
@@ -292,7 +292,7 @@ class MainWindow(QMainWindow):
 
 
         self.buttonLabel = QLabel("Rotation:",self)
-        self.currentLabel = QLabel("Current Rotation:",self)
+        #self.currentLabel = QLabel("Current Rotation:",self)
         self.listLabel = QLabel("List of prefabs:",self)
         self.gridLabel = QLabel("Grid:",self)
 
@@ -322,10 +322,11 @@ class MainWindow(QMainWindow):
         
         self.button_rotate_layout = QHBoxLayout()
         self.button_rotate_layout.addWidget(self.buttonLabel)
-        self.button_rotate_layout.addWidget(self.rotateCW)
         self.button_rotate_layout.addWidget(self.rotateCCW)
-        self.button_rotate_layout.addWidget(self.currentLabel)
+        #self.button_rotate_layout.addWidget(self.currentLabel)
         self.button_rotate_layout.addWidget(self.current)
+        self.button_rotate_layout.addWidget(self.rotateCW)
+
         self.button_rotate_layout.addStretch(1)
                                
         self.tile_list = QListWidget()
