@@ -813,7 +813,7 @@ class MainWindow(QMainWindow):
         self.form.addRow("Prefab Text:", self.textLineEdit)
         self.form.addRow("Prefab Name:", self.nameLineEdit)
         self.form.addRow("VMF file (.vmf):", self.vmfLayout)
-        self.form.addRow("JPG file (.jpg):", self.iconLayout)
+        self.form.addRow("Icon (.jpg):", self.iconLayout)
         self.form.addRow("Make Rotations?", self.rotCheckBox)
         for i in range(5):
             self.form.addRow(self.blankstring)
