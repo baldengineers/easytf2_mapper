@@ -5,7 +5,7 @@ Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in deve
 <p>
 _CURRENTLY IN BETA 1.0.5. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_
 <p>
-*READ THE README.TXT FOR INFO*
+*READ THE README.TXT AND WIKI FOR INFO*
 <p>
 <p>
 ## to install:
