@@ -10,6 +10,7 @@ from PIL import Image
 import generateSkybox
 import light_create
 import subprocess
+import pickle
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
 class GridBtn(QWidget):
@@ -373,11 +374,6 @@ class MainWindow(QMainWindow):
         self.button_grid_all.addLayout(self.gridLayout)
         #self.button_grid_all.addStretch(1)
         #self.button_grid_all.addWidget(self.scrollArea)
-    
-#PPPPPPPLLLLLLLLLLLLEEEEEEEAAAAAAAASSSSSSSSSEEEEEEEEEEEEHHHHHHHLLLLLEEEEPPPP
-        #self.button_grid_all.addStretch(1) #need to add or else gridLabel is not visible. Perhaps hidden under the scrollArea? plzhlep
-        #self.button_grid_all.addWidget(self.scrollArea)
-#^^^^^^^^^^^^^^^^^^^^^^^^^^HEEEELLLLLPPPPPPP^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         
         self.column = QHBoxLayout()
         self.column.addLayout(self.button_grid_all)
@@ -430,6 +426,7 @@ class MainWindow(QMainWindow):
         else:
             rotation = 0
         self.changeIcon()
+
     def rotateCCW_func(self):
         global rotation
         if rotation == 0:
@@ -437,6 +434,7 @@ class MainWindow(QMainWindow):
         else:
             rotation = rotation - 1
         self.changeIcon()
+
     def changeIcon(self):
         global rotation
         try:
@@ -462,20 +460,48 @@ class MainWindow(QMainWindow):
         
         
     def file_open(self):
-        name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
-        file = open(name, "r")
-        openlines = file.readlines()
-        openlinesstr = "".join(openlines)
+        name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.ezm")
+        file = open(name[0], "rb")
+
+        while True:
+            try:
+                header = pickle.load(file)
+                if "totalblocks" in header:
+                    openlines = pickle.load(file)
+                    for item in openlines:
+                        totalblocks.append(item)
+                elif "entity_list" in header:
+                    openlines = pickle.load(file)
+                    for item in openlines:
+                        entity_list.append(item)
+                else:
+                    #print('breaking (bad) XD')
+                    break
+            except Exception as e:
+                #print(e)
+                break
+        #print("totalblocks: ", totalblocks)
+        #print("entity_list: ", entity_list)
+        #openlines = file.readlines()
+        #openlinesstr = "".join(openlines)
+        file.close()
         
         #now, it imports the vmf, and has two versions of it; the importlines which has each
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
-        name = QFileDialog.getSaveFileName(self, "Save File", "C:/", "*.sav")
-        file = open(name[1], "w")
-        text = self.textEdit.toPlainText()
-        file.write(text)
+        name = QFileDialog.getSaveFileName(self, "Save File", "C:/", "*.ezm")
+        file = open(name[0], "wb")
+        level = 1 #change this to actually do something once we add levels
+        pickle.dump("<totalblocks_l%d>" %(level), file)
+        pickle.dump(totalblocks, file)
+        pickle.dump("<entity_list_l%d>" %(level), file)
+        pickle.dump(entity_list, file)
+        #text = self.textEdit.toPlainText()
+        #file.write(text)
         file.close()
+        QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
+        
 
     def file_export(self):
         global id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list
