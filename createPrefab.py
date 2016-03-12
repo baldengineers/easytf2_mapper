@@ -116,7 +116,7 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
           #rot_py_list_text = "%s%s%d = %d" %(item, orig_var, var_num, value)
           #rot_py_list.append(rot_py_list_text)
       #else:
-      py_list_text = "%s%d = %d" %(var, var_num, value)
+      py_list_text = "%s%d = level*512 + %d" %(var, var_num, value)
       py_list.append(py_list_text)
       #print(py_list)
     elif value == 0:
@@ -172,7 +172,7 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     
     for var in xyz_list:
       if var == "z" or var == "pz":
-        rot_py_list_text = "%s%s%d = %s" %(item, var, var_num, py_list[-1][py_list[-1].index("=") + 2:])
+        rot_py_list_text = "%s%s%d = level*512 + %s" %(item, var, var_num, py_list[-1][py_list[-1].index("=") + 2:])
         rot_py_list.append(rot_py_list_text)
       elif value == 0:
         rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" or var == "px" else 1)
@@ -334,7 +334,7 @@ def rotatePoint(centerPoint,point,angle):
     temp_point = temp_point[0]+centerPoint[0] , temp_point[1]+centerPoint[1]
     return temp_point
 
-def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, rotation):
+def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, rotation, level):
     
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
