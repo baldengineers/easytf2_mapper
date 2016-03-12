@@ -985,6 +985,7 @@ entity_list=[]
 prefab_text_list = []
 prefab_icon_list = []
 placeholder_list = []
+
 currentlight = '''
 entity
 {
