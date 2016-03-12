@@ -38,6 +38,7 @@ class GridBtn(QWidget):
             self.button.setIcon(QIcon())
             totalblocks[btn_id] = 'EMPTY_SLOT'
             entity_list[btn_id] = 'NO_ENTITY'
+            iconlist[btn_id] = ''
         else:
             print((x,y))
             global world_id_num
@@ -88,8 +89,6 @@ class GridBtn(QWidget):
                 #this is obsolete -anson
             ###
             ###
-            ###FOR THIS TO WORK, WE NEED TO ADD ALL THE PREFABS & THEIR ICONS TO THE LIST
-            ###BUT FUCK ME I'M TIRED
             try:
                 #print(rotation)
                 current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
@@ -113,6 +112,7 @@ class GridBtn(QWidget):
 
 
             totalblocks[btn_id] = create[0]
+            iconlist[btn_id] = icon
             try:
                 entity_list[btn_id] = create[4]
             except:
@@ -460,13 +460,18 @@ class MainWindow(QMainWindow):
         
         
     def file_open(self):
-        name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.ezm")
-        file = open(name[0], "rb")
 
+        name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
+        file = open(name[0], "rb")
+        #del totalblocks, entity_list,iconlist,grid_list
         while True:
             try:
                 header = pickle.load(file)
-                if "totalblocks" in header:
+                if "grid_size" in header:
+                    openlines = pickle.load(file)
+                    print(openlines)
+                    grid_list = self.grid_change_func(openlines[0],openlines[1])
+                elif "totalblocks" in header:
                     openlines = pickle.load(file)
                     for item in openlines:
                         totalblocks.append(item)
@@ -474,12 +479,25 @@ class MainWindow(QMainWindow):
                     openlines = pickle.load(file)
                     for item in openlines:
                         entity_list.append(item)
+                elif "icon_list" in header:
+                    global grid_list
+                    openlines = pickle.load(file)
+                    for item in openlines:
+                        iconlist.append(item)
+                    for index, icon in enumerate(iconlist):
+                        if "icons" in icon:
+                            grid_list[index].button.setIcon(QIcon(icon))
+                            grid_list[index].button.setIconSize(QSize(32,32))
+                elif "skybox2_list" in header:
+                    openlines = pickle.load(file)
+                    skybox2_list.setCurrentRow(openlines)
                 else:
                     #print('breaking (bad) XD')
                     break
             except Exception as e:
-                #print(e)
+                print(e)
                 break
+        self.change_skybox()
         #print("totalblocks: ", totalblocks)
         #print("entity_list: ", entity_list)
         #openlines = file.readlines()
@@ -490,13 +508,22 @@ class MainWindow(QMainWindow):
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
-        name = QFileDialog.getSaveFileName(self, "Save File", "C:/", "*.ezm")
+        global grid_x, grid_y
+        gridsize_list = (grid_x,grid_y)
+        skybox_sav = skybox2_list.currentRow()
+        name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
         file = open(name[0], "wb")
         level = 1 #change this to actually do something once we add levels
+        pickle.dump("<grid_size>", file)
+        pickle.dump(gridsize_list, file)
         pickle.dump("<totalblocks_l%d>" %(level), file)
         pickle.dump(totalblocks, file)
         pickle.dump("<entity_list_l%d>" %(level), file)
         pickle.dump(entity_list, file)
+        pickle.dump("<icon_list_l%d>" %(level), file)
+        pickle.dump(iconlist, file)
+        pickle.dump("<skybox>", file)
+        pickle.dump(skybox_sav, file)
         #text = self.textEdit.toPlainText()
         #file.write(text)
         file.close()
@@ -513,7 +540,6 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self, "Error", "Please enter a number.")
             self.file_export()
         #generate skybox stuff now
-        #POPUP ASKING FOR SKYBOX HEIGHT
         create = generateSkybox.createSkyboxLeft(grid_x,grid_y,skyboxz,id_num,world_id_num)
         skyboxgeolist.append(create[0])
         id_num = create[1]
@@ -583,13 +609,20 @@ class MainWindow(QMainWindow):
         
     def grid_change(self):
         self.count=0
+        '''
         try:
             del entity_list
             del totalblocks
+            del iconlist
+            del grid_list
         except:
             pass
+            '''
         entity_list = []
+        iconlist = []
         totalblocks = []
+        grid_list = []
+        #gridsize_list = []
         self.btn_id_count = 0
 
         self.window = QDialog(self)
@@ -615,8 +648,23 @@ class MainWindow(QMainWindow):
                                      ("Grid Width:"))
         '''
     def grid_change_func(self,x,y):
+        count_btns = 0
+        try:
+            del entity_list
+            del totalblocks
+            del iconlist
+            del grid_list
+        except:
+            pass
+        entity_list = []
+        iconlist = []
+        totalblocks = []
+        grid_list = []
         global grid_y, grid_x
-        self.window.deleteLater()
+        try:
+            self.window.deleteLater()
+        except:
+            pass
 
         try:
             self.grid_y = int(y)
@@ -646,6 +694,7 @@ class MainWindow(QMainWindow):
                 global count_btns
                 count_btns += 1
                 entity_list.append("NO_ENTITY")
+                iconlist.append("")
             #self.button_grid_layout.setRowMinimumHeight(x, 32)
         entity_list.append("lighting slot")
         #print(totalblocks)
@@ -654,6 +703,7 @@ class MainWindow(QMainWindow):
         self.count += 1
         grid_y = self.grid_y
         grid_x = self.grid_x
+
         self.scrollArea.deleteLater()
         self.scrollArea = QScrollArea(self)
         self.scrollArea.setBackgroundRole(QPalette.Light)
@@ -692,25 +742,8 @@ class MainWindow(QMainWindow):
         
         self.gridLayout.addWidget(self.scrollArea)
         self.button_grid_all.addLayout(self.gridLayout)
-        
-            #print('restrict x')
-        #self.comboBox = QComboBox(self)
-        #self.comboBox.resize(128, 16)
-        #for item in prefab_text_list:
-        #    self.comboBox.addItem(item)
-        #self.comboBox.move(32*self.count+2, 22)
-        #self.comboBox.show()
-            
-    #def removeDropdown(self):
-     #   try:
-      #      self.comboBox.deleteLater()
-       #     del totalblocks[:]
-        #    global world_id_num
-         #   world_id_num = 2
-        #except:
-         #   print('ok')
-    #def clearlist(self):
-     #    grid_list=[]
+        #print(grid_list)
+        return grid_list
     def change_light(self):
         r_input = QInputDialog.getText(self, ("Red light level 0-255"),
                                        ("Put in the red light ambiance level, 0-255:"))
@@ -895,9 +928,11 @@ grid_list=[]
 totalblocks = []
 skybox_list=[]
 skybox_light_list=[]
+iconlist = []
 skybox_angle_list=[]
 skybox_icon_list=[]
 prefab_list = []
+gridsize_list = []
 count_btns = 0
 entity_list=[]
 prefab_text_list = []
