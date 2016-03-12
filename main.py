@@ -430,21 +430,24 @@ class MainWindow(QMainWindow):
 
     def level_select(self):
         self.windowl = QDialog(self)
-        self.windowl.setGeometry(150,150,400,300)
-        self.windowl.setWindowTitle("Choose a level")
-        self.windowl.setWindowIcon(QIcon("icons\icon.ico"))
+
         #testing
         levels = 3
         #
         self.levellist = QListWidget()
+        self.levellist.setIconSize(QSize(200, 25))
         try:
             for i in range(levels-1):
-                self.levellist.addItem(i)
-        except:
+                item = QListWidgetItem(QIcon("icons/level.jpg"),"Level "+str(i))
+                self.levellist.addItem(item)
+        except Exception as e:
+            print(str(e))
             pass
         self.layoutl = QHBoxLayout()
         self.layoutl.addWidget(self.levellist)
-
+        self.windowl.setGeometry(150,150,400,300)
+        self.windowl.setWindowTitle("Choose a level")
+        self.windowl.setWindowIcon(QIcon("icons/icon.ico"))
         self.windowl.setLayout(self.layoutl)
         self.windowl.exec_()
         
@@ -815,7 +818,7 @@ class MainWindow(QMainWindow):
         for index, text in enumerate(skybox_list):
             item = QListWidgetItem(QIcon(skybox_icon_list[index]), text)
             skybox2_list.addItem(item)
-
+        
         self.layout = QHBoxLayout()
         self.layout.addWidget(skybox2_list)
         self.window.setGeometry(150,150,400,300)
@@ -823,6 +826,7 @@ class MainWindow(QMainWindow):
         self.window.setWindowIcon(QIcon("icons\icon.ico"))
 
         self.window.setLayout(self.layout)
+        skybox2_list.itemClicked.connect(self.window.close)
         self.window.exec_()
     '''
     def importprefabs(self):
