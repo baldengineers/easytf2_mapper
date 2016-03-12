@@ -6,3 +6,4 @@ Corner
 Mini-Spire
 Wall
 Control Point (KOTH)
+Blank Tile

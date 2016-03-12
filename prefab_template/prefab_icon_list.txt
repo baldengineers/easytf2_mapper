@@ -6,3 +6,4 @@ icons/wall_corner_bottom_left.jpg
 icons/minispire.jpg
 icons/wall_right.jpg
 icons/control_point.jpg
+icons/blank_tile.jpg
