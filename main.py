@@ -494,40 +494,42 @@ class MainWindow(QMainWindow):
         name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
         file = open(name[0], "rb")
         #del totalblocks, entity_list,iconlist,grid_list
+        iconlist=[]
         while True:
-            try:
-                header = pickle.load(file)
-                if "grid_size" in header:
-                    openlines = pickle.load(file)
-                    self.grid_change(openlines[0],openlines[1],False, True, True)
-                elif "totalblocks" in header:
-                    openlines = pickle.load(file)
-                    for item in openlines:
-                        totalblocks.append(item)
-                elif "entity_list" in header:
-                    openlines = pickle.load(file)
-                    for item in openlines:
-                        entity_list.append(item)
-                elif "icon_list" in header:
-                    global grid_list
-                    openlines = pickle.load(file)
-                    print(openlines)
-                    for item in openlines:
-                        iconlist.append(item)
-                    for index, icon in enumerate(iconlist):
-                        #print(iconlist)
-                        if "icons" in icon:
-                            grid_list[index].button.setIcon(QIcon(icon))
-                            grid_list[index].button.setIconSize(QSize(32,32))
-                elif "skybox2_list" in header:
-                    openlines = pickle.load(file)
-                    skybox2_list.setCurrentRow(openlines)
-                else:
-                    #print('breaking (bad) XD')
-                    break
-            except Exception as e:
-                print(e)
+            #try:
+            header = pickle.load(file)
+            if "grid_size" in header:
+                openlines = pickle.load(file)
+                self.grid_change(openlines[0],openlines[1],False, True, True)
+            elif "totalblocks" in header:
+                openlines = pickle.load(file)
+                for item in openlines:
+                    totalblocks.append(item)
+            elif "entity_list" in header:
+                openlines = pickle.load(file)
+                for item in openlines:
+                    entity_list.append(item)
+            elif "icon_list" in header:
+                global grid_list
+                openlines = pickle.load(file)
+                print(openlines)
+                for item in openlines:
+                    iconlist.append(item)
+                for index, icon in enumerate(iconlist):
+                    #print(iconlist)
+                    if "icons" in icon:
+                        print(index)
+                        grid_list[index].button.setIcon(QIcon(icon))
+                        grid_list[index].button.setIconSize(QSize(32,32))
+            elif "skybox2_list" in header:
+                openlines = pickle.load(file)
+                skybox2_list.setCurrentRow(openlines)
+            else:
+                #print('breaking (bad) XD')
                 break
+            #except Exception as e:
+                #print(e)
+                #break
         self.change_skybox()
         #print("totalblocks: ", totalblocks)
         #print("entity_list: ", entity_list)
