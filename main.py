@@ -280,6 +280,8 @@ class MainWindow(QMainWindow):
         self.close_application()
         
     def home(self):
+        #test
+        levels = 2
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
         #self.labelLayout = QHBoxLayout(self)
@@ -302,11 +304,12 @@ class MainWindow(QMainWindow):
             pass
 
 
-
+        actiondict = {}
         self.buttonLabel = QLabel("Rotation:",self)
         #self.currentLabel = QLabel("Current Rotation:",self)
         self.listLabel = QLabel("List of prefabs:",self)
         self.gridLabel = QLabel("Grid:",self)
+        
 
         #self.labelLayout.addWidget(self.gridLabel)
         #self.labelLayout.addWidget(self.listLabel)
@@ -321,6 +324,7 @@ class MainWindow(QMainWindow):
         self.level = QPushButton(self)
         self.level.setText("Level:")
         self.level.setFixedSize(QSize(150,30))
+        #self.level.setMenu(self.levelMenu)
         self.level.clicked.connect(self.level_select)
         self.rotateCW = QPushButton("",self)
         self.rotateCW.setIcon(QIcon('icons/rotate_cw.jpg'))
