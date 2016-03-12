@@ -48,6 +48,10 @@ class GridBtn(QWidget):
             global placeholder_list
             global icon
             global rotation
+            global totalblocks
+            global entity_list
+            #print(totalblocks)
+            #print(btn_id)
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
             #print(rotation)
@@ -179,7 +183,7 @@ class MainWindow(QMainWindow):
         gridAction = QAction("&Set Grid Size", self)
         gridAction.setShortcut("Ctrl+G")
         gridAction.setStatusTip("Set Grid Height and Width. RESETS ALL BLOCKS.")
-        gridAction.triggered.connect(self.grid_change)
+        gridAction.triggered.connect(lambda: self.grid_change(0,0,True,False,True))
 
         createPrefabAction = QAction("&Prefab", self)
         createPrefabAction.setShortcut("Ctrl+I")
@@ -309,6 +313,10 @@ class MainWindow(QMainWindow):
         self.current.setIconSize(QSize(40,40))
         self.current.setFixedSize(QSize(40,40))
 
+        self.level = QPushButton(self)
+        self.level.setText("Level:")
+        self.level.setFixedSize(QSize(150,30))
+        self.level.clicked.connect(self.level_select)
         self.rotateCW = QPushButton("",self)
         self.rotateCW.setIcon(QIcon('icons/rotate_cw.jpg'))
         self.rotateCW.setIconSize(QSize(40,40))
@@ -329,6 +337,7 @@ class MainWindow(QMainWindow):
         #self.button_rotate_layout.addWidget(self.currentLabel)
         self.button_rotate_layout.addWidget(self.current)
         self.button_rotate_layout.addWidget(self.rotateCW)
+        self.button_rotate_layout.addWidget(self.level)
 
         self.button_rotate_layout.addStretch(1)
                                
@@ -407,7 +416,7 @@ class MainWindow(QMainWindow):
         else:
             pass
         
-        self.grid_change()
+        self.grid_change(0,0,True, False, True)
         '''
         while True:
             try:
@@ -418,6 +427,27 @@ class MainWindow(QMainWindow):
         '''
         
         self.show()
+
+    def level_select(self):
+        self.windowl = QDialog(self)
+        self.windowl.setGeometry(150,150,400,300)
+        self.windowl.setWindowTitle("Choose a level")
+        self.windowl.setWindowIcon(QIcon("icons\icon.ico"))
+        #testing
+        levels = 3
+        #
+        self.levellist = QListWidget()
+        try:
+            for i in range(levels-1):
+                self.levellist.addItem(i)
+        except:
+            pass
+        self.layoutl = QHBoxLayout()
+        self.layoutl.addWidget(self.levellist)
+
+        self.windowl.setLayout(self.layoutl)
+        self.windowl.exec_()
+        
 
     def rotateCW_func(self):
         global rotation
@@ -460,7 +490,7 @@ class MainWindow(QMainWindow):
         
         
     def file_open(self):
-
+        global grid_list
         name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
         file = open(name[0], "rb")
         #del totalblocks, entity_list,iconlist,grid_list
@@ -469,8 +499,7 @@ class MainWindow(QMainWindow):
                 header = pickle.load(file)
                 if "grid_size" in header:
                     openlines = pickle.load(file)
-                    print(openlines)
-                    grid_list = self.grid_change_func(openlines[0],openlines[1])
+                    self.grid_change(openlines[0],openlines[1],False, True, True)
                 elif "totalblocks" in header:
                     openlines = pickle.load(file)
                     for item in openlines:
@@ -482,9 +511,11 @@ class MainWindow(QMainWindow):
                 elif "icon_list" in header:
                     global grid_list
                     openlines = pickle.load(file)
+                    print(openlines)
                     for item in openlines:
                         iconlist.append(item)
                     for index, icon in enumerate(iconlist):
+                        #print(iconlist)
                         if "icons" in icon:
                             grid_list[index].button.setIcon(QIcon(icon))
                             grid_list[index].button.setIconSize(QSize(32,32))
@@ -508,7 +539,7 @@ class MainWindow(QMainWindow):
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
-        global grid_x, grid_y
+        global grid_x, grid_y, iconlist
         gridsize_list = (grid_x,grid_y)
         skybox_sav = skybox2_list.currentRow()
         name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
@@ -522,6 +553,7 @@ class MainWindow(QMainWindow):
         pickle.dump(entity_list, file)
         pickle.dump("<icon_list_l%d>" %(level), file)
         pickle.dump(iconlist, file)
+        print(iconlist)
         pickle.dump("<skybox>", file)
         pickle.dump(skybox_sav, file)
         #text = self.textEdit.toPlainText()
@@ -558,7 +590,9 @@ class MainWindow(QMainWindow):
         world_id_num = create[2]
         create = generateSkybox.createSkyboxSouth(grid_x,grid_y,skyboxz,id_num,world_id_num)
         skyboxgeolist.append(create[0])
-    
+        print(count_btns)
+        print(len(entity_list))
+        #print(totalblocks)
         skybox = skybox_list[skybox2_list.currentRow()]
         skyboxlight = skybox_light_list[skybox2_list.currentRow()]
         skyboxangle = skybox_angle_list[skybox2_list.currentRow()]
@@ -607,40 +641,51 @@ class MainWindow(QMainWindow):
 
         #self.clearlist()
         
-    def grid_change(self):
-        self.count=0
-        '''
-        try:
-            del entity_list
-            del totalblocks
-            del iconlist
-            del grid_list
-        except:
+    def grid_change(self,xvar,yvar,var,var2,var3):
+        global totalblocks,entity_list,grid_list,iconlist
+        if var2 == True:
+            sxvar = xvar
+            syvar = yvar
+        else:
             pass
-            '''
-        entity_list = []
-        iconlist = []
-        totalblocks = []
-        grid_list = []
+        self.count = 0
+        count_btns=0
+        if var3 == True:
+            try:
+                del entity_list
+                del totalblocks
+                del iconlist
+                del grid_list
+                entity_list = []
+                iconlist = []
+                totalblocks = []
+                grid_list = []
+            except Exception as e:
+                print(str(e))
+                pass
+
         #gridsize_list = []
         self.btn_id_count = 0
+        if var == True:
+            self.window = QDialog(self)
 
-        self.window = QDialog(self)
+            self.text = QLineEdit()
+            self.text2 = QLineEdit()
 
-        self.text = QLineEdit()
-        self.text2 = QLineEdit()
+            self.okay_btn = QPushButton("OK",self)
+            self.okay_btn.clicked.connect(lambda: self.grid_change_func(self.text.displayText(), self.text2.displayText()))
 
-        self.okay_btn = QPushButton("OK",self)
-        self.okay_btn.clicked.connect(lambda: self.grid_change_func(self.text.displayText(), self.text2.displayText()))
+            self.form = QFormLayout()
+            self.form.addRow("Set Grid Width:",self.text)
+            self.form.addRow("Set Grid Height:",self.text2)
+            self.form.addRow(self.okay_btn)
 
-        self.form = QFormLayout()
-        self.form.addRow("Set Grid Width:",self.text)
-        self.form.addRow("Set Grid Height:",self.text2)
-        self.form.addRow(self.okay_btn)
-
-        self.window.setLayout(self.form)
-        self.window.setWindowTitle("Set Grid Size")
-        self.window.exec_()
+            self.window.setLayout(self.form)
+            self.window.setWindowTitle("Set Grid Size")
+            self.window.exec_()
+        elif var2 == True:
+            self.grid_change_func(sxvar,syvar)
+            #print('test')
         '''
         text = QInputDialog.getText(self,("Get Grid Y"),
                                      ("Grid Height:"))                                    
@@ -649,17 +694,7 @@ class MainWindow(QMainWindow):
         '''
     def grid_change_func(self,x,y):
         count_btns = 0
-        try:
-            del entity_list
-            del totalblocks
-            del iconlist
-            del grid_list
-        except:
-            pass
-        entity_list = []
-        iconlist = []
-        totalblocks = []
-        grid_list = []
+        self.count = 0
         global grid_y, grid_x
         try:
             self.window.deleteLater()
@@ -672,7 +707,7 @@ class MainWindow(QMainWindow):
         except ValueError:
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
             QMessageBox.critical(self.window, "Error", "Please enter a number.")
-            self.grid_change()
+            self.grid_change(0,0,False,False,True)
 
         self.removeButtons()
         #self.removeDropdown()
@@ -713,7 +748,6 @@ class MainWindow(QMainWindow):
         self.scrollArea.setWidget(self.grid_widget)
         self.scrollArea.ensureWidgetVisible(self.grid_widget)
         self.scrollArea.setWidgetResizable(True)
-
         
         #if not self.grid_y > 16 and not self.grid_x > 16:
             #self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, self.grid_y*32+32))
@@ -743,6 +777,7 @@ class MainWindow(QMainWindow):
         self.gridLayout.addWidget(self.scrollArea)
         self.button_grid_all.addLayout(self.gridLayout)
         #print(grid_list)
+        #print(iconlist)
         return grid_list
     def change_light(self):
         r_input = QInputDialog.getText(self, ("Red light level 0-255"),
