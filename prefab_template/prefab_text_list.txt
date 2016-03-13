@@ -1,4 +1,3 @@
-Blank Tile
 Spike
 Respawn Room (RED)
 Respawn Room (BLU)
@@ -8,3 +7,4 @@ Wall
 Control Point (KOTH)
 Blank Tile
 Wall
+Corner

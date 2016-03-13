@@ -1,4 +1,3 @@
-blank_tile_icon_list.txt
 spike_icon_list.txt
 respawn_red_icon_list.txt
 respawn_blu_icon_list.txt
@@ -6,3 +5,4 @@ corner_icon_list.txt
 mini_spire_icon_list.txt
 wall_prefab_icon_list.txt
 wall_prefab_icon_list.txt
+corner_prefab_icon_list.txt

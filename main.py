@@ -224,6 +224,7 @@ class MainWindow(QMainWindow):
         
         self.home()
         self.change_skybox()
+
     def open_hammer(self,loaded,file):
         self.open_file()
         if "loaded_first_time" not in self.files:
@@ -256,6 +257,7 @@ class MainWindow(QMainWindow):
                 self.file.close()
                 os.remove("startupcache/startup.su")
                 self.open_hammer(0,"null")
+
     def open_file(self):
         try:
             self.file = open("startupcache/startup.su", "r+")
@@ -326,19 +328,22 @@ class MainWindow(QMainWindow):
         self.level.setFixedSize(QSize(150,30))
         #self.level.setMenu(self.levelMenu)
         self.level.clicked.connect(self.level_select)
-        self.rotateCW = QPushButton("",self)
-        self.rotateCW.setIcon(QIcon('icons/rotate_cw.jpg'))
+        
+        self.rotateCW = QToolButton(self)
+        self.rotateCW.setIcon(QIcon('icons/rotate_cw.png'))
         self.rotateCW.setIconSize(QSize(40,40))
         self.rotateCW.setFixedSize(QSize(40,40))
+        self.rotateCW.setAutoRaise(True)
 
-        self.rotateCCW = QPushButton("",self)
-        self.rotateCCW.setIcon(QIcon('icons/rotate_ccw.jpg'))
+        self.rotateCCW = QToolButton(self)
+        self.rotateCCW.setIcon(QIcon('icons/rotate_ccw.png'))
         self.rotateCCW.setIconSize(QSize(40,40))
         self.rotateCCW.setFixedSize(QSize(40,40))
+        self.rotateCCW.setAutoRaise(True)
 
         #sets rotation value. 0 = right, 1 = down, 2 = left, 3 = right
-        self.rotateCW.clicked.connect(lambda:self.rotateCW_func())
-        self.rotateCCW.clicked.connect(lambda:self.rotateCCW_func())
+        self.rotateCW.clicked.connect(self.rotateCW_func)
+        self.rotateCCW.clicked.connect(self.rotateCCW_func)
         
         self.button_rotate_layout = QHBoxLayout()
         self.button_rotate_layout.addWidget(self.buttonLabel)
@@ -353,6 +358,24 @@ class MainWindow(QMainWindow):
         self.tile_list = QListWidget()
         self.tile_list.setMaximumWidth(200)
 
+        self.up_tool_btn = QToolButton(self)
+        self.up_tool_btn.setIcon(QIcon('icons/up.png'))
+        self.up_tool_btn.clicked.connect(self.prefab_list_up)
+        
+        self.down_tool_btn = QToolButton(self)
+        self.down_tool_btn.setIcon(QIcon('icons/down.png'))
+        self.down_tool_btn.clicked.connect(self.prefab_list_down)
+        
+        self.del_tool_btn = QToolButton(self)
+        self.del_tool_btn.setIcon(QIcon('icons/delete.png'))
+        self.del_tool_btn.clicked.connect(self.prefab_list_del)
+        
+        self.tile_toolbar = QToolBar()
+        self.tile_toolbar.addWidget(self.up_tool_btn)
+        self.tile_toolbar.addSeparator()
+        self.tile_toolbar.addWidget(self.down_tool_btn)
+        self.tile_toolbar.addSeparator()
+        self.tile_toolbar.addWidget(self.del_tool_btn)
 
         
         for index, text in enumerate(prefab_text_list):
@@ -364,6 +387,7 @@ class MainWindow(QMainWindow):
         self.tile_list_layout = QVBoxLayout()
         self.tile_list_layout.addWidget(self.listLabel)
         self.tile_list_layout.addWidget(self.tile_list)
+        self.tile_list_layout.addWidget(self.tile_toolbar)
         
         self.button_grid_layout = QGridLayout()
         self.button_grid_layout.setSpacing(0)
@@ -413,13 +437,19 @@ class MainWindow(QMainWindow):
         except:
             f = open('startupcache/firsttime.su','w+')
             lines = f.readlines()
+            
         if "startup" not in lines:
+            '''
             self.popup = QMessageBox(self)
             self.popup.setGeometry(100,100,500,250)
             self.popup.setWindowTitle("First Launch")
             self.popup.setInformativeText("You haven't launched this before! Try looking at the <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">wiki</a> for help!")
             self.popup.setText("First Launch!")
             self.popup.exec_()
+            #this is obsolete - jony
+            '''
+
+            QMessageBox.information(self, "First Launch", "First Launch!\n\nYou haven't launched this before! Try looking at the <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">wiki</a> for help!")
             f.write("startup")
             f.close
             subprocess.Popen("associconwin.bat")
@@ -477,6 +507,15 @@ class MainWindow(QMainWindow):
         else:
             rotation = rotation - 1
         self.changeIcon()
+
+    def prefab_list_up(self):
+        self.tile_list.setCurrentRow(self.tile_list.currentRow() - 1)
+
+    def prefab_list_down(self):
+        self.tile_list.setCurrentRow(self.tile_list.currentRow() + 1)
+
+    def prefab_list_del(self):
+        pass
 
     def changeIcon(self):
         global rotation

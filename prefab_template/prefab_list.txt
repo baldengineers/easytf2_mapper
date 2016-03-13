@@ -1,4 +1,3 @@
-ground_prefab
 spike_prefab
 respawn_red
 respawn_blu
@@ -8,3 +7,4 @@ wall_prefab
 cp_koth_prefab
 blank_tile
 wall_prefab
+corner_prefab

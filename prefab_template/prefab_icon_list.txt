@@ -1,4 +1,3 @@
-icons/ground.jpg
 icons/spire.jpg
 icons/respawn_red_right.jpg
 icons/respawn_blu_right.jpg
@@ -8,3 +7,4 @@ icons/wall_right.jpg
 icons/control_point.jpg
 icons/blank_tile.jpg
 icons/wall_prefab_right.jpg
+icons/corner_left.jpg
