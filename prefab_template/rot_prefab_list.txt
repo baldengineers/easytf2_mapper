@@ -4,4 +4,5 @@ respawn_blu_icon_list.txt
 mini_spire_icon_list.txt
 cp_koth_prefab_icon_list.txt
 wall_icon_list.txt
+blank_prefab_icon_list.txt
 corner_icon_list.txt

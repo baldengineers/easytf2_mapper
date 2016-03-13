@@ -1,7 +1,8 @@
-#use blocks to create maps
+#!/usr/bin/env python3
 import sys
 sys.path.append("prefabs/")
 import os.path
+import os
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
@@ -534,7 +535,12 @@ class MainWindow(QMainWindow):
                 cur_str = "".join(cur_list)
                 file.write(cur_str)
                 file.close()
-                
+            try:
+                subprocess.Popen('EasyTF2Mapper.exe')
+            except:
+                subprocess.Popen('python main.py')
+            sys.exit()
+            
         else:
             pass
 
@@ -998,27 +1004,28 @@ class MainWindow(QMainWindow):
         self.window.setLayout(self.form)
         self.window.exec_()
     def create_run_func(self):
-        if self.rotCheckBox.isChecked():
-            self.ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
-            self.icondir = str(self.nameLineEdit.displayText())
-            with open("prefab_template/rot_prefab_list.txt", "a") as g:
-                g.write(self.icondir+"_icon_list.txt\n")
-            g.close()
-            self.imageRot = Image.open(self.iconTextEdit.displayText())
-            self.imageRot.save("icons/"+self.icondir+"_right.jpg")
-            self.imageRot2 = Image.open(self.iconTextEdit.displayText())
-            self.imageRot2 = self.imageRot2.rotate(270)
-            self.imageRot2.save("icons/"+self.icondir+"_down.jpg")
-            self.imageRot3 = Image.open(self.iconTextEdit.displayText())
-            self.imageRot3 = self.imageRot3.rotate(180)
-            self.imageRot3.save("icons/"+self.icondir+"_left.jpg")
-            self.imageRot4 = Image.open(self.iconTextEdit.displayText())
-            self.imageRot4 = self.imageRot4.rotate(90)
-            self.imageRot4.save("icons/"+self.icondir+"_up.jpg")
-            f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
-            for i in self.ext_list:
-                f.write("icons/"+self.icondir+i+"\n")
-            f.close()
+        #if self.rotCheckBox.isChecked():
+        #that^ just creates errors.
+        self.ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
+        self.icondir = str(self.nameLineEdit.displayText())
+        with open("prefab_template/rot_prefab_list.txt", "a") as g:
+            g.write(self.icondir+"_icon_list.txt\n")
+        g.close()
+        self.imageRot = Image.open(self.iconTextEdit.displayText())
+        self.imageRot.save("icons/"+self.icondir+"_right.jpg")
+        self.imageRot2 = Image.open(self.iconTextEdit.displayText())
+        self.imageRot2 = self.imageRot2.rotate(270)
+        self.imageRot2.save("icons/"+self.icondir+"_down.jpg")
+        self.imageRot3 = Image.open(self.iconTextEdit.displayText())
+        self.imageRot3 = self.imageRot3.rotate(180)
+        self.imageRot3.save("icons/"+self.icondir+"_left.jpg")
+        self.imageRot4 = Image.open(self.iconTextEdit.displayText())
+        self.imageRot4 = self.imageRot4.rotate(90)
+        self.imageRot4.save("icons/"+self.icondir+"_up.jpg")
+        f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
+        for i in self.ext_list:
+            f.write("icons/"+self.icondir+i+"\n")
+        f.close()
         
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                       createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
