@@ -3,7 +3,7 @@
 Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in development; a few days or a week from being in beta. Send bugs, ideas, and suggestions to toadsrc@gmail.com.
 ### current development branch: save_branch
 <p>
-_CURRENTLY IN BETA 1.0.5. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_
+_CURRENTLY IN BETA 1.0.5. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_ This currently is only for Windows, but Linux compatibility is upcoming.
 <p>
 *READ THE README.TXT AND WIKI FOR INFO*
 <p>
