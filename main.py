@@ -101,7 +101,7 @@ class GridBtn(QWidget):
                 #print(rotation)
                 current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
                 current_prefab_icon_list = current_prefab_icon_list.readlines()
-                current_prefab_icon_list = current_prefab_icon_list[self_global.tile_list.currentRow()]
+                current_prefab_icon_list = current_prefab_icon_list[current_prefab_icon_list.index(prefab_list[self_global.tile_list.currentRow()] + "_icon_list.txt\n")]
                 if "\n" in current_prefab_icon_list:
                     current_prefab_icon_list = current_prefab_icon_list[:-1]
                 current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
@@ -482,7 +482,7 @@ class MainWindow(QMainWindow):
         try:
             current_prefab_icon_list2 = open('prefab_template/rot_prefab_list.txt', 'r+')
             current_prefab_icon_list2 = current_prefab_icon_list2.readlines()
-            current_prefab_icon_list2 = current_prefab_icon_list2[self.tile_list.currentRow()]
+            current_prefab_icon_list2 = current_prefab_icon_list2[current_prefab_icon_list2.index(prefab_list[self.tile_list.currentRow()] + "_icon_list.txt\n")]
             if "\n" in current_prefab_icon_list2:
                 current_prefab_icon_list2 = current_prefab_icon_list2[:-1]
             current_prefab_icon_list2 = open('prefab_template/iconlists/'+current_prefab_icon_list2, 'r+')
