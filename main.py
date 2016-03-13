@@ -1020,14 +1020,14 @@ skybox = 'sky_tf2_04'
 #if the user does not change the lighting, it sticks with this.
 #if the user does not choose a skybox it sticks with this
 
-prefab_file = open("prefab_template\prefab_list.txt")
-prefab_text_file = open("prefab_template\prefab_text_list.txt")
-prefab_icon_file = open("prefab_template\prefab_icon_list.txt")
+prefab_file = open("prefab_template/prefab_list.txt")
+prefab_text_file = open("prefab_template/prefab_text_list.txt")
+prefab_icon_file = open("prefab_template/prefab_icon_list.txt")
 
-skybox_file = open("prefab_template\skybox_list.txt")
-skybox_icon = open("prefab_template\skybox_icons.txt")
-skybox_light = open("prefab_template\skybox_light.txt")
-skybox_angle = open("prefab_template\skybox_angle.txt") 
+skybox_file = open("prefab_template/skybox_list.txt")
+skybox_icon = open("prefab_template/skybox_icons.txt")
+skybox_light = open("prefab_template/skybox_light.txt")
+skybox_angle = open("prefab_template/skybox_angle.txt") 
 
 for line in prefab_file.readlines():
     prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
