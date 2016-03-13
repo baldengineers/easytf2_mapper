@@ -5,3 +5,4 @@ respawn_blu_icon_list.txt
 corner_icon_list.txt
 mini_spire_icon_list.txt
 wall_prefab_icon_list.txt
+wall_prefab_icon_list.txt
