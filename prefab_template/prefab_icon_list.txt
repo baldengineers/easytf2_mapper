@@ -3,6 +3,6 @@ icons/respawn_red_right.jpg
 icons/respawn_blu_right.jpg
 icons/minispire.jpg
 icons/control_point.jpg
+icons/wall_right.jpg
 icons/blank_tile.jpg
-icons/wall_prefab_right.jpg
-icons/corner_left.jpg
+icons/corner_prefab_right.jpg

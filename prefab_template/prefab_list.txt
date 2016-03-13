@@ -3,6 +3,6 @@ respawn_red
 respawn_blu
 mini_spire
 cp_koth_prefab
-blank_tile
-wall_prefab
-corner_prefab
+wall
+blank_prefab
+corner

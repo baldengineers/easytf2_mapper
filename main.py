@@ -525,7 +525,6 @@ class MainWindow(QMainWindow):
                  'prefab_template/prefab_list.txt', 'prefab_template/prefab_icon_list.txt']
 
             for cur in text_list:
-                #print(cur)
                 file = open(cur, 'r+')
                 cur_list = file.readlines()
                 file.seek(0)
@@ -535,6 +534,7 @@ class MainWindow(QMainWindow):
                 cur_str = "".join(cur_list)
                 file.write(cur_str)
                 file.close()
+                
         else:
             pass
 
