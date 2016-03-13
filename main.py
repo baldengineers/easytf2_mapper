@@ -517,11 +517,18 @@ class MainWindow(QMainWindow):
         self.tile_list.setCurrentRow(self.tile_list.currentRow() + 1)
 
     def prefab_list_del(self,currentprefab):
-        choice = QMessageBox.question(self, "Delete Prefab",
-                              "Are you sure you want to delete this prefab? Requires program restart for changes to apply.",
-                              QMessageBox.Yes | QMessageBox.No,
-                              QMessageBox.No)
-        if choice == QMessageBox.Yes:
+        self.restartCheck = QCheckBox()
+        self.restartCheck.setText("Restart after deletion?")
+
+        choice = QMessageBox.question(self,"Delete Prefab","Delete selected prefab? Requires restart for changes to take effect. ('OK' DELETES AND RESTARTS)",
+                             QMessageBox.Yes | QMessageBox.No | QMessageBox.Ok, QMessageBox.No)
+        #choice.addWidget(self.restartCheck)
+        self.layout = choice.layout()
+        #self.layout.addWidget(QMessageBox.Yes)
+        #self.layout.addWidget(QMessageBox.No)
+        self.layout.addWidget(self.restartCheck)
+        choice.show()        
+        if choice == QMessageBox.Yes or choice == QMessageBox.Ok:
             text_list = ['prefab_template/prefab_text_list.txt','prefab_template/rot_prefab_list.txt',
                  'prefab_template/prefab_list.txt', 'prefab_template/prefab_icon_list.txt']
 
@@ -535,11 +542,14 @@ class MainWindow(QMainWindow):
                 cur_str = "".join(cur_list)
                 file.write(cur_str)
                 file.close()
-            try:
-                subprocess.Popen('EasyTF2Mapper.exe')
-            except:
-                subprocess.Popen('python main.py')
-            sys.exit()
+            if choice == QMessageBox.Ok:
+                try:
+                    subprocess.Popen('EasyTF2Mapper.exe')
+                except:
+                    subprocess.Popen('python main.py')
+                sys.exit()
+            else:
+                pass
             
         else:
             pass

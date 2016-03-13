@@ -6,3 +6,4 @@ cp_koth_prefab
 wall
 blank_prefab
 corner
+test

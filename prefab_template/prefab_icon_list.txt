@@ -6,3 +6,4 @@ icons/control_point.jpg
 icons/wall_right.jpg
 icons/blank_tile.jpg
 icons/corner_prefab_right.jpg
+icons/crate_cover.jpg
