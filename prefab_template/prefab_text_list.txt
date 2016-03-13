@@ -1,9 +1,7 @@
 Spike
 Respawn Room (RED)
 Respawn Room (BLU)
-Corner
 Mini-Spire
-Wall
 Control Point (KOTH)
 Blank Tile
 Wall

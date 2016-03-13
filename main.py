@@ -273,7 +273,7 @@ class MainWindow(QMainWindow):
             num = int(num[0])
         except:
             QMessageBox.critical(self, "Error", "Please enter a number.")
-            self.remove_prefab()
+            self.remove_prefabs()
         removeText.reset(num)
 
     def closeEvent(self, event):
@@ -368,7 +368,7 @@ class MainWindow(QMainWindow):
         
         self.del_tool_btn = QToolButton(self)
         self.del_tool_btn.setIcon(QIcon('icons/delete.png'))
-        self.del_tool_btn.clicked.connect(self.prefab_list_del)
+        self.del_tool_btn.clicked.connect(lambda: self.prefab_list_del(self.tile_list.currentRow()))
         
         self.tile_toolbar = QToolBar()
         self.tile_toolbar.addWidget(self.up_tool_btn)
@@ -453,6 +453,7 @@ class MainWindow(QMainWindow):
             f.write("startup")
             f.close
             subprocess.Popen("associconwin.bat")
+            #WILL ONLY WORK IN REDIST FORM
         else:
             pass
         
@@ -514,8 +515,28 @@ class MainWindow(QMainWindow):
     def prefab_list_down(self):
         self.tile_list.setCurrentRow(self.tile_list.currentRow() + 1)
 
-    def prefab_list_del(self):
-        pass
+    def prefab_list_del(self,currentprefab):
+        choice = QMessageBox.question(self, "Delete Prefab",
+                              "Are you sure you want to delete this prefab? Requires program restart for changes to apply.",
+                              QMessageBox.Yes | QMessageBox.No,
+                              QMessageBox.No)
+        if choice == QMessageBox.Yes:
+            text_list = ['prefab_template/prefab_text_list.txt','prefab_template/rot_prefab_list.txt',
+                 'prefab_template/prefab_list.txt', 'prefab_template/prefab_icon_list.txt']
+
+            for cur in text_list:
+                #print(cur)
+                file = open(cur, 'r+')
+                cur_list = file.readlines()
+                file.seek(0)
+                file.truncate()
+
+                del cur_list[currentprefab]
+                cur_str = "".join(cur_list)
+                file.write(cur_str)
+                file.close()
+        else:
+            pass
 
     def changeIcon(self):
         global rotation
