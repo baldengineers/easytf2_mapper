@@ -422,6 +422,7 @@ class MainWindow(QMainWindow):
             self.popup.exec_()
             f.write("startup")
             f.close
+            subprocess.Popen("associconwin.bat")
         else:
             pass
         
@@ -1015,6 +1016,18 @@ entity
 }
 '''
 skybox = 'sky_tf2_04'
+batchtext = '''
+set ftypename=Easy TF2 Mapper Save
+set extension=.ezm
+set pathtoexe="EasyTF2Mapper.exe"
+set pathtoicon="icons/icon.ico"
+
+if %pathtoicon%=="" set pathtoicon=%pathtoexe%,0
+REG ADD HKEY_CLASSES_ROOT\%extension%\ /t REG_SZ /d %ftypename% /f
+REG ADD HKLM\SOFTWARE\Classes\%ftypename%\DefaultIcon\ /t REG_SZ /d %pathtoicon% /f
+ftype %ftypename%=%pathtoexe% "%%1" %%*
+assoc %extension%=%ftypename%
+'''
 #skyboxlight = '255 255 255 200'
 #skyboxangle = '0 0 0'
 #if the user does not change the lighting, it sticks with this.
