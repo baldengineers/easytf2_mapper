@@ -196,9 +196,9 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
     file.write(item)
   file.close
     
-  prefab_file = open("prefab_template\\prefab_list.txt", "a")
-  prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
-  prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
+  prefab_file = open("prefab_template/prefab_list.txt", "a")
+  prefab_text_file = open("prefab_template/prefab_text_list.txt", "a")
+  prefab_icon_file = open("prefab_template/prefab_icon_list.txt", "a")
 
   prefab_file.write(prefab_name + "\n")
   prefab_text_file.write(prefab_text + "\n")
