@@ -971,8 +971,8 @@ class MainWindow(QMainWindow):
 
     def create_prefab(self):
         '''
-        name = QFileDialog.getOpenFileName(self, "Choose .vmf File", "C:/","*.vmf")
-        prefab_icon = QFileDialog.getOpenFileName(self, "Choose Prefab Icon", "C:/","*.jpg")
+        name = QFileDialog.getOpenFileName(self, "Choose .vmf File", "/","*.vmf")
+        prefab_icon = QFileDialog.getOpenFileName(self, "Choose Prefab Icon", "/","*.jpg")
         prefab_name = QInputDialog.getText(self,"Prefab Name",
                                      "Name of Prefab (e.g. wall_prefab):")
         prefab_text = QInputDialog.getText(self, "Prefab Text",
@@ -987,10 +987,10 @@ class MainWindow(QMainWindow):
         self.iconTextEdit = QLineEdit()
         
         self.vmfBrowse = QPushButton("Browse",self)
-        self.vmfBrowse.clicked.connect(lambda: self.vmfTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .vmf File", "C:/","*.vmf")[0]))
+        self.vmfBrowse.clicked.connect(lambda: self.vmfTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .vmf File", "/","*.vmf")[0]))
         
         self.iconBrowse = QPushButton("Browse",self)
-        self.iconBrowse.clicked.connect(lambda: self.iconTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .jpg File", "C:/","*.jpg")[0]))
+        self.iconBrowse.clicked.connect(lambda: self.iconTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .jpg File", "/","*.jpg")[0]))
 
         self.vmfLayout = QHBoxLayout()
         self.vmfLayout.addWidget(self.vmfTextEdit)
