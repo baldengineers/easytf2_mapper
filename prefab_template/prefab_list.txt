@@ -5,6 +5,4 @@ cp_koth_prefab
 wall
 blank_prefab
 corner
-rotation_test
-rotation_test
-rotation_test
+test

@@ -533,19 +533,16 @@ class MainWindow(QMainWindow):
             text_list = ['prefab_template/prefab_text_list.txt','prefab_template/rot_prefab_list.txt',
                  'prefab_template/prefab_list.txt', 'prefab_template/prefab_icon_list.txt']
 
-            try:
-                for cur in text_list:
-                    file = open(cur, 'r+')
-                    cur_list = file.readlines()
-                    file.seek(0)
-                    file.truncate()
-                    
-                    del cur_list[currentprefab]
-                    cur_str = "".join(cur_list)
-                    file.write(cur_str)
-                    file.close()
-            except:
-                pass
+            for cur in text_list:
+                file = open(cur, 'r+')
+                cur_list = file.readlines()
+                file.seek(0)
+                file.truncate()
+                
+                del cur_list[currentprefab]
+                cur_str = "".join(cur_list)
+                file.write(cur_str)
+                file.close()
             
             restart_btn = QPushButton("Restart")
             later_btn = QPushButton("Later")
@@ -553,7 +550,7 @@ class MainWindow(QMainWindow):
             choice.setIcon(QMessageBox.Question)
             choice.setWindowTitle("Prefab Successfully Deleted")
             choice.setText("Program must be restarted for changes to take effect.")
-            choice.setInformativeText("Restart?")
+            choice.setInformativeText("Restart? You will lose any unsaved progress.")
             choice.addButton(restart_btn, QMessageBox.YesRole)
             choice.addButton(later_btn, QMessageBox.NoRole)
             choice.setDefaultButton(restart_btn)

@@ -5,3 +5,4 @@ Control Point (KOTH)
 Wall
 Ground
 Corner
+test
