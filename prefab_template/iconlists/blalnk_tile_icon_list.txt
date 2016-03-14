@@ -1,4 +1,0 @@
-icons/blalnk_tile_right.jpg
-icons/blalnk_tile_down.jpg
-icons/blalnk_tile_left.jpg
-icons/blalnk_tile_up.jpg

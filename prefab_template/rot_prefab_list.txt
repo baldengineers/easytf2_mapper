@@ -5,4 +5,3 @@ cp_koth_prefab_icon_list.txt
 wall_icon_list.txt
 blank_prefab_icon_list.txt
 corner_icon_list.txt
-test_icon_list.txt

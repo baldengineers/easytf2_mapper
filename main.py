@@ -1058,6 +1058,11 @@ class MainWindow(QMainWindow):
         else:
             with open("prefab_template/rot_prefab_list.txt", "a") as f:
                 f.write("NO_ROTATION\n")
+                f.close()
+            f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
+            for i in range(4):
+                f.write("icons/"+self.icondir"\n")
+            f.close()
             
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                           createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
