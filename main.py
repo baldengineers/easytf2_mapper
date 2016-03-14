@@ -188,7 +188,7 @@ class MainWindow(QMainWindow):
         gridAction = QAction("&Set Grid Size", self)
         gridAction.setShortcut("Ctrl+G")
         gridAction.setStatusTip("Set Grid Height and Width. RESETS ALL BLOCKS.")
-        gridAction.triggered.connect(lambda: self.grid_change(0,0,True,False,True))
+        gridAction.triggered.connect(lambda: self.grid_change(0,0,0,True,False,True))
 
         createPrefabAction = QAction("&Prefab", self)
         createPrefabAction.setShortcut("Ctrl+I")
@@ -284,7 +284,7 @@ class MainWindow(QMainWindow):
         
     def home(self):
         #test
-        levels = 2
+        global levels
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
         #self.labelLayout = QHBoxLayout(self)
@@ -458,7 +458,7 @@ class MainWindow(QMainWindow):
         else:
             pass
         
-        self.grid_change(0,0,True, False, True)
+        self.grid_change(0,0,0,True, False, True)
         '''
         while True:
             try:
@@ -472,15 +472,14 @@ class MainWindow(QMainWindow):
 
     def level_select(self):
         self.windowl = QDialog(self)
-
+        global levels
         #testing
-        levels = 3
         #
         self.levellist = QListWidget()
         self.levellist.setIconSize(QSize(200, 25))
         try:
-            for i in range(levels-1):
-                item = QListWidgetItem(QIcon("icons/level.jpg"),"Level "+str(i))
+            for i in range(levels):
+                item = QListWidgetItem(QIcon("icons/level.jpg"),"Level "+str(i+1))
                 self.levellist.addItem(item)
         except Exception as e:
             print(str(e))
@@ -603,7 +602,7 @@ class MainWindow(QMainWindow):
             header = pickle.load(file)
             if "grid_size" in header:
                 openlines = pickle.load(file)
-                self.grid_change(openlines[0],openlines[1],False, True, True)
+                self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
             elif "totalblocks" in header:
                 openlines = pickle.load(file)
                 for item in openlines:
@@ -644,20 +643,20 @@ class MainWindow(QMainWindow):
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self):
-        global grid_x, grid_y, iconlist
-        gridsize_list = (grid_x,grid_y)
+        global grid_x, grid_y, iconlist, levels
+        gridsize_list = (grid_x,grid_y,levels)
         skybox_sav = skybox2_list.currentRow()
         name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
         file = open(name[0], "wb")
-        level = 1 #change this to actually do something once we add levels
         pickle.dump("<grid_size>", file)
         pickle.dump(gridsize_list, file)
-        pickle.dump("<totalblocks_l%d>" %(level), file)
-        pickle.dump(totalblocks, file)
-        pickle.dump("<entity_list_l%d>" %(level), file)
-        pickle.dump(entity_list, file)
-        pickle.dump("<icon_list_l%d>" %(level), file)
-        pickle.dump(iconlist, file)
+        for i in levels:
+            pickle.dump("<totalblocks_l%d>" %(i), file)
+            pickle.dump(totalblocks, file)
+            pickle.dump("<entity_list_l%d>" %(i), file)
+            pickle.dump(entity_list, file)
+            pickle.dump("<icon_list_l%d>" %(i), file)
+            pickle.dump(iconlist, file)
         print(iconlist)
         pickle.dump("<skybox>", file)
         pickle.dump(skybox_sav, file)
@@ -746,11 +745,12 @@ class MainWindow(QMainWindow):
 
         #self.clearlist()
         
-    def grid_change(self,xvar,yvar,var,var2,var3):
+    def grid_change(self,xvar,yvar,zvar,var,var2,var3):
         global totalblocks,entity_list,grid_list,iconlist
         if var2 == True:
             sxvar = xvar
             syvar = yvar
+            szvar = zvar
         else:
             pass
         self.count = 0
@@ -776,20 +776,22 @@ class MainWindow(QMainWindow):
 
             self.text = QLineEdit()
             self.text2 = QLineEdit()
+            self.text3 = QLineEdit()
 
             self.okay_btn = QPushButton("OK",self)
-            self.okay_btn.clicked.connect(lambda: self.grid_change_func(self.text.displayText(), self.text2.displayText()))
+            self.okay_btn.clicked.connect(lambda: self.grid_change_func(self.text.displayText(), self.text2.displayText(), self.text3.displayText()))
 
             self.form = QFormLayout()
             self.form.addRow("Set Grid Width:",self.text)
             self.form.addRow("Set Grid Height:",self.text2)
+            self.form.addRow("Set Amount of Levels:",self.text3)
             self.form.addRow(self.okay_btn)
 
             self.window.setLayout(self.form)
             self.window.setWindowTitle("Set Grid Size")
             self.window.exec_()
         elif var2 == True:
-            self.grid_change_func(sxvar,syvar)
+            self.grid_change_func(sxvar,syvar,szvar)
             #print('test')
         '''
         text = QInputDialog.getText(self,("Get Grid Y"),
@@ -798,10 +800,10 @@ class MainWindow(QMainWindow):
                                      ("Grid Width:"))
         '''
 
-    def grid_change_func(self,x,y):
+    def grid_change_func(self,x,y,z):
         count_btns = 0
         self.count = 0
-        global grid_y, grid_x
+        global grid_y, grid_x, levels
         try:
             self.window.deleteLater()
         except:
@@ -810,10 +812,11 @@ class MainWindow(QMainWindow):
         try:
             self.grid_y = int(y)
             self.grid_x = int(x)
+            levels = int(z)
         except ValueError:
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
             QMessageBox.critical(self.window, "Error", "Please enter a number.")
-            self.grid_change(0,0,False,False,True)
+            self.grid_change(0,0,0,False,False,True)
 
         self.removeButtons()
         #self.removeDropdown()
@@ -1061,7 +1064,7 @@ class MainWindow(QMainWindow):
                 f.close()
             f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
             for i in range(4):
-                f.write("icons/"+self.icondir"\n")
+                f.write("icons/"+self.icondir+"\n")
             f.close()
             
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
