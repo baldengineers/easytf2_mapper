@@ -102,7 +102,7 @@ class GridBtn(QWidget):
                 #print(rotation)
                 current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
                 current_prefab_icon_list = current_prefab_icon_list.readlines()
-                current_prefab_icon_list = current_prefab_icon_list[current_prefab_icon_list.index(prefab_list[self_global.tile_list.currentRow()] + "_icon_list.txt\n")]
+                current_prefab_icon_list = current_prefab_icon_list[self_global.tile_list.currentRow()]
                 if "\n" in current_prefab_icon_list:
                     current_prefab_icon_list = current_prefab_icon_list[:-1]
                 current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
@@ -369,7 +369,7 @@ class MainWindow(QMainWindow):
         
         self.del_tool_btn = QToolButton(self)
         self.del_tool_btn.setIcon(QIcon('icons/delete.png'))
-        self.del_tool_btn.clicked.connect(lambda: self.prefab_list_del(self.tile_list.currentRow()))
+        self.del_tool_btn.clicked.connect(lambda: self.prefab_list_del(self.tile_list.currentRow(), self.tile_list.currentItem()))
         
         self.tile_toolbar = QToolBar()
         self.tile_toolbar.addWidget(self.up_tool_btn)
@@ -516,33 +516,50 @@ class MainWindow(QMainWindow):
     def prefab_list_down(self):
         self.tile_list.setCurrentRow(self.tile_list.currentRow() + 1)
 
-    def prefab_list_del(self,currentprefab):
+    def prefab_list_del(self, currentprefab, currentText):
         self.restartCheck = QCheckBox()
         self.restartCheck.setText("Restart after deletion?")
 
-        choice = QMessageBox.question(self,"Delete Prefab","Delete selected prefab? Requires restart for changes to take effect. ('OK' DELETES AND RESTARTS)",
-                             QMessageBox.Yes | QMessageBox.No | QMessageBox.Ok, QMessageBox.No)
+        choice = QMessageBox.question(self,"Delete Prefab","Are you sure you want to delete \"%s\"?\n" %(prefab_text_list[currentprefab]),
+                             QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        
         #choice.addWidget(self.restartCheck)
-        self.layout = choice.layout()
+        #self.layout = choice.layout()
         #self.layout.addWidget(QMessageBox.Yes)
         #self.layout.addWidget(QMessageBox.No)
-        self.layout.addWidget(self.restartCheck)
-        choice.show()        
-        if choice == QMessageBox.Yes or choice == QMessageBox.Ok:
+        #self.layout.addWidget(self.restartCheck)
+        #choice.show()        
+        if choice == QMessageBox.Yes:
             text_list = ['prefab_template/prefab_text_list.txt','prefab_template/rot_prefab_list.txt',
                  'prefab_template/prefab_list.txt', 'prefab_template/prefab_icon_list.txt']
 
-            for cur in text_list:
-                file = open(cur, 'r+')
-                cur_list = file.readlines()
-                file.seek(0)
-                file.truncate()
-
-                del cur_list[currentprefab]
-                cur_str = "".join(cur_list)
-                file.write(cur_str)
-                file.close()
-            if choice == QMessageBox.Ok:
+            try:
+                for cur in text_list:
+                    file = open(cur, 'r+')
+                    cur_list = file.readlines()
+                    file.seek(0)
+                    file.truncate()
+                    
+                    del cur_list[currentprefab]
+                    cur_str = "".join(cur_list)
+                    file.write(cur_str)
+                    file.close()
+            except:
+                pass
+            
+            restart_btn = QPushButton("Restart")
+            later_btn = QPushButton("Later")
+            choice = QMessageBox(self)
+            choice.setIcon(QMessageBox.Question)
+            choice.setWindowTitle("Prefab Successfully Deleted")
+            choice.setText("Program must be restarted for changes to take effect.")
+            choice.setInformativeText("Restart?")
+            choice.addButton(restart_btn, QMessageBox.YesRole)
+            choice.addButton(later_btn, QMessageBox.NoRole)
+            choice.setDefaultButton(restart_btn)
+            print(choice.exec_())
+                              
+            if choice.exec_() == 0:
                 try:
                     subprocess.Popen('EasyTF2Mapper.exe')
                 except:
@@ -559,7 +576,7 @@ class MainWindow(QMainWindow):
         try:
             current_prefab_icon_list2 = open('prefab_template/rot_prefab_list.txt', 'r+')
             current_prefab_icon_list2 = current_prefab_icon_list2.readlines()
-            current_prefab_icon_list2 = current_prefab_icon_list2[current_prefab_icon_list2.index(prefab_list[self.tile_list.currentRow()] + "_icon_list.txt\n")]
+            current_prefab_icon_list2 = current_prefab_icon_list2[self.tile_list.currentRow()]
             if "\n" in current_prefab_icon_list2:
                 current_prefab_icon_list2 = current_prefab_icon_list2[:-1]
             current_prefab_icon_list2 = open('prefab_template/iconlists/'+current_prefab_icon_list2, 'r+')
@@ -783,6 +800,7 @@ class MainWindow(QMainWindow):
         text2 = QInputDialog.getText(self,("Get Grid X"),
                                      ("Grid Width:"))
         '''
+
     def grid_change_func(self,x,y):
         count_btns = 0
         self.count = 0
@@ -870,6 +888,7 @@ class MainWindow(QMainWindow):
         #print(grid_list)
         #print(iconlist)
         return grid_list
+
     def change_light(self):
         r_input = QInputDialog.getText(self, ("Red light level 0-255"),
                                        ("Put in the red light ambiance level, 0-255:"))
@@ -939,6 +958,7 @@ class MainWindow(QMainWindow):
         self.home()
     '''
     #fix this later, it has a breaking bugs if it works
+
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
@@ -990,7 +1010,7 @@ class MainWindow(QMainWindow):
         self.okay_btn_layout.addStretch(1)
         self.okay_btn_layout.addWidget(self.okay_btn)
 
-        self.okay_btn.clicked.connect(lambda: self.create_run_func())
+        self.okay_btn.clicked.connect(self.create_run_func)
 
         self.rotCheckBox = QCheckBox()
         
@@ -1013,35 +1033,38 @@ class MainWindow(QMainWindow):
 
         self.window.setLayout(self.form)
         self.window.exec_()
+
     def create_run_func(self):
-        #if self.rotCheckBox.isChecked():
-        #that^ just creates errors.
-        self.ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
-        self.icondir = str(self.nameLineEdit.displayText())
-        with open("prefab_template/rot_prefab_list.txt", "a") as g:
-            g.write(self.icondir+"_icon_list.txt\n")
-        g.close()
-        self.imageRot = Image.open(self.iconTextEdit.displayText())
-        self.imageRot.save("icons/"+self.icondir+"_right.jpg")
-        self.imageRot2 = Image.open(self.iconTextEdit.displayText())
-        self.imageRot2 = self.imageRot2.rotate(270)
-        self.imageRot2.save("icons/"+self.icondir+"_down.jpg")
-        self.imageRot3 = Image.open(self.iconTextEdit.displayText())
-        self.imageRot3 = self.imageRot3.rotate(180)
-        self.imageRot3.save("icons/"+self.icondir+"_left.jpg")
-        self.imageRot4 = Image.open(self.iconTextEdit.displayText())
-        self.imageRot4 = self.imageRot4.rotate(90)
-        self.imageRot4.save("icons/"+self.icondir+"_up.jpg")
-        f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
-        for i in self.ext_list:
-            f.write("icons/"+self.icondir+i+"\n")
-        f.close()
-        
+        if self.rotCheckBox.isChecked():
+        #no it doesn't create errors boyo
+            self.ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
+            self.icondir = str(self.nameLineEdit.displayText())
+            with open("prefab_template/rot_prefab_list.txt", "a") as f:
+                f.write(self.icondir+"_icon_list.txt\n")
+            #g.close() - useless, because you said "with open() as g," which automatically closes it
+            self.imageRot = Image.open(self.iconTextEdit.displayText())
+            self.imageRot.save("icons/"+self.icondir+"_right.jpg")
+            self.imageRot2 = Image.open(self.iconTextEdit.displayText())
+            self.imageRot2 = self.imageRot2.rotate(270)
+            self.imageRot2.save("icons/"+self.icondir+"_down.jpg")
+            self.imageRot3 = Image.open(self.iconTextEdit.displayText())
+            self.imageRot3 = self.imageRot3.rotate(180)
+            self.imageRot3.save("icons/"+self.icondir+"_left.jpg")
+            self.imageRot4 = Image.open(self.iconTextEdit.displayText())
+            self.imageRot4 = self.imageRot4.rotate(90)
+            self.imageRot4.save("icons/"+self.icondir+"_up.jpg")
+            f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
+            for i in self.ext_list:
+                f.write("icons/"+self.icondir+i+"\n")
+            f.close()
+
+        else:
+            with open("prefab_template/rot_prefab_list.txt", "a") as f:
+                f.write("NO_ROTATION\n")
+            
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
-                                                                      createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
-                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked()))
-        
-        
+                                                                          createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
+                                                                            self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked()))
         
         #self.importprefabs()
 

@@ -1,4 +1,3 @@
-Spike
 Respawn Room (RED)
 Respawn Room (BLU)
 Mini-Spire
@@ -6,4 +5,3 @@ Control Point (KOTH)
 Wall
 Ground
 Corner
-test
