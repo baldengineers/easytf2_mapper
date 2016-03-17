@@ -484,6 +484,7 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(str(e))
             pass
+        self.levellist.itemClicked.connect(self.change_level)
         self.layoutl = QHBoxLayout()
         self.layoutl.addWidget(self.levellist)
         self.windowl.setGeometry(150,150,400,300)
@@ -491,6 +492,9 @@ class MainWindow(QMainWindow):
         self.windowl.setWindowIcon(QIcon("icons/icon.ico"))
         self.windowl.setLayout(self.layoutl)
         self.windowl.exec_()
+
+    def change_level(self):
+        print("does nothing right now")
         
 
     def rotateCW_func(self):
