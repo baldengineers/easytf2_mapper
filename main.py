@@ -494,7 +494,12 @@ class MainWindow(QMainWindow):
         self.windowl.exec_()
 
     def change_level(self):
-        print("does nothing right now")
+        global levels
+        print("not finished")
+        levels = self.levellist.currentRow()+1
+        self.windowl.close()
+        #print(levels)
+        #change grid to grid for level
         
 
     def rotateCW_func(self):
