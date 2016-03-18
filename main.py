@@ -16,15 +16,15 @@ import pprint
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
 class GridBtn(QWidget):
-    def __init__(self, self_global, x, y, btn_id):
+    def __init__(self, parent, x, y, btn_id):
         super(GridBtn, self).__init__()
-        self.button = QPushButton("", self_global)
+        self.button = QPushButton("", parent)
         self.x = 32*x
         self.y = 20+(32*y)
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.setFixedSize(32, 32)
-        self.button.pressed.connect(lambda: self.click_func(self_global, x, y,
+        self.button.pressed.connect(lambda: self.click_func(parent, x, y,
                                                             btn_id))
         self.button.setMouseTracking(True)
         self.button.installEventFilter(self)
@@ -33,7 +33,7 @@ class GridBtn(QWidget):
     def reset_icon(self):
         self.button.setIcon(QIcon())
 
-    def click_func(self, self_global, x, y, btn_id):
+    def click_func(self, parent, x, y, btn_id):
         self.checkForAlt()
         global rotation
         if toggle != 0:
@@ -56,7 +56,7 @@ class GridBtn(QWidget):
             #print(totalblocks)
             #print(btn_id)
             #eval() turns the string into a variable name.
-            moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
+            moduleName = eval(prefab_list[parent.tile_list.currentRow()])
             #print(rotation)
             try:
                 try:
@@ -84,7 +84,7 @@ class GridBtn(QWidget):
                 #print("placeholder list: ", placeholder_list)
             except IndexError:
                 pass
-            #if self_global.comboBox.currentIndex() != 0:
+            #if parent.comboBox.currentIndex() != 0:
                 #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
                 #world_id_num +=1
                 #create = create + create2
@@ -104,7 +104,7 @@ class GridBtn(QWidget):
                 #print(rotation)
                 current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
                 current_prefab_icon_list = current_prefab_icon_list.readlines()
-                current_prefab_icon_list = current_prefab_icon_list[self_global.tile_list.currentRow()]
+                current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
                 if "\n" in current_prefab_icon_list:
                     current_prefab_icon_list = current_prefab_icon_list[:-1]
                 current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
@@ -117,14 +117,14 @@ class GridBtn(QWidget):
                 self.button.setIconSize(QSize(32,32))
             except Exception as e:
                 print(str(e))
-                icon = prefab_icon_list[self_global.tile_list.currentRow()]
+                icon = prefab_icon_list[parent.tile_list.currentRow()]
                 self.button.setIcon(QIcon(icon))
                 self.button.setIconSize(QSize(32,32))
 
-            print('current row:', self_global.levellist.currentRow())
+            print('current row:', parent.levellist.currentRow())
             print('button id:', btn_id)
 
-            totalblocks[self_global.levellist.currentRow()][btn_id] = create[0]
+            totalblocks[parent.levellist.currentRow()][btn_id] = create[0]
             print(btn_id)
             print(iconlist)
             iconlist[btn_id] = icon
