@@ -23,7 +23,7 @@ Main window with some prefabs added:
 
 ![Main Window With Prefabs Added In](http://i.imgur.com/HWOIsys.png =437x383.5)
 
-Inside Hammer after exporing:
+Inside Hammer after exporting:
 
 ![Inside Hammer After Exporting](http://i.imgur.com/3miLMjd.png =437x383.5)
 
