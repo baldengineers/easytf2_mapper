@@ -12,6 +12,7 @@ import generateSkybox
 import light_create
 import subprocess
 import pickle
+import pprint
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
 class GridBtn(QWidget):
@@ -51,6 +52,7 @@ class GridBtn(QWidget):
             global rotation
             global totalblocks
             global entity_list
+            global levels
             #print(totalblocks)
             #print(btn_id)
             #eval() turns the string into a variable name.
@@ -119,8 +121,12 @@ class GridBtn(QWidget):
                 self.button.setIcon(QIcon(icon))
                 self.button.setIconSize(QSize(32,32))
 
+            print('current row:', self_global.levellist.currentRow())
+            print('button id:', btn_id)
 
-            totalblocks[btn_id] = create[0]
+            totalblocks[self_global.levellist.currentRow()][btn_id] = create[0]
+            print(btn_id)
+            print(iconlist)
             iconlist[btn_id] = icon
             try:
                 entity_list[btn_id] = create[4]
@@ -496,7 +502,7 @@ class MainWindow(QMainWindow):
     def change_level(self):
         global levels
         print("not finished")
-        levels = self.levellist.currentRow()+1
+        levels = self.levellist.currentRow() #+1 X First level should be 0
         self.windowl.close()
         #print(levels)
         #change grid to grid for level
@@ -833,24 +839,30 @@ class MainWindow(QMainWindow):
         #print(self.grid_y)
         #print(self.grid_x)
 
-        for x in range(self.grid_x):
-            for y in range(self.grid_y):
-                #print("test") #testing if works
-                grid_btn = GridBtn(self, x, y, self.btn_id_count)
-                self.button_grid_layout.addWidget(grid_btn.button,y,x) #needs to be like this because grid_layout is counter-intuitive
-                #self.button_grid_layout.setColumnMinimumWidth(y, 32)
-                #self.layout_grid.addWidget(grid_btn.button,x,y)
+        for z in range(levels):
+            totalblocks.append([])
+            #print(totalblocks)
+        
+            for x in range(self.grid_x):
                 
-                grid_list.append(grid_btn)
-                totalblocks.append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
-                self.btn_id_count += 1
-                global count_btns
-                count_btns += 1
-                entity_list.append("NO_ENTITY")
-                iconlist.append("")
-            #self.button_grid_layout.setRowMinimumHeight(x, 32)
+                for y in range(self.grid_y):
+                    #print("test") #testing if works
+                    grid_btn = GridBtn(self, x, y, self.btn_id_count)
+                    self.button_grid_layout.addWidget(grid_btn.button,y,x) #needs to be like this because grid_layout is counter-intuitive
+                    #self.button_grid_layout.setColumnMinimumWidth(y, 32)
+                    #self.layout_grid.addWidget(grid_btn.button,x,y)
+                    
+                    grid_list.append(grid_btn)
+                    totalblocks[z].append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
+                    self.btn_id_count += 1
+                    global count_btns
+                    count_btns += 1
+                    entity_list.append("NO_ENTITY")
+                    iconlist.append("")
+                #self.button_grid_layout.setRowMinimumHeight(x, 32)
+
         entity_list.append("lighting slot")
-        #print(totalblocks)
+        #pprint.pprint(totalblocks)
 
         #print(entity_list)        
         self.count += 1
