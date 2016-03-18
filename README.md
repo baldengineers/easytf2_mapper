@@ -14,7 +14,16 @@ _CURRENTLY IN BETA 1.0.5. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_ This c
 After that, read the tutorial for more information and instructions. https://github.com/baldengineers/easytf2_mapper/wiki/Tutorial
 
 _*BEFORE INSTALLING AND RUNNING, CHECK THE LATEST [RELEASES](https://github.com/baldengineers/easytf2_mapper/releases) FOR KNOWN BUGS*_
+## screenshots:
+![Main Window](http://i.imgur.com/2pnFovg.png)
 
+![Main Window With Prefabs Added In](http://i.imgur.com/HWOIsys.png)
+
+![Inside Hammer After Exporting](http://i.imgur.com/3miLMjd.png)
+
+![Inside TF2 After Exporting .bsp](http://i.imgur.com/Q7omyos.jpg)
+
+![More of that](http://i.imgur.com/mErdAZ9.jpg)
 ## bugs
 A list of currently known bugs can be found here: https://github.com/baldengineers/easytf2_mapper/wiki/Currently-known-bugs
 ## help!
