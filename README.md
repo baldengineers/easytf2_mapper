@@ -15,15 +15,23 @@ After that, read the tutorial for more information and instructions. https://git
 
 _*BEFORE INSTALLING AND RUNNING, CHECK THE LATEST [RELEASES](https://github.com/baldengineers/easytf2_mapper/releases) FOR KNOWN BUGS*_
 ## screenshots:
-![Main Window](http://i.imgur.com/2pnFovg.png)
+Main window:
 
-![Main Window With Prefabs Added In](http://i.imgur.com/HWOIsys.png)
+![Main Window](http://i.imgur.com/2pnFovg.png =437x383.5)
 
-![Inside Hammer After Exporting](http://i.imgur.com/3miLMjd.png)
+Main window with some prefabs added:
 
-![Inside TF2 After Exporting .bsp](http://i.imgur.com/Q7omyos.jpg)
+![Main Window With Prefabs Added In](http://i.imgur.com/HWOIsys.png =437x383.5)
 
-![More of that](http://i.imgur.com/mErdAZ9.jpg)
+Inside Hammer after exporing:
+
+![Inside Hammer After Exporting](http://i.imgur.com/3miLMjd.png =437x383.5)
+
+Inside TF2:
+
+![Inside TF2 After Exporting .bsp](http://i.imgur.com/Q7omyos.jpg =437x383.5)
+
+![More of that](http://i.imgur.com/mErdAZ9.jpg =437x383.5)
 ## bugs
 A list of currently known bugs can be found here: https://github.com/baldengineers/easytf2_mapper/wiki/Currently-known-bugs
 ## help!
