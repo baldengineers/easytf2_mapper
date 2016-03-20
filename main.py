@@ -38,9 +38,9 @@ class GridBtn(QWidget):
         global rotation
         if toggle != 0:
             self.button.setIcon(QIcon())
-            totalblocks[btn_id] = 'EMPTY_SLOT'
-            entity_list[btn_id] = 'NO_ENTITY'
-            iconlist[btn_id] = ''
+            totalblocks[level][btn_id] = 'EMPTY_SLOT'
+            entity_list[level][btn_id] = 'NO_ENTITY'
+            iconlist[level][btn_id] = ''
         else:
             print((x,y))
             global world_id_num
@@ -124,12 +124,12 @@ class GridBtn(QWidget):
             print('current row:', parent.levellist.currentRow())
             print('button id:', btn_id)
 
-            totalblocks[parent.levellist.currentRow()][btn_id] = create[0]
+            totalblocks[level][btn_id] = create[0]
             print(btn_id)
             print(iconlist)
-            iconlist[btn_id] = icon
+            iconlist[level][btn_id] = icon
             try:
-                entity_list[btn_id] = create[4]
+                entity_list[level][btn_id] = create[4]
             except:
                 pass
 
@@ -231,6 +231,7 @@ class MainWindow(QMainWindow):
         
         self.home()
         self.change_skybox()
+        self.level_select()
 
     def open_hammer(self,loaded,file):
         self.open_file()
@@ -500,9 +501,9 @@ class MainWindow(QMainWindow):
         self.windowl.exec_()
 
     def change_level(self):
-        global levels
+        global level
         print("not finished")
-        levels = self.levellist.currentRow() #+1 X First level should be 0
+        level = self.levellist.currentRow() #+1 X First level should be 0
         self.windowl.close()
         #print(levels)
         #change grid to grid for level
@@ -723,11 +724,11 @@ class MainWindow(QMainWindow):
         except:
             QMessageBox.critical(self, "Error", "Please choose a skybox.")
             self.change_skybox()
-        entity_list[count_btns] = currentlight
+        entity_list[0][levels] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
         file = open(name[0], "w")
         import export
-        wholething = export.execute(totalblocks, entity_list, skybox,skyboxgeolist)
+        wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
         #print(wholething)
         file.write(wholething)
         file.close()
@@ -841,6 +842,10 @@ class MainWindow(QMainWindow):
 
         for z in range(levels):
             totalblocks.append([])
+            entity_list.append([])
+            iconlist.append([])
+            self.btn_id_count=0
+            count_btns=0
             #print(totalblocks)
         
             for x in range(self.grid_x):
@@ -857,8 +862,8 @@ class MainWindow(QMainWindow):
                     self.btn_id_count += 1
                     global count_btns
                     count_btns += 1
-                    entity_list.append("NO_ENTITY")
-                    iconlist.append("")
+                    entity_list[z].append("NO_ENTITY")
+                    iconlist[z].append("")
                 #self.button_grid_layout.setRowMinimumHeight(x, 32)
 
         entity_list.append("lighting slot")
@@ -866,6 +871,7 @@ class MainWindow(QMainWindow):
 
         #print(entity_list)        
         self.count += 1
+        count_btns = self.grid_x*self.grid_y
         grid_y = self.grid_y
         grid_x = self.grid_x
 
