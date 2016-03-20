@@ -1,5 +1,5 @@
 # Easy TF2 Mapper (beta 1.0.5)
-##in broken state: Volatile.
+##in broken state: YES
 Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in development; a few days or a week from being in beta. Send bugs, ideas, and suggestions to toadsrc@gmail.com.
 ### current development branch: save_branch
 <p>
