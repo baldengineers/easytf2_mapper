@@ -13,6 +13,7 @@ import light_create
 import subprocess
 import pickle
 import pprint
+import glob
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
 class GridBtn(QWidget):
@@ -121,13 +122,12 @@ class GridBtn(QWidget):
                 self.button.setIcon(QIcon(icon))
                 self.button.setIconSize(QSize(32,32))
 
-            print('current row:', parent.levellist.currentRow())
-            print('button id:', btn_id)
-
-            totalblocks[level][btn_id] = create[0]
-            print(btn_id)
-            print(iconlist)
+            #print(iconlist,level, btn_id)
             iconlist[level][btn_id] = icon
+            totalblocks[level][btn_id] = create[0]
+            #print(btn_id)
+            #print(iconlist)
+            
             try:
                 entity_list[level][btn_id] = create[4]
             except:
@@ -491,6 +491,7 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(str(e))
             pass
+
         self.levellist.itemClicked.connect(self.change_level)
         self.layoutl = QHBoxLayout()
         self.layoutl.addWidget(self.levellist)
@@ -502,9 +503,12 @@ class MainWindow(QMainWindow):
 
     def change_level(self):
         global level
-        print("not finished")
-        level = self.levellist.currentRow() #+1 X First level should be 0
+        self.file_save(True)
+        level = int(self.levellist.currentRow()) #+1 X First level should be 0
+        print(level)
+        self.file_open(True)
         self.windowl.close()
+
         #print(levels)
         #change grid to grid for level
         
@@ -607,8 +611,8 @@ class MainWindow(QMainWindow):
  
         
         
-    def file_open(self, tmp = False):
-        global grid_list
+    def file_open(self, tmp = False, first = False):
+        global grid_list, iconlist, level, iconlist
         if not tmp:
             name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
             file = open(name[0], "rb")
@@ -617,17 +621,22 @@ class MainWindow(QMainWindow):
             while True:
                 #try:
                 header = pickle.load(file)
-                if "grid_size" in header:
+                if "levels" in header:
+                    openlines = pickle.load(file)
+                    levelcountload = openlines
+                elif "grid_size" in header:
                     openlines = pickle.load(file)
                     self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
                 elif "totalblocks" in header:
                     openlines = pickle.load(file)
-                    for item in openlines:
-                        totalblocks.append(item)
+                    for i in range(levelcountload):
+                        for item in openlines:
+                            totalblocks[i].append(item)
                 elif "entity_list" in header:
                     openlines = pickle.load(file)
-                    for item in openlines:
-                        entity_list.append(item)
+                    for i in range(levelcountload):
+                        for item in openlines:
+                            entity_list[i].append(item)
                 elif "icon_list" in header:
                     global grid_list
                     openlines = pickle.load(file)
@@ -652,9 +661,17 @@ class MainWindow(QMainWindow):
             self.change_skybox()
             file.close()
         else:
-            file = open("tmp/level" + level, "wb")
-            iconlist[level] = pickle.load(file)
-            file.close
+            try:
+                file = open("leveltemp/level" + str(level), "rb")
+                iconlist[level] = pickle.load(file)
+                file.close()
+                print(grid_list)
+                for index, icon in enumerate(iconlist[level]):
+                    #print(icon)
+                    grid_list[index].button.setIcon(QIcon(icon))
+                    grid_list[index].button.setIconSize(QSize(32,32))
+            except Exception as e:
+                print(str(e))
         #print("totalblocks: ", totalblocks)
         #print("entity_list: ", entity_list)
         #openlines = file.readlines()
@@ -664,7 +681,7 @@ class MainWindow(QMainWindow):
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self, tmp = False):
-        global grid_x, grid_y, iconlist, levels
+        global grid_x, grid_y, iconlist, levels, level
         gridsize_list = (grid_x,grid_y,levels)
         skybox_sav = skybox2_list.currentRow()
         if not tmp:
@@ -683,20 +700,23 @@ class MainWindow(QMainWindow):
             pickle.dump("<skybox>", file)
             pickle.dump(skybox_sav, file)
             file.close()
+            QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
         else:
-            #writes tmp file to save the icons for each level
-            file = open("tmp/level" + level, "wb")
-            pickle.dump(iconlist[level], file)
-            file.close()
+            try:#writes tmp file to save the icons for each level
+                file = open("leveltemp/level" + str(level), "wb")
+                pickle.dump(iconlist[level], file)
+                file.close()
+            except Exception as e:
+                print(str(e))
         #text = self.textEdit.toPlainText()
         #file.write(text)
-        QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
+        
         
 
     def file_export(self):
         global id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list
         skyboxgeolist = []
-        skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, 512 minimum recommended):"))
+        skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, %d minimum recommended):" %(levels*512)))
         try:
             skyboxz = int(skyboxz[0])
         except:
@@ -862,21 +882,19 @@ class MainWindow(QMainWindow):
             for x in range(self.grid_x):
                 
                 for y in range(self.grid_y):
-                    #print("test") #testing if works
-                    grid_btn = GridBtn(self, x, y, self.btn_id_count)
-                    self.button_grid_layout.addWidget(grid_btn.button,y,x) #needs to be like this because grid_layout is counter-intuitive
-                    #self.button_grid_layout.setColumnMinimumWidth(y, 32)
-                    #self.layout_grid.addWidget(grid_btn.button,x,y)
-                    
-                    grid_list.append(grid_btn)
                     totalblocks[z].append("") #This is so that there are no problems with replacing list values
-                    self.btn_id_count += 1
+                    
                     global count_btns
                     count_btns += 1
                     entity_list[z].append("")
                     iconlist[z].append("")
-                #self.button_grid_layout.setRowMinimumHeight(x, 32)
-
+        for x in range(self.grid_x):
+            for y in range(self.grid_y):
+                grid_btn = GridBtn(self, x, y, self.btn_id_count)
+                self.button_grid_layout.addWidget(grid_btn.button,y,x)
+                self.btn_id_count += 1
+                
+                grid_list.append(grid_btn)
         entity_list.append("lighting slot")
         #pprint.pprint(totalblocks)
 
@@ -919,7 +937,10 @@ class MainWindow(QMainWindow):
         '''
         #self.scrollFrameLayout.addWidget(self.scrollArea)
 
-
+        for i in range(levels):
+            file = open("leveltemp/level" + str(i), "wb")
+            pickle.dump(iconlist[i], file)
+            file.close()
         
         self.gridLayout.addWidget(self.scrollArea)
         self.button_grid_all.addLayout(self.gridLayout)
@@ -1004,6 +1025,9 @@ class MainWindow(QMainWindow):
                                       QMessageBox.No)
         if choice == QMessageBox.Yes:
             sys.exit()
+            filesdel = glob.glob('leveltemp/.*')
+            for f in filesdel:
+                os.remove(f)
         else:
             pass
 
