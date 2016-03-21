@@ -38,8 +38,8 @@ class GridBtn(QWidget):
         global rotation
         if toggle != 0:
             self.button.setIcon(QIcon())
-            totalblocks[level][btn_id] = 'EMPTY_SLOT'
-            entity_list[level][btn_id] = 'NO_ENTITY'
+            totalblocks[level][btn_id] = ''
+            entity_list[level][btn_id] = ''
             iconlist[level][btn_id] = ''
         else:
             print((x,y))
@@ -858,11 +858,11 @@ class MainWindow(QMainWindow):
                     #self.layout_grid.addWidget(grid_btn.button,x,y)
                     
                     grid_list.append(grid_btn)
-                    totalblocks[z].append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
+                    totalblocks[z].append("") #This is so that there are no problems with replacing list values
                     self.btn_id_count += 1
                     global count_btns
                     count_btns += 1
-                    entity_list[z].append("NO_ENTITY")
+                    entity_list[z].append("")
                     iconlist[z].append("")
                 #self.button_grid_layout.setRowMinimumHeight(x, 32)
 
