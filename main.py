@@ -607,78 +607,89 @@ class MainWindow(QMainWindow):
  
         
         
-    def file_open(self):
+    def file_open(self, tmp = False):
         global grid_list
-        name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
-        file = open(name[0], "rb")
-        #del totalblocks, entity_list,iconlist,grid_list
-        iconlist=[]
-        while True:
-            #try:
-            header = pickle.load(file)
-            if "grid_size" in header:
-                openlines = pickle.load(file)
-                self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
-            elif "totalblocks" in header:
-                openlines = pickle.load(file)
-                for item in openlines:
-                    totalblocks.append(item)
-            elif "entity_list" in header:
-                openlines = pickle.load(file)
-                for item in openlines:
-                    entity_list.append(item)
-            elif "icon_list" in header:
-                global grid_list
-                openlines = pickle.load(file)
-                print(openlines)
-                for item in openlines:
-                    iconlist.append(item)
-                for index, icon in enumerate(iconlist):
-                    #print(iconlist)
-                    if "icons" in icon:
-                        print(index)
-                        grid_list[index].button.setIcon(QIcon(icon))
-                        grid_list[index].button.setIconSize(QSize(32,32))
-            elif "skybox2_list" in header:
-                openlines = pickle.load(file)
-                skybox2_list.setCurrentRow(openlines)
-            else:
-                #print('breaking (bad) XD')
-                break
-            #except Exception as e:
-                #print(e)
-                #break
-        self.change_skybox()
+        if not tmp:
+            name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
+            file = open(name[0], "rb")
+            #del totalblocks, entity_list,iconlist,grid_list
+            iconlist=[]
+            while True:
+                #try:
+                header = pickle.load(file)
+                if "grid_size" in header:
+                    openlines = pickle.load(file)
+                    self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
+                elif "totalblocks" in header:
+                    openlines = pickle.load(file)
+                    for item in openlines:
+                        totalblocks.append(item)
+                elif "entity_list" in header:
+                    openlines = pickle.load(file)
+                    for item in openlines:
+                        entity_list.append(item)
+                elif "icon_list" in header:
+                    global grid_list
+                    openlines = pickle.load(file)
+                    print(openlines)
+                    for item in openlines:
+                        iconlist.append(item)
+                    for index, icon in enumerate(iconlist):
+                        #print(iconlist)
+                        if "icons" in icon:
+                            print(index)
+                            grid_list[index].button.setIcon(QIcon(icon))
+                            grid_list[index].button.setIconSize(QSize(32,32))
+                elif "skybox2_list" in header:
+                    openlines = pickle.load(file)
+                    skybox2_list.setCurrentRow(openlines)
+                else:
+                    #print('breaking (bad) XD')
+                    break
+                #except Exception as e:
+                    #print(e)
+                    #break
+            self.change_skybox()
+            file.close()
+        else:
+            file = open("tmp/level" + level, "wb")
+            iconlist[level] = pickle.load(file)
+            file.close
         #print("totalblocks: ", totalblocks)
         #print("entity_list: ", entity_list)
         #openlines = file.readlines()
         #openlinesstr = "".join(openlines)
-        file.close()
         
         #now, it imports the vmf, and has two versions of it; the importlines which has each
         #line as a string in a list, and importlinesstr, which makes it one big string
             
-    def file_save(self):
+    def file_save(self, tmp = False):
         global grid_x, grid_y, iconlist, levels
         gridsize_list = (grid_x,grid_y,levels)
         skybox_sav = skybox2_list.currentRow()
-        name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
-        file = open(name[0], "wb")
-        pickle.dump("<grid_size>", file)
-        pickle.dump(gridsize_list, file)
-        for i in levels:
-            pickle.dump("<totalblocks_l%d>" %(i), file)
-            pickle.dump(totalblocks, file)
-            pickle.dump("<entity_list_l%d>" %(i), file)
-            pickle.dump(entity_list, file)
-            pickle.dump("<icon_list_l%d>" %(i), file)
-            pickle.dump(iconlist, file)
-        print(iconlist)
-        pickle.dump("<skybox>", file)
-        pickle.dump(skybox_sav, file)
+        if not tmp:
+            name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
+            file = open(name[0], "wb")
+            pickle.dump("<grid_size>", file)
+            pickle.dump(gridsize_list, file)
+            for i in range(levels):
+                pickle.dump("<totalblocks_l%d>" %(i), file)
+                pickle.dump(totalblocks, file)
+                pickle.dump("<entity_list_l%d>" %(i), file)
+                pickle.dump(entity_list, file)
+                pickle.dump("<icon_list_l%d>" %(i), file)
+                pickle.dump(iconlist, file)
+            print(iconlist)
+            pickle.dump("<skybox>", file)
+            pickle.dump(skybox_sav, file)
+            file.close()
+        else:
+            #writes tmp file to save the icons for each level
+            file = open("tmp/level" + level, "wb")
+            pickle.dump(iconlist[level], file)
+            file.close()
         #text = self.textEdit.toPlainText()
         #file.write(text)
-        file.close()
         QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
         
 
