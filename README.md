@@ -1,6 +1,6 @@
 # Easy TF2 Mapper (late beta 2.0.0)
 ##in broken state: No, but there are some bugs in the latest windows redist. Most of these are fixed in the python source code.
-Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in development; a few days or a week from being in beta. Send bugs, ideas, and suggestions to toadsrc@gmail.com.
+Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in development; a few weeks from release. Send bugs, ideas, and suggestions to toadsrc@gmail.com.
 ### current development branch: save_branch (development is slow right now, busy developers)
 <p>
 _CURRENTLY IN LATE BETA 2.0.0. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_ This currently is only for Windows, but Linux compatibility is upcoming.
