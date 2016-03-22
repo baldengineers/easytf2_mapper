@@ -1141,6 +1141,7 @@ class MainWindow(QMainWindow):
             f.close()
 
         else:
+            self.icondir = str(self.nameLineEdit.displayText())
             with open("prefab_template/rot_prefab_list.txt", "a") as f:
                 f.write("NO_ROTATION\n")
                 f.close()
