@@ -21,7 +21,7 @@ cordon
 }
     """
     #end of file template that ends each vmf
-    print(totalblocks)
+    #print(totalblocks)
     for i in range(levels):
         compiledblocks += "".join(totalblocks[i]) #totalblocks will be a list of each "block" from each chunk in the map, put into 1 string here.
         totalentities += "".join(entity_list[i])

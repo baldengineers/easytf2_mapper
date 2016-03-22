@@ -42,7 +42,7 @@ entity
 	"classname" "tf_gamerules"
 	"ctf_overtime" "1"
 	"hud_type" "0"
-	"targetname" "entity_name"
+	"targetname" "koth_gamerules"
 	"origin" "px3 py3 pz3"
 	editor
 	{
@@ -240,3 +240,4 @@ entity
 		"OnMultiNewRound" "koth_gamerules,SetRedTeamGoalString,#koth_setup_goal,0,-1"
 		"OnMultiNewRound" "koth_gamerules,SetBlueTeamGoalString,#koth_setup_goal,0,-1"
 	}
+}

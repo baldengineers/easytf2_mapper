@@ -2,6 +2,7 @@ wall_icon_list.txt
 blank_prefab_icon_list.txt
 corner_icon_list.txt
 respawn_test_icon_list.txt
-respawn_blu_icon_list.txt
 NO_ROTATION
 mini_spire_icon_list.txt
+respawn_blu_icon_list.txt
+ramp_icon_list.txt

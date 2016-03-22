@@ -2,6 +2,7 @@ icons/wall_right.jpg
 icons/blank_tile.jpg
 icons/corner_prefab_right.jpg
 icons/respawn_red.jpg
-icons/respawn_blu.jpg
 icons/control_point.jpg
 icons/minispire.jpg
+icons/respawn_blu.jpg
+icons/ramp.jpg

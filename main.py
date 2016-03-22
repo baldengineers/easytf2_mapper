@@ -616,7 +616,7 @@ class MainWindow(QMainWindow):
         
         
     def file_open(self, tmp = False, first = False):
-        global grid_list, iconlist, level, iconlist, openblocks
+        global grid_list, iconlist, level, totalblocks,entity_list
         if not tmp:
             name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
             file = open(name[0], "rb")
