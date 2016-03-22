@@ -1,7 +1,7 @@
-respawn_red_icon_list.txt
-respawn_blu_icon_list.txt
-mini_spire_icon_list.txt
-cp_koth_prefab_icon_list.txt
 wall_icon_list.txt
 blank_prefab_icon_list.txt
 corner_icon_list.txt
+respawn_test_icon_list.txt
+respawn_blu_icon_list.txt
+NO_ROTATION
+mini_spire_icon_list.txt

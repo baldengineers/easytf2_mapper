@@ -1,7 +1,7 @@
-Respawn Room (RED)
-Respawn Room (BLU)
-Mini-Spire
-Control Point (KOTH)
 Wall
 Ground
 Corner
+Respawn Room (RED)
+Respawn Room (BLU)
+Control Point (KOTH)
+Mini-Spire

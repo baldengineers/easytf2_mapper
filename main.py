@@ -130,8 +130,9 @@ class GridBtn(QWidget):
             
             try:
                 entity_list[level][btn_id] = create[4]
-            except:
-                pass
+                #print(create[4])
+            except Exception as e:
+                print(str(e))
 
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()

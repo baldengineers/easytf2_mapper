@@ -24,12 +24,13 @@ cordon
     print(totalblocks)
     for i in range(levels):
         compiledblocks += "".join(totalblocks[i]) #totalblocks will be a list of each "block" from each chunk in the map, put into 1 string here.
-        totalentities+="".join(totalblocks[i])
+        totalentities += "".join(entity_list[i])
     compiledblocks = compiledblocks.replace('EMPTY_SLOT','')
     #totalentities = "".join(entity_list)
     totalentities = totalentities.replace('NO_ENTITY','')
     whole = beg_template + compiledblocks + skyboxgeolist + "}\n"+totalentities + end_template
     #whole = beg_template + compiledblocks + "}\n"+ end_template
+    
 
     return whole
 

@@ -1,7 +1,7 @@
-respawn_red
-respawn_blu
-mini_spire
-cp_koth_prefab
 wall
 blank_prefab
 corner
+respawn_test
+respawn_blu
+cp_koth_prefab
+mini_spire
