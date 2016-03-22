@@ -1,7 +1,0 @@
-# Option 1: Source code.
-To use this method, you will need Python 3.4 or greater, and two extra modules. The steps for installing those can be found [here](https://github.com/baldengineers/easytf2_mapper/wiki/Required-Modules-(Source)). As a side-note, you will have to install Python before you install modules for it. After all that is installed, download the source code from the latest release or the master branch in a zip. Unzip the zip you just downloaded to a folder of your choice. Once it's extracted, run main.py using Python (this may open it up in idle, just run by pressing f5 or setting the default opening of ".py"s to python.exe rather than idle). This should work, but the main purpose of downloading the source code is for you to make your own changes.
-
-# Option 2: Windows Executable.
-To use this method, all you need to have is the Windows operating system. Find a copy of the windows redistrutable at one of the sources [here](https://github.com/baldengineers/easytf2_mapper/wiki/Windows-Redistributable), and download the zip. Unzip the zip, and run the main executable (EasyTF2Mapper.exe).
-
-If any of these methods of redistributing does not work for you, send the team an email at toadsrc@gmail.com.

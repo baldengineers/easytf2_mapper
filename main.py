@@ -1,7 +1,8 @@
-#use blocks to create maps
+#!/usr/bin/env python3
 import sys
 sys.path.append("prefabs/")
 import os.path
+import os
 from PySide.QtCore import *
 from PySide.QtGui import *
 import importlib
@@ -10,18 +11,21 @@ from PIL import Image
 import generateSkybox
 import light_create
 import subprocess
+import pickle
+import pprint
+import glob
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
 class GridBtn(QWidget):
-    def __init__(self, self_global, x, y, btn_id):
+    def __init__(self, parent, x, y, btn_id):
         super(GridBtn, self).__init__()
-        self.button = QPushButton("", self_global)
+        self.button = QPushButton("", parent)
         self.x = 32*x
         self.y = 20+(32*y)
         self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.setFixedSize(32, 32)
-        self.button.pressed.connect(lambda: self.click_func(self_global, x, y,
+        self.button.pressed.connect(lambda: self.click_func(parent, x, y,
                                                             btn_id))
         self.button.setMouseTracking(True)
         self.button.installEventFilter(self)
@@ -30,13 +34,14 @@ class GridBtn(QWidget):
     def reset_icon(self):
         self.button.setIcon(QIcon())
 
-    def click_func(self, self_global, x, y, btn_id):
+    def click_func(self, parent, x, y, btn_id):
         self.checkForAlt()
         global rotation
         if toggle != 0:
             self.button.setIcon(QIcon())
-            totalblocks[btn_id] = 'EMPTY_SLOT'
-            entity_list[btn_id] = 'NO_ENTITY'
+            totalblocks[level][btn_id] = ''
+            entity_list[level][btn_id] = ''
+            iconlist[level][btn_id] = ''
         else:
             print((x,y))
             global world_id_num
@@ -46,21 +51,30 @@ class GridBtn(QWidget):
             global placeholder_list
             global icon
             global rotation
+            global totalblocks
+            global entity_list
+            global levels
+            #print(totalblocks)
+            #print(btn_id)
             #eval() turns the string into a variable name.
-            moduleName = eval(prefab_list[self_global.tile_list.currentRow()])
+            moduleName = eval(prefab_list[parent.tile_list.currentRow()])
             #print(rotation)
             try:
                 try:
                     try:
-                        create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation)
+                        try:
+                            create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
+                        except Exception as e:
+                            print(str(e))
+                            create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
                     except Exception as e:
                         print(str(e))
-                        create = moduleName.createTile(x, y, id_num, world_id_num)
+                        create = moduleName.createTile(x, y, id_num, world_id_num, level)
                 except Exception as e:
                     print(str(e))
-                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list)
+                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, level)
             except Exception as e:
-                create = moduleName.createTile(x, y, id_num, world_id_num, rotation)
+                create = moduleName.createTile(x, y, id_num, world_id_num, rotation, level)
                 print(str(e))
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
@@ -71,7 +85,7 @@ class GridBtn(QWidget):
                 #print("placeholder list: ", placeholder_list)
             except IndexError:
                 pass
-            #if self_global.comboBox.currentIndex() != 0:
+            #if parent.comboBox.currentIndex() != 0:
                 #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
                 #world_id_num +=1
                 #create = create + create2
@@ -87,13 +101,11 @@ class GridBtn(QWidget):
                 #this is obsolete -anson
             ###
             ###
-            ###FOR THIS TO WORK, WE NEED TO ADD ALL THE PREFABS & THEIR ICONS TO THE LIST
-            ###BUT FUCK ME I'M TIRED
             try:
                 #print(rotation)
                 current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
                 current_prefab_icon_list = current_prefab_icon_list.readlines()
-                current_prefab_icon_list = current_prefab_icon_list[self_global.tile_list.currentRow()]
+                current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
                 if "\n" in current_prefab_icon_list:
                     current_prefab_icon_list = current_prefab_icon_list[:-1]
                 current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
@@ -106,17 +118,22 @@ class GridBtn(QWidget):
                 self.button.setIconSize(QSize(32,32))
             except Exception as e:
                 print(str(e))
-                icon = prefab_icon_list[self_global.tile_list.currentRow()]
+                icon = prefab_icon_list[parent.tile_list.currentRow()]
                 self.button.setIcon(QIcon(icon))
                 self.button.setIconSize(QSize(32,32))
 
-
-            totalblocks[btn_id] = create[0]
+            #print(iconlist,level, btn_id)
+            iconlist[level][btn_id] = icon
+            totalblocks[level][btn_id] = create[0]
+            #print(btn_id)
+            #print(iconlist)
+            
             try:
-                entity_list[btn_id] = create[4]
-            except:
-                pass
-
+                entity_list[level][btn_id] = create[4]
+                #print(create[4])
+            except Exception as e:
+                print(str(e))
+            print(level)
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
         if modifiers == Qt.ControlModifier:
@@ -178,7 +195,7 @@ class MainWindow(QMainWindow):
         gridAction = QAction("&Set Grid Size", self)
         gridAction.setShortcut("Ctrl+G")
         gridAction.setStatusTip("Set Grid Height and Width. RESETS ALL BLOCKS.")
-        gridAction.triggered.connect(self.grid_change)
+        gridAction.triggered.connect(lambda: self.grid_change(0,0,0,True,False,True))
 
         createPrefabAction = QAction("&Prefab", self)
         createPrefabAction.setShortcut("Ctrl+I")
@@ -201,8 +218,8 @@ class MainWindow(QMainWindow):
         createMenu = mainMenu.addMenu("&Create")
         
         #fileMenu.addAction(newAction)
-        #fileMenu.addAction(openAction)
-        #fileMenu.addAction(saveAction)
+        fileMenu.addAction(openAction)
+        fileMenu.addAction(saveAction)
         fileMenu.addAction(exportAction)
         fileMenu.addAction(exitAction)
         fileMenu.addAction(hammerAction)
@@ -215,6 +232,8 @@ class MainWindow(QMainWindow):
         
         self.home()
         self.change_skybox()
+        self.level_select()
+
     def open_hammer(self,loaded,file):
         self.open_file()
         if "loaded_first_time" not in self.files:
@@ -247,6 +266,7 @@ class MainWindow(QMainWindow):
                 self.file.close()
                 os.remove("startupcache/startup.su")
                 self.open_hammer(0,"null")
+
     def open_file(self):
         try:
             self.file = open("startupcache/startup.su", "r+")
@@ -254,6 +274,7 @@ class MainWindow(QMainWindow):
             self.file = open("startupcache/startup.su", "w+")
         self.fileloaded = self.file.readlines()
         self.files = "".join(self.fileloaded)
+
     def remove_prefabs(self):
         import removeText
         num = QInputDialog.getText(self,("Remove Prefabs"),("Remove x number of prefabs from the back of the list. REQUIRES RESTART"))
@@ -261,7 +282,7 @@ class MainWindow(QMainWindow):
             num = int(num[0])
         except:
             QMessageBox.critical(self, "Error", "Please enter a number.")
-            self.remove_prefab()
+            self.remove_prefabs()
         removeText.reset(num)
 
     def closeEvent(self, event):
@@ -270,6 +291,8 @@ class MainWindow(QMainWindow):
         self.close_application()
         
     def home(self):
+        #test
+        global levels
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
         #self.labelLayout = QHBoxLayout(self)
@@ -292,11 +315,12 @@ class MainWindow(QMainWindow):
             pass
 
 
-
+        actiondict = {}
         self.buttonLabel = QLabel("Rotation:",self)
         #self.currentLabel = QLabel("Current Rotation:",self)
         self.listLabel = QLabel("List of prefabs:",self)
         self.gridLabel = QLabel("Grid:",self)
+        
 
         #self.labelLayout.addWidget(self.gridLabel)
         #self.labelLayout.addWidget(self.listLabel)
@@ -308,19 +332,29 @@ class MainWindow(QMainWindow):
         self.current.setIconSize(QSize(40,40))
         self.current.setFixedSize(QSize(40,40))
 
-        self.rotateCW = QPushButton("",self)
-        self.rotateCW.setIcon(QIcon('icons/rotate_cw.jpg'))
+        self.level = QPushButton(self)
+
+        self.level.setText("Level:")
+        
+        self.level.setFixedSize(QSize(150,30))
+        #self.level.setMenu(self.levelMenu)
+        self.level.clicked.connect(self.level_select)
+        
+        self.rotateCW = QToolButton(self)
+        self.rotateCW.setIcon(QIcon('icons/rotate_cw.png'))
         self.rotateCW.setIconSize(QSize(40,40))
         self.rotateCW.setFixedSize(QSize(40,40))
+        self.rotateCW.setAutoRaise(True)
 
-        self.rotateCCW = QPushButton("",self)
-        self.rotateCCW.setIcon(QIcon('icons/rotate_ccw.jpg'))
+        self.rotateCCW = QToolButton(self)
+        self.rotateCCW.setIcon(QIcon('icons/rotate_ccw.png'))
         self.rotateCCW.setIconSize(QSize(40,40))
         self.rotateCCW.setFixedSize(QSize(40,40))
+        self.rotateCCW.setAutoRaise(True)
 
         #sets rotation value. 0 = right, 1 = down, 2 = left, 3 = right
-        self.rotateCW.clicked.connect(lambda:self.rotateCW_func())
-        self.rotateCCW.clicked.connect(lambda:self.rotateCCW_func())
+        self.rotateCW.clicked.connect(self.rotateCW_func)
+        self.rotateCCW.clicked.connect(self.rotateCCW_func)
         
         self.button_rotate_layout = QHBoxLayout()
         self.button_rotate_layout.addWidget(self.buttonLabel)
@@ -328,12 +362,31 @@ class MainWindow(QMainWindow):
         #self.button_rotate_layout.addWidget(self.currentLabel)
         self.button_rotate_layout.addWidget(self.current)
         self.button_rotate_layout.addWidget(self.rotateCW)
+        self.button_rotate_layout.addWidget(self.level)
 
         self.button_rotate_layout.addStretch(1)
                                
         self.tile_list = QListWidget()
         self.tile_list.setMaximumWidth(200)
 
+        self.up_tool_btn = QToolButton(self)
+        self.up_tool_btn.setIcon(QIcon('icons/up.png'))
+        self.up_tool_btn.clicked.connect(self.prefab_list_up)
+        
+        self.down_tool_btn = QToolButton(self)
+        self.down_tool_btn.setIcon(QIcon('icons/down.png'))
+        self.down_tool_btn.clicked.connect(self.prefab_list_down)
+        
+        self.del_tool_btn = QToolButton(self)
+        self.del_tool_btn.setIcon(QIcon('icons/delete.png'))
+        self.del_tool_btn.clicked.connect(lambda: self.prefab_list_del(self.tile_list.currentRow(), self.tile_list.currentItem()))
+        
+        self.tile_toolbar = QToolBar()
+        self.tile_toolbar.addWidget(self.up_tool_btn)
+        self.tile_toolbar.addSeparator()
+        self.tile_toolbar.addWidget(self.down_tool_btn)
+        self.tile_toolbar.addSeparator()
+        self.tile_toolbar.addWidget(self.del_tool_btn)
 
         
         for index, text in enumerate(prefab_text_list):
@@ -345,6 +398,7 @@ class MainWindow(QMainWindow):
         self.tile_list_layout = QVBoxLayout()
         self.tile_list_layout.addWidget(self.listLabel)
         self.tile_list_layout.addWidget(self.tile_list)
+        self.tile_list_layout.addWidget(self.tile_toolbar)
         
         self.button_grid_layout = QGridLayout()
         self.button_grid_layout.setSpacing(0)
@@ -373,11 +427,6 @@ class MainWindow(QMainWindow):
         self.button_grid_all.addLayout(self.gridLayout)
         #self.button_grid_all.addStretch(1)
         #self.button_grid_all.addWidget(self.scrollArea)
-    
-#PPPPPPPLLLLLLLLLLLLEEEEEEEAAAAAAAASSSSSSSSSEEEEEEEEEEEEHHHHHHHLLLLLEEEEPPPP
-        #self.button_grid_all.addStretch(1) #need to add or else gridLabel is not visible. Perhaps hidden under the scrollArea? plzhlep
-        #self.button_grid_all.addWidget(self.scrollArea)
-#^^^^^^^^^^^^^^^^^^^^^^^^^^HEEEELLLLLPPPPPPP^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         
         self.column = QHBoxLayout()
         self.column.addLayout(self.button_grid_all)
@@ -399,19 +448,27 @@ class MainWindow(QMainWindow):
         except:
             f = open('startupcache/firsttime.su','w+')
             lines = f.readlines()
+            
         if "startup" not in lines:
+            '''
             self.popup = QMessageBox(self)
             self.popup.setGeometry(100,100,500,250)
             self.popup.setWindowTitle("First Launch")
             self.popup.setInformativeText("You haven't launched this before! Try looking at the <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">wiki</a> for help!")
             self.popup.setText("First Launch!")
             self.popup.exec_()
+            #this is obsolete - jony
+            '''
+
+            QMessageBox.information(self, "First Launch", "First Launch!\n\nYou haven't launched this before! Try looking at the <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">wiki</a> for help!")
             f.write("startup")
             f.close
+            subprocess.Popen("associconwin.bat")
+            #WILL ONLY WORK IN REDIST FORM
         else:
             pass
         
-        self.grid_change()
+        self.grid_change(0,0,0,True, False, True)
         '''
         while True:
             try:
@@ -423,6 +480,43 @@ class MainWindow(QMainWindow):
         
         self.show()
 
+    def level_select(self):
+        self.windowl = QDialog(self)
+        global levels
+        #testing
+        #
+        self.levellist = QListWidget()
+        self.levellist.setIconSize(QSize(200, 25))
+        try:
+            for i in range(levels):
+                item = QListWidgetItem(QIcon("icons/level.jpg"),"Level "+str(i+1))
+                self.levellist.addItem(item)
+        except Exception as e:
+            print(str(e))
+            pass
+
+        self.levellist.itemClicked.connect(self.change_level)
+        self.layoutl = QHBoxLayout()
+        self.layoutl.addWidget(self.levellist)
+        self.windowl.setGeometry(150,150,400,300)
+        self.windowl.setWindowTitle("Choose a level")
+        self.windowl.setWindowIcon(QIcon("icons/icon.ico"))
+        self.windowl.setLayout(self.layoutl)
+        self.windowl.exec_()
+
+    def change_level(self):
+        global level
+        self.file_save(True)
+        level = int(self.levellist.currentRow()) #+1 X First level should be 0
+        print(level)
+        self.file_open(True)
+        self.windowl.close()
+        self.level.setText("Level: " + str(level+1))
+        #print(totalblocks)
+        #print(iconlist)
+        #change grid to grid for level
+        
+
     def rotateCW_func(self):
         global rotation
         if rotation < 3:
@@ -430,6 +524,7 @@ class MainWindow(QMainWindow):
         else:
             rotation = 0
         self.changeIcon()
+
     def rotateCCW_func(self):
         global rotation
         if rotation == 0:
@@ -437,6 +532,65 @@ class MainWindow(QMainWindow):
         else:
             rotation = rotation - 1
         self.changeIcon()
+
+    def prefab_list_up(self):
+        self.tile_list.setCurrentRow(self.tile_list.currentRow() - 1)
+
+    def prefab_list_down(self):
+        self.tile_list.setCurrentRow(self.tile_list.currentRow() + 1)
+
+    def prefab_list_del(self, currentprefab, currentText):
+        self.restartCheck = QCheckBox()
+        self.restartCheck.setText("Restart after deletion?")
+
+        choice = QMessageBox.question(self,"Delete Prefab","Are you sure you want to delete \"%s\"?\n" %(prefab_text_list[currentprefab]),
+                             QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        
+        #choice.addWidget(self.restartCheck)
+        #self.layout = choice.layout()
+        #self.layout.addWidget(QMessageBox.Yes)
+        #self.layout.addWidget(QMessageBox.No)
+        #self.layout.addWidget(self.restartCheck)
+        #choice.show()        
+        if choice == QMessageBox.Yes:
+            text_list = ['prefab_template/prefab_text_list.txt','prefab_template/rot_prefab_list.txt',
+                 'prefab_template/prefab_list.txt', 'prefab_template/prefab_icon_list.txt']
+
+            for cur in text_list:
+                file = open(cur, 'r+')
+                cur_list = file.readlines()
+                file.seek(0)
+                file.truncate()
+                
+                del cur_list[currentprefab]
+                cur_str = "".join(cur_list)
+                file.write(cur_str)
+                file.close()
+            
+            restart_btn = QPushButton("Restart")
+            later_btn = QPushButton("Later")
+            choice = QMessageBox(self)
+            choice.setIcon(QMessageBox.Question)
+            choice.setWindowTitle("Prefab Successfully Deleted")
+            choice.setText("Program must be restarted for changes to take effect.")
+            choice.setInformativeText("Restart? You will lose any unsaved progress.")
+            choice.addButton(restart_btn, QMessageBox.YesRole)
+            choice.addButton(later_btn, QMessageBox.NoRole)
+            choice.setDefaultButton(restart_btn)
+            print(choice.exec_())
+                              
+            if choice.exec_() == 0:
+                try:
+                    subprocess.Popen('EasyTF2Mapper.exe')
+                except:
+                    subprocess.Popen('python main.py')
+                sys.exit()
+            else:
+                pass
+            
+        else:
+            pass
+
     def changeIcon(self):
         global rotation
         try:
@@ -461,33 +615,135 @@ class MainWindow(QMainWindow):
  
         
         
-    def file_open(self):
-        name = QFileDialog.getOpenFileName(self, "Open File", "C:/","*.sav")
-        file = open(name, "r")
-        openlines = file.readlines()
-        openlinesstr = "".join(openlines)
+    def file_open(self, tmp = False, first = False):
+        global grid_list, iconlist, level, totalblocks,entity_list
+        if not tmp:
+            name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
+            file = open(name[0], "rb")
+            level = 0
+            #del totalblocks, entity_list,iconlist,grid_list
+            iconlist=[]
+            while True:
+                #try:
+                header = pickle.load(file)
+                if "levels" in header:
+                    openlines = pickle.load(file)
+                    levelcountload = openlines
+                    
+                elif "grid_size" in header:
+                    openlines = pickle.load(file)
+                    self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
+                elif "totalblocks" in header:
+                    totalblocks=[]
+                    openlines = pickle.load(file)
+                    for item in openlines:
+                        #print(item)
+                        totalblocks.append(item)
+                elif "entity_list" in header:
+                    entity_list=[]
+                    openlines = pickle.load(file)
+                    
+                    for item in openlines:
+                        entity_list.append(item)
+                elif "icon_list" in header:
+                    global grid_list
+                    iconlist=[]
+                    openlines = pickle.load(file)
+                    #print(openlines)
+
+                    for item in openlines:
+                        iconlist.append(item)
+                    for index, icon in enumerate(iconlist[0]):
+                        #print(iconlist)
+                        if "icons" in icon:
+                            #print(index)
+                            grid_list[index].button.setIcon(QIcon(icon))
+                            grid_list[index].button.setIconSize(QSize(32,32))
+                elif "skybox2_list" in header:
+                    openlines = pickle.load(file)
+                    skybox2_list.setCurrentRow(openlines)
+                else:
+                    break
+                #print(iconlist)
+                #print(totalblocks)
+            #print(iconlist)
+            #print(totalblocks)
+        
+            for i in range(levelcountload):
+                file = open("leveltemp/level" + str(i), "wb")
+                pickle.dump(iconlist[i], file)
+                file.close()
+              
+            self.change_skybox()
+            file.close()
+            
+        else:
+            try:
+                file = open("leveltemp/level" + str(level), "rb")
+                iconlist[level] = pickle.load(file)
+                file.close()
+                print(grid_list)
+                for index, icon in enumerate(iconlist[level]):
+                    #print(icon)
+                    grid_list[index].button.setIcon(QIcon(icon))
+                    grid_list[index].button.setIconSize(QSize(32,32))
+            except Exception as e:
+                print(str(e))
+        
+        #print(totalblocks)
+        #print("totalblocks: ", totalblocks)
+        #print("entity_list: ", entity_list)
+        #openlines = file.readlines()
+        #openlinesstr = "".join(openlines)
         
         #now, it imports the vmf, and has two versions of it; the importlines which has each
         #line as a string in a list, and importlinesstr, which makes it one big string
             
-    def file_save(self):
-        name = QFileDialog.getSaveFileName(self, "Save File", "C:/", "*.sav")
-        file = open(name[1], "w")
-        text = self.textEdit.toPlainText()
-        file.write(text)
-        file.close()
+    def file_save(self, tmp = False):
+        global grid_x, grid_y, iconlist, levels, level
+        gridsize_list = (grid_x,grid_y,levels)
+        skybox_sav = skybox2_list.currentRow()
+        if not tmp:
+            name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
+            file = open(name[0], "wb")
+            pickle.dump("<levels>",file)
+            pickle.dump(levels,file)
+            pickle.dump("<grid_size>", file)
+            pickle.dump(gridsize_list, file)
+            #for i in range(levels):
+            pickle.dump("<totalblocks>", file)
+            pickle.dump(totalblocks, file)
+            pickle.dump("<entity_list>", file)
+            pickle.dump(entity_list, file)
+            pickle.dump("<icon_list>", file)
+            pickle.dump(iconlist, file)
+            print(iconlist)
+            pickle.dump("<skybox>", file)
+            pickle.dump(skybox_sav, file)
+            file.close()
+            QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
+        else:
+            try:#writes tmp file to save the icons for each level
+                file = open("leveltemp/level" + str(level), "wb")
+                pickle.dump(iconlist[level], file)
+                file.close()
+            except Exception as e:
+                print(str(e))
+        #text = self.textEdit.toPlainText()
+        #file.write(text)
+        
+        
 
     def file_export(self):
         global id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list
         skyboxgeolist = []
-        skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, 512 minimum recommended):"))
+        skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, %d minimum recommended):" %(levels*512)))
         try:
             skyboxz = int(skyboxz[0])
         except:
             QMessageBox.critical(self, "Error", "Please enter a number.")
             self.file_export()
         #generate skybox stuff now
-        #POPUP ASKING FOR SKYBOX HEIGHT
         create = generateSkybox.createSkyboxLeft(grid_x,grid_y,skyboxz,id_num,world_id_num)
         skyboxgeolist.append(create[0])
         id_num = create[1]
@@ -506,7 +762,9 @@ class MainWindow(QMainWindow):
         world_id_num = create[2]
         create = generateSkybox.createSkyboxSouth(grid_x,grid_y,skyboxz,id_num,world_id_num)
         skyboxgeolist.append(create[0])
-    
+        print(count_btns)
+        print(len(entity_list))
+        #print(totalblocks)
         skybox = skybox_list[skybox2_list.currentRow()]
         skyboxlight = skybox_light_list[skybox2_list.currentRow()]
         skyboxangle = skybox_angle_list[skybox2_list.currentRow()]
@@ -518,11 +776,11 @@ class MainWindow(QMainWindow):
         except:
             QMessageBox.critical(self, "Error", "Please choose a skybox.")
             self.change_skybox()
-        entity_list[count_btns] = currentlight
+        entity_list[0][levels] = currentlight
         name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
         file = open(name[0], "w")
         import export
-        wholething = export.execute(totalblocks, entity_list, skybox,skyboxgeolist)
+        wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
         #print(wholething)
         file.write(wholething)
         file.close()
@@ -555,50 +813,78 @@ class MainWindow(QMainWindow):
 
         #self.clearlist()
         
-    def grid_change(self):
-        self.count=0
-        try:
-            del entity_list
-            del totalblocks
-        except:
+    def grid_change(self,xvar,yvar,zvar,var,var2,var3):
+        global totalblocks,entity_list,grid_list,iconlist
+        if var2 == True:
+            sxvar = xvar
+            syvar = yvar
+            szvar = zvar
+        else:
             pass
-        entity_list = []
-        totalblocks = []
+        self.count = 0
+        count_btns=0
+        if var3 == True:
+            try:
+                del entity_list
+                del totalblocks
+                del iconlist
+                del grid_list
+                entity_list = []
+                iconlist = []
+                totalblocks = []
+                grid_list = []
+            except Exception as e:
+                print(str(e))
+                pass
+
+        #gridsize_list = []
         self.btn_id_count = 0
+        if var == True:
+            self.window = QDialog(self)
 
-        self.window = QDialog(self)
+            self.text = QLineEdit()
+            self.text2 = QLineEdit()
+            self.text3 = QLineEdit()
 
-        self.text = QLineEdit()
-        self.text2 = QLineEdit()
+            self.okay_btn = QPushButton("OK",self)
+            self.okay_btn.clicked.connect(lambda: self.grid_change_func(self.text.displayText(), self.text2.displayText(), self.text3.displayText()))
 
-        self.okay_btn = QPushButton("OK",self)
-        self.okay_btn.clicked.connect(lambda: self.grid_change_func(self.text.displayText(), self.text2.displayText()))
+            self.form = QFormLayout()
+            self.form.addRow("Set Grid Width:",self.text)
+            self.form.addRow("Set Grid Height:",self.text2)
+            self.form.addRow("Set Amount of Levels:",self.text3)
+            self.form.addRow(self.okay_btn)
 
-        self.form = QFormLayout()
-        self.form.addRow("Set Grid Width:",self.text)
-        self.form.addRow("Set Grid Height:",self.text2)
-        self.form.addRow(self.okay_btn)
-
-        self.window.setLayout(self.form)
-        self.window.setWindowTitle("Set Grid Size")
-        self.window.exec_()
+            self.window.setLayout(self.form)
+            self.window.setWindowTitle("Set Grid Size")
+            self.window.exec_()
+        elif var2 == True:
+            self.grid_change_func(sxvar,syvar,szvar)
+            #print('test')
         '''
         text = QInputDialog.getText(self,("Get Grid Y"),
                                      ("Grid Height:"))                                    
         text2 = QInputDialog.getText(self,("Get Grid X"),
                                      ("Grid Width:"))
         '''
-    def grid_change_func(self,x,y):
-        global grid_y, grid_x
-        self.window.deleteLater()
+
+    def grid_change_func(self,x,y,z):
+        count_btns = 0
+        self.count = 0
+        global grid_y, grid_x, levels
+        try:
+            self.window.deleteLater()
+        except:
+            pass
 
         try:
             self.grid_y = int(y)
             self.grid_x = int(x)
+            levels = int(z)
         except ValueError:
             #TODO: Instead of a print statement, we need to bring up a window, alerting the user
             QMessageBox.critical(self.window, "Error", "Please enter a number.")
-            self.grid_change()
+            self.grid_change(0,0,0,False,False,True)
 
         self.removeButtons()
         #self.removeDropdown()
@@ -606,28 +892,38 @@ class MainWindow(QMainWindow):
         #print(self.grid_y)
         #print(self.grid_x)
 
+        for z in range(levels):
+            totalblocks.append([])
+            entity_list.append([])
+            iconlist.append([])
+            self.btn_id_count=0
+            count_btns=0
+            #print(totalblocks)
+        
+            for x in range(self.grid_x):
+                
+                for y in range(self.grid_y):
+                    totalblocks[z].append("") #This is so that there are no problems with replacing list values
+                    
+                    global count_btns
+                    count_btns += 1
+                    entity_list[z].append("")
+                    iconlist[z].append("")
         for x in range(self.grid_x):
             for y in range(self.grid_y):
-                #print("test") #testing if works
                 grid_btn = GridBtn(self, x, y, self.btn_id_count)
-                self.button_grid_layout.addWidget(grid_btn.button,y,x) #needs to be like this because grid_layout is counter-intuitive
-                #self.button_grid_layout.setColumnMinimumWidth(y, 32)
-                #self.layout_grid.addWidget(grid_btn.button,x,y)
-                
-                grid_list.append(grid_btn)
-                totalblocks.append("EMPTY_SLOT") #This is so that there are no problems with replacing list values
+                self.button_grid_layout.addWidget(grid_btn.button,y,x)
                 self.btn_id_count += 1
-                global count_btns
-                count_btns += 1
-                entity_list.append("NO_ENTITY")
-            #self.button_grid_layout.setRowMinimumHeight(x, 32)
+                grid_list.append(grid_btn)
         entity_list.append("lighting slot")
-        #print(totalblocks)
+        #pprint.pprint(totalblocks)
 
         #print(entity_list)        
         self.count += 1
+        count_btns = self.grid_x*self.grid_y
         grid_y = self.grid_y
         grid_x = self.grid_x
+
         self.scrollArea.deleteLater()
         self.scrollArea = QScrollArea(self)
         self.scrollArea.setBackgroundRole(QPalette.Light)
@@ -637,7 +933,6 @@ class MainWindow(QMainWindow):
         self.scrollArea.setWidget(self.grid_widget)
         self.scrollArea.ensureWidgetVisible(self.grid_widget)
         self.scrollArea.setWidgetResizable(True)
-
         
         #if not self.grid_y > 16 and not self.grid_x > 16:
             #self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, self.grid_y*32+32))
@@ -662,29 +957,17 @@ class MainWindow(QMainWindow):
         '''
         #self.scrollFrameLayout.addWidget(self.scrollArea)
 
-
+        for i in range(levels):
+            file = open("leveltemp/level" + str(i), "wb")
+            pickle.dump(iconlist[i], file)
+            file.close()
         
         self.gridLayout.addWidget(self.scrollArea)
         self.button_grid_all.addLayout(self.gridLayout)
-        
-            #print('restrict x')
-        #self.comboBox = QComboBox(self)
-        #self.comboBox.resize(128, 16)
-        #for item in prefab_text_list:
-        #    self.comboBox.addItem(item)
-        #self.comboBox.move(32*self.count+2, 22)
-        #self.comboBox.show()
-            
-    #def removeDropdown(self):
-     #   try:
-      #      self.comboBox.deleteLater()
-       #     del totalblocks[:]
-        #    global world_id_num
-         #   world_id_num = 2
-        #except:
-         #   print('ok')
-    #def clearlist(self):
-     #    grid_list=[]
+        #print(grid_list)
+        #print(iconlist)
+        return grid_list
+
     def change_light(self):
         r_input = QInputDialog.getText(self, ("Red light level 0-255"),
                                        ("Put in the red light ambiance level, 0-255:"))
@@ -719,7 +1002,7 @@ class MainWindow(QMainWindow):
         for index, text in enumerate(skybox_list):
             item = QListWidgetItem(QIcon(skybox_icon_list[index]), text)
             skybox2_list.addItem(item)
-
+        
         self.layout = QHBoxLayout()
         self.layout.addWidget(skybox2_list)
         self.window.setGeometry(150,150,400,300)
@@ -727,6 +1010,7 @@ class MainWindow(QMainWindow):
         self.window.setWindowIcon(QIcon("icons\icon.ico"))
 
         self.window.setLayout(self.layout)
+        skybox2_list.itemClicked.connect(self.window.close)
         self.window.exec_()
     '''
     def importprefabs(self):
@@ -753,6 +1037,7 @@ class MainWindow(QMainWindow):
         self.home()
     '''
     #fix this later, it has a breaking bugs if it works
+
     def close_application(self):
         choice = QMessageBox.question(self, "Exit",
                                       "Are you sure you want to exit?",
@@ -760,13 +1045,16 @@ class MainWindow(QMainWindow):
                                       QMessageBox.No)
         if choice == QMessageBox.Yes:
             sys.exit()
+            filesdel = glob.glob('leveltemp/.*')
+            for f in filesdel:
+                os.remove(f)
         else:
             pass
 
     def create_prefab(self):
         '''
-        name = QFileDialog.getOpenFileName(self, "Choose .vmf File", "C:/","*.vmf")
-        prefab_icon = QFileDialog.getOpenFileName(self, "Choose Prefab Icon", "C:/","*.jpg")
+        name = QFileDialog.getOpenFileName(self, "Choose .vmf File", "/","*.vmf")
+        prefab_icon = QFileDialog.getOpenFileName(self, "Choose Prefab Icon", "/","*.jpg")
         prefab_name = QInputDialog.getText(self,"Prefab Name",
                                      "Name of Prefab (e.g. wall_prefab):")
         prefab_text = QInputDialog.getText(self, "Prefab Text",
@@ -781,10 +1069,10 @@ class MainWindow(QMainWindow):
         self.iconTextEdit = QLineEdit()
         
         self.vmfBrowse = QPushButton("Browse",self)
-        self.vmfBrowse.clicked.connect(lambda: self.vmfTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .vmf File", "C:/","*.vmf")[0]))
+        self.vmfBrowse.clicked.connect(lambda: self.vmfTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .vmf File", "/","*.vmf")[0]))
         
         self.iconBrowse = QPushButton("Browse",self)
-        self.iconBrowse.clicked.connect(lambda: self.iconTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .jpg File", "C:/","*.jpg")[0]))
+        self.iconBrowse.clicked.connect(lambda: self.iconTextEdit.setText(QFileDialog.getOpenFileName(self, "Choose .jpg File", "/","*.jpg")[0]))
 
         self.vmfLayout = QHBoxLayout()
         self.vmfLayout.addWidget(self.vmfTextEdit)
@@ -804,7 +1092,7 @@ class MainWindow(QMainWindow):
         self.okay_btn_layout.addStretch(1)
         self.okay_btn_layout.addWidget(self.okay_btn)
 
-        self.okay_btn.clicked.connect(lambda: self.create_run_func())
+        self.okay_btn.clicked.connect(self.create_run_func)
 
         self.rotCheckBox = QCheckBox()
         
@@ -827,38 +1115,48 @@ class MainWindow(QMainWindow):
 
         self.window.setLayout(self.form)
         self.window.exec_()
-    def create_run_func(self):
 
-        self.ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
-        self.icondir = str(self.nameLineEdit.displayText())
-        with open("prefab_template/rot_prefab_list.txt", "a") as g:
-            g.write(self.icondir+"_icon_list.txt\n")
-        g.close()
-        self.imageRot = Image.open(self.iconTextEdit.displayText())
-        self.imageRot.save("icons/"+self.icondir+"_right.jpg")
-        self.imageRot2 = Image.open(self.iconTextEdit.displayText())
-        self.imageRot2 = self.imageRot2.rotate(270)
-        self.imageRot2.save("icons/"+self.icondir+"_down.jpg")
-        self.imageRot3 = Image.open(self.iconTextEdit.displayText())
-        self.imageRot3 = self.imageRot3.rotate(180)
-        self.imageRot3.save("icons/"+self.icondir+"_left.jpg")
-        self.imageRot4 = Image.open(self.iconTextEdit.displayText())
-        self.imageRot4 = self.imageRot4.rotate(90)
-        self.imageRot4.save("icons/"+self.icondir+"_up.jpg")
-        f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
-        for i in self.ext_list:
-            f.write("icons/"+self.icondir+i+"\n")
-        f.close()
-        
+    def create_run_func(self):
+        if self.rotCheckBox.isChecked():
+        #no it doesn't create errors boyo
+            self.ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
+            self.icondir = str(self.nameLineEdit.displayText())
+            with open("prefab_template/rot_prefab_list.txt", "a") as f:
+                f.write(self.icondir+"_icon_list.txt\n")
+            #g.close() - useless, because you said "with open() as g," which automatically closes it
+            self.imageRot = Image.open(self.iconTextEdit.displayText())
+            self.imageRot.save("icons/"+self.icondir+"_right.jpg")
+            self.imageRot2 = Image.open(self.iconTextEdit.displayText())
+            self.imageRot2 = self.imageRot2.rotate(270)
+            self.imageRot2.save("icons/"+self.icondir+"_down.jpg")
+            self.imageRot3 = Image.open(self.iconTextEdit.displayText())
+            self.imageRot3 = self.imageRot3.rotate(180)
+            self.imageRot3.save("icons/"+self.icondir+"_left.jpg")
+            self.imageRot4 = Image.open(self.iconTextEdit.displayText())
+            self.imageRot4 = self.imageRot4.rotate(90)
+            self.imageRot4.save("icons/"+self.icondir+"_up.jpg")
+            f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
+            for i in self.ext_list:
+                f.write("icons/"+self.icondir+i+"\n")
+            f.close()
+
+        else:
+            with open("prefab_template/rot_prefab_list.txt", "a") as f:
+                f.write("NO_ROTATION\n")
+                f.close()
+            f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
+            for i in range(4):
+                f.write("icons/"+self.icondir+"\n")
+            f.close()
+            
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
-                                                                      createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
-                                                                        self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked()))
-        
-        
+                                                                          createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
+                                                                            self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked()))
         
         #self.importprefabs()
 
 #define some global variables
+level = 0
 id_num = 1
 rotation = 0
 world_id_num = 2
@@ -869,14 +1167,18 @@ grid_list=[]
 totalblocks = []
 skybox_list=[]
 skybox_light_list=[]
+iconlist = []
 skybox_angle_list=[]
 skybox_icon_list=[]
 prefab_list = []
+gridsize_list = []
 count_btns = 0
 entity_list=[]
 prefab_text_list = []
 prefab_icon_list = []
+openblocks=[]
 placeholder_list = []
+
 currentlight = '''
 entity
 {
@@ -902,19 +1204,31 @@ entity
 }
 '''
 skybox = 'sky_tf2_04'
+batchtext = '''
+set ftypename=Easy TF2 Mapper Save
+set extension=.ezm
+set pathtoexe="EasyTF2Mapper.exe"
+set pathtoicon="icons/icon.ico"
+
+if %pathtoicon%=="" set pathtoicon=%pathtoexe%,0
+REG ADD HKEY_CLASSES_ROOT\%extension%\ /t REG_SZ /d %ftypename% /f
+REG ADD HKLM\SOFTWARE\Classes\%ftypename%\DefaultIcon\ /t REG_SZ /d %pathtoicon% /f
+ftype %ftypename%=%pathtoexe% "%%1" %%*
+assoc %extension%=%ftypename%
+'''
 #skyboxlight = '255 255 255 200'
 #skyboxangle = '0 0 0'
 #if the user does not change the lighting, it sticks with this.
 #if the user does not choose a skybox it sticks with this
 
-prefab_file = open("prefab_template\prefab_list.txt")
-prefab_text_file = open("prefab_template\prefab_text_list.txt")
-prefab_icon_file = open("prefab_template\prefab_icon_list.txt")
+prefab_file = open("prefab_template/prefab_list.txt")
+prefab_text_file = open("prefab_template/prefab_text_list.txt")
+prefab_icon_file = open("prefab_template/prefab_icon_list.txt")
 
-skybox_file = open("prefab_template\skybox_list.txt")
-skybox_icon = open("prefab_template\skybox_icons.txt")
-skybox_light = open("prefab_template\skybox_light.txt")
-skybox_angle = open("prefab_template\skybox_angle.txt") 
+skybox_file = open("prefab_template/skybox_list.txt")
+skybox_icon = open("prefab_template/skybox_icons.txt")
+skybox_light = open("prefab_template/skybox_light.txt")
+skybox_angle = open("prefab_template/skybox_angle.txt") 
 
 for line in prefab_file.readlines():
     prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line

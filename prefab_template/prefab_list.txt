@@ -1,8 +1,9 @@
-ground_prefab
-spike_prefab
-respawn_red
-respawn_blu
+respawn_room_blu
+ground
+wall
 corner
-mini_spire
-wall_prefab
+ramp
 cp_koth_prefab
+mini_spire
+respawn_red
+death_pit

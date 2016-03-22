@@ -1,8 +1,9 @@
-Blank Tile
-Spike
-Respawn Room (RED)
 Respawn Room (BLU)
-Corner
-Mini-Spire
+Ground
 Wall
+Corner
+Ramp To Next Level
 Control Point (KOTH)
+Mini-Spire
+Respawn Room (RED)
+Death Pit (bottom level only)

@@ -1,0 +1,4 @@
+icons/corner_prefab_right.jpg
+icons/corner_prefab_down.jpg
+icons/corner_prefab_left.jpg
+icons/corner_prefab_up.jpg

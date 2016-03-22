@@ -1,7 +1,8 @@
 import os
 
-def execute(totalblocks, entity_list, skybox, skyboxgeolist):
-
+def execute(totalblocks, entity_list,levels, skybox, skyboxgeolist):
+    compiledblocks=''
+    totalentities=''
     beg_template = open('prefab_template/beginning_template.txt', 'r+')
     beg_template = beg_template.readlines()
     beg_template = "".join(beg_template)
@@ -20,13 +21,16 @@ cordon
 }
     """
     #end of file template that ends each vmf
-    print(entity_list)
-    compiledblocks = "".join(totalblocks) #totalblocks will be a list of each "block" from each chunk in the map, put into 1 string here.
+    #print(totalblocks)
+    for i in range(levels):
+        compiledblocks += "".join(totalblocks[i]) #totalblocks will be a list of each "block" from each chunk in the map, put into 1 string here.
+        totalentities += "".join(entity_list[i])
     compiledblocks = compiledblocks.replace('EMPTY_SLOT','')
-    totalentities = "".join(entity_list)
+    #totalentities = "".join(entity_list)
     totalentities = totalentities.replace('NO_ENTITY','')
     whole = beg_template + compiledblocks + skyboxgeolist + "}\n"+totalentities + end_template
     #whole = beg_template + compiledblocks + "}\n"+ end_template
+    
 
     return whole
 

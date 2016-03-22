@@ -1,0 +1,4 @@
+icons/spawn_blu_prefab_right.jpg
+icons/spawn_blu_prefab_down.jpg
+icons/spawn_blu_prefab_left.jpg
+icons/spawn_blu_prefab_up.jpg

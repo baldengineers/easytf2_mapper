@@ -116,7 +116,7 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
           #rot_py_list_text = "%s%s%d = %d" %(item, orig_var, var_num, value)
           #rot_py_list.append(rot_py_list_text)
       #else:
-      py_list_text = "%s%d = %d" %(var, var_num, value)
+      py_list_text = "%s%d = level*512 + %d" %(var, var_num, value)
       py_list.append(py_list_text)
       #print(py_list)
     elif value == 0:
@@ -172,7 +172,7 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     
     for var in xyz_list:
       if var == "z" or var == "pz":
-        rot_py_list_text = "%s%s%d = %s" %(item, var, var_num, py_list[-1][py_list[-1].index("=") + 2:])
+        rot_py_list_text = "%s%s%d = level*512 + %d" %(item, var, var_num, value)
         rot_py_list.append(rot_py_list_text)
       elif value == 0:
         rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*-1*512-256), (%s, %s), %d)[%d])" %(item, var, var_num, py_list[-3][py_list[-1].index("=") + 2:], py_list[-2][py_list[-1].index("=") + 2:], degrees, 0 if var == "x" or var == "px" else 1)
@@ -196,9 +196,9 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
     file.write(item)
   file.close
     
-  prefab_file = open("prefab_template\\prefab_list.txt", "a")
-  prefab_text_file = open("prefab_template\\prefab_text_list.txt", "a")
-  prefab_icon_file = open("prefab_template\\prefab_icon_list.txt", "a")
+  prefab_file = open("prefab_template/prefab_list.txt", "a")
+  prefab_text_file = open("prefab_template/prefab_text_list.txt", "a")
+  prefab_icon_file = open("prefab_template/prefab_icon_list.txt", "a")
 
   prefab_file.write(prefab_name + "\n")
   prefab_text_file.write(prefab_text + "\n")
@@ -220,23 +220,23 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
     rot_indent = ""
     
   for item in py_list:
-    compile_list.insert(compile_list.index("#INSERT_PY_LIST"), rot_indent + "    " + item + "\n")
+    compile_list.insert(compile_list.index("#INSERT_PY_LIST\n"), rot_indent + "    " + item + "\n")
 
-  compile_list[compile_list.index("#INSERT_OPEN_FILE")] = "    f = open('%s', 'r+')" %(txt_path)
+  compile_list[compile_list.index("#INSERT_OPEN_FILE\n")] = "    f = open('%s', 'r+')" %(txt_path)
 
-  compile_list[compile_list.index("#INSERT_PY_LIST")] = ""
+  compile_list[compile_list.index("#INSERT_PY_LIST\n")] = ""
 
   var_count = (len(py_list) + 1)
 
-  compile_list[compile_list.index("#INSERT_VAR_COUNT")] = "\n    var_count = %d" %(var_count/3)
+  compile_list[compile_list.index("#INSERT_VAR_COUNT\n")] = "\n    var_count = %d" %(var_count/3)
   
   if rot_enabled:
   
-    compile_list.insert(compile_list.index("#INSERT_ROT_IF"), rot_code[0][0] + "\n")
-    compile_list[compile_list.index("#INSERT_ROT_IF")] = ""
+    compile_list.insert(compile_list.index("#INSERT_ROT_IF\n"), rot_code[0][0] + "\n")
+    compile_list[compile_list.index("#INSERT_ROT_IF\n")] = ""
     
-    ent_code.insert(ent_code.index("#INSERT_ROT_IF"), rot_code[1][0] + "\n")
-    ent_code[ent_code.index("#INSERT_ROT_IF")] = ""
+    ent_code.insert(ent_code.index("#INSERT_ROT_IF\n"), rot_code[1][0] + "\n")
+    ent_code[ent_code.index("#INSERT_ROT_IF\n")] = ""
 
     for item in rot_py_list:
       if "#ROT0" in item:
@@ -250,9 +250,9 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
         
     for index, item in enumerate(rot_code[0]):
       if not index == 0:
-        compile_list.insert(compile_list.index("#INSERT_ROT_CODE"), item)
+        compile_list.insert(compile_list.index("#INSERT_ROT_CODE\n"), item)
         
-    compile_list[compile_list.index("#INSERT_ROT_CODE")] = ""
+    compile_list[compile_list.index("#INSERT_ROT_CODE\n")] = ""
 
       
     for item in rot_ent_py_list:
@@ -267,9 +267,9 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
         
     for index, item in enumerate(rot_code[1]):
       if not index == 0:
-        ent_code.insert(ent_code.index("#INSERT_ROT_ENT_CODE"), item)
+        ent_code.insert(ent_code.index("#INSERT_ROT_ENT_CODE\n"), item)
         
-    ent_code[ent_code.index("#INSERT_ROT_ENT_CODE")] = ""
+    ent_code[ent_code.index("#INSERT_ROT_ENT_CODE\n")] = ""
     
     
     #rot_code[rot_code.index("#INSERT_ROT_0_PY_LIST")] = ""
@@ -280,21 +280,21 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
     
   
   if contains_ent:
-    ent_code[ent_code.index("#INSERT_ENT_OPEN_FILE")] = "\n    g = open('%s', 'r+')" %(ent_path)
+    ent_code[ent_code.index("#INSERT_ENT_OPEN_FILE\n")] = "\n    g = open('%s', 'r+')" %(ent_path)
 
     for item in ent_py_list:
-      ent_code.insert(ent_code.index("#INSERT_ENT_PY_LIST"), rot_indent + "    " + item + "\n")
+      ent_code.insert(ent_code.index("#INSERT_ENT_PY_LIST\n"), rot_indent + "    " + item + "\n")
 
-    ent_code[ent_code.index("#INSERT_ENT_PY_LIST")] = ""
+    ent_code[ent_code.index("#INSERT_ENT_PY_LIST\n")] = ""
 
     ent_var_count = (len(ent_py_list) + 1)
 
-    ent_code[ent_code.index("#INSERT_ENT_VAR_COUNT")] = "    ent_var_count = %d" %(ent_var_count/3)
+    ent_code[ent_code.index("#INSERT_ENT_VAR_COUNT\n")] = "    ent_var_count = %d" %(ent_var_count/3)
 
     for item in ent_code:
-      compile_list.insert(compile_list.index("#INSERT_ENT_CODE"), item)
+      compile_list.insert(compile_list.index("#INSERT_ENT_CODE\n"), item)
 
-    compile_list[compile_list.index("#INSERT_ENT_CODE")] = ""
+    compile_list[compile_list.index("#INSERT_ENT_CODE\n")] = ""
 
   compile_list.append("\n    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list" if contains_ent else "\n    return values, id_num, world_id_num")
 
@@ -334,25 +334,25 @@ def rotatePoint(centerPoint,point,angle):
     temp_point = temp_point[0]+centerPoint[0] , temp_point[1]+centerPoint[1]
     return temp_point
 
-def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, rotation):
+def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, rotation, level):
     
     looplist = '1'
     values=[]#Values are all of the lines of a prefab that have the vertex coords
 """,
 
-  "#INSERT_OPEN_FILE",
+  "#INSERT_OPEN_FILE\n",
 
   """
     lines = f.readlines() #gathers each line of the prefab and puts numbers them
 """,
 
-  "#INSERT_ROT_IF",
+  "#INSERT_ROT_IF\n",
 
-  "#INSERT_PY_LIST",
+  "#INSERT_PY_LIST\n",
   
-  "#INSERT_ROT_CODE",
+  "#INSERT_ROT_CODE\n",
 
-  "#INSERT_VAR_COUNT",
+  "#INSERT_VAR_COUNT\n",
 
   """
     values = "".join(lines)#converting list to string
@@ -419,24 +419,24 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         
 """,
 
-  "#INSERT_ENT_CODE",
+  "#INSERT_ENT_CODE\n",
   
   #"    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list"
   ]
 
-  ent_code =["#INSERT_ENT_OPEN_FILE",
+  ent_code =["#INSERT_ENT_OPEN_FILE\n",
 
              """
     lines_ent = g.readlines()
 """,
 
-             "#INSERT_ROT_IF",
+             "#INSERT_ROT_IF\n",
 
-             "#INSERT_ENT_PY_LIST",
+             "#INSERT_ENT_PY_LIST\n",
 
-             "#INSERT_ROT_ENT_CODE",
+             "#INSERT_ROT_ENT_CODE\n",
              
-             "#INSERT_ENT_VAR_COUNT",
+             "#INSERT_ENT_VAR_COUNT\n",
 
 """
     ent_values = "".join(lines_ent)
