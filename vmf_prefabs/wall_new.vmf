@@ -1,12 +1,40 @@
+versioninfo
+{
+	"editorversion" "400"
+	"editorbuild" "7069"
+	"mapversion" "1"
+	"formatversion" "100"
+	"prefab" "0"
+}
+visgroups
+{
+}
+viewsettings
+{
+	"bSnapToGrid" "1"
+	"bShowGrid" "1"
+	"bShowLogicalGrid" "0"
+	"nGridSpacing" "64"
+	"bShow3DGrid" "0"
+}
+world
+{
+	"id" "1"
+	"mapversion" "1"
+	"classname" "worldspawn"
+	"skyname" "sky_tf2_04"
+	"maxpropscreenwidth" "-1"
+	"detailvbsp" "detail_2fort.vbsp"
+	"detailmaterial" "detail/detailsprites_2fort"
 	solid
 	{
-		"id" "world_idnum"
+		"id" "2"
 		side
 		{
-			"id" "id_num"
-			"plane" "(x1 y1 z1) (x2 y2 z2) (x3 y3 z3)"
+			"id" "1"
+			"plane" "(0 0 64) (512 0 64) (512 -512 64)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -14,10 +42,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x4 y4 z4) (x5 y5 z5) (x6 y6 z6)"
+			"id" "2"
+			"plane" "(0 -512 0) (512 -512 0) (512 0 0)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -25,10 +53,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x7 y7 z7) (x8 y8 z8) (x9 y9 z9)"
+			"id" "3"
+			"plane" "(0 0 64) (0 -512 64) (0 -512 0)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -36,10 +64,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x10 y10 z10) (x11 y11 z11) (x12 y12 z12)"
+			"id" "4"
+			"plane" "(512 0 0) (512 -512 0) (512 -512 64)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -47,10 +75,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x13 y13 z13) (x14 y14 z14) (x15 y15 z15)"
+			"id" "5"
+			"plane" "(512 0 64) (0 0 64) (0 0 0)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -58,10 +86,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x16 y16 z16) (x17 y17 z17) (x18 y18 z18)"
+			"id" "6"
+			"plane" "(512 -512 0) (0 -512 0) (0 -512 64)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -76,13 +104,13 @@
 	}
 	solid
 	{
-		"id" "world_idnum"
+		"id" "3"
 		side
 		{
-			"id" "id_num"
-			"plane" "(x19 y19 z19) (x20 y20 z20) (x21 y21 z21)"
+			"id" "7"
+			"plane" "(448 0 384) (512 0 384) (512 -512 384)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -90,10 +118,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x22 y22 z22) (x23 y23 z23) (x24 y24 z24)"
+			"id" "8"
+			"plane" "(448 -512 64) (512 -512 64) (512 0 64)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -101,10 +129,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x25 y25 z25) (x26 y26 z26) (x27 y27 z27)"
+			"id" "9"
+			"plane" "(448 0 384) (448 -512 384) (448 -512 64)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -112,10 +140,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x28 y28 z28) (x29 y29 z29) (x30 y30 z30)"
+			"id" "10"
+			"plane" "(512 0 64) (512 -512 64) (512 -512 384)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -123,10 +151,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x31 y31 z31) (x32 y32 z32) (x33 y33 z33)"
+			"id" "11"
+			"plane" "(512 0 384) (448 0 384) (448 0 64)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -134,10 +162,10 @@
 		}
 		side
 		{
-			"id" "id_num"
-			"plane" "(x34 y34 z34) (x35 y35 z35) (x36 y36 z36)"
+			"id" "12"
+			"plane" "(512 -512 64) (448 -512 64) (448 -512 384)"
 			"material" "DEV/DEV_BLENDMEASURE"
-			"uaxis" "[1 0 0 1] 0.25"
+			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -150,3 +178,14 @@
 			"visgroupautoshown" "1"
 		}
 	}
+}
+cameras
+{
+	"activecamera" "-1"
+}
+cordon
+{
+	"mins" "(-1024 -1024 -1024)"
+	"maxs" "(1024 1024 1024)"
+	"active" "0"
+}

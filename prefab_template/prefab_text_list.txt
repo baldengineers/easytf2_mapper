@@ -1,8 +1,8 @@
-Wall
+Respawn Room (BLU)
 Ground
+Wall
 Corner
-Respawn Room (RED)
+Ramp To Next Level
 Control Point (KOTH)
 Mini-Spire
-Respawn Room (BLU)
-Ramp To Next Level
+Respawn Room (RED)

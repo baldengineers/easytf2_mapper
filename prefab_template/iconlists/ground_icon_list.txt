@@ -1,0 +1,4 @@
+icons/ground_right.jpg
+icons/ground_down.jpg
+icons/ground_left.jpg
+icons/ground_up.jpg

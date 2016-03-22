@@ -66,15 +66,15 @@ class GridBtn(QWidget):
                             create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
                         except Exception as e:
                             print(str(e))
-                            create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation)
+                            create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
                     except Exception as e:
                         print(str(e))
-                        create = moduleName.createTile(x, y, id_num, world_id_num)
+                        create = moduleName.createTile(x, y, id_num, world_id_num, level)
                 except Exception as e:
                     print(str(e))
-                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list)
+                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, level)
             except Exception as e:
-                create = moduleName.createTile(x, y, id_num, world_id_num, rotation)
+                create = moduleName.createTile(x, y, id_num, world_id_num, rotation, level)
                 print(str(e))
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
@@ -133,7 +133,7 @@ class GridBtn(QWidget):
                 #print(create[4])
             except Exception as e:
                 print(str(e))
-
+            print(level)
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
         if modifiers == Qt.ControlModifier:

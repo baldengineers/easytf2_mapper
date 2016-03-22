@@ -1,8 +1,8 @@
+respawn_room_blu
+ground
 wall
-blank_prefab
 corner
-respawn_test
+ramp
 cp_koth_prefab
 mini_spire
-respawn_blu
-ramp
+respawn_red
