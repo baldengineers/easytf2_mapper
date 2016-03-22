@@ -512,8 +512,8 @@ class MainWindow(QMainWindow):
         self.file_open(True)
         self.windowl.close()
         self.level.setText("Level: " + str(level+1))
-
-        #print(levels)
+        #print(totalblocks)
+        #print(iconlist)
         #change grid to grid for level
         
 
@@ -616,7 +616,7 @@ class MainWindow(QMainWindow):
         
         
     def file_open(self, tmp = False, first = False):
-        global grid_list, iconlist, level, iconlist
+        global grid_list, iconlist, level, iconlist, openblocks
         if not tmp:
             name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
             file = open(name[0], "rb")
@@ -634,26 +634,29 @@ class MainWindow(QMainWindow):
                     openlines = pickle.load(file)
                     self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
                 elif "totalblocks" in header:
+                    totalblocks=[]
                     openlines = pickle.load(file)
-
                     for item in openlines:
+                        #print(item)
                         totalblocks.append(item)
                 elif "entity_list" in header:
+                    entity_list=[]
                     openlines = pickle.load(file)
-
+                    
                     for item in openlines:
                         entity_list.append(item)
                 elif "icon_list" in header:
                     global grid_list
+                    iconlist=[]
                     openlines = pickle.load(file)
                     #print(openlines)
 
                     for item in openlines:
                         iconlist.append(item)
-                    for index, icon in enumerate(iconlist):
+                    for index, icon in enumerate(iconlist[0]):
                         #print(iconlist)
                         if "icons" in icon:
-                            print(index)
+                            #print(index)
                             grid_list[index].button.setIcon(QIcon(icon))
                             grid_list[index].button.setIconSize(QSize(32,32))
                 elif "skybox2_list" in header:
@@ -663,8 +666,8 @@ class MainWindow(QMainWindow):
                     break
                 #print(iconlist)
                 #print(totalblocks)
-            print(iconlist)
-            print(totalblocks)
+            #print(iconlist)
+            #print(totalblocks)
         
             for i in range(levelcountload):
                 file = open("leveltemp/level" + str(i), "wb")
@@ -673,6 +676,7 @@ class MainWindow(QMainWindow):
               
             self.change_skybox()
             file.close()
+            
         else:
             try:
                 file = open("leveltemp/level" + str(level), "rb")
@@ -685,6 +689,8 @@ class MainWindow(QMainWindow):
                     grid_list[index].button.setIconSize(QSize(32,32))
             except Exception as e:
                 print(str(e))
+        
+        #print(totalblocks)
         #print("totalblocks: ", totalblocks)
         #print("entity_list: ", entity_list)
         #openlines = file.readlines()
@@ -908,7 +914,6 @@ class MainWindow(QMainWindow):
                 grid_btn = GridBtn(self, x, y, self.btn_id_count)
                 self.button_grid_layout.addWidget(grid_btn.button,y,x)
                 self.btn_id_count += 1
-                
                 grid_list.append(grid_btn)
         entity_list.append("lighting slot")
         #pprint.pprint(totalblocks)
@@ -1171,6 +1176,7 @@ count_btns = 0
 entity_list=[]
 prefab_text_list = []
 prefab_icon_list = []
+openblocks=[]
 placeholder_list = []
 
 currentlight = '''
