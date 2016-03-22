@@ -333,7 +333,9 @@ class MainWindow(QMainWindow):
         self.current.setFixedSize(QSize(40,40))
 
         self.level = QPushButton(self)
+
         self.level.setText("Level:")
+        
         self.level.setFixedSize(QSize(150,30))
         #self.level.setMenu(self.levelMenu)
         self.level.clicked.connect(self.level_select)
@@ -509,6 +511,7 @@ class MainWindow(QMainWindow):
         print(level)
         self.file_open(True)
         self.windowl.close()
+        self.level.setText("Level: " + str(level+1))
 
         #print(levels)
         #change grid to grid for level
