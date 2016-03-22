@@ -620,6 +620,7 @@ class MainWindow(QMainWindow):
         if not tmp:
             name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
             file = open(name[0], "rb")
+            level = 0
             #del totalblocks, entity_list,iconlist,grid_list
             iconlist=[]
             while True:
@@ -628,23 +629,25 @@ class MainWindow(QMainWindow):
                 if "levels" in header:
                     openlines = pickle.load(file)
                     levelcountload = openlines
+                    
                 elif "grid_size" in header:
                     openlines = pickle.load(file)
                     self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
                 elif "totalblocks" in header:
                     openlines = pickle.load(file)
-                    for i in range(levelcountload):
-                        for item in openlines:
-                            totalblocks[i].append(item)
+
+                    for item in openlines:
+                        totalblocks.append(item)
                 elif "entity_list" in header:
                     openlines = pickle.load(file)
-                    for i in range(levelcountload):
-                        for item in openlines:
-                            entity_list[i].append(item)
+
+                    for item in openlines:
+                        entity_list.append(item)
                 elif "icon_list" in header:
                     global grid_list
                     openlines = pickle.load(file)
-                    print(openlines)
+                    #print(openlines)
+
                     for item in openlines:
                         iconlist.append(item)
                     for index, icon in enumerate(iconlist):
@@ -657,11 +660,17 @@ class MainWindow(QMainWindow):
                     openlines = pickle.load(file)
                     skybox2_list.setCurrentRow(openlines)
                 else:
-                    #print('breaking (bad) XD')
                     break
-                #except Exception as e:
-                    #print(e)
-                    #break
+                #print(iconlist)
+                #print(totalblocks)
+            print(iconlist)
+            print(totalblocks)
+        
+            for i in range(levelcountload):
+                file = open("leveltemp/level" + str(i), "wb")
+                pickle.dump(iconlist[i], file)
+                file.close()
+              
             self.change_skybox()
             file.close()
         else:
@@ -691,15 +700,17 @@ class MainWindow(QMainWindow):
         if not tmp:
             name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
             file = open(name[0], "wb")
+            pickle.dump("<levels>",file)
+            pickle.dump(levels,file)
             pickle.dump("<grid_size>", file)
             pickle.dump(gridsize_list, file)
-            for i in range(levels):
-                pickle.dump("<totalblocks_l%d>" %(i), file)
-                pickle.dump(totalblocks, file)
-                pickle.dump("<entity_list_l%d>" %(i), file)
-                pickle.dump(entity_list, file)
-                pickle.dump("<icon_list_l%d>" %(i), file)
-                pickle.dump(iconlist, file)
+            #for i in range(levels):
+            pickle.dump("<totalblocks>", file)
+            pickle.dump(totalblocks, file)
+            pickle.dump("<entity_list>", file)
+            pickle.dump(entity_list, file)
+            pickle.dump("<icon_list>", file)
+            pickle.dump(iconlist, file)
             print(iconlist)
             pickle.dump("<skybox>", file)
             pickle.dump(skybox_sav, file)
