@@ -1,0 +1,90 @@
+entity
+{
+	"id" "world_idnum"
+	"classname" "trigger_hurt"
+	"damage" "10000"
+	"damagecap" "10000"
+	"damagemodel" "0"
+	"damagetype" "65536"
+	"nodmgforce" "0"
+	"origin" "px1 py1 pz1"
+	"spawnflags" "1"
+	"StartDisabled" "0"
+	"targetname" "entity_name"
+	solid
+	{
+		"id" "world_idnum"
+		side
+		{
+			"id" "id_num"
+			"plane" "(x1243 y1243 z1243) (x1244 y1244 z1244) (x1245 y1245 z1245)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x1246 y1246 z1246) (x1247 y1247 z1247) (x1248 y1248 z1248)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x1249 y1249 z1249) (x1250 y1250 z1250) (x1251 y1251 z1251)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x1252 y1252 z1252) (x1253 y1253 z1253) (x1254 y1254 z1254)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x1255 y1255 z1255) (x1256 y1256 z1256) (x1257 y1257 z1257)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x1258 y1258 z1258) (x1259 y1259 z1259) (x1260 y1260 z1260)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupshown" "1"
+			"visgroupautoshown" "1"
+		}
+	}
+}

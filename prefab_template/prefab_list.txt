@@ -6,3 +6,4 @@ ramp
 cp_koth_prefab
 mini_spire
 respawn_red
+death_pit

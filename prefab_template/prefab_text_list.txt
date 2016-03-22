@@ -6,3 +6,4 @@ Ramp To Next Level
 Control Point (KOTH)
 Mini-Spire
 Respawn Room (RED)
+Death Pit (bottom level only)

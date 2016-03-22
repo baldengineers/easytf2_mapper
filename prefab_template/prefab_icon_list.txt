@@ -6,3 +6,4 @@ icons/ramp.jpg
 icons/control_point.jpg
 icons/minispire.jpg
 icons/respawn_red_right.jpg
+icons/death_pit.jpg
