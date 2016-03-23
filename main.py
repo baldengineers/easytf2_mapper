@@ -577,7 +577,7 @@ class MainWindow(QMainWindow):
             choice.addButton(restart_btn, QMessageBox.YesRole)
             choice.addButton(later_btn, QMessageBox.NoRole)
             choice.setDefaultButton(restart_btn)
-            print(choice.exec_())
+            #print(choice.exec_())
                               
             if choice.exec_() == 0:
                 try:
@@ -1044,10 +1044,12 @@ class MainWindow(QMainWindow):
                                       QMessageBox.Yes | QMessageBox.No,
                                       QMessageBox.No)
         if choice == QMessageBox.Yes:
+            folder = 'leveltemp/'
+            for f in os.listdir(folder):
+                print("removing ", f)
+                os.remove(folder+f)
+                
             sys.exit()
-            filesdel = glob.glob('leveltemp/.*')
-            for f in filesdel:
-                os.remove(f)
         else:
             pass
 
