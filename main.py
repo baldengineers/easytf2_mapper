@@ -670,7 +670,7 @@ class MainWindow(QMainWindow):
             #print(totalblocks)
         
             for i in range(levelcountload):
-                file = open("leveltemp/level" + str(i), "wb")
+                file = open("leveltemp/level" + str(i)+".tmp", "wb")
                 pickle.dump(iconlist[i], file)
                 file.close()
               
@@ -679,7 +679,7 @@ class MainWindow(QMainWindow):
             
         else:
             try:
-                file = open("leveltemp/level" + str(level), "rb")
+                file = open("leveltemp/level" + str(level)+".tmp", "rb")
                 iconlist[level] = pickle.load(file)
                 file.close()
                 print(grid_list)
@@ -724,7 +724,7 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
         else:
             try:#writes tmp file to save the icons for each level
-                file = open("leveltemp/level" + str(level), "wb")
+                file = open("leveltemp/level" + str(level)+".tmp", "wb")
                 pickle.dump(iconlist[level], file)
                 file.close()
             except Exception as e:
@@ -958,7 +958,7 @@ class MainWindow(QMainWindow):
         #self.scrollFrameLayout.addWidget(self.scrollArea)
 
         for i in range(levels):
-            file = open("leveltemp/level" + str(i), "wb")
+            file = open("leveltemp/level" + str(i)+".tmp", "wb")
             pickle.dump(iconlist[i], file)
             file.close()
         
