@@ -13,6 +13,7 @@ import light_create
 import subprocess
 import pickle
 import pprint
+import random
 import glob
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
@@ -150,6 +151,14 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 25, 875, 750)
         self.setWindowTitle("Easy TF2 Mapper")
         self.setWindowIcon(QIcon("icons\icon.ico"))
+        namelist = ['gravelpit','2fort','upward','mvm']
+        palette = QPalette()
+        palette.setBrush(QPalette.Background,QBrush(QPixmap("icons/backgrounds/background_"+namelist[random.randint(0,3)]+".jpg")))
+        self.setPalette(palette)
+        #self.setStyleSheet("image: url(icons/backgrounds/background_mvm.jpg); background-repeat: stretch;")
+        #self.resizeEvent(self.resizefunc)
+        #self.resizeEvent(palette.setBrush(QPalette.Background,QBrush(QPixmap("icons/backgrounds/background_"+namelist[random.randint(0,3)]+".jpg").scaled(self.size()))))
+
 
         #create menubar
         exitAction = QAction("&Exit", self)
@@ -234,6 +243,8 @@ class MainWindow(QMainWindow):
         self.change_skybox()
         self.level_select()
 
+
+        
     def open_hammer(self,loaded,file):
         self.open_file()
         if "loaded_first_time" not in self.files:
@@ -1266,4 +1277,8 @@ global rotation
 #Main Program
 app = QApplication(sys.argv)
 gui = MainWindow()
+
+
+
+
 app.exec_()
