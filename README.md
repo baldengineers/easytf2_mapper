@@ -38,3 +38,5 @@ Inside TF2:
 A list of currently known bugs can be found here: https://github.com/baldengineers/easytf2_mapper/wiki/Currently-known-bugs
 ## help!
 If you require assistance, first check out [the wiki](https://github.com/baldengineers/easytf2_mapper/wiki), and then try emailing the team at toadsrc@gmail.com. Responses may not be instant, but feedback is appreciated.
+
+# WARNING! UPON EXPORTING, YOU WILL HAVE TO FIX THIS BUG IF YOU USE ROTATIONS. EASILY FIXED [HERE](https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug)
