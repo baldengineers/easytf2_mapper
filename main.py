@@ -687,6 +687,7 @@ class MainWindow(QMainWindow):
               
             self.change_skybox()
             file.close()
+            self.setWindowTitle("Easy TF2 Mapper - "+str(name[0]))
             
         else:
             try:
