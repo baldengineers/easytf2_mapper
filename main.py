@@ -978,6 +978,7 @@ class MainWindow(QMainWindow):
         self.button_grid_all.addLayout(self.gridLayout)
         #print(grid_list)
         #print(iconlist)
+        self.setWindowTitle("Easy TF2 Mapper")
         return grid_list
 
     def change_light(self):
