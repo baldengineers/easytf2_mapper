@@ -8,3 +8,5 @@ mini_spire_icon_list.txt
 respawn_red_icon_list.txt
 death_pit_icon_list.txt
 death_pit_icon_list.txt
+rotation_test_icon_list.txt
+rotation_test_icon_list.txt

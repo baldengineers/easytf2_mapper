@@ -4,6 +4,7 @@ prefab txt template (look in prefab_template folder), and a .py containing the
 algorithms to create the object (look in the prefabs folder)
 """
 
+from PIL import Image
 
 
 
@@ -1004,6 +1005,41 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     #  pass
 
   file.close()
+
+  if rot_enabled:
+        #no it doesn't create errors boyo
+            ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
+            icondir = str(prefab_name)
+            with open("prefab_template/rot_prefab_list.txt", "a") as f:
+                f.write(icondir+"_icon_list.txt\n")
+            #g.close() - useless, because you said "with open() as g," which automatically closes it
+            imageRot = Image.open(prefab_icon)
+            imageRot.save("icons/"+ icondir+"_right.jpg")
+            imageRot2 = Image.open(prefab_icon)
+            imageRot2 = imageRot2.rotate(270)
+            imageRot2.save("icons/"+ icondir+"_down.jpg")
+            imageRot3 = Image.open(prefab_icon)
+            imageRot3 = imageRot3.rotate(180)
+            imageRot3.save("icons/"+ icondir+"_left.jpg")
+            imageRot4 = Image.open(prefab_icon)
+            imageRot4 = imageRot4.rotate(90)
+            imageRot4.save("icons/"+ icondir+"_up.jpg")
+            f = open("prefab_template/iconlists/"+ icondir+"_icon_list.txt","w+")
+            for i in ext_list:
+                f.write("icons/"+ icondir+i+"\n")
+            f.close()
+
+  else:
+            icondir = str( nameLineEdit.displayText())
+            with open("prefab_template/rot_prefab_list.txt", "a") as f:
+                f.write("NO_ROTATION\n")
+                f.close()
+            f = open("prefab_template/iconlists/"+ icondir+"_icon_list.txt","w+")
+            for i in range(4):
+                f.write("icons/"+icondir+"\n")
+            f.close()
+
+  
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list, rot_enabled)
 
 #create("vmf_prefabs/rotation_test.vmf", "rotation_test","Rotation Test", "icons/crate_cover.jpg",True)
