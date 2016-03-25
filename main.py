@@ -37,7 +37,7 @@ class GridBtn(QWidget):
 
     def click_func(self, parent, x, y, btn_id):
         self.checkForAlt()
-        global rotation
+        global rotation, currentfilename
         if toggle != 0:
             self.button.setIcon(QIcon())
             totalblocks[level][btn_id] = ''
@@ -135,6 +135,7 @@ class GridBtn(QWidget):
             except Exception as e:
                 print(str(e))
             print(level)
+            currentfilename = str(name([0]))+'*'
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
         if modifiers == Qt.ControlModifier:
@@ -173,13 +174,19 @@ class MainWindow(QMainWindow):
 
         saveAction = QAction("&Save", self)
         saveAction.setShortcut("Ctrl+S")
-        saveAction.setStatusTip("Save File as .vmf")
+        saveAction.setStatusTip("Save File as .ezm save, allowing for use by others/you later.")
         saveAction.triggered.connect(self.file_save)
+        
+        saveAsAction = QAction("&Save", self)
+        saveAsAction.setShortcut("Ctrl+Shift+S")
+        saveAsAction.setStatusTip("Save File as .ezm save, allowing for use by others/you later.")
+        saveAsAction.triggered.connect(self.file_save)
+        #not fully implemented
 
         newAction = QAction("&New", self)
         newAction.setShortcut("Ctrl+n")
         newAction.setStatusTip("Create a New File")
-        #newAction.triggered.connect()
+        newAction.triggered.connect(lambda: self.grid_change(0,0,0,True,False,True))
 
         hammerAction = QAction("&Open Hammer",self)
         hammerAction.setShortcut("Ctrl+H")
@@ -226,7 +233,7 @@ class MainWindow(QMainWindow):
         optionsMenu = mainMenu.addMenu("&Options")
         createMenu = mainMenu.addMenu("&Create")
         
-        #fileMenu.addAction(newAction)
+        fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
         fileMenu.addAction(saveAction)
         fileMenu.addAction(exportAction)
@@ -627,7 +634,7 @@ class MainWindow(QMainWindow):
         
         
     def file_open(self, tmp = False, first = False):
-        global grid_list, iconlist, level, totalblocks,entity_list
+        global grid_list, iconlist, level, totalblocks,entity_list, currentfilename, file_loaded
         if not tmp:
             name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
             file = open(name[0], "rb")
@@ -688,6 +695,8 @@ class MainWindow(QMainWindow):
             self.change_skybox()
             file.close()
             self.setWindowTitle("Easy TF2 Mapper - [" + str(name[0]) + "]")
+            currentfilename = str(name([0]))
+            file_loaded = True
             
         else:
             try:
@@ -712,11 +721,14 @@ class MainWindow(QMainWindow):
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self, tmp = False):
-        global grid_x, grid_y, iconlist, levels, level
+        global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded
         gridsize_list = (grid_x,grid_y,levels)
         skybox_sav = skybox2_list.currentRow()
         if not tmp:
-            name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
+            if not file_loaded:
+                name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
+            else:
+                name =
             file = open(name[0], "wb")
             pickle.dump("<levels>",file)
             pickle.dump(levels,file)
@@ -735,6 +747,8 @@ class MainWindow(QMainWindow):
             file.close()
             QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
             self.setWindowTitle("Easy TF2 Mapper - [" + str(name[0]) + "]")
+            currentfilename = str(name([0]))
+            file_loaded = True
         else:
             try:#writes tmp file to save the icons for each level
                 file = open("leveltemp/level" + str(level)+".tmp", "wb")
@@ -884,7 +898,8 @@ class MainWindow(QMainWindow):
     def grid_change_func(self,x,y,z):
         count_btns = 0
         self.count = 0
-        global grid_y, grid_x, levels
+        global grid_y, grid_x, levels, file_loaded
+        file_loaded = False
         try:
             self.window.deleteLater()
         except:
@@ -1196,7 +1211,9 @@ prefab_text_list = []
 prefab_icon_list = []
 openblocks=[]
 placeholder_list = []
-
+currentfilename=''
+file_loaded = False
+current_loaded = ''
 currentlight = '''
 entity
 {
