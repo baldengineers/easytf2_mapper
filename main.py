@@ -734,6 +734,7 @@ class MainWindow(QMainWindow):
             pickle.dump(skybox_sav, file)
             file.close()
             QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
+            self.setWindowTitle("Easy TF2 Mapper - [" + str(name[0]) + "]")
         else:
             try:#writes tmp file to save the icons for each level
                 file = open("leveltemp/level" + str(level)+".tmp", "wb")
