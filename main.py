@@ -135,7 +135,9 @@ class GridBtn(QWidget):
             except Exception as e:
                 print(str(e))
             print(level)
-            currentfilename = str(name([0]))+'*'
+            if "*" not in currentfilename:
+                currentfilename = currentfilename+'*'
+                parent.setWindowTitle(currentfilename)
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
         if modifiers == Qt.ControlModifier:
@@ -180,7 +182,7 @@ class MainWindow(QMainWindow):
         saveAsAction = QAction("&Save", self)
         saveAsAction.setShortcut("Ctrl+Shift+S")
         saveAsAction.setStatusTip("Save File as .ezm save, allowing for use by others/you later.")
-        saveAsAction.triggered.connect(self.file_save)
+        saveAsAction.triggered.connect(lambda: self.file_save(False, True))
         #not fully implemented
 
         newAction = QAction("&New", self)
@@ -236,6 +238,7 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
         fileMenu.addAction(saveAction)
+        fileMenu.addAction(saveAsAction)
         fileMenu.addAction(exportAction)
         fileMenu.addAction(exitAction)
         fileMenu.addAction(hammerAction)
@@ -695,7 +698,7 @@ class MainWindow(QMainWindow):
             self.change_skybox()
             file.close()
             self.setWindowTitle("Easy TF2 Mapper - [" + str(name[0]) + "]")
-            currentfilename = str(name([0]))
+            currentfilename = str(name[0])
             file_loaded = True
             
         else:
@@ -720,15 +723,15 @@ class MainWindow(QMainWindow):
         #now, it imports the vmf, and has two versions of it; the importlines which has each
         #line as a string in a list, and importlinesstr, which makes it one big string
             
-    def file_save(self, tmp = False):
+    def file_save(self, tmp = False, saveAs = False):
         global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded
         gridsize_list = (grid_x,grid_y,levels)
         skybox_sav = skybox2_list.currentRow()
         if not tmp:
-            if not file_loaded:
+            if not file_loaded or saveAs:
                 name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
             else:
-                name =
+                name = currentfilename
             file = open(name[0], "wb")
             pickle.dump("<levels>",file)
             pickle.dump(levels,file)
@@ -746,8 +749,13 @@ class MainWindow(QMainWindow):
             pickle.dump(skybox_sav, file)
             file.close()
             QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
-            self.setWindowTitle("Easy TF2 Mapper - [" + str(name[0]) + "]")
-            currentfilename = str(name([0]))
+            try:
+                self.setWindowTitle("Easy TF2 Mapper - [" + name + "]")
+                
+            except:
+                self.setWindowTitle("Easy TF2 Mapper - [" + str(name[0]) + "]")
+                name = str(name[0])
+            currentfilename = "Easy TF2 Mapper - [" + name + "]"
             file_loaded = True
         else:
             try:#writes tmp file to save the icons for each level
@@ -898,7 +906,7 @@ class MainWindow(QMainWindow):
     def grid_change_func(self,x,y,z):
         count_btns = 0
         self.count = 0
-        global grid_y, grid_x, levels, file_loaded
+        global grid_y, grid_x, levels, file_loaded, currentfilename
         file_loaded = False
         try:
             self.window.deleteLater()
@@ -994,7 +1002,8 @@ class MainWindow(QMainWindow):
         self.button_grid_all.addLayout(self.gridLayout)
         #print(grid_list)
         #print(iconlist)
-        self.setWindowTitle("Easy TF2 Mapper")
+        self.setWindowTitle("Easy TF2 Mapper ")
+        currentfilename = "Easy TF2 Mapper "
         return grid_list
 
     def change_light(self):
@@ -1150,6 +1159,9 @@ class MainWindow(QMainWindow):
 
     def create_run_func(self):
         if self.rotCheckBox.isChecked():
+            
+            pass
+            '''
         #no it doesn't create errors boyo
             self.ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
             self.icondir = str(self.nameLineEdit.displayText())
@@ -1171,8 +1183,10 @@ class MainWindow(QMainWindow):
             for i in self.ext_list:
                 f.write("icons/"+self.icondir+i+"\n")
             f.close()
-
+            '''
         else:
+            pass
+            '''
             self.icondir = str(self.nameLineEdit.displayText())
             with open("prefab_template/rot_prefab_list.txt", "a") as f:
                 f.write("NO_ROTATION\n")
@@ -1181,7 +1195,7 @@ class MainWindow(QMainWindow):
             for i in range(4):
                 f.write("icons/"+self.icondir+"\n")
             f.close()
-            
+            '''
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                           createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
                                                                             self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked()))
@@ -1211,7 +1225,7 @@ prefab_text_list = []
 prefab_icon_list = []
 openblocks=[]
 placeholder_list = []
-currentfilename=''
+currentfilename='Easy TF2 Mapper '
 file_loaded = False
 current_loaded = ''
 currentlight = '''
