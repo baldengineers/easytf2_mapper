@@ -179,7 +179,7 @@ class MainWindow(QMainWindow):
         saveAction.setStatusTip("Save File as .ezm save, allowing for use by others/you later.")
         saveAction.triggered.connect(self.file_save)
         
-        saveAsAction = QAction("&Save", self)
+        saveAsAction = QAction("&Save As", self)
         saveAsAction.setShortcut("Ctrl+Shift+S")
         saveAsAction.setStatusTip("Save File as .ezm save, allowing for use by others/you later.")
         saveAsAction.triggered.connect(lambda: self.file_save(False, True))
@@ -729,9 +729,10 @@ class MainWindow(QMainWindow):
         skybox_sav = skybox2_list.currentRow()
         if not tmp:
             if not file_loaded or saveAs:
-                name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")[0]
+                name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")[0][:-1]
             else:
-                name = currentfilename
+                name = currentfilename[:-1]
+            print(name)
             file = open(name, "wb")
             pickle.dump("<levels>",file)
             pickle.dump(levels,file)
@@ -751,7 +752,6 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, "File Saved", "File saved as %s" %(name))
 
             self.setWindowTitle("Easy TF2 Mapper - [" + name + "]")
-                
 
             currentfilename = "Easy TF2 Mapper - [" + name + "]"
             file_loaded = True
