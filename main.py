@@ -729,10 +729,10 @@ class MainWindow(QMainWindow):
         skybox_sav = skybox2_list.currentRow()
         if not tmp:
             if not file_loaded or saveAs:
-                name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")
+                name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")[0]
             else:
                 name = currentfilename
-            file = open(name[0], "wb")
+            file = open(name, "wb")
             pickle.dump("<levels>",file)
             pickle.dump(levels,file)
             pickle.dump("<grid_size>", file)
@@ -748,13 +748,11 @@ class MainWindow(QMainWindow):
             pickle.dump("<skybox>", file)
             pickle.dump(skybox_sav, file)
             file.close()
-            QMessageBox.information(self, "File Saved", "File saved as %s" %(name[0]))
-            try:
-                self.setWindowTitle("Easy TF2 Mapper - [" + name + "]")
+            QMessageBox.information(self, "File Saved", "File saved as %s" %(name))
+
+            self.setWindowTitle("Easy TF2 Mapper - [" + name + "]")
                 
-            except:
-                self.setWindowTitle("Easy TF2 Mapper - [" + str(name[0]) + "]")
-                name = str(name[0])
+
             currentfilename = "Easy TF2 Mapper - [" + name + "]"
             file_loaded = True
         else:
