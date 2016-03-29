@@ -764,7 +764,8 @@ class MainWindow(QMainWindow):
                 pickle.dump(iconlist[level], file)
                 file.close()
             except Exception as e:
-                #print(str(e))
+                
+                print(str(e))
         #text = self.textEdit.toPlainText()
         #file.write(text)
         
