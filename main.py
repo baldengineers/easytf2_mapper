@@ -66,17 +66,17 @@ class GridBtn(QWidget):
                         try:
                             create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
                         except Exception as e:
-                            print(str(e))
+                            #print(str(e))
                             create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
                     except Exception as e:
-                        print(str(e))
+                        #print(str(e))
                         create = moduleName.createTile(x, y, id_num, world_id_num, level)
                 except Exception as e:
-                    print(str(e))
+                    #print(str(e))
                     create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, level)
             except Exception as e:
                 create = moduleName.createTile(x, y, id_num, world_id_num, rotation, level)
-                print(str(e))
+                #print(str(e))
             #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
             world_id_num = create[2]
@@ -134,10 +134,10 @@ class GridBtn(QWidget):
                 #print(create[4])
             except Exception as e:
                 print(str(e))
-            print(level)
+            #print(level)
             if "*" not in currentfilename:
                 currentfilename = currentfilename+'*'
-                parent.setWindowTitle(currentfilename)
+                parent.setWindowTitle("Easy TF2 Mapper - ["+currentfilename+"]")
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
         if modifiers == Qt.ControlModifier:
@@ -706,7 +706,7 @@ class MainWindow(QMainWindow):
                 file = open("leveltemp/level" + str(level)+".tmp", "rb")
                 iconlist[level] = pickle.load(file)
                 file.close()
-                print(grid_list)
+                #print(grid_list)
                 for index, icon in enumerate(iconlist[level]):
                     #print(icon)
                     grid_list[index].button.setIcon(QIcon(icon))
@@ -729,10 +729,13 @@ class MainWindow(QMainWindow):
         skybox_sav = skybox2_list.currentRow()
         if not tmp:
             if not file_loaded or saveAs:
-                name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")[0][:-1]
+                name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")[0]
             else:
-                name = currentfilename[:-1]
-            print(name)
+                if "*" in currentfilename:
+                    name = currentfilename[:-1]
+                else:
+                    name = currentfilename
+            #print(name)
             file = open(name, "wb")
             pickle.dump("<levels>",file)
             pickle.dump(levels,file)
@@ -761,7 +764,7 @@ class MainWindow(QMainWindow):
                 pickle.dump(iconlist[level], file)
                 file.close()
             except Exception as e:
-                print(str(e))
+                #print(str(e))
         #text = self.textEdit.toPlainText()
         #file.write(text)
         
