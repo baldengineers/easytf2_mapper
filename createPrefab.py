@@ -490,6 +490,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
             if "\\"respawn_name\\"" in ent_values:
                 ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
+            if "laser_target" in ent_values:
+                ent_values = ent_values.replace("laser_target", "laser_target" + str(entity_num), 2)
+            
             if "ROTATION_RIGHT" in ent_values:
                 if rotation == 0:
                     ent_values = ent_values.replace("ROTATION_RIGHT","0 0 0",1)
@@ -744,7 +747,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
           print(line)
 
         '''
-        if "\"id\"" not in line and "\t\"targetname\"" not in line and "\t\"origin\"" not in line and "\t\"associatedmodel\"" not in line and "\t\"parentname\"" not in line and "\t\"respawnroomname\"" not in line and "\"angles\"" not in line:
+        if "\"id\"" not in line and "\t\"targetname\"" not in line and "\t\"origin\"" not in line and "\t\"associatedmodel\"" not in line and "\t\"parentname\"" not in line and "\t\"respawnroomname\"" not in line and "\"angles\"" not in line and "LaserTarget" not in line:
           ent_list.append(line)
         elif "\"id\"" in line:
           for letter in line:
@@ -867,6 +870,30 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "parent_name")
+        elif "LaserTarget" in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "laser_target")
+
+        elif "targetname" in line and "target" in openlines[loopernum-3]:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "laser_target")
+          
         elif "\t\"parentname\"" in line and "door" in openlines[loopernum-2]: 
           quote_num = 0
           for letter in line:
