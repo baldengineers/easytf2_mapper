@@ -1,0 +1,4 @@
+icons/laser_array_right.jpg
+icons/laser_array_down.jpg
+icons/laser_array_left.jpg
+icons/laser_array_up.jpg

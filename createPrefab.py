@@ -478,6 +478,17 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         ent_values = ent_values.replace('id_num', str(id_num), 1)
         id_num = id_num+1
 
+    for i in range(int(valcount.count('laser_target')/2)):
+        if "laser_target_plac" in ent_values:
+            ent_values = ent_values.replace("laser_target_plac", "laser_target" + str(entity_num), 2)
+            entity_num += 1
+
+    for i in range(int(valcount.count('sound'))):
+        if "sound_plac" in ent_values:
+            ent_values = ent_values.replace("sound_plac", "AmbSound"+str(entity_num), 2)
+            ent_values = ent_values.replace("relay_plac", "LogicRelay"+str(entity_num),2)
+            entity_num += 1
+
     for i in range(valcount.count("entity_name")):
         try:
             ent_values = ent_values.replace("entity_name", "entity" + str(entity_num), 1)
@@ -490,8 +501,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
             if "\\"respawn_name\\"" in ent_values:
                 ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
-            if "laser_target" in ent_values:
-                ent_values = ent_values.replace("laser_target", "laser_target" + str(entity_num), 2)
+
             
             if "ROTATION_RIGHT" in ent_values:
                 if rotation == 0:
@@ -520,7 +530,11 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                     ent_values = ent_values.replace("ROTATION_LEFT","0 0 0",1)
                 elif rotation == 3:
                     ent_values = ent_values.replace("ROTATION_LEFT","0 270 0",1)
-            if "ROTATION_DOWN" in ent_values:
+            if "ROTATION_DOWN" in ent_values:    for i in range(int(valcount.count('sound'))):
+        if "sound" in ent_values:
+            ent_values = ent_values.replace("sound_plac", "AmbSound"+str(entity_num), 2)
+            ent_values = ent_values.replace("relay_plac", "LogicRelay"+str(entity_num),2)
+            entity_num += 1
                 if rotation == 0:
                     ent_values = ent_values.replace("ROTATION_DOWN","0 270 0",1)
                 elif rotation == 1:
@@ -530,9 +544,13 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 elif rotation == 3:
                     ent_values = ent_values.replace("ROTATION_DOWN","0 0 0",1)
             
+            entity_num += 1    for i in range(int(valcount.count('sound'))):
+        if "sound" in ent_values:
+            ent_values = ent_values.replace("sound_plac", "AmbSound"+str(entity_num), 2)
+            ent_values = ent_values.replace("relay_plac", "LogicRelay"+str(entity_num),2)
             entity_num += 1
-        except:
-            pass
+        except Exception as e:
+            print(str(e))
 
 
 """]
@@ -563,7 +581,11 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 """,
     "#INSERT_ROT_1_PY_LIST\n",
 """
-    elif rotation == 2:
+    elif rotation == 2:    for i in range(int(valcount.count('sound'))):
+        if "sound" in ent_values:
+            ent_values = ent_values.replace("sound_plac", "AmbSound"+str(entity_num), 2)
+            ent_values = ent_values.replace("relay_plac", "LogicRelay"+str(entity_num),2)
+            entity_num += 1
 """,
     "#INSERT_ROT_2_PY_LIST\n",
 """
@@ -598,7 +620,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
   #              "classname",
   #              "skyname",
   #              "maxpropscreenwidth",
-  #              "detailvbsp",
+  #              "detailvbsp",    for i in range(int(valcount.count('sound'))):
   #              "detailmaterial",
   #              "activecamera",
   #              "mins",
@@ -614,10 +636,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
     for index, item in enumerate(prefab_icon_list): #enumerate allows you to give 2 vars in the for loop
       if index != len(prefab_icon_list) - 1:
-        #print(index, " is ", item, " in ", prefab_icon_list)
-        prefab_icon_list[index] = item + "/" # add the "/" back into the filepath
-    
-    prefab_icon = "".join(prefab_icon_list)
+       prefab_icon_list[index] = item + "/" # add the "/" back into the filepath
+        
+  prefab_icon = "".join(prefab_icon_list)
     #print("prefab_icon: ",prefab_icon)
 
   #main loop
@@ -803,7 +824,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "ROTATION_DOWN")
-        elif "\t\"targetname\"" in line and "respawn_trigger" not in line and "\"func_door\"" not in openlines[loopernum-19] and "filter_activator_tfteam" not in openlines[loopernum-2]:
+        elif "\t\"targetname\"" in line and "relay" not in line and "ambient_generic" not in openlines[loopernum-17] and "respawn_trigger" not in line and "\"func_door\"" not in openlines[loopernum-19] and "filter_activator_tfteam" not in openlines[loopernum-2] and "info_target" not in openlines[loopernum-3]:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -836,6 +857,28 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_list.append(letter)
                         
           ent_list.insert(-2, "filter_blu")
+        elif "\t\"targetname\"" in line and "relay" in line:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "relay_plac")
+        elif "\t\"targetname\"" in line and "ambient_generic" in openlines[loopernum-17]:
+          quote_num = 0
+          for letter in line:
+              if letter == "\"":
+                quote_num += 1
+              if quote_num != 3:
+                ent_list.append(letter)
+              elif letter == "\"":
+                ent_list.append(letter)
+                        
+          ent_list.insert(-2, "sound_plac")
         elif "\t\"targetname\"" in line and "filter_red" in line:
           quote_num = 0
           for letter in line:
@@ -880,9 +923,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               elif letter == "\"":
                 ent_list.append(letter)
                         
-          ent_list.insert(-2, "laser_target")
+          ent_list.insert(-2, "laser_target_plac")
 
-        elif "targetname" in line and "target" in openlines[loopernum-3]:
+        elif "targetname" in line and "info_target" in openlines[loopernum-3]:
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -892,7 +935,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               elif letter == "\"":
                 ent_list.append(letter)
                         
-          ent_list.insert(-2, "laser_target")
+          ent_list.insert(-2, "laser_target_plac")
           
         elif "\t\"parentname\"" in line and "door" in openlines[loopernum-2]: 
           quote_num = 0
@@ -1034,37 +1077,36 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
   file.close()
 
   if rot_enabled:
-        #no it doesn't create errors boyo
-            ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
-            icondir = str(prefab_name)
-            with open("prefab_template/rot_prefab_list.txt", "a") as f:
-                f.write(icondir+"_icon_list.txt\n")
-            #g.close() - useless, because you said "with open() as g," which automatically closes it
-            imageRot = Image.open(prefab_icon)
-            imageRot.save("icons/"+ icondir+"_right.jpg")
-            imageRot2 = Image.open(prefab_icon)
-            imageRot2 = imageRot2.rotate(270)
-            imageRot2.save("icons/"+ icondir+"_down.jpg")
-            imageRot3 = Image.open(prefab_icon)
-            imageRot3 = imageRot3.rotate(180)
-            imageRot3.save("icons/"+ icondir+"_left.jpg")
-            imageRot4 = Image.open(prefab_icon)
-            imageRot4 = imageRot4.rotate(90)
-            imageRot4.save("icons/"+ icondir+"_up.jpg")
-            f = open("prefab_template/iconlists/"+ icondir+"_icon_list.txt","w+")
-            for i in ext_list:
-                f.write("icons/"+ icondir+i+"\n")
-            f.close()
+    ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
+    icondir = str(prefab_name)
+    with open("prefab_template/rot_prefab_list.txt", "a") as f:
+      f.write(icondir+"_icon_list.txt\n")
+    #g.close() - useless, because you said "with open() as g," which automatically closes it
+    imageRot = Image.open(prefab_icon)
+    imageRot.save("icons/"+ icondir+"_right.jpg")
+    imageRot2 = Image.open(prefab_icon)
+    imageRot2 = imageRot2.rotate(270)
+    imageRot2.save("icons/"+ icondir+"_down.jpg")
+    imageRot3 = Image.open(prefab_icon)
+    imageRot3 = imageRot3.rotate(180)
+    imageRot3.save("icons/"+ icondir+"_left.jpg")
+    imageRot4 = Image.open(prefab_icon)
+    imageRot4 = imageRot4.rotate(90)
+    imageRot4.save("icons/"+ icondir+"_up.jpg")
+    f = open("prefab_template/iconlists/"+ icondir+"_icon_list.txt","w+")
+    for i in ext_list:
+      f.write("icons/"+ icondir+i+"\n")
+    f.close()
 
   else:
-            icondir = str( nameLineEdit.displayText())
-            with open("prefab_template/rot_prefab_list.txt", "a") as f:
-                f.write("NO_ROTATION\n")
-                f.close()
-            f = open("prefab_template/iconlists/"+ icondir+"_icon_list.txt","w+")
-            for i in range(4):
-                f.write("icons/"+icondir+"\n")
-            f.close()
+    icondir = str(nameLineEdit.displayText())
+    with open("prefab_template/rot_prefab_list.txt", "a") as f:
+      f.write("NO_ROTATION\n")
+      f.close()
+    f = open("prefab_template/iconlists/"+ icondir+"_icon_list.txt","w+")
+    for i in range(4):
+      f.write("icons/"+icondir+"\n")
+    f.close()
 
   
   return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list, rot_enabled)

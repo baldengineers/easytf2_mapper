@@ -7,5 +7,6 @@ cp_koth_prefab_icon_list.txt
 mini_spire_icon_list.txt
 respawn_red_icon_list.txt
 death_pit_icon_list.txt
-rotation_test_icon_list.txt
-rotation_test_icon_list.txt
+laser_array_icon_list.txt
+laser_array_icon_list.txt
+laser_array_icon_list.txt
