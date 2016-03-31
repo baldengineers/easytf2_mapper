@@ -8,3 +8,4 @@ Mini-Spire
 Respawn Room (RED)
 Death Pit (bottom level only)
 Laser Array
+Nuke test

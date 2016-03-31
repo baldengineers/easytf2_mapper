@@ -530,11 +530,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                     ent_values = ent_values.replace("ROTATION_LEFT","0 0 0",1)
                 elif rotation == 3:
                     ent_values = ent_values.replace("ROTATION_LEFT","0 270 0",1)
-            if "ROTATION_DOWN" in ent_values:    for i in range(int(valcount.count('sound'))):
-        if "sound" in ent_values:
-            ent_values = ent_values.replace("sound_plac", "AmbSound"+str(entity_num), 2)
-            ent_values = ent_values.replace("relay_plac", "LogicRelay"+str(entity_num),2)
-            entity_num += 1
+            if "ROTATION_DOWN" in ent_values:
                 if rotation == 0:
                     ent_values = ent_values.replace("ROTATION_DOWN","0 270 0",1)
                 elif rotation == 1:
@@ -545,10 +541,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                     ent_values = ent_values.replace("ROTATION_DOWN","0 0 0",1)
             
             entity_num += 1    for i in range(int(valcount.count('sound'))):
-        if "sound" in ent_values:
-            ent_values = ent_values.replace("sound_plac", "AmbSound"+str(entity_num), 2)
-            ent_values = ent_values.replace("relay_plac", "LogicRelay"+str(entity_num),2)
-            entity_num += 1
         except Exception as e:
             print(str(e))
 

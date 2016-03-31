@@ -1,0 +1,47 @@
+entity
+{
+	"id" "world_idnum"
+	"classname" "tf_generic_bomb"
+	"damage" "10000"
+	"disableshadows" "0"
+	"explode_particle" "cinefx_goldrush"
+	"friendlyfire" "0"
+	"health" "1"
+	"model" "models/custom/dirty_bomb_cart.mdl"
+	"modelscale" "1.0"
+	"origin" "px1 py1 pz1"
+	"radius" "768"
+	"skin" "0"
+	"sound" "misc/doomsday_missile_explosion.wav"
+	"targetname" "nuke"
+	connections
+	{
+		"OnDetonate" "nuketemplate,ForceSpawn,,10,-1"
+	}
+}
+entity
+{
+	"id" "world_idnum"
+	"classname" "logic_auto"
+	"spawnflags" "1"
+	connections
+	{
+		"OnMultiNewRound" "nuketemplate,ForceSpawn,,0,-1"
+	}
+}
+entity
+{
+	"id" "world_idnum"
+	"classname" "point_template"
+	"spawnflags" "2"
+	"targetname" "nuketemplate"
+	"Template01" "nuke"
+	"origin" "px2 py2 pz2"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1500]"
+	}
+}

@@ -8,5 +8,4 @@ mini_spire_icon_list.txt
 respawn_red_icon_list.txt
 death_pit_icon_list.txt
 laser_array_icon_list.txt
-laser_array_icon_list.txt
-laser_array_icon_list.txt
+nuke_icon_list.txt

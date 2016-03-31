@@ -597,7 +597,7 @@ class MainWindow(QMainWindow):
             choice.setInformativeText("Restart? You will lose any unsaved progress.")
             choice.addButton(restart_btn, QMessageBox.YesRole)
             choice.addButton(later_btn, QMessageBox.NoRole)
-            choice.setDefaultButton(restart_btn)
+            choice.setDefaultButton(later_btn)
             #print(choice.exec_())
                               
             if choice.exec_() == 0:

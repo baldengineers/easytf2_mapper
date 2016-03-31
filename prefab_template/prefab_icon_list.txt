@@ -8,3 +8,4 @@ icons/minispire.jpg
 icons/respawn_red_right.jpg
 icons/death_pit.jpg
 icons/laser.jpg
+icons/nuke_icon.png
