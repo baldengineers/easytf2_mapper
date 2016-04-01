@@ -315,7 +315,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
         px1 = posx*1*512 + (256)
         py1 = posy*-1*512 + (-256)
-        pz1 = level*512 + 93
+        pz1 = level*512 + 64
         px2 = posx*1*512 + (218)
         py2 = posy*-1*512 + (-205)
         pz2 = level*512 + 73

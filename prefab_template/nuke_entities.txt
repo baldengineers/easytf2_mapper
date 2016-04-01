@@ -10,7 +10,7 @@ entity
 	"model" "models/custom/dirty_bomb_cart.mdl"
 	"modelscale" "1.0"
 	"origin" "px1 py1 pz1"
-	"radius" "768"
+	"radius" "1024"
 	"skin" "0"
 	"sound" "misc/doomsday_missile_explosion.wav"
 	"targetname" "nuke"
