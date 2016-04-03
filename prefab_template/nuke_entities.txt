@@ -4,7 +4,7 @@ entity
 	"classname" "tf_generic_bomb"
 	"damage" "10000"
 	"disableshadows" "0"
-	"explode_particle" "cinefx_goldrush"
+	"explode_particle" "asplode_hoodoo"
 	"friendlyfire" "0"
 	"health" "1"
 	"model" "models/custom/dirty_bomb_cart.mdl"

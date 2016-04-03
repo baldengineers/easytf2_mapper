@@ -317,9 +317,12 @@ class MainWindow(QMainWindow):
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
         #self.labelLayout = QHBoxLayout(self)
-
+        #self.palette = QPalette()
+        #self.palette.setColor(QPalette.Shadow, QColor('grey'))
+        
         self.scrollArea = QScrollArea(self)
-        self.scrollArea.setBackgroundRole(QPalette.Light)
+        self.scrollArea.setBackgroundRole(QPalette.Dark)
+        #self.scrollArea.setAutoFillBackground(False)
 
 
     
