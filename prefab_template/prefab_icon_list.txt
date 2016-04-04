@@ -2,10 +2,10 @@ icons/spawn_blu_prefab_right.jpg
 icons/blank_tile.jpg
 icons/wall_right.jpg
 icons/wall_corner_top_right.jpg
-icons/ramp.jpg
 icons/control_point.jpg
 icons/minispire.jpg
 icons/respawn_red_right.jpg
 icons/death_pit.jpg
 icons/laser.jpg
 icons/nuke_icon.png
+icons/ramp.jpg

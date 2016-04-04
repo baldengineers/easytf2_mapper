@@ -79,7 +79,7 @@ entity
 	"solid" "6"
 	"spawnflags" "0"
 	"StartDisabled" "0"
-	"targetname" "entity_name"
+	"targetname" "cp_koth_prop"
 	"origin" "px4 py4 pz4"
 	editor
 	{
@@ -239,5 +239,26 @@ entity
 		"OnMultiNewRound" "koth_gamerules,SetRedTeamRespawnWaveTime,6,0,-1"
 		"OnMultiNewRound" "koth_gamerules,SetRedTeamGoalString,#koth_setup_goal,0,-1"
 		"OnMultiNewRound" "koth_gamerules,SetBlueTeamGoalString,#koth_setup_goal,0,-1"
+	}
+}
+entity
+{
+	"id" "142"
+	"classname" "logic_auto"
+	"spawnflags" "1"
+	connections
+	{
+		"OnMultiNewRound" "koth_gamerules,SetBlueTeamRespawnWaveTime,6,0,-1"
+		"OnMultiNewRound" "koth_gamerules,SetRedTeamRespawnWaveTime,6,0,-1"
+		"OnMultiNewRound" "koth_gamerules,SetRedTeamGoalString,#koth_setup_goal,0,-1"
+		"OnMultiNewRound" "koth_gamerules,SetBlueTeamGoalString,#koth_setup_goal,0,-1"
+	}
+	"origin" "192 -352 73"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 4000]"
 	}
 }

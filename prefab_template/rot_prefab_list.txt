@@ -2,10 +2,10 @@ respawn_room_blu_icon_list.txt
 ground_icon_list.txt
 wall_icon_list.txt
 corner_icon_list.txt
-ramp_icon_list.txt
 cp_koth_prefab_icon_list.txt
 mini_spire_icon_list.txt
 respawn_red_icon_list.txt
 death_pit_icon_list.txt
 laser_array_icon_list.txt
 nuke_icon_list.txt
+ramp_icon_list.txt

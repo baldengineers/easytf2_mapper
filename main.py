@@ -1204,7 +1204,26 @@ class MainWindow(QMainWindow):
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                           createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
                                                                             self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked()))
-        
+
+        restart_btn = QPushButton("Restart")
+        later_btn = QPushButton("Later")
+        choice = QMessageBox(self)
+        choice.setIcon(QMessageBox.Question)
+        choice.setWindowTitle("Prefab Successfully Created")
+        choice.setText("Program must be restarted for changes to take effect.")
+        choice.setInformativeText("Restart? You will lose any unsaved progress.")
+        choice.addButton(restart_btn, QMessageBox.YesRole)
+        choice.addButton(later_btn, QMessageBox.NoRole)
+        choice.setDefaultButton(later_btn)
+        #print(choice.exec_())                  
+        if choice.exec_() == 0:
+            try:
+                subprocess.Popen('EasyTF2Mapper.exe')
+            except:
+                subprocess.Popen('python main.py')
+            sys.exit()
+        else:
+            pass        
         #self.importprefabs()
 
 #define some global variables

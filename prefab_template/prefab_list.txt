@@ -2,10 +2,10 @@ respawn_room_blu
 ground
 wall
 corner
-ramp
 cp_koth_prefab
 mini_spire
 respawn_red
 death_pit
 laser_array
 nuke
+ramp
