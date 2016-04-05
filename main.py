@@ -344,6 +344,8 @@ class MainWindow(QMainWindow):
         #self.currentLabel = QLabel("Current Rotation:",self)
         self.listLabel = QLabel("List of prefabs:",self)
         self.gridLabel = QLabel("Grid:",self)
+        self.divider = QFrame()
+        self.divider.Shape(QFrame.VLine)
         
 
         #self.labelLayout.addWidget(self.gridLabel)
@@ -386,6 +388,7 @@ class MainWindow(QMainWindow):
         #self.button_rotate_layout.addWidget(self.currentLabel)
         self.button_rotate_layout.addWidget(self.current)
         self.button_rotate_layout.addWidget(self.rotateCW)
+        self.button_rotate_layout.addWidget(self.divider)
         self.button_rotate_layout.addWidget(self.level)
 
         self.button_rotate_layout.addStretch(1)
