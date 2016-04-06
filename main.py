@@ -1100,7 +1100,7 @@ class MainWindow(QMainWindow):
             folder = 'leveltemp/'
             for f in os.listdir(folder):
                 if not "init" in f: 
-                    print("removing ", f)
+                    print("removing", f)
                     os.remove(folder+f)
                 
             sys.exit()
