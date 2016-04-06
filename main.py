@@ -344,8 +344,14 @@ class MainWindow(QMainWindow):
         #self.currentLabel = QLabel("Current Rotation:",self)
         self.listLabel = QLabel("List of prefabs:",self)
         self.gridLabel = QLabel("Grid:",self)
-        self.divider = QFrame()
-        self.divider.Shape(QFrame.VLine)
+        
+        self.divider = QFrame(self)
+        self.divider.setFrameShape(QFrame.VLine)
+        self.divider.setLineWidth(10)
+
+        self.dividerH = QFrame(self)
+        self.dividerH.setFrameShape(QFrame.HLine)
+        self.dividerH.setLineWidth(10)
         
 
         #self.labelLayout.addWidget(self.gridLabel)
@@ -451,6 +457,7 @@ class MainWindow(QMainWindow):
         #self.button_grid_all.addStretch(0)
         #self.button_grid_all.setSpacing(0)
         self.button_grid_all.addLayout(self.button_rotate_layout)
+        self.button_grid_all.addWidget(self.dividerH)
         self.button_grid_all.addLayout(self.gridLayout)
         #self.button_grid_all.addStretch(1)
         #self.button_grid_all.addWidget(self.scrollArea)
