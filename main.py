@@ -320,8 +320,14 @@ class MainWindow(QMainWindow):
         #self.palette = QPalette()
         #self.palette.setColor(QPalette.Shadow, QColor('grey'))
         
-        self.scrollArea = QScrollArea(self)
-        self.scrollArea.setBackgroundRole(QPalette.Dark)
+        self.scrollArea = QScrollArea()
+        
+        #self.scrollArea.setAttribute(Qt.WA_TranslucentBackground)
+        #self.scrollArea.setStyleSheet("background-color:transparent;")
+
+        self.scrollArea.setStyleSheet("background-color: rgb(50, 50, 50, 100);")
+
+        self.scrollArea.setBackgroundRole(QPalette.Light)
         #self.scrollArea.setAutoFillBackground(False)
 
 
@@ -401,6 +407,7 @@ class MainWindow(QMainWindow):
                                
         self.tile_list = QListWidget()
         self.tile_list.setMaximumWidth(200)
+        self.tile_list.setStyleSheet("QListWidget { background-color: rgb(50, 50, 50, 100); }")
 
         self.up_tool_btn = QToolButton(self)
         self.up_tool_btn.setIcon(QIcon('icons/up.png'))
@@ -440,7 +447,7 @@ class MainWindow(QMainWindow):
         self.grid_widget = QWidget()
         self.grid_widget.setLayout(self.button_grid_layout)
         self.scrollArea.setWidget(self.grid_widget)
-        self.scrollArea.ensureWidgetVisible(self.grid_widget)
+        #self.scrollArea.ensureWidgetVisible(self.grid_widget)
         self.scrollArea.setWidgetResizable(True)
 
         #self.scrollFrame = QLabel(self.scrollArea)
@@ -976,8 +983,13 @@ class MainWindow(QMainWindow):
         grid_x = self.grid_x
 
         self.scrollArea.deleteLater()
-        self.scrollArea = QScrollArea(self)
+        self.scrollArea = QScrollArea()
         self.scrollArea.setBackgroundRole(QPalette.Light)
+        #self.scrollArea.setBackgroundRole(QPalette.Light)
+        
+        #self.scrollArea.setStyleSheet("background-color:transparent;")
+        self.scrollArea.setStyleSheet("background-color: rgb(50, 50, 50, 100);")
+
 
         self.grid_widget = QWidget()
         self.grid_widget.setLayout(self.button_grid_layout)
