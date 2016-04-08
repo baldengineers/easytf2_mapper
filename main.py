@@ -319,7 +319,7 @@ class MainWindow(QMainWindow):
         #self.labelLayout = QHBoxLayout(self)
         #self.palette = QPalette()
         #self.palette.setColor(QPalette.Shadow, QColor('grey'))
-        
+
         self.scrollArea = QScrollArea()
         
         #self.scrollArea.setAttribute(Qt.WA_TranslucentBackground)
@@ -372,11 +372,23 @@ class MainWindow(QMainWindow):
 
         self.level = QPushButton(self)
 
-        self.level.setText("Level:")
+        self.level.setText("Level: 1")
         
         self.level.setFixedSize(QSize(150,30))
         #self.level.setMenu(self.levelMenu)
         self.level.clicked.connect(self.level_select)
+
+        self.levelup = QToolButton(self)
+        self.levelup.setIcon(QIcon('icons/up.png'))
+        self.levelup.setIconSize(QSize(20,20))
+        self.levelup.clicked.connect(lambda: self.change_level(True, True))
+        self.levelup.setAutoRaise(True)
+
+        self.leveldown = QToolButton(self)
+        self.leveldown.setIcon(QIcon('icons/down.png'))
+        self.leveldown.setIconSize(QSize(20,20))
+        self.leveldown.clicked.connect(lambda: self.change_level(True, False))
+        self.leveldown.setAutoRaise(True)
         
         self.rotateCW = QToolButton(self)
         self.rotateCW.setIcon(QIcon('icons/rotate_cw.png'))
@@ -402,7 +414,9 @@ class MainWindow(QMainWindow):
         self.button_rotate_layout.addWidget(self.rotateCW)
         self.button_rotate_layout.addWidget(self.divider)
         self.button_rotate_layout.addWidget(self.level)
-
+        self.button_rotate_layout.addWidget(self.levelup)
+        self.button_rotate_layout.addWidget(self.leveldown)
+        
         self.button_rotate_layout.addStretch(1)
                                
         self.tile_list = QListWidget()
@@ -545,14 +559,33 @@ class MainWindow(QMainWindow):
         self.windowl.setLayout(self.layoutl)
         self.windowl.exec_()
 
-    def change_level(self):
-        global level
-        self.file_save(True)
-        level = int(self.levellist.currentRow()) #+1 X First level should be 0
-        print(level)
-        self.file_open(True)
-        self.windowl.close()
-        self.level.setText("Level: " + str(level+1))
+    def change_level(self, but = False, up = False):
+        global level, levels
+        if not but:
+            self.file_save(True)
+            level = int(self.levellist.currentRow()) #+1 X First level should be 0
+            print(level)
+            self.file_open(True)
+            self.windowl.close()
+            self.level.setText("Level: " + str(level+1))
+        if up:
+            self.file_save(True)
+            if level != levels-1:
+                level = int(level+1)
+            else:
+                pass
+            print(level)
+            self.file_open(True)
+            self.level.setText("Level: " + str(level+1))
+        else:
+            self.file_save(True)
+            if level != 0:
+                level = int(level-1)
+            else:
+                pass
+            print(level)
+            self.file_open(True)
+            self.level.setText("Level: " + str(level+1))            
         #print(totalblocks)
         #print(iconlist)
         #change grid to grid for level
@@ -584,7 +617,7 @@ class MainWindow(QMainWindow):
         self.restartCheck = QCheckBox()
         self.restartCheck.setText("Restart after deletion?")
 
-        choice = QMessageBox.question(self,"Delete Prefab","Are you sure you want to delete \"%s\"?\n" %(prefab_text_list[currentprefab]),
+        choice = QMessageBox.question(self,"Delete Prefab (DO NOT DELETE STOCK PREFABS)","Are you sure you want to delete \"%s\"?\nThis is mainly for developers." %(prefab_text_list[currentprefab]),
                              QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         
         #choice.addWidget(self.restartCheck)
@@ -926,9 +959,10 @@ class MainWindow(QMainWindow):
         '''
 
     def grid_change_func(self,x,y,z):
+        level = 0
         count_btns = 0
         self.count = 0
-        global grid_y, grid_x, levels, file_loaded, currentfilename
+        global grid_y, grid_x, levels, file_loaded, currentfilename, level
         file_loaded = False
         try:
             self.window.deleteLater()
