@@ -690,10 +690,11 @@ class MainWindow(QMainWindow):
         
         
     def file_open(self, tmp = False, first = False):
-        global grid_list, iconlist, level, totalblocks,entity_list, currentfilename, file_loaded
+        global grid_list, iconlist, level, totalblocks,entity_list, currentfilename, file_loaded, latest_path
+        print(latest_path)
         if not tmp:
-            name = QFileDialog.getOpenFileName(self, "Open File", "/","*.ezm")
-            file = open(name[0], "rb")
+            name = QFileDialog.getOpenFileName(self, "Open File", latest_path,"*.ezm")
+            latest_path,file = open(name[0], "rb"),str(name[0])
             level = 0
             #del totalblocks, entity_list,iconlist,grid_list
             iconlist=[]
@@ -777,12 +778,14 @@ class MainWindow(QMainWindow):
         #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self, tmp = False, saveAs = False):
-        global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded
+        global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded, latest_path
+        print(latest_path)
         gridsize_list = (grid_x,grid_y,levels)
         skybox_sav = skybox2_list.currentRow()
         if not tmp:
             if not file_loaded or saveAs:
-                name = QFileDialog.getSaveFileName(self, "Save File", "/", "*.ezm")[0]
+                name = QFileDialog.getSaveFileName(self, "Save File", latest_path, "*.ezm")[0]
+                latest_path = name
             else:
                 if "*" in currentfilename:
                     name = currentfilename[:-1]
@@ -825,7 +828,7 @@ class MainWindow(QMainWindow):
         
 
     def file_export(self):
-        global id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list
+        global id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list, latest_path
         skyboxgeolist = []
         skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, %d minimum recommended):" %(levels*512)))
         try:
@@ -867,7 +870,8 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self, "Error", "Please choose a skybox.")
             self.change_skybox()
         entity_list[0][levels] = currentlight
-        name = QFileDialog.getSaveFileName(self, "Export .vmf", "output/", "Valve Map File (*.vmf)")
+        latest_path = latest_path.replace(".ezm",".vmf")
+        name = QFileDialog.getSaveFileName(self, "Export .vmf", latest_path, "Valve Map File (*.vmf)")
         file = open(name[0], "w")
         import export
         wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
@@ -960,6 +964,7 @@ class MainWindow(QMainWindow):
 
     def grid_change_func(self,x,y,z):
         level = 0
+        levels = 1
         count_btns = 0
         self.count = 0
         global grid_y, grid_x, levels, file_loaded, currentfilename, level
@@ -1308,6 +1313,7 @@ placeholder_list = []
 currentfilename='Easy TF2 Mapper '
 file_loaded = False
 current_loaded = ''
+latest_path='/'
 currentlight = '''
 entity
 {

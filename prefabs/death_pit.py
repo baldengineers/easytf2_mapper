@@ -15100,7 +15100,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         z1244 = level*448 + -128
         x1245 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-64)), 90)[0])
         y1245 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-64)), 90)[1])
-        z1245 = level*448 + -128
+        z1245 = level*448 + -110
         x1246 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (64), posy*-1*512 + (-64)), 90)[0])
         y1246 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (64), posy*-1*512 + (-64)), 90)[1])
         z1246 = level*448 + -192
@@ -15118,7 +15118,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         z1250 = level*448 + -192
         x1251 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (64), posy*-1*512 + (-64)), 90)[0])
         y1251 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (64), posy*-1*512 + (-64)), 90)[1])
-        z1251 = level*448 + -128
+        z1251 = level*448 + -110
         x1252 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-64)), 90)[0])
         y1252 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-64)), 90)[1])
         z1252 = level*448 + -192
@@ -15127,7 +15127,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         z1253 = level*448 + -192
         x1254 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-448)), 90)[0])
         y1254 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-448)), 90)[1])
-        z1254 = level*448 + -128
+        z1254 = level*448 + -110
         x1255 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (64), posy*-1*512 + (-64)), 90)[0])
         y1255 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (64), posy*-1*512 + (-64)), 90)[1])
         z1255 = level*448 + -192
@@ -15136,7 +15136,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         z1256 = level*448 + -192
         x1257 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-64)), 90)[0])
         y1257 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-64)), 90)[1])
-        z1257 = level*448 + -128
+        z1257 = level*448 + -110
         x1258 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-448)), 90)[0])
         y1258 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (448), posy*-1*512 + (-448)), 90)[1])
         z1258 = level*448 + -192
@@ -15145,7 +15145,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         z1259 = level*448 + -192
         x1260 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (64), posy*-1*512 + (-448)), 90)[0])
         y1260 = int(rotatePoint((posx*512+256,posy*-1*512-256), (posx*1*512 + (64), posy*-1*512 + (-448)), 90)[1])
-        z1260 = level*448 + -128
+        z1260 = level*448 + -110
 #INSERT_ROT_3_PY_LIST
 
     var_count = 1260
