@@ -1,9 +1,9 @@
-# Easy TF2 Mapper (late beta 2.0.0)
-##in broken state: No, but there are some bugs in the latest windows redist. Most of these are fixed in the python source code.
+# Easy TF2 Mapper (late beta 2.5.0)
+##in broken state: No.
 Make TF2 maps with blocks, in a sort of mario maker-esque way. currently in development; a few weeks from release. Send bugs, ideas, and suggestions to toadsrc@gmail.com.
 ### current development branch: master, bugfixes
 <p>
-_CURRENTLY IN LATE BETA 2.0.0. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_ This currently is only for Windows, but Linux compatibility is upcoming.
+_CURRENTLY IN LATE BETA 2.5.0. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_ This currently is only for Windows, but Linux compatibility is upcoming.
 <p>
 *READ THE README.TXT AND WIKI FOR INFO*
 <p>
@@ -17,21 +17,21 @@ _*BEFORE INSTALLING AND RUNNING, CHECK THE LATEST [RELEASES](https://github.com/
 ## screenshots:
 Main window:
 
-![Main Window](http://i.imgur.com/2pnFovg.png =437x383.5)
+![Main Window](http://i.imgur.com/G7qt1Ir.jpg =437x383.5)
 
 Main window with some prefabs added:
 
-![Main Window With Prefabs Added In](http://i.imgur.com/HWOIsys.png =437x383.5)
+![Main Window With Prefabs Added In](http://i.imgur.com/1CrV0uA.jpg =437x383.5)
 
 Inside Hammer after exporting:
 
-![Inside Hammer After Exporting](http://i.imgur.com/3miLMjd.png =437x383.5)
+![Inside Hammer After Exporting](http://i.imgur.com/Sh28kDW.png =437x383.5)
 
 Inside TF2:
 
-![Inside TF2 After Exporting .bsp](http://i.imgur.com/Q7omyos.jpg =437x383.5)
+![Inside TF2 After Exporting .bsp](http://i.imgur.com/zE9KlIm.jpg =437x383.5)
 
-![More of that](http://i.imgur.com/mErdAZ9.jpg =437x383.5)
+![More of that](http://i.imgur.com/1xTPxxy.jpg =437x383.5)
 
 ###more screenshots can be found [here](https://github.com/baldengineers/easytf2_mapper/wiki/Screenshots)
 ## bugs
