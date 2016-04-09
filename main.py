@@ -663,7 +663,7 @@ class MainWindow(QMainWindow):
                 pass
             
         else:
-            pass
+            del choice
 
     def changeIcon(self):
         global rotation
@@ -694,7 +694,7 @@ class MainWindow(QMainWindow):
         print(latest_path)
         if not tmp:
             name = QFileDialog.getOpenFileName(self, "Open File", latest_path,"*.ezm")
-            latest_path,file = open(name[0], "rb"),str(name[0])
+            latest_path,file = str(name[0]),open(name[0], "rb")
             level = 0
             #del totalblocks, entity_list,iconlist,grid_list
             iconlist=[]
