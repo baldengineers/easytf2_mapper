@@ -577,7 +577,7 @@ class MainWindow(QMainWindow):
             print(level)
             self.file_open(True)
             self.level.setText("Level: " + str(level+1))
-        else:
+        elif not up and but:
             self.file_save(True)
             if level != 0:
                 level = int(level-1)
