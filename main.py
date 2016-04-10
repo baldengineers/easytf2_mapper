@@ -550,7 +550,7 @@ class MainWindow(QMainWindow):
             print(str(e))
             pass
 
-        self.levellist.itemClicked.connect(self.change_level)
+        self.levellist.itemClicked.connect(lambda: self.change_level(False, False))
         self.layoutl = QHBoxLayout()
         self.layoutl.addWidget(self.levellist)
         self.windowl.setGeometry(150,150,400,300)
