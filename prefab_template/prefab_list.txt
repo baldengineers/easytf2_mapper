@@ -9,3 +9,4 @@ death_pit
 laser_array
 nuke
 ramp
+spire

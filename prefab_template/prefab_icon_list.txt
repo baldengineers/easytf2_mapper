@@ -9,3 +9,4 @@ icons/death_pit.jpg
 icons/laser.jpg
 icons/nuke_icon.png
 icons/ramp.jpg
+icons/spire.jpg

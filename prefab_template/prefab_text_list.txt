@@ -9,3 +9,4 @@ Death Pit (bottom level only)
 Laser Array
 Nuke
 Ramp To Next Level
+Spire

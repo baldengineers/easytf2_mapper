@@ -9,3 +9,4 @@ death_pit_icon_list.txt
 laser_array_icon_list.txt
 nuke_icon_list.txt
 ramp_icon_list.txt
+spire_icon_list.txt

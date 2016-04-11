@@ -245,7 +245,7 @@ class MainWindow(QMainWindow):
 
         optionsMenu.addAction(gridAction)
         optionsMenu.addAction(changeSkybox)
-        optionsMenu.addAction(removeAction)
+        #optionsMenu.addAction(removeAction)
         
         createMenu.addAction(createPrefabAction)
         
@@ -1202,9 +1202,12 @@ class MainWindow(QMainWindow):
         self.okay_btn.clicked.connect(self.create_run_func)
 
         self.rotCheckBox = QCheckBox()
+        self.blanklabel = QLabel()
+
         
         
         self.form = QFormLayout()
+        self.form.addRow("\u0002This is a pretty buggy tool at this point, \nand is mostly used by developers. \nAre you sure you want to do this?",self.blanklabel)
         self.form.addRow("Prefab Text:", self.textLineEdit)
         self.form.addRow("Prefab Name:", self.nameLineEdit)
         self.form.addRow("VMF file (.vmf):", self.vmfLayout)
