@@ -1305,11 +1305,13 @@ class MainWindow(QMainWindow):
         self.console.setWindowTitle("Developer Console")
 
         self.prev_text = QTextEdit("<Bald Engineers Developer Console>")
+        self.prev_text.setText('''Developer console for Easy TF2 Mapper version beta 2.5.5. Current commands are:
+print <variable>, setlevel <int>, help, restart, exit.\n''')
         self.prev_text.setReadOnly(True)
         
         self.curr_text = QLineEdit()
         self.curr_text_btn = QPushButton("Enter")
-        self.curr_text_btn.clicked.connect(lambda: )
+        self.curr_text_btn.clicked.connect(self.console_enter)
         
         self.curr_text_layout = QHBoxLayout()
         self.curr_text_layout.addWidget(self.curr_text)
@@ -1328,6 +1330,7 @@ class MainWindow(QMainWindow):
         self.console.exec_()
 
     def console_enter(self):
+        global level, levels
 
         """
         try:
@@ -1358,10 +1361,36 @@ class MainWindow(QMainWindow):
                 new_text = text_prefix + str(eval(print_var))
             except Exception as e:
                 new_text = text_prefix + str(e)
+
+        elif command == "setlevel":
+            try:
+                if int(text[char_num:])-1 < int(levels):
+                    level = int(text[char_num:])-1
+                    self.level.setText("Level: " + str(level+1))
+                    new_text = text_prefix + "Level set to "+str(text[char_num:]+".")
+                else:
+                    new_text = text_prefix + "Level "+str(text[char_num:]+" is out of range.")
+            except Exception as e:
+                new_text = text_prefix + str(e)
+
+        elif command == "help":
+            new_text = "Developer console for Easy TF2 Mapper version beta 2.5.5 Current commands are: print <variable>, setlevel <int>, help, restart, exit"
+
+        elif command == "exit":
+            sys.exit()
+            
+        elif command == "restart":
+            try:
+                subprocess.Popen('EasyTF2Mapper.exe')
+            except:
+                subprocess.Popen('python main.py')
+            sys.exit()
+            
         else:
             new_text = text_prefix + "\"" + command + "\" is not a valid command"
 
         self.prev_text.setText(self.prev_text.toPlainText() + new_text)
+        self.curr_text.setText("")
 
 #define some global variables
 level = 0
@@ -1470,6 +1499,7 @@ for file in [prefab_file, prefab_text_file, prefab_icon_file,skybox_file,skybox_
 for item in prefab_list:
     globals()[item] = importlib.import_module(item)
     print("import", item)
+print("\n~~~~~~~~~~~~~~~~~~~~~\nMapper loaded! You may have to alt-tab to find the input values dialog.\n")
 global rotation
 #Main Program
 app = QApplication(sys.argv)
