@@ -15,6 +15,7 @@ import pickle
 import pprint
 import random
 import glob
+import webbrowser
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
 class GridBtn(QWidget):
@@ -1306,7 +1307,7 @@ class MainWindow(QMainWindow):
 
         self.prev_text = QTextEdit("<Bald Engineers Developer Console>")
         self.prev_text.setText('''Developer console for Easy TF2 Mapper version beta 2.5.5. Current commands are:
-print <variable>, setlevel <int>, help, restart, exit.\n''')
+print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki.\n''')
         self.prev_text.setReadOnly(True)
         
         self.curr_text = QLineEdit()
@@ -1383,7 +1384,7 @@ print <variable>, setlevel <int>, help, restart, exit.\n''')
                 new_text = text_prefix + str(e)
 
         elif command == "help":
-            new_text = text_prefix + "Developer console for Easy TF2 Mapper version beta 2.5.5 Current commands are: print <variable>, func <function>,setlevel <int>, help, restart, exit"
+            new_text = text_prefix + '''Developer console for Easy TF2 Mapper version beta 2.5.5 Current commands are: print <variable>, func <function>, setlevel <int>, help, restart, exit, func <function>, wiki'''
 
         elif command == "exit":
             self.close_application()
@@ -1397,8 +1398,7 @@ print <variable>, setlevel <int>, help, restart, exit.\n''')
 
         elif command == "pootis":
             new_text = '<img src="icons/thedoobs.jpg">'
-            #new_text = ""
-            #self.prev_text.setHtml(self.prev_text.toPlainText() + text_prefix+'<img src="icons/thedoobs.jpg">')
+
             
         elif command == "func":
             #function_var = ""
@@ -1411,7 +1411,13 @@ print <variable>, setlevel <int>, help, restart, exit.\n''')
             except Exception as e:
                 new_text = text_prefix + str(e)
 
-        
+        elif command == "wiki":
+            try:
+                webbrowser.open("http://github.com/baldengineers/easytf2_mapper/wiki")
+                new_text = text_prefix + "Wiki has been opened in your default browser"
+            except Exception as e:
+                print(str(e))
+                
         else:
             new_text = text_prefix + "\"" + command + "\" is not a valid command"
 
