@@ -220,6 +220,11 @@ class MainWindow(QMainWindow):
         createPrefabAction.setStatusTip("View the readme for a good idea on formatting Hammer Prefabs.")
         createPrefabAction.triggered.connect(self.create_prefab)
 
+        consoleAction = QAction("&Open Dev Console", self)
+        consoleAction.setShortcut("`")
+        consoleAction.setStatusTip("Run functions/print variables manually")
+        consoleAction.triggered.connect(self.open_console)
+
         #refreshPrefab = QAction("&Refresh Prefab List", self)
         #refreshPrefab.setStatusTip("Refresh the list of prefabs, done after creating a new one.")
         #refreshPrefab.triggered.connect(self.importprefabs)
@@ -233,6 +238,7 @@ class MainWindow(QMainWindow):
         mainMenu = self.menuBar()
         fileMenu = mainMenu.addMenu("&File")
         optionsMenu = mainMenu.addMenu("&Options")
+        toolsMenu = mainMenu.addMenu("&Tools")
         createMenu = mainMenu.addMenu("&Create")
         
         fileMenu.addAction(newAction)
@@ -240,12 +246,14 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(saveAction)
         fileMenu.addAction(saveAsAction)
         fileMenu.addAction(exportAction)
-        fileMenu.addAction(exitAction)
         fileMenu.addAction(hammerAction)
+        fileMenu.addAction(exitAction)
 
         optionsMenu.addAction(gridAction)
         optionsMenu.addAction(changeSkybox)
         #optionsMenu.addAction(removeAction)
+
+        toolsMenu.addAction(consoleAction)
         
         createMenu.addAction(createPrefabAction)
         
@@ -1289,6 +1297,71 @@ class MainWindow(QMainWindow):
         else:
             pass        
         #self.importprefabs()
+
+    def open_console(self):
+        #contains dev console where you can manually run functions
+
+        self.console = QDialog()
+        self.console.setWindowTitle("Developer Console")
+
+        self.prev_text = QTextEdit("<Bald Engineers Developer Console>")
+        self.prev_text.setReadOnly(True)
+        
+        self.curr_text = QLineEdit()
+        self.curr_text_btn = QPushButton("Enter")
+        self.curr_text_btn.clicked.connect(lambda: )
+        
+        self.curr_text_layout = QHBoxLayout()
+        self.curr_text_layout.addWidget(self.curr_text)
+        self.curr_text_layout.addWidget(self.curr_text_btn)
+        
+        self.console_close_btn = QPushButton("Close")
+        self.console_close_btn.clicked.connect(self.console.close)
+        
+        self.console_form = QFormLayout()
+        self.console_form.addRow(self.prev_text)
+        self.console_form.addRow(self.curr_text_layout)
+        self.console_form.addRow(self.console_close_btn)
+
+        
+        self.console.setLayout(self.console_form)
+        self.console.exec_()
+
+    def console_enter(self):
+
+        """
+        try:
+            self.prev_text.setText(eval(self.curr_text.displayText()))
+        except Exception as e:
+            self.prev_text.setText(str(e))
+        """
+            
+        command = ""
+        char_num = 0
+        text = self.curr_text.displayText()
+        text_prefix = "\n" + text + " --> "
+        
+        for letter in text:
+            if letter != " ":
+                command += letter
+                char_num += 1
+            else:
+                break
+
+        if command == "print":
+            print_var = ""
+
+            for letter in text[char_num:]:
+                print_var += letter
+                
+            try:
+                new_text = text_prefix + str(eval(print_var))
+            except Exception as e:
+                new_text = text_prefix + str(e)
+        else:
+            new_text = text_prefix + "\"" + command + "\" is not a valid command"
+
+        self.prev_text.setText(self.prev_text.toPlainText() + new_text)
 
 #define some global variables
 level = 0
