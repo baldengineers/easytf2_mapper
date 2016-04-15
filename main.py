@@ -248,7 +248,7 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(saveAction)
         fileMenu.addAction(saveAsAction)
         fileMenu.addAction(exportAction)
-        fileMenu.addAction(hammerAction)
+        
         fileMenu.addAction(exitAction)
 
         optionsMenu.addAction(gridAction)
@@ -258,7 +258,7 @@ class MainWindow(QMainWindow):
         toolsMenu.addAction(consoleAction)
         
         createMenu.addAction(createPrefabAction)
-        
+        toolsMenu.addAction(hammerAction)
         self.home()
         self.change_skybox()
         self.level_select()

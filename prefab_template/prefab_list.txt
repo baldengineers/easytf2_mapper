@@ -10,3 +10,4 @@ laser_array
 nuke
 ramp
 spire
+diag_wall
