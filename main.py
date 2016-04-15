@@ -1327,7 +1327,7 @@ print <variable>, setlevel <int>, help, restart, exit.\n''')
 
         
         self.console.setLayout(self.console_form)
-        self.console.exec_()
+        self.console.show()
 
     def console_enter(self):
         global level, levels
@@ -1374,22 +1374,38 @@ print <variable>, setlevel <int>, help, restart, exit.\n''')
                 new_text = text_prefix + str(e)
 
         elif command == "help":
-            new_text = "Developer console for Easy TF2 Mapper version beta 2.5.5 Current commands are: print <variable>, setlevel <int>, help, restart, exit"
+            new_text = text_prefix + "Developer console for Easy TF2 Mapper version beta 2.5.5 Current commands are: print <variable>, setlevel <int>, help, restart, exit"
 
         elif command == "exit":
-            sys.exit()
+            self.close_application()
             
         elif command == "restart":
             try:
                 subprocess.Popen('EasyTF2Mapper.exe')
             except:
                 subprocess.Popen('python main.py')
-            sys.exit()
+            self.close_application()
+
+        elif command == "pootis":
+            new_text = '<img src="icons/thedoobs.jpg">'
+            self.prev_text.setHtml(text_prefix+new_text)
             
+        elif command == "func":
+            function_var = ""
+
+            for letter in text[char_num:]:
+                function_var += letter
+            try:
+                eval("self."+function_var + "()")
+                new_text = text_prefix + "Function "+function_var+" has been run."
+            except Exception as e:
+                new_text = text_prefix + str(e)
+
+        
         else:
             new_text = text_prefix + "\"" + command + "\" is not a valid command"
 
-        self.prev_text.setText(self.prev_text.toPlainText() + new_text)
+        self.prev_text.append(new_text)
         self.curr_text.setText("")
 
 #define some global variables
