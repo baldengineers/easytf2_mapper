@@ -16,6 +16,7 @@ import pprint
 import random
 import glob
 import webbrowser
+import wave
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
 class GridBtn(QWidget):
@@ -1399,7 +1400,19 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki.\n'
         elif command == "pootis":
             new_text = '<img src="icons/thedoobs.jpg">'
 
-            
+        elif command == "sideshow":
+            new_text = ''
+            self.sideshowwindow = QLabel()
+            movie = QMovie("icons/sideshow.gif")
+            self.sideshowwindow.setMovie(movie)
+            self.sideshowwindow.setGeometry(350,262,154,103)
+            self.sideshowwindow.setWindowTitle("SIDESHOW")
+            self.sideshowwindow.setWindowIcon(QIcon("icons/ss.ico"))
+            self.sideshowwindow.show()
+
+            movie.start()
+            print(QSound.isAvailable())
+            QSound("icons/ss.wav").play()
         elif command == "func":
             #function_var = ""
 
