@@ -1338,43 +1338,52 @@ print <variable>, setlevel <int>, help, restart, exit.\n''')
         except Exception as e:
             self.prev_text.setText(str(e))
         """
+        
             
         command = ""
         char_num = 0
         text = self.curr_text.displayText()
-        text_prefix = "\n" + text + " --> "
+        text_prefix = text + " --> "
         
+        '''
         for letter in text:
             if letter != " ":
                 command += letter
                 char_num += 1
             else:
                 break
+        '''
+        command = text.split()[0]
+        
+        try:
+            value = text.split()[1]
+        except IndexError:
+            value = ""
 
         if command == "print":
-            print_var = ""
+            #print_var = ""
 
-            for letter in text[char_num:]:
-                print_var += letter
+            #for letter in text[char_num:]:
+            #    print_var += letter
                 
             try:
-                new_text = text_prefix + str(eval(print_var))
+                new_text = text_prefix + str(eval(value))
             except Exception as e:
                 new_text = text_prefix + str(e)
 
         elif command == "setlevel":
             try:
-                if int(text[char_num:])-1 < int(levels):
-                    level = int(text[char_num:])-1
+                if int(value)-1 < int(levels):
+                    level = int(value)-1
                     self.level.setText("Level: " + str(level+1))
-                    new_text = text_prefix + "Level set to "+str(text[char_num:]+".")
+                    new_text = text_prefix + "Level set to "+str(value+".")
                 else:
-                    new_text = text_prefix + "Level "+str(text[char_num:]+" is out of range.")
+                    new_text = text_prefix + "Level "+str(value+" is out of range.")
             except Exception as e:
                 new_text = text_prefix + str(e)
 
         elif command == "help":
-            new_text = text_prefix + "Developer console for Easy TF2 Mapper version beta 2.5.5 Current commands are: print <variable>, setlevel <int>, help, restart, exit"
+            new_text = text_prefix + "Developer console for Easy TF2 Mapper version beta 2.5.5 Current commands are: print <variable>, func <function>,setlevel <int>, help, restart, exit"
 
         elif command == "exit":
             self.close_application()
@@ -1388,16 +1397,17 @@ print <variable>, setlevel <int>, help, restart, exit.\n''')
 
         elif command == "pootis":
             new_text = '<img src="icons/thedoobs.jpg">'
-            self.prev_text.setHtml(text_prefix+new_text)
+            #new_text = ""
+            #self.prev_text.setHtml(self.prev_text.toPlainText() + text_prefix+'<img src="icons/thedoobs.jpg">')
             
         elif command == "func":
-            function_var = ""
+            #function_var = ""
 
-            for letter in text[char_num:]:
-                function_var += letter
+            #for letter in text[char_num:]:
+            #    function_var += letter
             try:
-                eval("self."+function_var + "()")
-                new_text = text_prefix + "Function "+function_var+" has been run."
+                eval("self."+value + "()")
+                new_text = text_prefix + "Function "+value+" has been run."
             except Exception as e:
                 new_text = text_prefix + str(e)
 
