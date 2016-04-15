@@ -573,11 +573,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 """,
     "#INSERT_ROT_1_PY_LIST\n",
 """
-    elif rotation == 2:    for i in range(int(valcount.count('sound'))):
-        if "sound" in ent_values:
-            ent_values = ent_values.replace("sound_plac", "AmbSound"+str(entity_num), 2)
-            ent_values = ent_values.replace("relay_plac", "LogicRelay"+str(entity_num),2)
-            entity_num += 1
+    elif rotation == 2:
 """,
     "#INSERT_ROT_2_PY_LIST\n",
 """

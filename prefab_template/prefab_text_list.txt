@@ -11,3 +11,4 @@ Nuke
 Ramp To Next Level
 Spire
 Diagonal Wall
+Heal Beam

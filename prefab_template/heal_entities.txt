@@ -1,0 +1,110 @@
+entity
+{
+	"id" "world_idnum"
+	"classname" "trigger_hurt"
+	"damage" "-5"
+	"damagecap" "-5"
+	"damagemodel" "0"
+	"damagetype" "0"
+	"nodmgforce" "0"
+	"origin" "px1 py1 pz1"
+	"spawnflags" "1"
+	"StartDisabled" "0"
+	solid
+	{
+		"id" "world_idnum"
+		side
+		{
+			"id" "id_num"
+			"plane" "(x19 y19 z19) (x20 y20 z20) (x21 y21 z21)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x22 y22 z22) (x23 y23 z23) (x24 y24 z24)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 -1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x25 y25 z25) (x26 y26 z26) (x27 y27 z27)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x28 y28 z28) (x29 y29 z29) (x30 y30 z30)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x31 y31 z31) (x32 y32 z32) (x33 y33 z33)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "id_num"
+			"plane" "(x34 y34 z34) (x35 y35 z35) (x36 y36 z36)"
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 1] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupshown" "1"
+			"visgroupautoshown" "1"
+		}
+	}
+}
+entity
+{
+	"id" "world_idnum"
+	"classname" "prop_static"
+	"angles" "ROTATION_RIGHT"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"model" "models/props_2fort/groundlight003.mdl"
+	"skin" "0"
+	"solid" "6"
+	"origin" "px2 py2 pz2"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1500]"
+	}
+}

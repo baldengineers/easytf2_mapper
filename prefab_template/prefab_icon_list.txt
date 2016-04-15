@@ -11,3 +11,4 @@ icons/nuke_icon.png
 icons/ramp.jpg
 icons/spire.jpg
 icons/diag_wall.jpg
+icons/heal_tile.jpg

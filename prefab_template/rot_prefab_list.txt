@@ -11,3 +11,4 @@ nuke_icon_list.txt
 ramp_icon_list.txt
 spire_icon_list.txt
 diag_wall_icon_list.txt
+heal_icon_list.txt
