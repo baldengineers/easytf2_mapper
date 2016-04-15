@@ -1308,7 +1308,7 @@ class MainWindow(QMainWindow):
 
         self.prev_text = QTextEdit("<Bald Engineers Developer Console>")
         self.prev_text.setText('''Developer console for Easy TF2 Mapper version beta 2.5.5. Current commands are:
-print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki.\n''')
+print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>.\n''')
         self.prev_text.setReadOnly(True)
         
         self.curr_text = QLineEdit()
@@ -1385,7 +1385,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki.\n'
                 new_text = text_prefix + str(e)
 
         elif command == "help":
-            new_text = text_prefix + '''Developer console for Easy TF2 Mapper version beta 2.5.5 Current commands are: print <variable>, func <function>, setlevel <int>, help, restart, exit, func <function>, wiki'''
+            new_text = text_prefix + '''Developer console for Easy TF2 Mapper version beta 2.5.5 Current commands are: print <variable>, func <function>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>'''
 
         elif command == "exit":
             self.close_application()
@@ -1430,6 +1430,11 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki.\n'
             except Exception as e:
                 print(str(e))
                 
+        elif command == "py":
+            try:
+                new_text = text_prefix + str(eval(value))
+            except Exception as e:
+                new_text = text_prefix + str(e)
         else:
             new_text = text_prefix + "\"" + command + "\" is not a valid command"
 
