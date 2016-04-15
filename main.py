@@ -1411,7 +1411,6 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki.\n'
             self.sideshowwindow.show()
 
             movie.start()
-            print(QSound.isAvailable())
             QSound("icons/ss.wav").play()
         elif command == "func":
             #function_var = ""
