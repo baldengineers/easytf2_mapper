@@ -822,7 +822,7 @@ class MainWindow(QMainWindow):
 
             self.setWindowTitle("Easy TF2 Mapper - [" + name + "]")
 
-            currentfilename = "Easy TF2 Mapper - [" + name + "]"
+            currentfilename = name
             file_loaded = True
         else:
             try:#writes tmp file to save the icons for each level
@@ -1464,7 +1464,7 @@ prefab_text_list = []
 prefab_icon_list = []
 openblocks=[]
 placeholder_list = []
-currentfilename='Easy TF2 Mapper '
+currentfilename='Untitled '
 file_loaded = False
 current_loaded = ''
 latest_path='/'
