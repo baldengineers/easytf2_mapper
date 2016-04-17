@@ -1160,7 +1160,7 @@ class MainWindow(QMainWindow):
         if choice == QMessageBox.Yes:
             folder = 'leveltemp/'
             for f in os.listdir(folder):
-                if 'level' in f: 
+                if "level" in f: 
                     print("removing", f)
                     os.remove(folder+f)
                 
@@ -1464,7 +1464,7 @@ prefab_text_list = []
 prefab_icon_list = []
 openblocks=[]
 placeholder_list = []
-currentfilename='Untitled '
+currentfilename='Untitled'
 file_loaded = False
 current_loaded = ''
 latest_path='/'
