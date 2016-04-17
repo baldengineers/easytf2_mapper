@@ -1160,7 +1160,7 @@ class MainWindow(QMainWindow):
         if choice == QMessageBox.Yes:
             folder = 'leveltemp/'
             for f in os.listdir(folder):
-                if not "init" in f: 
+                if 'level' in f: 
                     print("removing", f)
                     os.remove(folder+f)
                 
