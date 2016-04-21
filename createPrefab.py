@@ -501,50 +501,49 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                 ent_values = ent_values.replace("door_large", "door_large" + str(entity_num), 4)
             if "\\"respawn_name\\"" in ent_values:
                 ent_values = ent_values.replace("\\"respawn_name\\"", "\\"respawn_name" + str(entity_num) + "\\"", 2)
-
-            
-            if "ROTATION_RIGHT" in ent_values:
-                if rotation == 0:
-                    ent_values = ent_values.replace("ROTATION_RIGHT","0 0 0",1)
-                elif rotation == 1:
-                    ent_values = ent_values.replace("ROTATION_RIGHT","0 270 0",1)
-                elif rotation == 2:
-                    ent_values = ent_values.replace("ROTATION_RIGHT","0 180 0",1)
-                elif rotation == 3:
-                    ent_values = ent_values.replace("ROTATION_RIGHT","0 90 0",1)
-            if "ROTATION_UP" in ent_values:
-                if rotation == 0:
-                    ent_values = ent_values.replace("ROTATION_UP","0 90 0",1)
-                elif rotation == 1:
-                    ent_values = ent_values.replace("ROTATION_UP","0 0 0",1)
-                elif rotation == 2:
-                    ent_values = ent_values.replace("ROTATION_UP","0 270 0",1)
-                elif rotation == 3:
-                    ent_values = ent_values.replace("ROTATION_UP","0 180 0",1)
-            if "ROTATION_LEFT" in ent_values:
-                if rotation == 0:
-                    ent_values = ent_values.replace("ROTATION_LEFT","0 180 0",1)
-                elif rotation == 1:
-                    ent_values = ent_values.replace("ROTATION_LEFT","0 90 0",1)
-                elif rotation == 2:
-                    ent_values = ent_values.replace("ROTATION_LEFT","0 0 0",1)
-                elif rotation == 3:
-                    ent_values = ent_values.replace("ROTATION_LEFT","0 270 0",1)
-            if "ROTATION_DOWN" in ent_values:
-                if rotation == 0:
-                    ent_values = ent_values.replace("ROTATION_DOWN","0 270 0",1)
-                elif rotation == 1:
-                    ent_values = ent_values.replace("ROTATION_DOWN","0 180 0",1)
-                elif rotation == 2:
-                    ent_values = ent_values.replace("ROTATION_DOWN","0 90 0",1)
-                elif rotation == 3:
-                    ent_values = ent_values.replace("ROTATION_DOWN","0 0 0",1)
-            
-            entity_num += 1    for i in range(int(valcount.count('sound'))):
+            entity_num += 1
         except Exception as e:
             print(str(e))
 
+    for i in range(valcount.count("ROTATION")):
+        if "ROTATION_RIGHT" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("ROTATION_RIGHT","0 0 0",1)
+            elif rotation == 1:
+                ent_values = ent_values.replace("ROTATION_RIGHT","0 270 0",1)
+            elif rotation == 2:
+                ent_values = ent_values.replace("ROTATION_RIGHT","0 180 0 ",1)
+            elif rotation == 3:
+                ent_values = ent_values.replace("ROTATION_RIGHT","0 90 0",1)
+        if "ROTATION_LEFT" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("ROTATION_LEFT","0 180 0",1)
+            elif rotation == 1:
+                ent_values = ent_values.replace("ROTATION_LEFT","0 90 0",1)
+            elif rotation == 2:
+                ent_values = ent_values.replace("ROTATION_LEFT","0 0 0",1)
+            elif rotation == 3:
+                ent_values = ent_values.replace("ROTATION_LEFT","0 270 0",1)
+        if "ROTATION_DOWN" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("ROTATION_DOWN","0 270 0",1)
+            elif rotation == 1:
+                ent_values = ent_values.replace("ROTATION_DOWN","0 180 0",1)
+            elif rotation == 2:
+                ent_values = ent_values.replace("ROTATION_DOWN","0 90 0",1)
+            elif rotation == 3:
+                ent_values = ent_values.replace("ROTATION_DOWN","0 0 0",1)
+        if "ROTATION_UP" in ent_values:
+            if rotation == 0:
+                ent_values = ent_values.replace("ROTATION_UP","0 90 0",1)
+            elif rotation == 1:
+                ent_values = ent_values.replace("ROTATION_UP","0 0 0",1)
+            elif rotation == 2:
+                ent_values = ent_values.replace("ROTATION_UP","0 270 0",1)
+            elif rotation == 3:
+                ent_values = ent_values.replace("ROTATION_UP","0 180 0",1)
 
+        entity_num += 1
 """]
 
   rot_code = [["""

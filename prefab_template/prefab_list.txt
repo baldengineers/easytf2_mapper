@@ -12,3 +12,4 @@ ramp
 spire
 diag_wall
 heal
+ammo_hut

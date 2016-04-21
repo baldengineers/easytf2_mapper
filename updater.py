@@ -14,7 +14,7 @@ try:
     resp = urllib.request.urlopen(req) 
     respData = resp.read()             
 
-    saveFile = open('tmp/latest.zip', 'w') 
+    saveFile = open('leveltemp/latest.zip', 'w') 
     saveFile.write(str(respData))
     saveFile.close()
 

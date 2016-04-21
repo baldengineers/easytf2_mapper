@@ -1,0 +1,4 @@
+icons/ammo_hut_right.jpg
+icons/ammo_hut_down.jpg
+icons/ammo_hut_left.jpg
+icons/ammo_hut_up.jpg
