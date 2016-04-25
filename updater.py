@@ -53,7 +53,7 @@ if response == "y" or response == "yes":
             if file.startswith('updater.exe'):
                 pass
             else:
-                ziplatest.extract(file, '/')
+                ziplatest.extract(file)
         ziplatest.close()
         print('done unpacking latest zip')
         
