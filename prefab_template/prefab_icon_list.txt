@@ -13,3 +13,4 @@ icons/spire.jpg
 icons/diag_wall.jpg
 icons/heal_tile.jpg
 icons/ammo_hut.jpg
+C:/Users/Anson/Desktop/heal.jpg

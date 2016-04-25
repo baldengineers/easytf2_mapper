@@ -1,0 +1,4 @@
+icons/health_hut_right.jpg
+icons/health_hut_down.jpg
+icons/health_hut_left.jpg
+icons/health_hut_up.jpg

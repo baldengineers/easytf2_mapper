@@ -625,7 +625,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
       if index != len(prefab_icon_list) - 1:
        prefab_icon_list[index] = item + "/" # add the "/" back into the filepath
         
-  prefab_icon = "".join(prefab_icon_list)
+  #prefab_icon = "".join(prefab_icon_list)
     #print("prefab_icon: ",prefab_icon)
 
   #main loop
@@ -1064,6 +1064,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
   file.close()
 
   if rot_enabled:
+    print(prefab_icon)
     ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
     icondir = str(prefab_name)
     with open("prefab_template/rot_prefab_list.txt", "a") as f:

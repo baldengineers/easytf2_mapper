@@ -13,3 +13,4 @@ Spire
 Diagonal Wall
 Heal Beam
 Ammo Hut
+Health Hut

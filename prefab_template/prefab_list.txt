@@ -13,3 +13,4 @@ spire
 diag_wall
 heal
 ammo_hut
+health_hut

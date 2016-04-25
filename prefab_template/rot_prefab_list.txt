@@ -13,3 +13,9 @@ spire_icon_list.txt
 diag_wall_icon_list.txt
 heal_icon_list.txt
 ammo_hut_icon_list.txt
+health_hut_icon_list.txt
+health_hut_icon_list.txt
+health_hut_icon_list.txt
+health_hut_icon_list.txt
+health_hut_icon_list.txt
+health_hut_icon_list.txt

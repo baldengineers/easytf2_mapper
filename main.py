@@ -1079,7 +1079,6 @@ class MainWindow(QMainWindow):
         #print(grid_list)
         #print(iconlist)
         self.setWindowTitle("Easy TF2 Mapper ")
-        currentfilename = "Easy TF2 Mapper "
         return grid_list
 
     def change_light(self):
@@ -1275,6 +1274,7 @@ class MainWindow(QMainWindow):
                 f.write("icons/"+self.icondir+"\n")
             f.close()
             '''
+        print(self.iconTextEdit.displayText())
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                           createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
                                                                             self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked()))
@@ -1307,7 +1307,7 @@ class MainWindow(QMainWindow):
         self.console.setWindowTitle("Developer Console")
 
         self.prev_text = QTextEdit("<Bald Engineers Developer Console>")
-        self.prev_text.setText('''Developer console for Easy TF2 Mapper version beta 2.6.0. Current commands are:
+        self.prev_text.setText('''Developer console for Easy TF2 Mapper version beta 2.6.1. Current commands are:
 print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>.\n''')
         self.prev_text.setReadOnly(True)
         
@@ -1385,7 +1385,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
                 new_text = text_prefix + str(e)
 
         elif command == "help":
-            new_text = text_prefix + '''Developer console for Easy TF2 Mapper version beta 2.6.0 Current commands are: print <variable>, func <function>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>'''
+            new_text = text_prefix + '''Developer console for Easy TF2 Mapper version beta 2.6.1 Current commands are: print <variable>, func <function>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>'''
 
         elif command == "exit":
             self.close_application()
