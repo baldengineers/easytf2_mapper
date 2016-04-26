@@ -5,6 +5,8 @@ algorithms to create the object (look in the prefabs folder)
 """
 
 from PIL import Image
+import zipfile
+import os
 
 
 
@@ -312,7 +314,7 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
 
 
 
-def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled):
+def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled, workshop_export):
 
   py_list = []
   ent_py_list = []
@@ -1087,7 +1089,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     f.close()
 
   else:
-    icondir = str(nameLineEdit.displayText())
+    icondir = str(prefab_name)
     with open("prefab_template/rot_prefab_list.txt", "a") as f:
       f.write("NO_ROTATION\n")
       f.close()
@@ -1096,8 +1098,37 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
       f.write("icons/"+icondir+"\n")
     f.close()
 
+
+  txtReturn = compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path)
+  pyReturn = compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list, rot_enabled)
+
+  if workshop_export:
+    d = open("info.txt","w")
+    d.write(icondir+"\n"+prefab_name+"\n"+prefab_text+"\n")
+    d.close()
+    with zipfile.ZipFile(prefab_name + '.zip', 'w') as f:
+      f.write(txt_path)
+      f.write(py_path)
+
+      if rot_enabled:
+        f.write("icons/"+ icondir+"_right.jpg")
+        f.write("icons/"+ icondir+"_down.jpg")
+        f.write("icons/"+ icondir+"_left.jpg")
+        f.write("icons/"+ icondir+"_up.jpg")
+      else:
+        f.write("icons/"+ icondir+".jpg")
+      
+      if contains_ent:
+        f.write(ent_path)
+
+      f.write("prefab_template/iconlists/"+icondir+"_icon_list.txt")
+      f.write("info.txt")
+      os.remove("info.txt")
+
+        
+
   
-  return compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path) + compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list, rot_enabled)
+  return txtReturn + pyReturn
 
 #create("vmf_prefabs/rotation_test.vmf", "rotation_test","Rotation Test", "icons/crate_cover.jpg",True)
 #create("vmf_prefabs/spawn_room_red.vmf", "spawn_room_red", "Respawn Room - Red", "icons/spawn_red.jpg", True)

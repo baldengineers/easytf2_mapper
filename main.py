@@ -17,6 +17,7 @@ import random
 import glob
 import webbrowser
 import wave
+import zipfile
 '''check todo every time you open this'''
 #TODO: more prefabs, mo betta
 class GridBtn(QWidget):
@@ -235,7 +236,15 @@ class MainWindow(QMainWindow):
         changeSkybox.setStatusTip("Change the skybox of the map.")
         changeSkybox.setShortcut("Ctrl+B")
         changeSkybox.triggered.connect(self.change_skybox)
+        
+        importPrefab = QAction("&Import Prefab",self)
+        importPrefab.setStatusTip("Import a prefab in a .zip file. You can find some user-made ones at http://tf2mapper.com")
+        importPrefab.setShortcut("Ctrl+Shift+I")
+        importPrefab.triggered.connect(self.import_prefab)
+        
         self.statusBar()
+
+        
         
         mainMenu = self.menuBar()
         fileMenu = mainMenu.addMenu("&File")
@@ -258,6 +267,7 @@ class MainWindow(QMainWindow):
         toolsMenu.addAction(consoleAction)
         
         createMenu.addAction(createPrefabAction)
+        createMenu.addAction(importPrefab)
         toolsMenu.addAction(hammerAction)
         self.home()
         self.change_skybox()
@@ -1211,17 +1221,19 @@ class MainWindow(QMainWindow):
         self.okay_btn.clicked.connect(self.create_run_func)
 
         self.rotCheckBox = QCheckBox()
-        self.blanklabel = QLabel()
+        self.expCheckBox = QCheckBox()
+        self.buggyText = QLabel("This is a pretty buggy tool at this point, and is mostly used by developers. Are you sure you want to do this? \n(exported prefabs can be found in the main directory, where the executable is.")
 
         
         
         self.form = QFormLayout()
-        self.form.addRow("\u0002This is a pretty buggy tool at this point, \nand is mostly used by developers. \nAre you sure you want to do this?",self.blanklabel)
+        self.form.addRow(self.buggyText)
         self.form.addRow("Prefab Text:", self.textLineEdit)
         self.form.addRow("Prefab Name:", self.nameLineEdit)
         self.form.addRow("VMF file (.vmf):", self.vmfLayout)
         self.form.addRow("Icon (.jpg):", self.iconLayout)
         self.form.addRow("Make Rotations?", self.rotCheckBox)
+        self.form.addRow("Export prefab?", self.expCheckBox)
         for i in range(5):
             self.form.addRow(self.blankstring)
         self.form.addRow(self.okay_btn_layout)
@@ -1236,48 +1248,10 @@ class MainWindow(QMainWindow):
         self.window.exec_()
 
     def create_run_func(self):
-        if self.rotCheckBox.isChecked():
-            
-            pass
-            '''
-        #no it doesn't create errors boyo
-            self.ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
-            self.icondir = str(self.nameLineEdit.displayText())
-            with open("prefab_template/rot_prefab_list.txt", "a") as f:
-                f.write(self.icondir+"_icon_list.txt\n")
-            #g.close() - useless, because you said "with open() as g," which automatically closes it
-            self.imageRot = Image.open(self.iconTextEdit.displayText())
-            self.imageRot.save("icons/"+self.icondir+"_right.jpg")
-            self.imageRot2 = Image.open(self.iconTextEdit.displayText())
-            self.imageRot2 = self.imageRot2.rotate(270)
-            self.imageRot2.save("icons/"+self.icondir+"_down.jpg")
-            self.imageRot3 = Image.open(self.iconTextEdit.displayText())
-            self.imageRot3 = self.imageRot3.rotate(180)
-            self.imageRot3.save("icons/"+self.icondir+"_left.jpg")
-            self.imageRot4 = Image.open(self.iconTextEdit.displayText())
-            self.imageRot4 = self.imageRot4.rotate(90)
-            self.imageRot4.save("icons/"+self.icondir+"_up.jpg")
-            f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
-            for i in self.ext_list:
-                f.write("icons/"+self.icondir+i+"\n")
-            f.close()
-            '''
-        else:
-            pass
-            '''
-            self.icondir = str(self.nameLineEdit.displayText())
-            with open("prefab_template/rot_prefab_list.txt", "a") as f:
-                f.write("NO_ROTATION\n")
-                f.close()
-            f = open("prefab_template/iconlists/"+self.icondir+"_icon_list.txt","w+")
-            for i in range(4):
-                f.write("icons/"+self.icondir+"\n")
-            f.close()
-            '''
         print(self.iconTextEdit.displayText())
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                           createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
-                                                                            self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked()))
+                                                                            self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked(),self.expCheckBox.isChecked()))
 
         restart_btn = QPushButton("Restart")
         later_btn = QPushButton("Later")
@@ -1300,6 +1274,49 @@ class MainWindow(QMainWindow):
             pass        
         #self.importprefabs()
 
+    def import_prefab(self):
+        name = QFileDialog.getOpenFileName(self, "Import Zipped Prefab", latest_path,"*.zip")[0]
+        prefab_zip = zipfile.ZipFile(name).extractall("")
+
+        with open("info.txt", "r+") as f:
+            zip_info = f.readlines()
+            with open('prefab_template/rot_prefab_list.txt',"a") as d:
+                tempfil = zip_info[0]
+                tempfil = tempfil.replace('\n','')
+                d.write(tempfil+"_icon_list.txt\n")
+            with open('prefab_template/prefab_list.txt',"a") as d:
+                tempfil = zip_info[0]
+                tempfil = tempfil.replace('\n','')
+                d.write(tempfil+'\n')
+            with open('prefab_template/prefab_text_list.txt',"a") as d:
+                d.write(zip_info[2])
+            with open('prefab_template/prefab_icon_list.txt',"a") as d:
+                tempfil = zip_info[1]
+                tempfil = tempfil.replace('\n','')
+                d.write('icons/'+tempfil+'_right.jpg\n')
+
+        os.remove("info.txt")
+        
+        restart_btn = QPushButton("Restart")
+        later_btn = QPushButton("Later")
+        choice = QMessageBox(self)
+        choice.setIcon(QMessageBox.Question)
+        choice.setWindowTitle("Prefab Successfully Imported")
+        choice.setText("Program must be restarted for changes to take effect.")
+        choice.setInformativeText("Restart? You will lose any unsaved progress.")
+        choice.addButton(restart_btn, QMessageBox.YesRole)
+        choice.addButton(later_btn, QMessageBox.NoRole)
+        choice.setDefaultButton(later_btn)                 
+        if choice.exec_() == 0:
+            try:
+                subprocess.Popen('EasyTF2Mapper.exe')
+            except:
+                subprocess.Popen('python main.py')
+            sys.exit()
+        else:
+            pass  
+        
+
     def open_console(self):
         #contains dev console where you can manually run functions
 
@@ -1307,7 +1324,7 @@ class MainWindow(QMainWindow):
         self.console.setWindowTitle("Developer Console")
 
         self.prev_text = QTextEdit("<Bald Engineers Developer Console>")
-        self.prev_text.setText('''Developer console for Easy TF2 Mapper version beta 2.6.1. Current commands are:
+        self.prev_text.setText('''Developer console for Easy TF2 Mapper version beta 2.6.5. Current commands are:
 print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>.\n''')
         self.prev_text.setReadOnly(True)
         
@@ -1385,7 +1402,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
                 new_text = text_prefix + str(e)
 
         elif command == "help":
-            new_text = text_prefix + '''Developer console for Easy TF2 Mapper version beta 2.6.1 Current commands are: print <variable>, func <function>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>'''
+            new_text = text_prefix + '''Developer console for Easy TF2 Mapper version beta 2.6.5. Current commands are: print <variable>, func <function>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>'''
 
         elif command == "exit":
             self.close_application()

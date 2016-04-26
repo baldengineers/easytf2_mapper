@@ -1,0 +1,4 @@
+icons/prefab_share_test_right.jpg
+icons/prefab_share_test_down.jpg
+icons/prefab_share_test_left.jpg
+icons/prefab_share_test_up.jpg

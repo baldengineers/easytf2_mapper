@@ -1,0 +1,4 @@
+icons/test_zip_right.jpg
+icons/test_zip_down.jpg
+icons/test_zip_left.jpg
+icons/test_zip_up.jpg
