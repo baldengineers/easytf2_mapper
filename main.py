@@ -203,7 +203,7 @@ class MainWindow(QMainWindow):
         changeLightAction.setStatusTip("Change the environment lighting of the map.")
         changeLightAction.triggered.connect(self.change_light)
         
-        exportAction = QAction("&Export", self)
+        exportAction = QAction("&as .VMF", self)
         exportAction.setShortcut("Ctrl+E")
         exportAction.setStatusTip("Export as .vmf")
         exportAction.triggered.connect(self.file_export)
@@ -237,7 +237,7 @@ class MainWindow(QMainWindow):
         changeSkybox.setShortcut("Ctrl+B")
         changeSkybox.triggered.connect(self.change_skybox)
         
-        importPrefab = QAction("&Import Prefab",self)
+        importPrefab = QAction("&Prefab",self)
         importPrefab.setStatusTip("Import a prefab in a .zip file. You can find some user-made ones at http://tf2mapper.com")
         importPrefab.setShortcut("Ctrl+Shift+I")
         importPrefab.triggered.connect(self.import_prefab)
@@ -247,6 +247,7 @@ class MainWindow(QMainWindow):
         
         
         mainMenu = self.menuBar()
+        
         fileMenu = mainMenu.addMenu("&File")
         optionsMenu = mainMenu.addMenu("&Options")
         toolsMenu = mainMenu.addMenu("&Tools")
@@ -256,7 +257,17 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(openAction)
         fileMenu.addAction(saveAction)
         fileMenu.addAction(saveAsAction)
-        fileMenu.addAction(exportAction)
+        fileMenu.addSeparator()
+        
+        #fileMenu.addAction(exportAction)
+        #fileMenu.addAction(importPrefab)
+        importMenu = fileMenu.addMenu("&Import")
+        importMenu.addAction(importPrefab)
+
+        exportMenu = fileMenu.addMenu("&Export")
+        exportMenu.addAction(exportAction)
+        
+        fileMenu.addSeparator()
         
         fileMenu.addAction(exitAction)
 
@@ -267,8 +278,9 @@ class MainWindow(QMainWindow):
         toolsMenu.addAction(consoleAction)
         
         createMenu.addAction(createPrefabAction)
-        createMenu.addAction(importPrefab)
+        
         toolsMenu.addAction(hammerAction)
+        
         self.home()
         self.change_skybox()
         self.level_select()
