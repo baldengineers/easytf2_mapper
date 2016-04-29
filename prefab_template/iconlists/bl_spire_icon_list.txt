@@ -1,0 +1,4 @@
+icons/bl_spire_right.jpg
+icons/bl_spire_down.jpg
+icons/bl_spire_left.jpg
+icons/bl_spire_up.jpg

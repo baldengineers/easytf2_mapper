@@ -14,3 +14,4 @@ death_pit_icon_list.txt
 laser_array_icon_list.txt
 nuke_icon_list.txt
 cp_koth_prefab_icon_list.txt
+bl_spire_icon_list.txt

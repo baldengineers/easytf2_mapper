@@ -198,6 +198,11 @@ class MainWindow(QMainWindow):
         hammerAction.setStatusTip("Opens up Hammer.")
         hammerAction.triggered.connect(lambda: self.open_hammer(0,"null"))
 
+        changeHammer = QAction("&Change Hammer Directory",self)
+        changeHammer.setShortcut("Ctrl+Shift+H")
+        changeHammer.setStatusTip("Changes default hammer directory.")
+        changeHammer.triggered.connect(lambda: self.open_hammer(0,"null",True))
+
         changeLightAction = QAction("&Change Lighting", self)
         changeLightAction.setShortcut("Ctrl+J")
         changeLightAction.setStatusTip("Change the environment lighting of the map.")
@@ -273,9 +278,11 @@ class MainWindow(QMainWindow):
 
         optionsMenu.addAction(gridAction)
         optionsMenu.addAction(changeSkybox)
+        optionsMenu.addAction(changeHammer)
         #optionsMenu.addAction(removeAction)
 
         toolsMenu.addAction(consoleAction)
+        
         
         createMenu.addAction(createPrefabAction)
         
@@ -287,9 +294,11 @@ class MainWindow(QMainWindow):
 
 
         
-    def open_hammer(self,loaded,file):
+    def open_hammer(self,loaded,file,reloc = False):
         self.open_file()
-        if "loaded_first_time" not in self.files:
+        if "loaded_first_time" not in self.files or reloc:
+            self.file.close()
+            self.open_file(True)
             hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","Hammer Executable (*.exe *.bat)")
             hammer_location = str(hammer_location[0])
             self.file.write("loaded_first_time\n")
@@ -301,6 +310,7 @@ class MainWindow(QMainWindow):
             else:
                 subprocess.Popen(hammer_location)
         else:
+            
             try:
                 if loaded == 1:
                     subprocess.Popen(self.fileloaded[1] + " "+file)
@@ -314,13 +324,14 @@ class MainWindow(QMainWindow):
                 self.pootup.setInformativeText("Hammer executable/batch moved or renamed!")
                 self.pootup.exec_()
 
-                
-                QMessageBox.critical(self, "Error", "Hammer executable/batch moved or renamed!")
                 self.file.close()
                 os.remove("startupcache/startup.su")
                 self.open_hammer(0,"null")
 
-    def open_file(self):
+    def open_file(self,reloc = False):
+        if reloc:
+            os.remove("startupcache/startup.su")
+        
         try:
             self.file = open("startupcache/startup.su", "r+")
         except:

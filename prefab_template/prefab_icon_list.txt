@@ -14,3 +14,4 @@ icons/death_pit.jpg
 icons/laser.jpg
 icons/nuke_icon.png
 icons/control_point.jpg
+C:/Users/Anson/Documents/GitHub/easytf2_mapper/icons/bl_spire.jpg
