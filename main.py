@@ -223,7 +223,7 @@ class MainWindow(QMainWindow):
         gridAction.setStatusTip("Set Grid Height and Width. RESETS ALL BLOCKS.")
         gridAction.triggered.connect(lambda: self.grid_change(0,0,0,True,False,True))
 
-        createPrefabAction = QAction("&Prefab", self)
+        createPrefabAction = QAction("&Create Prefab", self)
         createPrefabAction.setShortcut("Ctrl+I")
         createPrefabAction.setStatusTip("View the readme for a good idea on formatting Hammer Prefabs.")
         createPrefabAction.triggered.connect(self.create_prefab)
@@ -256,7 +256,7 @@ class MainWindow(QMainWindow):
         fileMenu = mainMenu.addMenu("&File")
         optionsMenu = mainMenu.addMenu("&Options")
         toolsMenu = mainMenu.addMenu("&Tools")
-        createMenu = mainMenu.addMenu("&Create")
+        #createMenu = mainMenu.addMenu("&Create")
         
         fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
@@ -280,13 +280,11 @@ class MainWindow(QMainWindow):
         optionsMenu.addAction(changeSkybox)
         optionsMenu.addAction(changeHammer)
         #optionsMenu.addAction(removeAction)
-
-        toolsMenu.addAction(consoleAction)
         
-        
-        createMenu.addAction(createPrefabAction)
-        
+        toolsMenu.addAction(createPrefabAction)
         toolsMenu.addAction(hammerAction)
+        toolsMenu.addSeparator()
+        toolsMenu.addAction(consoleAction)
         
         self.home()
         self.change_skybox()
@@ -651,10 +649,53 @@ class MainWindow(QMainWindow):
         self.changeIcon()
 
     def prefab_list_up(self):
-        self.tile_list.setCurrentRow(self.tile_list.currentRow() - 1)
+        currentRow = self.tile_list.currentRow()
+        currentItem = self.tile_list.takeItem(currentRow)
+        self.tile_list.insertItem(currentRow - 1, currentItem)
+        self.tile_list.setCurrentRow(currentRow - 1)
+        self.update_list_file(currentRow, currentRow -1)
 
     def prefab_list_down(self):
-        self.tile_list.setCurrentRow(self.tile_list.currentRow() + 1)
+        currentRow = self.tile_list.currentRow()
+        currentItem = self.tile_list.takeItem(currentRow)
+        self.tile_list.insertItem(currentRow + 1, currentItem)
+        self.tile_list.setCurrentRow(currentRow + 1)
+        self.update_list_file(currentRow, currentRow + 1)
+
+    def update_list_file(self, old_index, new_index):
+        for name in ["prefab_template/prefab_text_list.txt", "prefab_template/prefab_list.txt", "prefab_template/prefab_icon_list.txt"]:
+            with open(name, "r") as file:
+            #with open(name, "w") as file:
+                global prefab_text_list, prefab_list, prefab_icon_list
+                
+                old_prefab_text_list = prefab_text_list
+                old_prefab_list = prefab_list
+                old_prefab_icon_list = prefab_icon_list
+                
+                #prefab_list = []
+                prefab_text_list = []
+                #prefab_icon_list = []
+                for i in range(self.tile_list.count()):
+                    if name == "prefab_template/prefab_list.txt" or name == "prefab_template/prefab_icon_list.txt":
+                        if not i == new_index:
+                            item = prefab_list[i] if name == "prefab_template/prefab_list.txt" else prefab_icon_list[i]
+                        elif i == old_index:
+                            item = prefab_list[new_index] if name == "prefab_template/prefab_list.txt" else prefab_icon_list[new_index]
+                        else:
+                            item = prefab_list[old_index] if name == "prefab_template/prefab_list.txt" else prefab_icon_list[old_index]
+                    else:
+                        item = self.tile_list.item(i).text()
+                        prefab_text_list.append(item)
+                        prefab_list[i] = old_prefab_list[old_prefab_text_list.index(item)]
+                        prefab_icon_list[i] = old_prefab_icon_list[old_prefab_text_list.index(item)]
+
+                    print("item: ", item)
+                    
+                    #file.write(item + "\n")
+
+                print("prefab_list: ", prefab_list)
+                print("old_prefab_list: ", old_prefab_list)
+                print("prefab_icon_list: ", prefab_icon_list)
 
     def prefab_list_del(self, currentprefab, currentText):
         self.restartCheck = QCheckBox()
