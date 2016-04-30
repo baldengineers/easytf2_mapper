@@ -390,7 +390,7 @@ class MainWindow(QMainWindow):
         self.buttonLabel = QLabel("Rotation:",self)
         #self.currentLabel = QLabel("Current Rotation:",self)
         self.listLabel = QLabel("List of prefabs:",self)
-        self.gridLabel = QLabel("Grid:",self)
+        self.gridLabel = QLabel("Work Area:",self)
         
         self.divider = QFrame(self)
         self.divider.setFrameShape(QFrame.VLine)
