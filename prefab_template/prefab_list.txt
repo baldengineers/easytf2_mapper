@@ -1,11 +1,12 @@
+ground
+wall
+corner
 respawn_room_blu
 respawn_red
 heal
 ammo_hut
 health_hut
-ground
-wall
-corner
+cp_koth_prefab
 diag_wall
 ramp
 spire
@@ -13,5 +14,4 @@ mini_spire
 death_pit
 laser_array
 nuke
-cp_koth_prefab
 bl_spire

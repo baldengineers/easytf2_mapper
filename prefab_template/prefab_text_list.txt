@@ -1,11 +1,12 @@
+Ground
+Wall
+Corner
 Respawn Room (BLU)
 Respawn Room (RED)
 Heal Beam
 Ammo Hut
 Health Hut
-Ground
-Wall
-Corner
+Control Point (KOTH)
 Diagonal Wall
 Ramp To Next Level
 Spire
@@ -13,5 +14,4 @@ Mini-Spire
 Death Pit (bottom level only)
 Laser Array
 Nuke
-Control Point (KOTH)
 Spire
