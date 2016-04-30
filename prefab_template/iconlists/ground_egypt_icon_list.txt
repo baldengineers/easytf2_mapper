@@ -1,0 +1,4 @@
+icons/ground_egypt_right.jpg
+icons/ground_egypt_down.jpg
+icons/ground_egypt_left.jpg
+icons/ground_egypt_up.jpg

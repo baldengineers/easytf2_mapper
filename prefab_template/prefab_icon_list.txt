@@ -1,6 +1,12 @@
 icons/blank_tile.jpg
+C:/Users/Anson/Documents/GitHub/easytf2_mapper/icons/ground_egypt.jpg
+C:/Users/Anson/Documents/GitHub/easytf2_mapper/icons/ground_stone.jpg
 icons/wall_right.jpg
+C:/Users/Anson/Documents/GitHub/easytf2_mapper/icons/wall_egypt.jpg
+C:/Users/Anson/Documents/GitHub/easytf2_mapper/icons/wall_stone.jpg
 icons/wall_corner_top_right.jpg
+C:/Users/Anson/Documents/GitHub/easytf2_mapper/icons/corner_egypt.jpg
+C:/Users/Anson/Documents/GitHub/easytf2_mapper/icons/corner_stone.jpg
 icons/spawn_blu_prefab_right.jpg
 icons/respawn_red_right.jpg
 icons/heal_tile.jpg

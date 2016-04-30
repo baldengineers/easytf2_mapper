@@ -1,0 +1,4 @@
+icons/ground_stone_right.jpg
+icons/ground_stone_down.jpg
+icons/ground_stone_left.jpg
+icons/ground_stone_up.jpg

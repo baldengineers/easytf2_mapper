@@ -1,0 +1,4 @@
+icons/corner_egypt_right.jpg
+icons/corner_egypt_down.jpg
+icons/corner_egypt_left.jpg
+icons/corner_egypt_up.jpg

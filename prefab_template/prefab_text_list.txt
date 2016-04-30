@@ -1,6 +1,12 @@
 Ground
+Egypt Ground
+Stone Ground
 Wall
+Egypt Wall
+Stone Wall
 Corner
+Egypt Corner
+Stone Corner
 Respawn Room (BLU)
 Respawn Room (RED)
 Heal Beam

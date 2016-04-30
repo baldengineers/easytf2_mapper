@@ -1,6 +1,12 @@
 ground
+ground_egypt
+ground_stone
 wall
+wall_egypt
+wall_stone
 corner
+corner_egypt
+corner_stone
 respawn_room_blu
 respawn_red
 heal

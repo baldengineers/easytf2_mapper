@@ -1,0 +1,4 @@
+icons/wall_egypt_right.jpg
+icons/wall_egypt_down.jpg
+icons/wall_egypt_left.jpg
+icons/wall_egypt_up.jpg

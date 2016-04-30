@@ -1,0 +1,42 @@
+entity
+{
+	"id" "world_idnum"
+	"classname" "prop_static"
+	"angles" "ROTATION_RIGHT"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"model" "models/egypt/stick_torch/stick_torch_big.mdl"
+	"skin" "0"
+	"solid" "6"
+	"origin" "px1 py1 pz1"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 9500]"
+	}
+}
+entity
+{
+	"id" "world_idnum"
+	"classname" "prop_static"
+	"angles" "ROTATION_RIGHT"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"model" "models/egypt/palm_tree/palm_tree.mdl"
+	"skin" "0"
+	"solid" "6"
+	"origin" "px2 py2 pz2"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 10500]"
+	}
+}
