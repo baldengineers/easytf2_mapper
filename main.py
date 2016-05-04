@@ -1475,6 +1475,10 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         elif command == "pootis":
             new_text = '<img src="icons/thedoobs.jpg">'
 
+        elif command == "sterries" or command == "jerries":
+            new_text = text_prefix + "Gimme all those berries, berries, berries!"
+            QSound("icons/jer_ster.wav").play()
+
         elif command == "sideshow":
             new_text = ''
             self.sideshow()
