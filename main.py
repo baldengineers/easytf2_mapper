@@ -410,6 +410,8 @@ class MainWindow(QMainWindow):
         self.current.setIcon(QIcon(''))
         self.current.setIconSize(QSize(40,40))
         self.current.setFixedSize(QSize(40,40))
+        self.current.setFlat(True)
+        self.current.clicked.connect(self.heavy)
 
         self.level = QPushButton(self)
 
@@ -1475,16 +1477,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
 
         elif command == "sideshow":
             new_text = ''
-            self.sideshowwindow = QLabel()
-            movie = QMovie("icons/sideshow.gif")
-            self.sideshowwindow.setMovie(movie)
-            self.sideshowwindow.setGeometry(350,262,154,103)
-            self.sideshowwindow.setWindowTitle("SIDESHOW")
-            self.sideshowwindow.setWindowIcon(QIcon("icons/ss.ico"))
-            self.sideshowwindow.show()
-
-            movie.start()
-            QSound("icons/ss.wav").play()
+            self.sideshow()
         elif command == "func":
             #function_var = ""
 
@@ -1513,6 +1506,29 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
 
         self.prev_text.append(new_text)
         self.curr_text.setText("")
+
+    def sideshow(self):
+        self.sideshowwindow = QLabel()
+        movie = QMovie("icons/sideshow.gif")
+        self.sideshowwindow.setMovie(movie)
+        self.sideshowwindow.setGeometry(350,262,154,103)
+        self.sideshowwindow.setWindowTitle("SIDESHOW")
+        self.sideshowwindow.setWindowIcon(QIcon("icons/ss.ico"))
+        self.sideshowwindow.show()
+
+        movie.start()
+        QSound("icons/ss.wav").play()
+
+    def heavy(self):
+        self.heavywindow = QLabel()
+        movie = QMovie("icons/heavy.gif")
+        self.heavywindow.setMovie(movie)
+        self.heavywindow.setGeometry(350,262,225,137)
+        self.heavywindow.setWindowTitle("DANCE HEAVY DANCE!")
+        self.heavywindow.show()
+
+        movie.start()
+        QSound("icons/heavy.wav").play()
 
 #define some global variables
 level = 0
