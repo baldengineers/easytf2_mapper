@@ -1320,9 +1320,9 @@ class MainWindow(QMainWindow):
         self.window.exec_()
 
     def create_run_func(self):
-        print(self.iconTextEdit.displayText())
+        name_str = self.nameLineEdit.displayText().replace(' ','_') #replaces space with underscores to prevent errors.
         QMessageBox.information(self, "Files Created, restart to see the prefab.",
-                                                                          createPrefab.create(self.vmfTextEdit.displayText(), self.nameLineEdit.displayText(),
+                                                                          createPrefab.create(self.vmfTextEdit.displayText(), name_str,
                                                                             self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked(),self.expCheckBox.isChecked()))
 
         restart_btn = QPushButton("Restart")
