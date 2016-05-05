@@ -770,13 +770,15 @@ class MainWindow(QMainWindow):
             
         '''
         im_rot = Image.open(prefab_icon_list[self.tile_list.currentRow()])
-        #im_rot = im.rotate(360-(rotation*90))
+        im_rot = im_rot.rotate(360-(rotation*90))
         data = im_rot.tobytes('raw')#('raw', 'RGBA')
         im_rot_qt = QImage(data, im_rot.size[0], im_rot.size[1], QImage.Format_ARGB32)
+        im_rot.close()
         icon = QPixmap.fromImage(im_rot_qt)
         self.current.setIcon(QIcon(icon))
         self.current.setIconSize(QSize(32,32))
-        '''
+        '''             
+        
 
  
         
