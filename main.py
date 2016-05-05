@@ -748,7 +748,7 @@ class MainWindow(QMainWindow):
 
     def changeIcon(self):
         global rotation
-        """
+        
         try:
             current_prefab_icon_list2 = open('prefab_template/rot_prefab_list.txt', 'r+')
             current_prefab_icon_list2 = current_prefab_icon_list2.readlines()
@@ -767,8 +767,8 @@ class MainWindow(QMainWindow):
             icon = prefab_icon_list[self.tile_list.currentRow()]
             self.current.setIcon(QIcon(icon))
             self.current.setIconSize(QSize(32,32))
-            """
-
+            
+        '''
         im_rot = Image.open(prefab_icon_list[self.tile_list.currentRow()])
         #im_rot = im.rotate(360-(rotation*90))
         data = im_rot.tobytes('raw')#('raw', 'RGBA')
@@ -776,7 +776,7 @@ class MainWindow(QMainWindow):
         icon = QPixmap.fromImage(im_rot_qt)
         self.current.setIcon(QIcon(icon))
         self.current.setIconSize(QSize(32,32))
-        
+        '''
 
  
         
