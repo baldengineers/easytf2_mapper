@@ -8,6 +8,7 @@ from PySide.QtGui import *
 import importlib
 import createPrefab
 from PIL import Image
+from PIL.ImageQt import ImageQt
 import generateSkybox
 import light_create
 import subprocess
@@ -652,23 +653,25 @@ class MainWindow(QMainWindow):
 
     def prefab_list_up(self):
         currentRow = self.tile_list.currentRow()
-        print(currentRow)
+        #print(currentRow)
 
         if currentRow > 0:
             currentItem = self.tile_list.takeItem(currentRow)
             self.tile_list.insertItem(currentRow - 1, currentItem)
             self.tile_list.setCurrentRow(currentRow - 1)
             self.update_list_file(currentRow, currentRow - 1)
+            self.changeIcon()
 
     def prefab_list_down(self):
         currentRow = self.tile_list.currentRow()
-        print(currentRow)
-        print(self.tile_list.count())
+        #print(currentRow)
+        #print(self.tile_list.count())
         if currentRow < self.tile_list.count() - 1:
             currentItem = self.tile_list.takeItem(currentRow)
             self.tile_list.insertItem(currentRow + 1, currentItem)
             self.tile_list.setCurrentRow(currentRow + 1)
             self.update_list_file(currentRow, currentRow + 1)
+            self.changeIcon()
 
     def update_list_file(self, old_index, new_index):
         file_list = ["prefab_template/prefab_list.txt", "prefab_template/prefab_icon_list.txt", "prefab_template/prefab_text_list.txt"]
@@ -745,6 +748,7 @@ class MainWindow(QMainWindow):
 
     def changeIcon(self):
         global rotation
+        """
         try:
             current_prefab_icon_list2 = open('prefab_template/rot_prefab_list.txt', 'r+')
             current_prefab_icon_list2 = current_prefab_icon_list2.readlines()
@@ -763,6 +767,16 @@ class MainWindow(QMainWindow):
             icon = prefab_icon_list[self.tile_list.currentRow()]
             self.current.setIcon(QIcon(icon))
             self.current.setIconSize(QSize(32,32))
+            """
+
+        im_rot = Image.open(prefab_icon_list[self.tile_list.currentRow()])
+        #im_rot = im.rotate(360-(rotation*90))
+        data = im_rot.tobytes('raw')#('raw', 'RGBA')
+        im_rot_qt = QImage(data, im_rot.size[0], im_rot.size[1], QImage.Format_ARGB32)
+        icon = QPixmap.fromImage(im_rot_qt)
+        self.current.setIcon(QIcon(icon))
+        self.current.setIconSize(QSize(32,32))
+        
 
  
         
