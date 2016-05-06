@@ -7,13 +7,15 @@ Stone Wall
 Corner
 Egypt Corner
 Stone Corner
+Diagonal Wall
+Egypt Diagonal Wall
+Stone Diagonal Wall
 Respawn Room (BLU)
 Respawn Room (RED)
 Heal Beam
 Ammo Hut
 Health Hut
 Control Point (KOTH)
-Diagonal Wall
 Ramp To Next Level
 Spire
 Mini-Spire

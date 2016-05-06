@@ -478,6 +478,10 @@ class MainWindow(QMainWindow):
         self.del_tool_btn = QToolButton(self)
         self.del_tool_btn.setIcon(QIcon('icons/delete.png'))
         self.del_tool_btn.clicked.connect(lambda: self.prefab_list_del(self.tile_list.currentRow(), self.tile_list.currentItem()))
+
+        self.add_tool_btn = QToolButton(self)
+        self.add_tool_btn.setIcon(QIcon('icons/add.png'))
+        self.add_tool_btn.clicked.connect(self.create_prefab)
         
         self.tile_toolbar = QToolBar()
         self.tile_toolbar.addWidget(self.up_tool_btn)
@@ -485,6 +489,8 @@ class MainWindow(QMainWindow):
         self.tile_toolbar.addWidget(self.down_tool_btn)
         self.tile_toolbar.addSeparator()
         self.tile_toolbar.addWidget(self.del_tool_btn)
+        self.tile_toolbar.addSeparator()
+        self.tile_toolbar.addWidget(self.add_tool_btn)
 
         
         for index, text in enumerate(prefab_text_list):

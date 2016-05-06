@@ -7,13 +7,15 @@ wall_stone
 corner
 corner_egypt
 corner_stone
+diag_wall
+diag_wall_egypt
+diag_wall_stone
 respawn_room_blu
 respawn_red
 heal
 ammo_hut
 health_hut
 cp_koth_prefab
-diag_wall
 ramp
 spire
 mini_spire

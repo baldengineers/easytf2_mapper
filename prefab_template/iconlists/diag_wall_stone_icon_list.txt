@@ -1,0 +1,4 @@
+icons/diag_wall_stone_right.jpg
+icons/diag_wall_stone_down.jpg
+icons/diag_wall_stone_left.jpg
+icons/diag_wall_stone_up.jpg

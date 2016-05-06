@@ -1,0 +1,4 @@
+icons/diag_wall_egypt_right.jpg
+icons/diag_wall_egypt_down.jpg
+icons/diag_wall_egypt_left.jpg
+icons/diag_wall_egypt_up.jpg
