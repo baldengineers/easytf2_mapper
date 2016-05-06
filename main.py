@@ -1499,7 +1499,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
 
         elif command == "sterries" or command == "jerries":
             new_text = text_prefix + "Gimme all those berries, berries, berries!"
-            QSound("icons/jer_ster.wav").play()
+            
 
         elif command == "sideshow":
             new_text = ''
@@ -1543,7 +1543,6 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.sideshowwindow.show()
 
         movie.start()
-        QSound("icons/ss.wav").play()
 
     def heavy(self):
         self.heavywindow = QLabel()
@@ -1554,7 +1553,6 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.heavywindow.show()
 
         movie.start()
-        QSound("icons/heavy.wav").play()
 
 #define some global variables
 level = 0
