@@ -10,7 +10,7 @@ corner_stone
 diag_wall
 diag_wall_egypt
 diag_wall_stone
-respawn_room_blu
+respawn_blu
 respawn_red
 heal
 ammo_hut
