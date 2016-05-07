@@ -1548,7 +1548,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.heavywindow = QLabel()
         movie = QMovie("icons/heavy.gif")
         self.heavywindow.setMovie(movie)
-        self.heavywindow.setGeometry(350,262,225,137)
+        self.heavywindow.setGeometry(350,262,150,99)
         self.heavywindow.setWindowTitle("DANCE HEAVY DANCE!")
         self.heavywindow.show()
 
