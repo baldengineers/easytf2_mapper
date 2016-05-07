@@ -1328,30 +1328,38 @@ class MainWindow(QMainWindow):
         self.window.exec_()
 
     def create_run_func(self):
-        name_str = self.nameLineEdit.displayText().replace(' ','_') #replaces space with underscores to prevent errors.
-        QMessageBox.information(self, "Files Created, restart to see the prefab.",
+        name_str = self.nameLineEdit.displayText().replace(' ','_')
+        form_list,t_list = [self.vmfTextEdit.displayText(),self.textLineEdit.displayText(),self.iconTextEdit.displayText(),self.nameLineEdit.displayText()],[]
+        form_dict = {1:'VMF file',2:'Prefab Text',3:'Icon',4:'Prefab Name'}
+        if self.vmfTextEdit.displayText() !=  '' and self.textLineEdit.displayText() != '' and self.iconTextEdit.displayText() != '' and self.nameLineEdit.displayText() != '':
+            QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                           createPrefab.create(self.vmfTextEdit.displayText(), name_str,
                                                                             self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked(),self.expCheckBox.isChecked()))
-
-        restart_btn = QPushButton("Restart")
-        later_btn = QPushButton("Later")
-        choice = QMessageBox(self)
-        choice.setIcon(QMessageBox.Question)
-        choice.setWindowTitle("Prefab Successfully Created")
-        choice.setText("Program must be restarted for changes to take effect.")
-        choice.setInformativeText("Restart? You will lose any unsaved progress.")
-        choice.addButton(restart_btn, QMessageBox.YesRole)
-        choice.addButton(later_btn, QMessageBox.NoRole)
-        choice.setDefaultButton(later_btn)
-        #print(choice.exec_())                  
-        if choice.exec_() == 0:
-            try:
-                subprocess.Popen('EasyTF2Mapper.exe')
-            except:
-                subprocess.Popen('python main.py')
-            sys.exit()
+            restart_btn = QPushButton("Restart")
+            later_btn = QPushButton("Later")
+            choice = QMessageBox(self)
+            choice.setIcon(QMessageBox.Question)
+            choice.setWindowTitle("Prefab Successfully Created")
+            choice.setText("Program must be restarted for changes to take effect.")
+            choice.setInformativeText("Restart? You will lose any unsaved progress.")
+            choice.addButton(restart_btn, QMessageBox.YesRole)
+            choice.addButton(later_btn, QMessageBox.NoRole)
+            choice.setDefaultButton(later_btn)
+            #print(choice.exec_())                  
+            if choice.exec_() == 0:
+                try:
+                    subprocess.Popen('EasyTF2Mapper.exe')
+                except:
+                    subprocess.Popen('python main.py')
+                sys.exit()
+            else:
+                pass  
         else:
-            pass        
+            for index,box in enumerate(form_list):         
+                if box == '':          
+                    t_list.append(form_dict[index+1])
+            err = ", ".join(t_list)
+            QMessageBox.critical(self, "Error", "Fill out all sections of the form. ("+err+")")
         #self.importprefabs()
 
     def import_prefab(self):
