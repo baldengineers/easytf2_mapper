@@ -1330,7 +1330,7 @@ class MainWindow(QMainWindow):
     def create_run_func(self):
         name_str = self.nameLineEdit.displayText().replace(' ','_')
         form_list,t_list = [self.vmfTextEdit.displayText(),self.textLineEdit.displayText(),self.iconTextEdit.displayText(),self.nameLineEdit.displayText()],[]
-        form_dict = {1:'VMF file',2:'Prefab Text',3:'Icon',4:'Prefab Name'}
+        form_dict = {1:'Prefab Text',2:'Prefab Name',3:'VMF file',4:'Icon'}
         if self.vmfTextEdit.displayText() !=  '' and self.textLineEdit.displayText() != '' and self.iconTextEdit.displayText() != '' and self.nameLineEdit.displayText() != '':
             QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                           createPrefab.create(self.vmfTextEdit.displayText(), name_str,
