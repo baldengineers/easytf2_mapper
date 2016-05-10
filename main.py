@@ -187,7 +187,14 @@ class MainWindow(QMainWindow):
         saveAsAction.setShortcut("Ctrl+Shift+S")
         saveAsAction.setStatusTip("Save File as .ezm save, allowing for use by others/you later.")
         saveAsAction.triggered.connect(lambda: self.file_save(False, True))
-        #not fully implemented
+        
+        helpAction = QAction("&Wiki",self)
+        helpAction.triggered.connect(lambda: webbrowser.open_new_tab('http://github.com/baldengineers/easytf2_mapper/wiki')
+        
+        tutorialAction = QAction("&Reference Guide",self)
+        tutorialAction.triggered.connect(lambda: webbrowser.open_new_tab('http://tf2mapper.com/tutorial.html')
+
+
 
         newAction = QAction("&New", self)
         newAction.setShortcut("Ctrl+n")
@@ -253,6 +260,7 @@ class MainWindow(QMainWindow):
         
         
         mainMenu = self.menuBar()
+        helpMenu = mainmenu.addMenu("&Help")
         
         fileMenu = mainMenu.addMenu("&File")
         optionsMenu = mainMenu.addMenu("&Options")
@@ -264,6 +272,9 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(saveAction)
         fileMenu.addAction(saveAsAction)
         fileMenu.addSeparator()
+        
+        helpMenu.addAction(tutorialAction)
+        helpMenu.addAction(helpAction)
         
         #fileMenu.addAction(exportAction)
         #fileMenu.addAction(importPrefab)
