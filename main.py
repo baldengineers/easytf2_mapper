@@ -192,6 +192,7 @@ class MainWindow(QMainWindow):
         helpAction.triggered.connect(lambda: webbrowser.open_new_tab('http://github.com/baldengineers/easytf2_mapper/wiki')
         
         tutorialAction = QAction("&Reference Guide",self)
+        tutorialAction.setStatusTip("Quick reference guide on the TF2Mapper website.")
         tutorialAction.triggered.connect(lambda: webbrowser.open_new_tab('http://tf2mapper.com/tutorial.html')
 
 
