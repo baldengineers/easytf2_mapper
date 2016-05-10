@@ -189,11 +189,11 @@ class MainWindow(QMainWindow):
         saveAsAction.triggered.connect(lambda: self.file_save(False, True))
         
         helpAction = QAction("&Wiki",self)
-        helpAction.triggered.connect(lambda: webbrowser.open_new_tab('http://github.com/baldengineers/easytf2_mapper/wiki')
+        helpAction.triggered.connect(lambda: webbrowser.open_new_tab('http://github.com/baldengineers/easytf2_mapper/wiki'))
         
         tutorialAction = QAction("&Reference Guide",self)
         tutorialAction.setStatusTip("Quick reference guide on the TF2Mapper website.")
-        tutorialAction.triggered.connect(lambda: webbrowser.open_new_tab('http://tf2mapper.com/tutorial.html')
+        tutorialAction.triggered.connect(lambda: webbrowser.open_new_tab('http://tf2mapper.com/tutorial.html'))
 
 
 
@@ -261,11 +261,12 @@ class MainWindow(QMainWindow):
         
         
         mainMenu = self.menuBar()
-        helpMenu = mainmenu.addMenu("&Help")
+        
         
         fileMenu = mainMenu.addMenu("&File")
         optionsMenu = mainMenu.addMenu("&Options")
         toolsMenu = mainMenu.addMenu("&Tools")
+        helpMenu = mainMenu.addMenu("&Help")
         #createMenu = mainMenu.addMenu("&Create")
         
         fileMenu.addAction(newAction)
