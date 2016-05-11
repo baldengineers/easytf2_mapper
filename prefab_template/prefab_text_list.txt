@@ -17,7 +17,7 @@ Ammo Hut
 Health Hut
 Control Point (KOTH)
 Ramp To Next Level
-Spire
+Spike
 Mini-Spire
 Death Pit (bottom level only)
 Laser Array
