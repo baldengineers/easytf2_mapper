@@ -1,4 +1,0 @@
-icons/test_right.jpg
-icons/test_down.jpg
-icons/test_left.jpg
-icons/test_up.jpg

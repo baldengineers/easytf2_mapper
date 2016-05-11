@@ -1,1 +1,3 @@
 -fixed warnings
+-cleaned up comments
+-cleaned up some "test" files
