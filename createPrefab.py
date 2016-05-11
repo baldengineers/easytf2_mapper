@@ -10,42 +10,21 @@ import os
 
 
 
-#import math
-#import collections
-
-#def rotatePoint(centerPoint,point,angle):
-#    """Rotates a point around another centerPoint. Angle is in degrees.
-#    Rotation is counter-clockwise"""
-#    angle = math.radians(angle)
-#    temp_point = point[0]-centerPoint[0] , point[1]-centerPoint[1]
-#    temp_point = ( temp_point[0]*math.cos(angle)-temp_point[1]*math.sin(angle) , temp_point[0]*math.sin(angle)+temp_point[1]*math.cos(angle))
-#    temp_point = temp_point[0]+centerPoint[0] , temp_point[1]+centerPoint[1]
-#    return temp_point
-
-#print(rotatePoint((0,0),(5,3),90))
-
-def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled):
-  #TODO: Add a values list history, that keeps track of all the past value_lists
-  #so we can see if there are duplicate value lists. 
+def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid_block, in_entity_block, rot_py_list, rot_enabled): 
   value_list = []
   #item count needs to be -1 so that the initial "SEPARATE" makes the var 0
   num_count = -1
 
-  #print("num_list: ", num_list)
-  
   for item in num_list:
     if item == "SEPARATE":
       num_count += 1
-      #print(num_count)
     else:
       try:
         value_list[num_count] = value_list[num_count] + item
       except IndexError:
         value_list.append(item)
 
-  #print("value_list: ", value_list)
   value_list_history.append(value_list)
-  #print("value_list_history: ", value_list_history)
 
   item_count = 0
   for item in value_list:
@@ -56,16 +35,6 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
     xyz_list = ["x", "y", "z"]
   elif in_entity_block:
     xyz_list = ["px", "py", "pz"]
-	
-  #xyz_dict only to be used for rotations
-  #xyz_dict = {"#ROT0":{"x" : "x", "y" : "y", "z" : "z", "addx" : False, "suby" : False},
-  #            "#ROT1":{"x" : "y", "y" : "neg_x", "z" : "z", "addx" : True, "suby" : False},
-  #	      "#ROT2":{"x" : "neg_x", "y" : "neg_y", "z" : "z", "addx" : True, "suby" : True},
-  #	      "#ROT3":{"x" : "neg_y", "y": "x", "z" : "z", "addx" : False, "suby" : True}}
-  #print(xyz_dict)
-  #xyz_dict = collections.OrderedDict(sorted(xyz_dict.items()))
-
-  #actualvar = ""
   
   for var in xyz_list:
     try:
@@ -74,90 +43,23 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
       value = float(value_list[xyz_list.index(var)])
     
   
-    #for item in xyz_dict:
+    
     py_list_text = ""
-      #rot_py_list_text = ""
-      #print(item)
-      
-      #if rot_enabled:
-        #orig_var = var
-        #print(xyz_dict[item])
-        #print(item)
-        #print(orig_var)
-        #var = xyz_dict[item][orig_var]
 
-        #if item == "#ROT1":
-        #  degrees = 270
-        #elif item == "#ROT2":
-        #  degrees = 180
-        #elif item == "#ROT3":
-        #  degrees = 90
-        #else:
-        #  degrees = 0
-
-        
-      #if xyz_dict[item]["addx"] and orig_var == "x":
-      #  addval = "+ 512"
-      #elif xyz_dict[item]["suby"] and orig_var == "y":
-      #  addval = "- 512"
-      #else:
-      #  addval = ""
-	
-    if var == "x" or var == "px":# or var == "neg_x":
+    if var == "x" or var == "px":
       negative = 1
-      #actualvar = "x"
     elif var == "y" or var == "py" or var == "neg_y":
       negative = -1
-      #actualvar = "y"
       
     if var == "z" or var == "pz":
-      #if rot_enabled:
-        #py_list_text = "%s%d = %d" %(orig_var, var_num, value)
-        #if item == "#ROT0":
-          #py_list.append(py_list_text)
-        #else:
-          #rot_py_list_text = "%s%s%d = %d" %(item, orig_var, var_num, value)
-          #rot_py_list.append(rot_py_list_text)
-      #else:
       py_list_text = "%s%d = level*448 + %d" %(var, var_num, value)
       py_list.append(py_list_text)
-      #print(py_list)
     elif value == 0:
-      #if rot_enabled:
-        #py_list_text = "%s%d = pos%s*%d*512" %(orig_var, var_num, var[-1] if var.startswith("p") else var, negative)
-        #if item == "#ROT0":
-        #  py_list.append(py_list_text)
-        #else:
-          #center_origin_text = "(pos%s*%d*512)" %(actualvar[-1] if actualvar.startswith("p") else actualvar, negative)
-          #rot_py_list_text = "%s%s%d = %s%s*%d*512 %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, negative, addval)
-          #rot_py_list_text = "%s%s%d = %s(%s + pos%s*%d*512 %s)" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, actualvar, -1*negative, addval)
-          #subtract_text = " - (%s%s*%s512 + 256)" %("pos", var[-1] if var.startswith("p") else var, negative)
-          #print(py_list)
-          #print(var_num)
-          #rot_py_list_text = "%s%s%d = int(rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d])" %(item, orig_var, var_num, py_list[-3], py_list[-2], degrees, 0 if var == "x" else 1)
-          #rot_py_list.append(rot_py_list_text)
-      #else:
       py_list_text = "%s%d = pos%s*%d*512" %(var, var_num, var[-1] if var.startswith("p") else var, negative)
       py_list.append(py_list_text)
-      #print(py_list)
-    else: #i want this to be an elif where it sees if there is a "(" or '"' before it (so it detects if its an x value) and sees if its > 0 etc.
-      #if rot_enabled:
-        #py_list_text = "%s%d = pos%s*%d*512 + (%d)" %(orig_var, var_num, var[-1] if var.startswith("p") else var, negative, value)
-        #if item == "#ROT0":
-        #  py_list.append(py_list_text)
-        #else:
-          #center_origin_text = "(pos%s*%d*512 + %d)" %(actualvar, negative, value)
-          #rot_py_list_text = "%s%s%d = %s%s*%d*512 + (%d) %s" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, negative, value, addval)
-          #rot_py_list_text = "%s%s%d = %s(%s + pos%s*%d*512 %s)" %(item, orig_var, var_num, "-1*" if "neg" in var else "", center_origin_text, actualvar, -1*negative, addval)
-          #rot_py_list_text = "%s%s%d = rotatePoint((posx*512+256,posy*512+256), (%s, %s), %d)[%d]" %(item, orig_var, var_num, py_list[(var_num)-1], py_list[var_num], degrees, 0 if var == "x" else 1)
-          #rot_py_list.append(rot_py_list_text)
-          #pass
-      #else:
+    else:
       py_list_text = "%s%d = pos%s*%d*512 + (%d)" %(var, var_num, var[-1] if var.startswith("p") else var, negative, value)
       py_list.append(py_list_text)
-      #print(py_list)
-
-    #var = orig_var
 
     txt_list[txt_list.index("INSERT_VAR")] = "%s%d" %(var, var_num)
 
@@ -186,7 +88,6 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
 
 
 def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path):
-  #This compiles the txt prefab template
   file = open(txt_path, "w")
   
   for item in txt_list:
@@ -216,7 +117,6 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
   
 
 def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list, rot_enabled):
-  #This compiles the py file containing the algorithms
   if rot_enabled:
     rot_indent = "    "
   else:
@@ -273,13 +173,6 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
         ent_code.insert(ent_code.index("#INSERT_ROT_ENT_CODE\n"), item)
         
     ent_code[ent_code.index("#INSERT_ROT_ENT_CODE\n")] = ""
-    
-    
-    #rot_code[rot_code.index("#INSERT_ROT_0_PY_LIST")] = ""
-    #rot_code[rot_code.index("#INSERT_ROT_1_PY_LIST")] = ""
-    #rot_code[rot_code.index("#INSERT_ROT_2_PY_LIST")] = ""
-    #rot_code[rot_code.index("#INSERT_ROT_3_PY_LIST")] = ""
-    
     
   
   if contains_ent:
@@ -424,7 +317,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
   "#INSERT_ENT_CODE\n",
   
-  #"    return values, id_num, world_id_num, entity_num, ent_values, placeholder_list"
   ]
 
   ent_code =["#INSERT_ENT_OPEN_FILE\n",
@@ -595,27 +487,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
   #name = "prefab_template\godplsno.vmf" #name of the vmf file, changed to allow user to open a file
   file = open(name, "r")
 
-  #black_list = ["editorversion",
-  #              "editorbuild",
-  #              "mapversion",
-  #              "formatversion",
-  #              "prefab",
-  #              "bSnapToGrid",
-  #              "bShowGrid",
-  #              "bShowLogicalGrid",
-  #              "nGridSpacing",
-  #              "bShow3DGrid",
-  #              "mapversion",
-  #              "classname",
-  #              "skyname",
-  #              "maxpropscreenwidth",
-  #              "detailvbsp",    for i in range(int(valcount.count('sound'))):
-  #              "detailmaterial",
-  #              "activecamera",
-  #              "mins",
-  #              "maxs",
-  #              "active"]
-
   openlines = file.readlines()
 
   prefab_icon_list = prefab_icon.split("/")
@@ -627,40 +498,21 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
       if index != len(prefab_icon_list) - 1:
        prefab_icon_list[index] = item + "/" # add the "/" back into the filepath
         
-  #prefab_icon = "".join(prefab_icon_list)
-    #print("prefab_icon: ",prefab_icon)
-
-  #main loop
-  #prefab_name = input("Name of prefab? (eg. wall_prefab)\n")
   txt_path = "prefab_template/" + prefab_name + ".txt"
   ent_path = "prefab_template/" + prefab_name + "_entities.txt"
   py_path = "prefabs/" + prefab_name + ".py"
   loopernum = 0
   for line in openlines:
-    
-    #for item in black_list:
-    #  if item in line:
-    #    black_list_var = True
-        
-    #if "\t" not in line:
-     # createBlackList(line)
-
-    
-
-     
-    #if not black_list_var:
 
     which_list = "txt_list" if not solid_to_ent else "ent_list"
       
     if "\t" in line or "entity" in line:
       
       if in_solid_block and "\t}" not in line or in_solid_block and "\t\t" in line:
-        #print(line)
         if "(" not in line:
 
           if "\"id\"" not in line:
             if "\"uaxis\"" in line:
-              #print("jonathan \"XD\" liu")
               quote_num = 0
               for letter in line:
                   if letter == "\"":
@@ -674,20 +526,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
             else:
               eval(which_list).append(line)
-            '''
-            elif "\"vaxis\"" in line:
-              #print("jonathan \"XD\" liu")
-              quote_num = 0
-              for letter in line:
-                  if letter == "\"":
-                    quote_num += 1
-                  if quote_num != 3:
-                    eval(which_list).append(letter)
-                  elif letter == "\"":
-                    eval(which_list).append(letter)
-                              
-              eval(which_list).insert(-2, "[0 0 1 0] 0.25")
-            '''
+
           elif "\t\t\"id\"" in line:
             for letter in line:
               try:
@@ -699,14 +538,9 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
               eval(which_list).insert(-2, "id_num") #need to insert because it creates a \n at the end of the line
             else: 
               eval(which_list).insert(-2, "world_idnum")
-
-          
-
-          #print(txt_list)
         
         elif "(" in line:
           for letter in line:
-            #print(letter)
             try:
               number = int(letter)    
               num_list.append(letter)
@@ -727,36 +561,15 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
       elif in_solid_block and "\t}" in line and "\t\t" not in line:
         in_solid_block = False
-        #print(line)
+
         eval(which_list).append(line)
         if solid_to_ent:
           ent_list.append("}\n")
         solid_to_ent = False
-        #import sys
-        #sys.exit()
+
 
       elif in_entity_block and "\"" in line:
-        #print(line)
-        '''
-        #doesn't work yet
-        #add things you want to add placeholders to, to white_list
-        white_list = ["\"id\"", "\t\"targetname\"",
-          print("jonathan \"XD\" liu")
-                      "\t\"origin\"",
-                      "\t\"associatedmodel\"", "\t\"parentname\"",
-                      "\t\"respawnroomname\""]
 
-        append = False
-        
-        for item in white_list:
-          if item not in line:
-            append = True
-            print(line)
-        
-        if append:
-          print(line)
-
-        '''
         if "\"id\"" not in line and "\t\"targetname\"" not in line and "\t\"origin\"" not in line and "\t\"associatedmodel\"" not in line and "\t\"parentname\"" not in line and "\t\"respawnroomname\"" not in line and "\"angles\"" not in line and "LaserTarget" not in line:
           ent_list.append(line)
         elif "\"id\"" in line:
@@ -769,7 +582,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
           ent_list.insert(-2, "world_idnum")
 
         elif "\"angles\" \"0 0 0\"" in line:
-          #print("jonathan \"XD\" liu")
           quote_num = 0
           for letter in line:
               if letter == "\"":
@@ -986,7 +798,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
           nums_yet = False #if True then numbers have been received
           for letter in line:
             
-            #print(letter)
             try:
               number = int(letter)    
               num_list.append(letter)
@@ -1009,7 +820,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
       elif in_entity_block and "\"" not in line:
         in_entity_block = False
         if "editor" in line:
-          #print(line)
           ent_list.append(line)
           in_editor_block = True
         elif "connections" in line:
@@ -1019,7 +829,6 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
           solid_to_ent = True
 
       elif in_editor_block and "\t}" not in line:
-        #print(line)
         ent_list.append(line)
 
       elif in_editor_block and "\t}" in line:
@@ -1050,18 +859,10 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         ent_list.append(line)
         ent_list.append("{\n")
 
-      #elif "editor" in line:
-       # in_editor_block = True
-        #txt_list.append(line)
-                        
-                              
+        
     loopernum += 1            
           
 
-    #black_list_var = False
-  #if rot_enabled:
-   # for count in (int(len(py_list) + 1))/3:
-    #  pass
 
   file.close()
 
@@ -1071,7 +872,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     icondir = str(prefab_name)
     with open("prefab_template/rot_prefab_list.txt", "a") as f:
       f.write(icondir+"_icon_list.txt\n")
-    #g.close() - useless, because you said "with open() as g," which automatically closes it
+
     imageRot = Image.open(prefab_icon)
     imageRot.save("icons/"+ icondir+"_right.jpg")
     imageRot2 = Image.open(prefab_icon)
@@ -1125,11 +926,4 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
       f.write("info.txt")
       os.remove("info.txt")
 
-        
-
-  
   return txtReturn + pyReturn
-
-#create("vmf_prefabs/rotation_test.vmf", "rotation_test","Rotation Test", "icons/crate_cover.jpg",True)
-#create("vmf_prefabs/spawn_room_red.vmf", "spawn_room_red", "Respawn Room - Red", "icons/spawn_red.jpg", True)
-#create("vmf_prefabs/spawn_room_blu.vmf", "spawn_blu_prefab", "Respawn Room - Blu", "icons/spawn_blue.jpg") 
