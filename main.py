@@ -1190,9 +1190,13 @@ class MainWindow(QMainWindow):
             choice.setDefaultButton(later_btn)                
             if choice.exec_() == 0:
                 try:
-                    subprocess.Popen('EasyTF2Mapper.exe')
+                    subprocess.call('sudo wine EasyTF2Mapper.exe')
+                    
                 except:
-                    subprocess.Popen('python main.py')
+                    try:
+                        subprocess.Popen('EasyTF2Mapper.exe')
+                    except:
+                        subprocess.Popen('python main.py')
                 sys.exit()
             else:
                 pass  
