@@ -19,8 +19,7 @@ import glob
 import webbrowser
 import wave
 import zipfile
-'''check todo every time you open this'''
-#TODO: more prefabs, mo betta
+
 class GridBtn(QWidget):
     def __init__(self, parent, x, y, btn_id):
         super(GridBtn, self).__init__()
@@ -58,8 +57,6 @@ class GridBtn(QWidget):
             entity_list[level][btn_id] = ''
             iconlist[level][btn_id] = ''
         else:
-            print((x,y))
-            #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[parent.tile_list.currentRow()])
             try:
                 try:
@@ -69,37 +66,25 @@ class GridBtn(QWidget):
                         except Exception as e:
                             create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
                     except Exception as e:
-                        #print(str(e))
                         create = moduleName.createTile(x, y, id_num, world_id_num, level)
                 except Exception as e:
-                    #print(str(e))
                     create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, level)
             except Exception as e:
                 create = moduleName.createTile(x, y, id_num, world_id_num, rotation, level)
-                #print(str(e))
-            #create = test_prefab.createTile(x, y, id_num, world_id_num)
             id_num = create[1]
             world_id_num = create[2]
             try:
                 entity_num = create[3]
                 placeholder_list = create[5]
-                #print("placeholder list: ", placeholder_list)
             except IndexError:
                 pass
             #if parent.comboBox.currentIndex() != 0:
                 #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
                 #world_id_num +=1
                 #create = create + create2
-                #print(create)
-                #print(id_num)
-                #print(world_id_num)
                 
             #else:
                 #pass
-                #print(create)
-                #print(id_num)
-                #print(world_id_num)
-                #this is obsolete -anson
             ###
             ###
             try:
@@ -123,18 +108,13 @@ class GridBtn(QWidget):
                 self.button.setIcon(QIcon(icon))
                 self.button.setIconSize(QSize(32,32))
 
-            #print(iconlist,level, btn_id)
             iconlist[level][btn_id] = icon
             totalblocks[level][btn_id] = create[0]
-            #print(btn_id)
-            #print(iconlist)
             
             try:
                 entity_list[level][btn_id] = create[4]
-                #print(create[4])
             except Exception as e:
                 print(str(e))
-            #print(level)
             if "*" not in currentfilename:
                 currentfilename = currentfilename+'*'
                 parent.setWindowTitle("Easy TF2 Mapper - ["+currentfilename+"]")
@@ -159,10 +139,6 @@ class MainWindow(QMainWindow):
         palette = QPalette()
         palette.setBrush(QPalette.Background,QBrush(QPixmap("icons/backgrounds/background_"+namelist[random.randint(0,3)]+".jpg")))
         self.setPalette(palette)
-        #self.setStyleSheet("image: url(icons/backgrounds/background_mvm.jpg); background-repeat: stretch;")
-        #self.resizeEvent(self.resizefunc)
-        #self.resizeEvent(palette.setBrush(QPalette.Background,QBrush(QPixmap("icons/backgrounds/background_"+namelist[random.randint(0,3)]+".jpg").scaled(self.size()))))
-
 
         #create menubar
         exitAction = QAction("&Exit", self)
@@ -239,10 +215,6 @@ class MainWindow(QMainWindow):
         consoleAction.setStatusTip("Run functions/print variables manually")
         consoleAction.triggered.connect(self.open_console)
 
-        #refreshPrefab = QAction("&Refresh Prefab List", self)
-        #refreshPrefab.setStatusTip("Refresh the list of prefabs, done after creating a new one.")
-        #refreshPrefab.triggered.connect(self.importprefabs)
-
         changeSkybox = QAction("&Change Skybox", self)
         changeSkybox.setStatusTip("Change the skybox of the map.")
         changeSkybox.setShortcut("Ctrl+B")
@@ -264,7 +236,6 @@ class MainWindow(QMainWindow):
         optionsMenu = mainMenu.addMenu("&Options")
         toolsMenu = mainMenu.addMenu("&Tools")
         helpMenu = mainMenu.addMenu("&Help")
-        #createMenu = mainMenu.addMenu("&Create")
         
         fileMenu.addAction(newAction)
         fileMenu.addAction(openAction)
@@ -275,8 +246,6 @@ class MainWindow(QMainWindow):
         helpMenu.addAction(tutorialAction)
         helpMenu.addAction(helpAction)
         
-        #fileMenu.addAction(exportAction)
-        #fileMenu.addAction(importPrefab)
         importMenu = fileMenu.addMenu("&Import")
         importMenu.addAction(importPrefab)
 
@@ -290,7 +259,6 @@ class MainWindow(QMainWindow):
         optionsMenu.addAction(gridAction)
         optionsMenu.addAction(changeSkybox)
         optionsMenu.addAction(changeHammer)
-        #optionsMenu.addAction(removeAction)
         
         toolsMenu.addAction(createPrefabAction)
         toolsMenu.addAction(hammerAction)
@@ -315,7 +283,6 @@ class MainWindow(QMainWindow):
             self.file.close()
             if loaded == 1:
                 subprocess.Popen(hammer_location +" "+ file)
-                #print("work")
             else:
                 subprocess.Popen(hammer_location)
         else:
@@ -323,7 +290,6 @@ class MainWindow(QMainWindow):
             try:
                 if loaded == 1:
                     subprocess.Popen(self.fileloaded[1] + " "+file)
-                    #print("work")
                 else:
                     subprocess.Popen(self.fileloaded[1])
             except Exception as e:
@@ -364,23 +330,15 @@ class MainWindow(QMainWindow):
         self.close_application()
         
     def home(self):
-        #test
         global levels
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
-        #self.labelLayout = QHBoxLayout(self)
-        #self.palette = QPalette()
-        #self.palette.setColor(QPalette.Shadow, QColor('grey'))
 
         self.scrollArea = QScrollArea()
-        
-        #self.scrollArea.setAttribute(Qt.WA_TranslucentBackground)
-        #self.scrollArea.setStyleSheet("background-color:transparent;")
 
         self.scrollArea.setStyleSheet("background-color: rgb(50, 50, 50, 100);")
 
         self.scrollArea.setBackgroundRole(QPalette.Light)
-        #self.scrollArea.setAutoFillBackground(False)
 
 
     
@@ -399,7 +357,6 @@ class MainWindow(QMainWindow):
 
         actiondict = {}
         self.buttonLabel = QLabel("Rotation:",self)
-        #self.currentLabel = QLabel("Current Rotation:",self)
         self.listLabel = QLabel("List of prefabs:",self)
         self.gridLabel = QLabel("Work Area:",self)
         
@@ -410,12 +367,6 @@ class MainWindow(QMainWindow):
         self.dividerH = QFrame(self)
         self.dividerH.setFrameShape(QFrame.HLine)
         self.dividerH.setLineWidth(10)
-        
-
-        #self.labelLayout.addWidget(self.gridLabel)
-        #self.labelLayout.addWidget(self.listLabel)
-        #self.labelLayout.setContentsMargins(0,0,0,0)
-        #self.labelLayout.setSpacing(10)
 
         self.current = QPushButton("",self)
         self.current.setIcon(QIcon(''))
@@ -429,7 +380,6 @@ class MainWindow(QMainWindow):
         self.level.setText("Level: 1")
         
         self.level.setFixedSize(QSize(150,30))
-        #self.level.setMenu(self.levelMenu)
         self.level.clicked.connect(self.level_select)
 
         self.levelup = QToolButton(self)
@@ -463,7 +413,6 @@ class MainWindow(QMainWindow):
         self.button_rotate_layout = QHBoxLayout()
         self.button_rotate_layout.addWidget(self.buttonLabel)
         self.button_rotate_layout.addWidget(self.rotateCCW)
-        #self.button_rotate_layout.addWidget(self.currentLabel)
         self.button_rotate_layout.addWidget(self.current)
         self.button_rotate_layout.addWidget(self.rotateCW)
         self.button_rotate_layout.addWidget(self.divider)
@@ -516,46 +465,27 @@ class MainWindow(QMainWindow):
         
         self.button_grid_layout = QGridLayout()
         self.button_grid_layout.setSpacing(0)
-        #self.layout_grid = QBoxLayout()
         
         self.grid_widget = QWidget()
         self.grid_widget.setLayout(self.button_grid_layout)
         self.scrollArea.setWidget(self.grid_widget)
-        #self.scrollArea.ensureWidgetVisible(self.grid_widget)
         self.scrollArea.setWidgetResizable(True)
 
-        #self.scrollFrame = QLabel(self.scrollArea)
-        #self.scrollFrame.setFrameStyle(QFrame.Panel | QFrame.Raised)
-        #self.scrollFrame.setGeometry(QRect(0,0,580,580))
-        #self.scrollFrameLayout = QVBoxLayout()
-        #self.scrollFrameLayout.addWidget(self.scrollFrame)
-        #self.scrollFrameLayout.addWidget(self.scrollArea)
         #contains label and grid vertically
         self.gridLayout = QVBoxLayout()
         self.gridLayout.addWidget(self.gridLabel)
         self.gridLayout.addWidget(self.scrollArea)
         self.button_grid_all = QVBoxLayout()
-        #self.button_grid_all.addStretch(0)
-        #self.button_grid_all.setSpacing(0)
         self.button_grid_all.addLayout(self.button_rotate_layout)
         self.button_grid_all.addWidget(self.dividerH)
         self.button_grid_all.addLayout(self.gridLayout)
-        #self.button_grid_all.addStretch(1)
-        #self.button_grid_all.addWidget(self.scrollArea)
         
         self.column = QHBoxLayout()
         self.column.addLayout(self.button_grid_all)
-        #self.column.addStretch(1)
         self.column.addLayout(self.tile_list_layout)
-        #self.column.addLayout(self.button_rotate_layout)
-        #self.column.addStretch(1)
         
         self.row = QVBoxLayout(self.central_widget)
-        #self.row.addLayout(self.labelLayout)
         self.row.addLayout(self.column)
-        #self.row.addLayout(self.button_rotate_layout)
-        #self.row.addStretch(1)
-        #self.row.addStretch(1)
         
         try:
             f = open('startupcache/firsttime.su', 'r+')
@@ -598,8 +528,6 @@ class MainWindow(QMainWindow):
     def level_select(self):
         self.windowl = QDialog(self)
         global levels
-        #testing
-        #
         self.levellist = QListWidget()
         self.levellist.setIconSize(QSize(200, 25))
         try:
@@ -646,8 +574,6 @@ class MainWindow(QMainWindow):
             print(level)
             self.file_open(True)
             self.level.setText("Level: " + str(level+1))            
-        #print(totalblocks)
-        #print(iconlist)
         #change grid to grid for level
         
 
@@ -669,7 +595,6 @@ class MainWindow(QMainWindow):
 
     def prefab_list_up(self):
         currentRow = self.tile_list.currentRow()
-        #print(currentRow)
 
         if currentRow > 0:
             currentItem = self.tile_list.takeItem(currentRow)
@@ -680,8 +605,6 @@ class MainWindow(QMainWindow):
 
     def prefab_list_down(self):
         currentRow = self.tile_list.currentRow()
-        #print(currentRow)
-        #print(self.tile_list.count())
         if currentRow < self.tile_list.count() - 1:
             currentItem = self.tile_list.takeItem(currentRow)
             self.tile_list.insertItem(currentRow + 1, currentItem)
@@ -716,13 +639,7 @@ class MainWindow(QMainWindow):
 
         choice = QMessageBox.question(self,"Delete Prefab (DO NOT DELETE STOCK PREFABS)","Are you sure you want to delete \"%s\"?\nThis is mainly for developers." %(prefab_text_list[currentprefab]),
                              QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-        
-        #choice.addWidget(self.restartCheck)
-        #self.layout = choice.layout()
-        #self.layout.addWidget(QMessageBox.Yes)
-        #self.layout.addWidget(QMessageBox.No)
-        #self.layout.addWidget(self.restartCheck)
-        #choice.show()        
+           
         if choice == QMessageBox.Yes:
             text_list = ['prefab_template/prefab_text_list.txt','prefab_template/rot_prefab_list.txt',
                  'prefab_template/prefab_list.txt', 'prefab_template/prefab_icon_list.txt']
@@ -748,7 +665,6 @@ class MainWindow(QMainWindow):
             choice.addButton(restart_btn, QMessageBox.YesRole)
             choice.addButton(later_btn, QMessageBox.NoRole)
             choice.setDefaultButton(later_btn)
-            #print(choice.exec_())
                               
             if choice.exec_() == 0:
                 try:
@@ -783,7 +699,9 @@ class MainWindow(QMainWindow):
             icon = prefab_icon_list[self.tile_list.currentRow()]
             self.current.setIcon(QIcon(icon))
             self.current.setIconSize(QSize(32,32))
-            
+
+
+        #might consider using the following code in the future    
         '''
         im_rot = Image.open(prefab_icon_list[self.tile_list.currentRow()])
         im_rot = im_rot.rotate(360-(rotation*90))
@@ -806,10 +724,8 @@ class MainWindow(QMainWindow):
             name = QFileDialog.getOpenFileName(self, "Open File", latest_path,"*.ezm")
             latest_path,file = str(name[0]),open(name[0], "rb")
             level = 0
-            #del totalblocks, entity_list,iconlist,grid_list
             iconlist=[]
             while True:
-                #try:
                 header = pickle.load(file)
                 if "levels" in header:
                     openlines = pickle.load(file)
@@ -822,7 +738,6 @@ class MainWindow(QMainWindow):
                     totalblocks=[]
                     openlines = pickle.load(file)
                     for item in openlines:
-                        #print(item)
                         totalblocks.append(item)
                 elif "entity_list" in header:
                     entity_list=[]
@@ -834,14 +749,11 @@ class MainWindow(QMainWindow):
                     global grid_list
                     iconlist=[]
                     openlines = pickle.load(file)
-                    #print(openlines)
 
                     for item in openlines:
                         iconlist.append(item)
                     for index, icon in enumerate(iconlist[0]):
-                        #print(iconlist)
                         if "icons" in icon:
-                            #print(index)
                             grid_list[index].button.setIcon(QIcon(icon))
                             grid_list[index].button.setIconSize(QSize(32,32))
                 elif "skybox2_list" in header:
@@ -849,10 +761,6 @@ class MainWindow(QMainWindow):
                     skybox2_list.setCurrentRow(openlines)
                 else:
                     break
-                #print(iconlist)
-                #print(totalblocks)
-            #print(iconlist)
-            #print(totalblocks)
         
             for i in range(levelcountload):
                 file = open("leveltemp/level" + str(i)+".tmp", "wb")
@@ -870,22 +778,11 @@ class MainWindow(QMainWindow):
                 file = open("leveltemp/level" + str(level)+".tmp", "rb")
                 iconlist[level] = pickle.load(file)
                 file.close()
-                #print(grid_list)
                 for index, icon in enumerate(iconlist[level]):
-                    #print(icon)
                     grid_list[index].button.setIcon(QIcon(icon))
                     grid_list[index].button.setIconSize(QSize(32,32))
             except Exception as e:
                 print(str(e))
-        
-        #print(totalblocks)
-        #print("totalblocks: ", totalblocks)
-        #print("entity_list: ", entity_list)
-        #openlines = file.readlines()
-        #openlinesstr = "".join(openlines)
-        
-        #now, it imports the vmf, and has two versions of it; the importlines which has each
-        #line as a string in a list, and importlinesstr, which makes it one big string
             
     def file_save(self, tmp = False, saveAs = False):
         global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded, latest_path
@@ -901,20 +798,17 @@ class MainWindow(QMainWindow):
                     name = currentfilename[:-1]
                 else:
                     name = currentfilename
-            #print(name)
             file = open(name, "wb")
             pickle.dump("<levels>",file)
             pickle.dump(levels,file)
             pickle.dump("<grid_size>", file)
             pickle.dump(gridsize_list, file)
-            #for i in range(levels):
             pickle.dump("<totalblocks>", file)
             pickle.dump(totalblocks, file)
             pickle.dump("<entity_list>", file)
             pickle.dump(entity_list, file)
             pickle.dump("<icon_list>", file)
             pickle.dump(iconlist, file)
-            print(iconlist)
             pickle.dump("<skybox>", file)
             pickle.dump(skybox_sav, file)
             file.close()
@@ -932,8 +826,6 @@ class MainWindow(QMainWindow):
             except Exception as e:
                 
                 print(str(e))
-        #text = self.textEdit.toPlainText()
-        #file.write(text)
         
         
 
@@ -965,9 +857,6 @@ class MainWindow(QMainWindow):
         world_id_num = create[2]
         create = generateSkybox.createSkyboxSouth(grid_x,grid_y,skyboxz,id_num,world_id_num)
         skyboxgeolist.append(create[0])
-        print(count_btns)
-        print(len(entity_list))
-        #print(totalblocks)
         skybox = skybox_list[skybox2_list.currentRow()]
         skyboxlight = skybox_light_list[skybox2_list.currentRow()]
         skyboxangle = skybox_angle_list[skybox2_list.currentRow()]
@@ -985,7 +874,6 @@ class MainWindow(QMainWindow):
         file = open(name[0], "w")
         import export
         wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
-        #print(wholething)
         file.write(wholething)
         file.close()
         popup = QMessageBox(self, "File Exported",
@@ -1008,14 +896,6 @@ class MainWindow(QMainWindow):
 
             if widget is not None:
                 widget.deleteLater()
-
-        #for i in reversed(range(self.button_grid_layout.count())):
-            #self.button_grid_layout.itemAt(i).widget().setParent(None)
-
-        #for grid_button in grid_list:
-            #grid_button.button.close()
-
-        #self.clearlist()
         
     def grid_change(self,xvar,yvar,zvar,var,var2,var3):
         global totalblocks,entity_list,grid_list,iconlist
@@ -1064,13 +944,6 @@ class MainWindow(QMainWindow):
             self.window.exec_()
         elif var2 == True:
             self.grid_change_func(sxvar,syvar,szvar)
-            #print('test')
-        '''
-        text = QInputDialog.getText(self,("Get Grid Y"),
-                                     ("Grid Height:"))                                    
-        text2 = QInputDialog.getText(self,("Get Grid X"),
-                                     ("Grid Width:"))
-        '''
 
     def grid_change_func(self,x,y,z):
         global grid_y, grid_x, levels, file_loaded, currentfilename, level, count_btns
@@ -1095,10 +968,6 @@ class MainWindow(QMainWindow):
             self.grid_change(0,0,0,False,False,True)
 
         self.removeButtons()
-        #self.removeDropdown()
-
-        #print(self.grid_y)
-        #print(self.grid_x)
 
         for z in range(levels):
             totalblocks.append([])
@@ -1106,7 +975,6 @@ class MainWindow(QMainWindow):
             iconlist.append([])
             self.btn_id_count=0
             count_btns=0
-            #print(totalblocks)
         
             for x in range(self.grid_x):
                 
@@ -1123,10 +991,7 @@ class MainWindow(QMainWindow):
                 self.button_grid_layout.addWidget(grid_btn.button,y,x)
                 self.btn_id_count += 1
                 grid_list.append(grid_btn)
-        entity_list.append("lighting slot")
-        #pprint.pprint(totalblocks)
-
-        #print(entity_list)        
+        entity_list.append("lighting slot")  
         self.count += 1
         count_btns = self.grid_x*self.grid_y
         grid_y = self.grid_y
@@ -1135,9 +1000,6 @@ class MainWindow(QMainWindow):
         self.scrollArea.deleteLater()
         self.scrollArea = QScrollArea()
         self.scrollArea.setBackgroundRole(QPalette.Light)
-        #self.scrollArea.setBackgroundRole(QPalette.Light)
-        
-        #self.scrollArea.setStyleSheet("background-color:transparent;")
         self.scrollArea.setStyleSheet("background-color: rgb(50, 50, 50, 100);")
 
 
@@ -1147,28 +1009,8 @@ class MainWindow(QMainWindow):
         self.scrollArea.ensureWidgetVisible(self.grid_widget)
         self.scrollArea.setWidgetResizable(True)
         
-        #if not self.grid_y > 16 and not self.grid_x > 16:
-            #self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, self.grid_y*32+32))
         self.button_grid_layout.setRowStretch(self.grid_y + 1, 1)
         self.button_grid_layout.setColumnStretch(self.grid_x + 1, 1)
-            #self.button_grid_all.addStretch(1)
-            #print('don\'t restrict size')
-        '''
-        elif self.grid_y > 16 and self.grid_x > 16:
-            #self.scrollArea.setGeometry(QRect(0,0,16*32+32, 16*32+32))
-            #print('restrict both')
-            #self.button_grid_all.takeAt(2)
-            pass
-        elif self.grid_y > 16:
-            self.button_grid_layout.setColumnStretch(self.grid_x + 1, 1)
-            #self.scrollArea.setGeometry(QRect(0,0,self.grid_x*32+32, 16*32+32))
-            #print('restrict y')
-        elif self.grid_x > 16:
-            self.button_grid_layout.setRowStretch(self.grid_y + 1, 1)
-            #self.button_grid_all.addStretch(1)
-            #self.scrollArea.setGeometry(QRect(0,0,16*32+32, self.grid_y*32+32))
-        '''
-        #self.scrollFrameLayout.addWidget(self.scrollArea)
 
         for i in range(levels):
             file = open("leveltemp/level" + str(i)+".tmp", "wb")
@@ -1177,8 +1019,6 @@ class MainWindow(QMainWindow):
         
         self.gridLayout.addWidget(self.scrollArea)
         self.button_grid_all.addLayout(self.gridLayout)
-        #print(grid_list)
-        #print(iconlist)
         self.setWindowTitle("Easy TF2 Mapper ")
         return grid_list
 
@@ -1271,14 +1111,6 @@ class MainWindow(QMainWindow):
             pass
 
     def create_prefab(self):
-        '''
-        name = QFileDialog.getOpenFileName(self, "Choose .vmf File", "/","*.vmf")
-        prefab_icon = QFileDialog.getOpenFileName(self, "Choose Prefab Icon", "/","*.jpg")
-        prefab_name = QInputDialog.getText(self,"Prefab Name",
-                                     "Name of Prefab (e.g. wall_prefab):")
-        prefab_text = QInputDialog.getText(self, "Prefab Text",
-                                           "Prefab Text (e.g. Wall Tile)")
-        '''
         
         self.window = QDialog(self)
         self.textLineEdit = QLineEdit()
@@ -1303,7 +1135,6 @@ class MainWindow(QMainWindow):
         self.iconLayout.addWidget(self.iconBrowse)
 
         self.okay_btn = QPushButton("Create Prefab", self)
-        #self.okay_btn.setFixedSize(100,25)
 
         self.blankstring = QWidget()
 
@@ -1335,7 +1166,6 @@ class MainWindow(QMainWindow):
         self.window.setGeometry(150,150,400,300)
         self.window.setWindowTitle("Create Prefab")
         self.window.setWindowIcon(QIcon("icons\icon.ico"))
-        #self.window.setWindowModality(Qt.WindowModal)
 
         self.window.setLayout(self.form)
         self.window.exec_()
@@ -1357,8 +1187,7 @@ class MainWindow(QMainWindow):
             choice.setInformativeText("Restart? You will lose any unsaved progress.")
             choice.addButton(restart_btn, QMessageBox.YesRole)
             choice.addButton(later_btn, QMessageBox.NoRole)
-            choice.setDefaultButton(later_btn)
-            #print(choice.exec_())                  
+            choice.setDefaultButton(later_btn)                
             if choice.exec_() == 0:
                 try:
                     subprocess.Popen('EasyTF2Mapper.exe')
@@ -1451,28 +1280,12 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
 
     def console_enter(self):
         global level, levels
-
-        """
-        try:
-            self.prev_text.setText(eval(self.curr_text.displayText()))
-        except Exception as e:
-            self.prev_text.setText(str(e))
-        """
         
-            
         command = ""
         char_num = 0
         text = self.curr_text.displayText()
         text_prefix = text + " --> "
         
-        '''
-        for letter in text:
-            if letter != " ":
-                command += letter
-                char_num += 1
-            else:
-                break
-        '''
         command = text.split()[0]
         
         try:
@@ -1481,11 +1294,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
             value = ""
 
         if command == "print":
-            #print_var = ""
 
-            #for letter in text[char_num:]:
-            #    print_var += letter
-                
             try:
                 new_text = text_prefix + str(eval(value))
             except Exception as e:
@@ -1526,10 +1335,6 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
             new_text = ''
             self.sideshow()
         elif command == "func":
-            #function_var = ""
-
-            #for letter in text[char_num:]:
-            #    function_var += letter
             try:
                 eval("self."+value + "()")
                 new_text = text_prefix + "Function "+value+" has been run."
