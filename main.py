@@ -40,6 +40,16 @@ class GridBtn(QWidget):
         self.button.setIcon(QIcon())
 
     def click_func(self, parent, x, y, btn_id):
+        global world_id_num
+        global id_num
+        global entity_num
+        global entity_list
+        global placeholder_list
+        global icon
+        global rotation
+        global totalblocks
+        global levels
+        
         self.checkForAlt()
         global rotation, currentfilename
         if toggle != 0:
@@ -49,28 +59,14 @@ class GridBtn(QWidget):
             iconlist[level][btn_id] = ''
         else:
             print((x,y))
-            global world_id_num
-            global id_num
-            global entity_num
-            global entity_list
-            global placeholder_list
-            global icon
-            global rotation
-            global totalblocks
-            global entity_list
-            global levels
-            #print(totalblocks)
-            #print(btn_id)
             #eval() turns the string into a variable name.
             moduleName = eval(prefab_list[parent.tile_list.currentRow()])
-            #print(rotation)
             try:
                 try:
                     try:
                         try:
                             create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
                         except Exception as e:
-                            #print(str(e))
                             create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
                     except Exception as e:
                         #print(str(e))
@@ -144,11 +140,12 @@ class GridBtn(QWidget):
                 parent.setWindowTitle("Easy TF2 Mapper - ["+currentfilename+"]")
     def checkForAlt(self):
         modifiers = QApplication.keyboardModifiers()
+        global toggle
         if modifiers == Qt.ControlModifier:
-            global toggle
+            
             toggle = 1
         else:
-            global toggle
+            
             toggle = 0
         
 class MainWindow(QMainWindow):
@@ -1076,11 +1073,12 @@ class MainWindow(QMainWindow):
         '''
 
     def grid_change_func(self,x,y,z):
+        global grid_y, grid_x, levels, file_loaded, currentfilename, level, count_btns
         level = 0
         levels = 1
         count_btns = 0
         self.count = 0
-        global grid_y, grid_x, levels, file_loaded, currentfilename, level
+        
         file_loaded = False
         try:
             self.window.deleteLater()
@@ -1115,7 +1113,7 @@ class MainWindow(QMainWindow):
                 for y in range(self.grid_y):
                     totalblocks[z].append("") #This is so that there are no problems with replacing list values
                     
-                    global count_btns
+                    
                     count_btns += 1
                     entity_list[z].append("")
                     iconlist[z].append("")
@@ -1185,6 +1183,8 @@ class MainWindow(QMainWindow):
         return grid_list
 
     def change_light(self):
+        global r_input, g_input, b_input, light_input, world_id_num
+        
         r_input = QInputDialog.getText(self, ("Red light level 0-255"),
                                        ("Put in the red light ambiance level, 0-255:"))
         g_input = QInputDialog.getText(self, ("Green light level 0-255"),
@@ -1194,7 +1194,7 @@ class MainWindow(QMainWindow):
         light_input = QInputDialog.getText(self, ("Brightness level"),
                                        ("Put in the brightness level desired:"))
         try:
-            global r_input, g_input, b_input, light_input, world_id_num
+            
             r_input = int(r_input[0])
             g_input = int(g_input[0])
             b_input = int(b_input[0])
@@ -1683,7 +1683,8 @@ for item in prefab_list:
     globals()[item] = importlib.import_module(item)
     print("import", item)
 print("\n~~~~~~~~~~~~~~~~~~~~~\nMapper loaded! You may have to alt-tab to find the input values dialog.\n")
-global rotation
+
+
 #Main Program
 app = QApplication(sys.argv)
 gui = MainWindow()
