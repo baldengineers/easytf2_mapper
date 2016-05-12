@@ -829,8 +829,8 @@ class MainWindow(QMainWindow):
         
         
 
-    def file_export(self):
-        global id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list, latest_path
+    def file_export(self,bsp=False):
+        global cur_vmf_location,id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list, latest_path
         skyboxgeolist = []
         skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, %d minimum recommended):" %(levels*512)))
         try:
@@ -876,18 +876,36 @@ class MainWindow(QMainWindow):
         wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
         file.write(wholething)
         file.close()
-        popup = QMessageBox(self, "File Exported",
-                                "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
-        popup.setWindowTitle("File Exported")
-        popup.setText("The .vmf has been outputted to %s" %(name[0]))
-        popup.setInformativeText(" Open it in hammer to compile as a .bsp. Check out the wiki <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">here</a> for fixing errors with textures.")
-        hammerButton = popup.addButton("Open Hammer",QMessageBox.ActionRole)
-        exitButton = popup.addButton("OK",QMessageBox.ActionRole)
-        popup.exec_()
-        if popup.clickedButton() == hammerButton:
-            self.open_hammer(1,name[0])
-        if popup.clickedButton() == exitButton:
-            popup.deleteLater()
+        if not bsp:
+            popup = QMessageBox(self, "File Exported",
+                                    "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
+            popup.setWindowTitle("File Exported")
+            popup.setText("The .vmf has been outputted to %s" %(name[0]))
+            popup.setInformativeText(" Open it in hammer to compile as a .bsp. Check out the wiki <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">here</a> for fixing errors with textures.")
+            hammerButton = popup.addButton("Open Hammer",QMessageBox.ActionRole)
+            exitButton = popup.addButton("OK",QMessageBox.ActionRole)
+            popup.exec_()
+            if popup.clickedButton() == hammerButton:
+                self.open_hammer(1,name[0])
+            if popup.clickedButton() == exitButton:
+                popup.deleteLater()
+        cur_vmf_location = name[0]
+        
+    def file_export_bsp(self):
+        global cur_vmf_location
+        self.file_export(True)
+        try:
+            tf2BinLoc = open('startupcache/vbsp.su','r+')
+            tf2BinLocFile = tf2BinLoc.readlines()[0]
+            tf2BinLoc.close()
+        except:
+            tf2BinLoc = open('startupcache/vbsp.su', 'w')
+            tf2BinLocFile = QtGui.QFileDialog.getExistingDirectory(self,'Locate Team Fortress 2/bin')
+            tf2BinLoc.write(tf2BinLocFile)
+            tf2BinLoc.close()
+        subprocess.Popen(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
+            
+
             
     def removeButtons(self):
 
