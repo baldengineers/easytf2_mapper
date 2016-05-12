@@ -898,12 +898,14 @@ class MainWindow(QMainWindow):
             tf2BinLoc = open('startupcache/vbsp.su','r+')
             tf2BinLocFile = tf2BinLoc.readlines()[0]
             tf2BinLoc.close()
+            subprocess.Popen(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
         except:
-            tf2BinLoc = open('startupcache/vbsp.su', 'w')
+            tf2BinLoc = open('startupcache/vbsp.su', 'w+')
             tf2BinLocFile = QtGui.QFileDialog.getExistingDirectory(self,'Locate Team Fortress 2/bin')
             tf2BinLoc.write(tf2BinLocFile)
             tf2BinLoc.close()
-        subprocess.Popen(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
+            subprocess.Popen(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
+        
             
 
             
