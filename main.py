@@ -1094,21 +1094,45 @@ class MainWindow(QMainWindow):
     '''
     #fix this later, it has a breaking bugs if it works
 
-    def close_application(self):
-        choice = QMessageBox.question(self, "Exit",
-                                      "Are you sure you want to exit?",
-                                      QMessageBox.Yes | QMessageBox.No,
-                                      QMessageBox.No)
-        if choice == QMessageBox.Yes:
-            folder = 'leveltemp/'
-            for f in os.listdir(folder):
-                if "level" in f: 
-                    print("removing", f)
-                    os.remove(folder+f)
-                
-            sys.exit()
-        else:
-            pass
+    def close_application(self, restart = False):
+        if not restart:
+            choice = QMessageBox.question(self, "Exit",
+                                          "Are you sure you want to exit?",
+                                          QMessageBox.Yes | QMessageBox.No,
+                                          QMessageBox.No)
+            if choice == QMessageBox.Yes:
+                folder = 'leveltemp/'
+                for f in os.listdir(folder):
+                    if "level" in f: 
+                        print("removing", f)
+                        os.remove(folder+f)
+                    
+                sys.exit()
+            else:
+                pass
+        if restart:
+            choice = QMessageBox.question(self, "Restart",
+                                          "Are you sure you want to restart?",
+                                          QMessageBox.Yes | QMessageBox.No,
+                                          QMessageBox.No)
+            if choice == QMessageBox.Yes:
+                folder = 'leveltemp/'
+                for f in os.listdir(folder):
+                    if "level" in f: 
+                        print("removing", f)
+                        os.remove(folder+f)
+                    
+                try:
+                    subprocess.call('sudo wine EasyTF2Mapper.exe')
+                    
+                except:
+                    try:
+                        subprocess.Popen('EasyTF2Mapper.exe')
+                    except:
+                        subprocess.Popen('python main.py')
+                sys.exit()
+            else:
+                pass
 
     def create_prefab(self):
         
@@ -1243,9 +1267,12 @@ class MainWindow(QMainWindow):
         choice.setDefaultButton(later_btn)                 
         if choice.exec_() == 0:
             try:
-                subprocess.Popen('EasyTF2Mapper.exe')
+                subprocess.call('sudo wine EasyTF2Mapper.exe')
             except:
-                subprocess.Popen('python main.py')
+                try:
+                    subprocess.Popen('EasyTF2Mapper.exe')
+                except:
+                    subprocess.Popen('python main.py')
             sys.exit()
         else:
             pass  
@@ -1322,11 +1349,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
             self.close_application()
             
         elif command == "restart":
-            try:
-                subprocess.Popen('EasyTF2Mapper.exe')
-            except:
-                subprocess.Popen('python main.py')
-            self.close_application()
+            self.close_application(True)
 
         elif command == "pootis":
             new_text = '<img src="icons/thedoobs.jpg">'
