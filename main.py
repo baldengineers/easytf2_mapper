@@ -829,8 +829,8 @@ class MainWindow(QMainWindow):
         
         
 
-    def file_export(self,bsp = False):
-        global id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list, latest_path
+    def file_export(self,bsp=False):
+        global cur_vmf_location,id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list, latest_path
         skyboxgeolist = []
         skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, %d minimum recommended):" %(levels*512)))
         try:
@@ -871,11 +871,11 @@ class MainWindow(QMainWindow):
         entity_list[0][levels] = currentlight
         latest_path = latest_path.replace(".ezm",".vmf")
         name = QFileDialog.getSaveFileName(self, "Export .vmf", latest_path, "Valve Map File (*.vmf)")
-        file_ex = open(name[0], "w")
+        file = open(name[0], "w")
         import export
         wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
-        file_ex.write(wholething)
-        file_ex.close()
+        file.write(wholething)
+        file.close()
         if not bsp:
             popup = QMessageBox(self, "File Exported",
                                     "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
@@ -889,24 +889,26 @@ class MainWindow(QMainWindow):
                 self.open_hammer(1,name[0])
             if popup.clickedButton() == exitButton:
                 popup.deleteLater()
-        cur_name = name[0]
-
-    def file_exportbsp(self):
+        cur_vmf_location = name[0]
+        
+    def file_export_bsp(self):
+        global cur_vmf_location
         self.file_export(True)
         try:
-            file_temp = open('startupcache/vbsp.su', 'r+')
-            folder = str(file.readlines()[0])
-            file_temp.close()
+            tf2BinLoc = open('startupcache/vbsp.su','r+')
+            tf2BinLocFile = tf2BinLoc.readlines()[0]
+            tf2BinLoc.close()
+            subprocess.Popen(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
         except:
-            try:
-                os.remove('startupcache/vbsp.su')
-            except:
-                pass
-            folder = QFolderDialog.getExistingDirectory(self, 'Select Team Fortress 2/tf/bin folder')
-            file_temp = open('startupcache/vbsp.su', 'w+')
-            file_temp.write(folder)
-        subprocess.Popen(folder+'/vsbp.exe '+cur_name)
-    
+            tf2BinLoc = open('startupcache/vbsp.su', 'w+')
+            tf2BinLocFile = QtGui.QFileDialog.getExistingDirectory(self,'Locate Team Fortress 2/bin')
+            tf2BinLoc.write(tf2BinLocFile)
+            tf2BinLoc.close()
+            subprocess.Popen(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
+        
+            
+
+            
     def removeButtons(self):
 
         for i in reversed(range(self.button_grid_layout.count())):
