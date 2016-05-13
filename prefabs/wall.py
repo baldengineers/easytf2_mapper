@@ -545,11 +545,12 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 #INSERT_ENT_CODE
 
     return values, id_num, world_id_num
+#### FINDING A NORMAL (A NORMAL IS A LINE PERPENDICULAR TO A FACE)
 normal_list,axislist,negaxislist,vaxis,uaxis=[],['1 0 0 1','0 1 0 1','0 0 1 1'],['-1 0 0 1','0 -1 0 1','0 0 -1 1'],0,0
 def evaluate(coords):
-    dist_x,dist_y,dist_z = abs(0-coords[0]),abs(0-coords[1]),abs(0-coords[2]),
-    if dist_x >= dist_y and dist_x >= dist_z:
+    dist_x,dist_y,dist_z = abs(coords[0]),abs(coords[1]),abs(coords[2]),
+    if dist_x <= dist_y and dist_x <= dist_z:
         return axislist[0]
-    if dist_y >= dist_z:
+    if dist_y <= dist_z:
         return axislist[1]
     return axislist[2]
