@@ -467,9 +467,10 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     for normal_num in range(1,var_count+1,3):
         normal_list=[]
         for i in range(var_count+3):
+            normal_list.append([])
             for var in ["x", "y", "z"]:
-                normal_list.append(eval(var+str(normal_num)))
-        coords = ((normal_list[normal_num]+normal_list[normal_num+3])/2,(normal_list[normal_num+1]+normal_list[normal_num+4])/2,(normal_list[normal_num+2]+normal_list[normal_num+5])/2)    
+                normal_list[i].append(eval(var+str(normal_num)))
+        coords = get_normal(normal_list)  
         response = evaluate(coords)
         if response == axislist[0]:
             uaxis = axislist[1]
