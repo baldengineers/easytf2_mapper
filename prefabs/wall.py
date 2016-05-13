@@ -464,6 +464,25 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     values = "".join(lines)#converting list to string
     ogvalues = "".join(lines)
     
+    for normal_num in range(1,var_count+1,3):
+        normal_list=[]
+        for i in range(var_count+3):
+            for var in ["x", "y", "z"]:
+                normal_list.append(eval(var+str(normal_num)))
+        coords = ((normal_list[normal_num]+normal_list[normal_num+3])/2,(normal_list[normal_num+1]+normal_list[normal_num+4])/2,(normal_list[normal_num+2]+normal_list[normal_num+5])/2)    
+        response = evaluate(coords)
+        if response == axislist[0]:
+            uaxis = axislist[1]
+        else:
+            uaxis = axislist[0]
+        if response == axislist[2]:
+            vaxis = negaxislist[1]
+        else:
+            vaxis = negaxislist[2]
+        values = values.replace('AXIS_REPLACE_U',uaxis,1)
+        values = values.replace('AXIS_REPLACE_V',vaxis,1)
+        
+    
     for i in range(ogvalues.count("world_idnum")):
         values = values.replace('world_idnum', str(world_id_num), 1)
         world_id_num += 1
@@ -526,3 +545,11 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 #INSERT_ENT_CODE
 
     return values, id_num, world_id_num
+normal_list,axislist,negaxislist,vaxis,uaxis=[],['1 0 0 1','0 1 0 1','0 0 1 1'],['-1 0 0 1','0 -1 0 1','0 0 -1 1'],0,0
+def evaluate(coords):
+    dist_x,dist_y,dist_z = abs(0-coords[0]),abs(0-coords[1]),abs(0-coords[2]),
+    if dist_x >= dist_y and dist_x >= dist_z:
+        return axislist[0]
+    if dist_y >= dist_z:
+        return axislist[1]
+    return axislist[2]
