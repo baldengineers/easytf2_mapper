@@ -56,3 +56,5 @@
 		if the normal is closest to the Z axis,  the vaxis variable is "uaxis" "[0 -1 0 1] 0.25". otherwise it's "uaxis" "[0 0 -1 1] 0.25"
 		
 		what we can do to calculate the norm for each side is go through each variable side (each side is xyz1,xyz2,xyz3 and so on) and get the normal for each, then calculating what uaxis and vaxis should be used. I reckon the tough part might be replacing the u and vaxis variables in the string, but we can probably use a .replace() with a times replaced as 1. Also, that might be a bit tough since we don't know what exactly the uaxis/vaxis values are.
+		
+		TO FIND THE NORMAL: http://tutorial.math.lamar.edu/Classes/CalcIII/EqnsOfPlanes.aspx
