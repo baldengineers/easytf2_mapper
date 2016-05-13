@@ -550,8 +550,15 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 normal_list,axislist,negaxislist,vaxis,uaxis=[],['1 0 0 1','0 1 0 1','0 0 1 1'],['-1 0 0 1','0 -1 0 1','0 0 -1 1'],0,0
 def evaluate(coords):
     dist_x,dist_y,dist_z = abs(coords[0]),abs(coords[1]),abs(coords[2]),
-    if dist_x <= dist_y and dist_x <= dist_z:
+    if dist_x >= dist_y and dist_x >= dist_z:
         return axislist[0]
-    if dist_y <= dist_z:
+    if dist_y >= dist_z:
         return axislist[1]
     return axislist[2]
+
+def get_normal(coord_list):
+    vector_a = (coord_list[1][0]-coord_list[0][0],coord_list[1][1]-coord_list[0][1],coord_list[1][2]-coord_list[0][2])
+    vector_b = (coord_list[2][0]-coord_list[0][0],coord_list[2][1]-coord_list[0][1],coord_list[2][2]-coord_list[0][2])
+    
+    normal = (vector_a[1]*vector_b[2]-vector_a[2]*vector_b[1],vector_a[2]*vector_b[0]-vector_a[0]*vector_b[2],vector_a[0]*vector_b[2]-vector_a[1]*vector_b[0])
+    return normal
