@@ -1,3 +1,48 @@
 -fixed warnings
 -cleaned up comments
 -cleaned up some "test" files
+-updated linux stuff
+-rotation texture error (bird's eye):
+	-1 = top
+	-2 = bottom
+	-3 = west
+	-4 = east
+	-5 = north
+	-6 = south
+	
+## stole this from sledge. let's have a look at what this means
+
+        public void AlignTextureToWorld()
+        {
+            // Set the U and V axes to match the X, Y, or Z axes
+            // How they are calculated depends on which direction the plane is facing
+
+            var direction = Plane.GetClosestAxisToNormal();
+
+            // VHE behaviour:
+            // U axis: If the closest axis to the normal is the X axis,
+            //         the U axis is UnitY. Otherwise, the U axis is UnitX.
+            // V axis: If the closest axis to the normal is the Z axis,
+            //         the V axis is -UnitY. Otherwise, the V axis is -UnitZ.
+
+            Texture.UAxis = direction == Coordinate.UnitX ? Coordinate.UnitY : Coordinate.UnitX;
+            Texture.VAxis = direction == Coordinate.UnitZ ? -Coordinate.UnitY : -Coordinate.UnitZ;
+            Texture.Rotation = 0;
+
+            CalculateTextureCoordinates(true);
+        }
+		# what it references
+		## plane.get
+		public Coordinate GetClosestAxisToNormal()
+        {
+            // VHE prioritises the axes in order of X, Y, Z.
+            var norm = Normal.Absolute();
+
+            if (norm.X >= norm.Y && norm.X >= norm.Z) return Coordinate.UnitX;
+            if (norm.Y >= norm.Z) return Coordinate.UnitY;
+            return Coordinate.UnitZ;
+        }
+		### coordinate.unit x/y/z
+		public readonly static Coordinate UnitX = new Coordinate(1, 0, 0);
+        public readonly static Coordinate UnitY = new Coordinate(0, 1, 0);
+        public readonly static Coordinate UnitZ = new Coordinate(0, 0, 1);
