@@ -1,4 +1,0 @@
-icons/Respawn (RED)_right.jpg
-icons/Respawn (RED)_down.jpg
-icons/Respawn (RED)_left.jpg
-icons/Respawn (RED)_up.jpg

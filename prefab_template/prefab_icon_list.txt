@@ -4,13 +4,13 @@ icons/ground_stone.jpg
 icons/wall_right.jpg
 icons/wall_egypt.jpg
 icons/wall_stone.jpg
-C:/Users/Anson/Documents/GitHub/easytf2_mapper/icons/corner_right.jpg
+icons/corner_right.jpg
 icons/corner_egypt.jpg
 icons/corner_stone.jpg
 icons/diag_wall.jpg
 icons/diag_wall_egypt.jpg
 icons/diag_wall_stone.jpg
-icons/respawn_room_blu_right.jpg
+icons/respawn_blu_right.jpg
 icons/respawn_red_right.jpg
 icons/heal_tile.jpg
 icons/ammo_hut.jpg
