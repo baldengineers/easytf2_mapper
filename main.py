@@ -913,7 +913,14 @@ class MainWindow(QMainWindow):
             popup.setWindowTitle("File Exported")
             popup.setText("The .vmf has been outputted to %s" %(tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp')))
             popup.setInformativeText("Open TF2 and in load up 'tf2mapper.bsp'! You can do this by typing 'map tf2mapperoutput' or by creating a server with that map.")
+            hammerButton = popup.addButton("Open Hammer",QMessageBox.ActionRole)
+            exitButton = popup.addButton("OK",QMessageBox.ActionRole)
             popup.exec_()
+            if popup.clickedButton() == hammerButton:
+                subprocess.Popen('"'+tf2BinLocFile.replace('steamapps/common/Team Fortress 2/bin','')+'steam.exe" "steam://run/440"')
+            if popup.clickedButton() == exitButton:
+                popup.deleteLater()            
+            
 
             
         except Exception as e:
@@ -932,7 +939,13 @@ class MainWindow(QMainWindow):
                 popup.setWindowTitle("File Exported")
                 popup.setText("The .vmf has been outputted to %s" %(tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp')))
                 popup.setInformativeText("Open TF2 and in load up 'tf2mapper.bsp'! You can do this by typing 'map tf2mapperoutput' or by creating a server with that map.")
-                popup.exec_()     
+                hammerButton = popup.addButton("Open TF2",QMessageBox.ActionRole)
+                exitButton = popup.addButton("OK",QMessageBox.ActionRole)
+                popup.exec_()
+                if popup.clickedButton() == hammerButton:
+                    subprocess.Popen('"'+tf2BinLocFile.replace('steamapps/common/Team Fortress 2/bin','')+'steam.exe" "steam://run/440"')
+                if popup.clickedButton() == exitButton:
+                    popup.deleteLater()
             except:
                 QMessageBox.critical(self, "Error", "Something went wrong while exporting!")
                 
