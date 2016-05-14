@@ -16,9 +16,11 @@ You can upload and download these saves at http://tf2mapper.com/uploads/index.ht
 
 Ctrl+Shift+S = Save as. Works like any other "save as" function.
 
-Ctrl+O = Open save. Opens .ezm savefiles.
+Ctrl+O = Open a save file. Opens .ezm savefiles.
 
-Ctrl+E = Export vmf. do this when you're done. This will export, then give you an option to launch your .vmf into hammer.
+Ctrl+E = Export vmf. Do this when you're done if you want to make some changes or just want a .vmf. This will export, then give you an option to launch your .vmf into hammer.
+
+Ctrl+Shift+E = Export as a .bsp. This is a fully compatible TF2 map file. It will be put into your maps directory as tf2mapperoutput.bsp. You can open this in TF2 by typing 'map tf2mapperoutput' in console or by creating an offline/lan server with the map being 'tf2mapperoutput'. There might be some lighting problems, as it's a quick compile.
 
 Ctrl+I = Create your own prefab. When creating a prefab, make it in the lower right quadrant of the grid, with one corner touching the
 origin. Make the ground a 64 high 512*512 block for uniformity. Report bugs with this to toadsrc@gmail.com, as this is probably the
@@ -41,6 +43,5 @@ Press ` or ~ to open the developer console. You probably don't need it.
 
 
 After exporting, open the .vmf in hammer, or choose the option on the popup to load your file straight into hammer.
-Fix the inevitable texture bug as shown here: https://github.com/baldengineers/easytf2_mapper/wiki/Texture-Bug
 
 copyright 2016, Bald Engineers. Hammer, a Source Engine mapping tool belongs to Valve Corporation.

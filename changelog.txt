@@ -3,3 +3,4 @@
 -cleaned up some "test" files
 -updated linux stuff
 -FIXED TEXTURE BUG!! (praise allah!)
+-added BSP exporting
