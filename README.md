@@ -1,9 +1,9 @@
-# Easy TF2 Mapper (late beta 2.8.0)
+# Easy TF2 Mapper (late beta 2.8.1)
 ##in broken state: No.
 Make TF2 maps with blocks, similar to the Time Splitters map creator. currently in development; a few weeks from release. Send bugs, ideas, and suggestions to toadsrc@gmail.com.
 ### current development branch: master, bugfixes
 <p>
-_CURRENTLY IN LATE BETA 2.8.0. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_ This is only for Windows, as Hammer is only for Windows.
+_CURRENTLY IN LATE BETA 2.8.1. PROBABLY BUGGY. SEND BUGS TO toadsrc@gmail.com_ This is only for Windows, as Hammer is only for Windows.
 <p>
 *READ THE README.TXT AND WIKI FOR INFO*
 <p>
