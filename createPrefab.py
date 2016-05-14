@@ -568,7 +568,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
                   elif letter == "\"":
                     eval(which_list).append(letter)
                               
-              eval(which_list).insert(-2, "[AXIS_REPLACE_U] 0.25")
+              eval(which_list).insert(-2, "[AXIS_REPLACE_V] 0.25")
 
             else:
               eval(which_list).append(line)

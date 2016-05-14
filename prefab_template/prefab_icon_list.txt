@@ -4,7 +4,7 @@ icons/ground_stone.jpg
 icons/wall_right.jpg
 icons/wall_egypt.jpg
 icons/wall_stone.jpg
-icons/wall_corner_top_right.jpg
+C:/Users/Anson/Documents/GitHub/easytf2_mapper/icons/corner_right.jpg
 icons/corner_egypt.jpg
 icons/corner_stone.jpg
 icons/diag_wall.jpg

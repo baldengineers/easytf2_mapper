@@ -19,6 +19,7 @@ import glob
 import webbrowser
 import wave
 import zipfile
+import shutil
 
 class GridBtn(QWidget):
     def __init__(self, parent, x, y, btn_id):
@@ -224,6 +225,11 @@ class MainWindow(QMainWindow):
         importPrefab.setStatusTip("Import a prefab in a .zip file. You can find some user-made ones at http://tf2mapper.com")
         importPrefab.setShortcut("Ctrl+Shift+I")
         importPrefab.triggered.connect(self.import_prefab)
+
+        bspExportAction = QAction("&as .BSP",self)
+        bspExportAction.setStatusTip("Export as .bsp")
+        bspExportAction.setShortcut("Ctrl+Shift+E")
+        bspExportAction.triggered.connect(self.file_export_bsp)
         
         self.statusBar()
 
@@ -251,6 +257,7 @@ class MainWindow(QMainWindow):
 
         exportMenu = fileMenu.addMenu("&Export")
         exportMenu.addAction(exportAction)
+        exportMenu.addAction(bspExportAction)
         
         fileMenu.addSeparator()
         
@@ -881,7 +888,7 @@ class MainWindow(QMainWindow):
                                     "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
             popup.setWindowTitle("File Exported")
             popup.setText("The .vmf has been outputted to %s" %(name[0]))
-            popup.setInformativeText(" Open it in hammer to compile as a .bsp. Check out the wiki <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">here</a> for fixing errors with textures.")
+            popup.setInformativeText(" Open it in hammer to compile as a .bsp and/or make some changes.")
             hammerButton = popup.addButton("Open Hammer",QMessageBox.ActionRole)
             exitButton = popup.addButton("OK",QMessageBox.ActionRole)
             popup.exec_()
@@ -896,17 +903,39 @@ class MainWindow(QMainWindow):
         self.file_export(True)
         try:
             tf2BinLoc = open('startupcache/vbsp.su','r+')
-            tf2BinLocFile = tf2BinLoc.readlines()[0]
+            tf2BinLocFile = tf2BinLoc.readlines()[0].replace('\\','/')
             tf2BinLoc.close()
-            subprocess.Popen(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
-        except:
-            tf2BinLoc = open('startupcache/vbsp.su', 'w+')
-            tf2BinLocFile = QtGui.QFileDialog.getExistingDirectory(self,'Locate Team Fortress 2/bin')
-            tf2BinLoc.write(tf2BinLocFile)
-            tf2BinLoc.close()
-            subprocess.Popen(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
-        
+            subprocess.call(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
+            subprocess.call(tf2BinLocFile+'/vvis.exe '+cur_vmf_location.replace('.vmf','.bsp'))
+            subprocess.call(tf2BinLocFile+'/vrad.exe '+cur_vmf_location.replace('.vmf','.bsp'))
+            shutil.copyfile(cur_vmf_location.replace('.vmf','.bsp'),tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp'))
+            popup = QMessageBox(self)
+            popup.setWindowTitle("File Exported")
+            popup.setText("The .vmf has been outputted to %s" %(tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp')))
+            popup.setInformativeText("Open TF2 and in load up 'tf2mapper.bsp'! You can do this by typing 'map tf2mapperoutput' or by creating a server with that map.")
+            popup.exec_()
+
             
+        except Exception as e:
+            print(str(e))
+            try:
+                tf2BinLoc = open('startupcache/vbsp.su', 'w+')
+                tf2BinLocFile = QFileDialog.getExistingDirectory(self,'LOCATE Team Fortress 2/bin, NOT IN DEFAULT LOCATION!')
+                tf2BinLocFile = tf2BinLocFile.replace('\\','/')
+                tf2BinLoc.write(tf2BinLocFile)
+                tf2BinLoc.close()
+                subprocess.call(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
+                subprocess.call(tf2BinLocFile+'/vvis.exe '+cur_vmf_location.replace('.vmf','.bsp'))
+                subprocess.call(tf2BinLocFile+'/vrad.exe '+cur_vmf_location.replace('.vmf','.bsp'))
+                shutil.copyfile(cur_vmf_location.replace('.vmf','.bsp'),tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp'))
+                popup = QMessageBox(self)
+                popup.setWindowTitle("File Exported")
+                popup.setText("The .vmf has been outputted to %s" %(tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp')))
+                popup.setInformativeText("Open TF2 and in load up 'tf2mapper.bsp'! You can do this by typing 'map tf2mapperoutput' or by creating a server with that map.")
+                popup.exec_()     
+            except:
+                QMessageBox.critical(self, "Error", "Something went wrong while exporting!")
+                
 
             
     def removeButtons(self):
