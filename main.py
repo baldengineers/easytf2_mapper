@@ -402,12 +402,14 @@ class MainWindow(QMainWindow):
         self.leveldown.setAutoRaise(True)
         
         self.rotateCW = QToolButton(self)
+        self.rotateCW.setShortcut(QKeySequence(Qt.Key_Right))
         self.rotateCW.setIcon(QIcon('icons/rotate_cw.png'))
         self.rotateCW.setIconSize(QSize(40,40))
         self.rotateCW.setFixedSize(QSize(40,40))
         self.rotateCW.setAutoRaise(True)
 
         self.rotateCCW = QToolButton(self)
+        self.rotateCCW.setShortcut(QKeySequence(Qt.Key_Left))
         self.rotateCCW.setIcon(QIcon('icons/rotate_ccw.png'))
         self.rotateCCW.setIconSize(QSize(40,40))
         self.rotateCCW.setFixedSize(QSize(40,40))

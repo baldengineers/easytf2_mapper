@@ -1,3 +1,1 @@
--fixed spawn rooms
--fixed 1,0 bug
--fixed export names having a space in them
+-rotate current prefab with left/right keys
