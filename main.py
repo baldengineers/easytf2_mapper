@@ -877,13 +877,13 @@ class MainWindow(QMainWindow):
             self.change_skybox()
         entity_list[0][levels] = currentlight
         latest_path = latest_path.replace(".ezm",".vmf")
-        name = QFileDialog.getSaveFileName(self, "Export .vmf", latest_path, "Valve Map File (*.vmf)")
-        file = open(name[0].replace(' ',''), "w")
-        import export
-        wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
-        file.write(wholething)
-        file.close()
         if not bsp:
+            name = QFileDialog.getSaveFileName(self, "Export .vmf", latest_path, "Valve Map File (*.vmf)")
+            file = open(name[0].replace(' ',''), "w")
+            import export
+            wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
+            file.write(wholething)
+            file.close()
             popup = QMessageBox(self, "File Exported",
                                     "The .vmf has been outputted to %s" %(name[0].replace(' ','')) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
             popup.setWindowTitle("File Exported")
@@ -896,7 +896,15 @@ class MainWindow(QMainWindow):
                 self.open_hammer(1,name[0].replace(' ',''))
             if popup.clickedButton() == exitButton:
                 popup.deleteLater()
-        cur_vmf_location = name[0].replace(' ','')
+            cur_vmf_location = name[0].replace(' ','')
+        else:
+            file = open('output/tf2mapperoutput.vmf','w')
+            import export
+            wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
+            file.write(wholething)
+            file.close()
+            cur_vmf_location = 'output/tf2mapperoutput.vmf'
+        
         
     def file_export_bsp(self):
         global cur_vmf_location
@@ -912,7 +920,7 @@ class MainWindow(QMainWindow):
             popup = QMessageBox(self)
             popup.setWindowTitle("File Exported")
             popup.setText("The .vmf has been outputted to %s" %(tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp')))
-            popup.setInformativeText("Open TF2 and in load up 'tf2mapper.bsp'! You can do this by typing 'map tf2mapperoutput' or by creating a server with that map.")
+            popup.setInformativeText("Open TF2 and in load up 'tf2mapperoutput.bsp'! You can do this by typing 'map tf2mapperoutput' or by creating a server with that map.\n\nThere also is a .vmf file of your map stored in output/tf2mapperoutput.vmf.")
             hammerButton = popup.addButton("Open TF2",QMessageBox.ActionRole)
             exitButton = popup.addButton("OK",QMessageBox.ActionRole)
             popup.exec_()
@@ -938,7 +946,7 @@ class MainWindow(QMainWindow):
                 popup = QMessageBox(self)
                 popup.setWindowTitle("File Exported")
                 popup.setText("The .vmf has been outputted to %s" %(tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp')))
-                popup.setInformativeText("Open TF2 and in load up 'tf2mapper.bsp'! You can do this by typing 'map tf2mapperoutput' or by creating a server with that map.")
+                popup.setInformativeText("Open TF2 and in load up 'tf2outputmapper.bsp'! You can do this by typing 'map tf2mapperoutput' or by creating a server with that map.\n\nThere also is a .vmf file of your map stored in output/tf2mapperoutput.vmf.")
                 hammerButton = popup.addButton("Open TF2",QMessageBox.ActionRole)
                 exitButton = popup.addButton("OK",QMessageBox.ActionRole)
                 popup.exec_()
