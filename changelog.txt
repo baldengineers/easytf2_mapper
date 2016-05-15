@@ -1,6 +1,3 @@
--fixed warnings
--cleaned up comments
--cleaned up some "test" files
--updated linux stuff
--FIXED TEXTURE BUG!! (praise allah!)
--added BSP exporting
+-fixed spawn rooms
+-fixed 1,0 bug
+-fixed export names having a space in them
