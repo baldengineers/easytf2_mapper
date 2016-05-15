@@ -283,7 +283,7 @@ class MainWindow(QMainWindow):
         if "loaded_first_time" not in self.files or reloc:
             self.file.close()
             self.open_file(True)
-            hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "C:/","Hammer Executable (*.exe *.bat)")
+            hammer_location = QFileDialog.getOpenFileName(self, "Find Hammer Location", "/","Hammer Executable (*.exe *.bat)")
             hammer_location = str(hammer_location[0])
             self.file.write("loaded_first_time\n")
             self.file.write(hammer_location)
@@ -846,7 +846,10 @@ class MainWindow(QMainWindow):
             skyboxz = int(skyboxz[0])
         except:
             QMessageBox.critical(self, "Error", "Please enter a number.")
-            self.file_export()
+            if bsp == False:
+                self.file_export()
+            else:
+                self.file_export(True)
         #generate skybox stuff now
         create = generateSkybox.createSkyboxLeft(grid_x,grid_y,skyboxz,id_num,world_id_num)
         skyboxgeolist.append(create[0])
@@ -881,31 +884,33 @@ class MainWindow(QMainWindow):
         latest_path = latest_path.replace(".ezm",".vmf")
         if not bsp:
             name = QFileDialog.getSaveFileName(self, "Export .vmf", latest_path, "Valve Map File (*.vmf)")
-            file = open(name[0].replace(' ',''), "w")
+            file = open(name[0], "w+")
             import export
             wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
             file.write(wholething)
             file.close()
             popup = QMessageBox(self, "File Exported",
-                                    "The .vmf has been outputted to %s" %(name[0].replace(' ','')) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
+                                    "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
             popup.setWindowTitle("File Exported")
-            popup.setText("The .vmf has been outputted to %s" %(name[0].replace(' ','')))
+            popup.setText("The .vmf has been outputted to %s" %(name[0]))
             popup.setInformativeText(" Open it in hammer to compile as a .bsp and/or make some changes.")
             hammerButton = popup.addButton("Open Hammer",QMessageBox.ActionRole)
             exitButton = popup.addButton("OK",QMessageBox.ActionRole)
             popup.exec_()
             if popup.clickedButton() == hammerButton:
-                self.open_hammer(1,name[0].replace(' ',''))
+                self.open_hammer(1,name[0])
             if popup.clickedButton() == exitButton:
                 popup.deleteLater()
-            cur_vmf_location = name[0].replace(' ','')
+            cur_vmf_location = name[0]
+            print('not bsp vmf part done')
         else:
-            file = open('output/tf2mapperoutput.vmf','w')
+            file = open('output/tf2mapperoutput.vmf','w+')
             import export
             wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
             file.write(wholething)
             file.close()
             cur_vmf_location = 'output/tf2mapperoutput.vmf'
+            print('bsp vmf part done')
         
         
     def file_export_bsp(self):
@@ -915,9 +920,9 @@ class MainWindow(QMainWindow):
             tf2BinLoc = open('startupcache/vbsp.su','r+')
             tf2BinLocFile = tf2BinLoc.readlines()[0].replace('\\','/')
             tf2BinLoc.close()
-            subprocess.call(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
-            subprocess.call(tf2BinLocFile+'/vvis.exe '+cur_vmf_location.replace('.vmf','.bsp'))
-            subprocess.call(tf2BinLocFile+'/vrad.exe '+cur_vmf_location.replace('.vmf','.bsp'))
+            subprocess.call(tf2BinLocFile+'/vbsp.exe" "'+cur_vmf_location+'"')
+            subprocess.call('"'+tf2BinLocFile+'/vvis.exe '+cur_vmf_location.replace('.vmf','.bsp')+'"')
+            subprocess.call('"'+tf2BinLocFile+'/vrad.exe '+cur_vmf_location.replace('.vmf','.bsp')+'"')
             shutil.copyfile(cur_vmf_location.replace('.vmf','.bsp'),tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp'))
             popup = QMessageBox(self)
             popup.setWindowTitle("File Exported")
@@ -942,8 +947,8 @@ class MainWindow(QMainWindow):
                 tf2BinLoc.write(tf2BinLocFile)
                 tf2BinLoc.close()
                 subprocess.call(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
-                subprocess.call(tf2BinLocFile+'/vvis.exe '+cur_vmf_location.replace('.vmf','.bsp'))
-                subprocess.call(tf2BinLocFile+'/vrad.exe '+cur_vmf_location.replace('.vmf','.bsp'))
+                subprocess.call('"'+tf2BinLocFile+'/vvis.exe "'+cur_vmf_location.replace('.vmf','.bsp')+'"')
+                subprocess.call('"'+tf2BinLocFile+'/vrad.exe "'+cur_vmf_location.replace('.vmf','.bsp')+'"')
                 shutil.copyfile(cur_vmf_location.replace('.vmf','.bsp'),tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp'))
                 popup = QMessageBox(self)
                 popup.setWindowTitle("File Exported")
