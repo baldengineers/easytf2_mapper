@@ -878,25 +878,25 @@ class MainWindow(QMainWindow):
         entity_list[0][levels] = currentlight
         latest_path = latest_path.replace(".ezm",".vmf")
         name = QFileDialog.getSaveFileName(self, "Export .vmf", latest_path, "Valve Map File (*.vmf)")
-        file = open(name[0], "w")
+        file = open(name[0].replace(' ',''), "w")
         import export
         wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
         file.write(wholething)
         file.close()
         if not bsp:
             popup = QMessageBox(self, "File Exported",
-                                    "The .vmf has been outputted to %s" %(name[0]) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
+                                    "The .vmf has been outputted to %s" %(name[0].replace(' ','')) + " Open it in hammer to compile as a .bsp. Check out the wiki (https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug) for fixing errors with textures.")
             popup.setWindowTitle("File Exported")
-            popup.setText("The .vmf has been outputted to %s" %(name[0]))
+            popup.setText("The .vmf has been outputted to %s" %(name[0].replace(' ','')))
             popup.setInformativeText(" Open it in hammer to compile as a .bsp and/or make some changes.")
             hammerButton = popup.addButton("Open Hammer",QMessageBox.ActionRole)
             exitButton = popup.addButton("OK",QMessageBox.ActionRole)
             popup.exec_()
             if popup.clickedButton() == hammerButton:
-                self.open_hammer(1,name[0])
+                self.open_hammer(1,name[0].replace(' ',''))
             if popup.clickedButton() == exitButton:
                 popup.deleteLater()
-        cur_vmf_location = name[0]
+        cur_vmf_location = name[0].replace(' ','')
         
     def file_export_bsp(self):
         global cur_vmf_location

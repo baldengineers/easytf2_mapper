@@ -4119,6 +4119,25 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     ent_values_split = ent_values.split("\"")
     valcount = "".join(lines_ent)
 
+    for normal_num in range(199,307,3):
+        normal_list=[]
+        for i in range(3):
+            normal_list.append([])
+            for var in ["x", "y", "z"]:
+                normal_list[i].append(eval(var+str(normal_num+i)))
+        coords = get_normal(normal_list)  
+        response = evaluate(coords)
+        if response == axislist[0]:
+            uaxis = axislist[1]
+        else:
+            uaxis = axislist[0]
+        if response == axislist[2]:
+            vaxis = negaxislist[1]
+        else:
+            vaxis = negaxislist[2]
+        ent_values = ent_values.replace('AXIS_REPLACE_U',uaxis,1)
+        ent_values = ent_values.replace('AXIS_REPLACE_V',vaxis,1)
+
     for item in ent_values_split:
         if "entity_name" in item or "parent_name" in item or "door_large" in item:
             placeholder_list.append(item)
