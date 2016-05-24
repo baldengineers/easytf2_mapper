@@ -920,9 +920,9 @@ class MainWindow(QMainWindow):
             tf2BinLoc = open('startupcache/vbsp.su','r+')
             tf2BinLocFile = tf2BinLoc.readlines()[0].replace('\\','/')
             tf2BinLoc.close()
-            subprocess.call(tf2BinLocFile+'/vbsp.exe" "'+cur_vmf_location+'"')
-            subprocess.call('"'+tf2BinLocFile+'/vvis.exe '+cur_vmf_location.replace('.vmf','.bsp')+'"')
-            subprocess.call('"'+tf2BinLocFile+'/vrad.exe '+cur_vmf_location.replace('.vmf','.bsp')+'"')
+            subprocess.call('"'+tf2BinLocFile+'/vbsp.exe" "'+cur_vmf_location+'"')
+            subprocess.call('"'+tf2BinLocFile+'/vvis.exe" '+cur_vmf_location.replace('.vmf','.bsp')+'"')
+            subprocess.call('"'+tf2BinLocFile+'/vrad.exe" '+cur_vmf_location.replace('.vmf','.bsp')+'"')
             shutil.copyfile(cur_vmf_location.replace('.vmf','.bsp'),tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp'))
             popup = QMessageBox(self)
             popup.setWindowTitle("File Exported")
@@ -939,16 +939,18 @@ class MainWindow(QMainWindow):
 
             
         except Exception as e:
-            print(str(e))
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
             try:
                 tf2BinLoc = open('startupcache/vbsp.su', 'w+')
                 tf2BinLocFile = QFileDialog.getExistingDirectory(self,'LOCATE Team Fortress 2/bin, NOT IN DEFAULT LOCATION!')
-                tf2BinLocFile = tf2BinLocFile.replace('\\','/')
+                tf2BinLocFile = str(tf2BinLocFile.replace('\\','/'))
                 tf2BinLoc.write(tf2BinLocFile)
                 tf2BinLoc.close()
-                subprocess.call(tf2BinLocFile+'/vbsp.exe '+cur_vmf_location)
-                subprocess.call('"'+tf2BinLocFile+'/vvis.exe "'+cur_vmf_location.replace('.vmf','.bsp')+'"')
-                subprocess.call('"'+tf2BinLocFile+'/vrad.exe "'+cur_vmf_location.replace('.vmf','.bsp')+'"')
+                subprocess.call('"'+tf2BinLocFile+'/vbsp.exe" "'+cur_vmf_location+'"')
+                subprocess.call('"'+tf2BinLocFile+'/vvis.exe" "'+cur_vmf_location.replace('.vmf','.bsp')+'"')
+                subprocess.call('"'+tf2BinLocFile+'/vrad.exe" "'+cur_vmf_location.replace('.vmf','.bsp')+'"')
                 shutil.copyfile(cur_vmf_location.replace('.vmf','.bsp'),tf2BinLocFile.replace('/bin','/tf/maps/tf2mapperoutput.bsp'))
                 popup = QMessageBox(self)
                 popup.setWindowTitle("File Exported")
@@ -961,7 +963,10 @@ class MainWindow(QMainWindow):
                     subprocess.Popen('"'+tf2BinLocFile.replace('steamapps/common/Team Fortress 2/bin','')+'steam.exe" "steam://run/440"')
                 if popup.clickedButton() == exitButton:
                     popup.deleteLater()
-            except:
+            except Exception as e:
+                exc_type, exc_obj, exc_tb = sys.exc_info()
+                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                print(exc_type, fname, exc_tb.tb_lineno)
                 QMessageBox.critical(self, "Error", "Something went wrong while exporting!")
                 
 
