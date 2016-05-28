@@ -25,9 +25,10 @@ class GridBtn(QWidget):
     def __init__(self, parent, x, y, btn_id):
         super(GridBtn, self).__init__()
         self.button = QPushButton("", parent)
-        self.x = 32*x
-        self.y = 20+(32*y)
-        self.button.move(self.x,self.y)
+        self.x = x
+        self.y = y
+        self.btn_id = btn_id
+        #self.button.move(self.x,self.y)
         self.button.resize(32,32)
         self.button.setFixedSize(32, 32)
         self.button.pressed.connect(lambda: self.click_func(parent, x, y,
@@ -35,11 +36,12 @@ class GridBtn(QWidget):
         self.button.setMouseTracking(True)
         self.button.installEventFilter(self)
         self.button.show()
+        self.icon = ""
 
     def reset_icon(self):
-        self.button.setIcon(QIcon())
+        self.button.setIcon(QIcon(""))
 
-    def click_func(self, parent, x, y, btn_id):
+    def click_func(self, parent, x, y, btn_id, clicked=True, h_icon=""): #h_icon is used when undoing/redoing
         global world_id_num
         global id_num
         global entity_num
@@ -49,14 +51,22 @@ class GridBtn(QWidget):
         global rotation
         global totalblocks
         global levels
-        
-        self.checkForAlt()
         global rotation, currentfilename
-        if toggle != 0:
+        global history
+
+        if clicked:
+            if self.icon:
+                history.append((x,y,self.icon))
+            else:
+                history.append((x,y,""))
+        print(history)
+        
+        if self.checkForCtrl(clicked):
             self.button.setIcon(QIcon())
             totalblocks[level][btn_id] = ''
             entity_list[level][btn_id] = ''
             iconlist[level][btn_id] = ''
+            self.icon = ""
         else:
             moduleName = eval(prefab_list[parent.tile_list.currentRow()])
             try:
@@ -88,27 +98,30 @@ class GridBtn(QWidget):
                 #pass
             ###
             ###
-            try:
-                #print(rotation)
-                current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
-                current_prefab_icon_list = current_prefab_icon_list.readlines()
-                current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
-                if "\n" in current_prefab_icon_list:
-                    current_prefab_icon_list = current_prefab_icon_list[:-1]
-                current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
-                current_prefab_icon_list = current_prefab_icon_list.readlines()
-                icon = current_prefab_icon_list[rotation]
-                if "\n" in icon:
-                    icon = icon[:-1]
-                #print(icon)
-                self.button.setIcon(QIcon(icon))
-                self.button.setIconSize(QSize(32,32))
-            except Exception as e:
-                print(str(e))
-                icon = prefab_icon_list[parent.tile_list.currentRow()]
-                self.button.setIcon(QIcon(icon))
-                self.button.setIconSize(QSize(32,32))
+            if clicked:
+                print("not using h_icon")
+                try:
+                    #print(rotation)
+                    current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
+                    current_prefab_icon_list = current_prefab_icon_list.readlines()
+                    current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
+                    if "\n" in current_prefab_icon_list:
+                        current_prefab_icon_list = current_prefab_icon_list[:-1]
+                    current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
+                    current_prefab_icon_list = current_prefab_icon_list.readlines()
+                    icon = current_prefab_icon_list[rotation]
+                    if "\n" in icon:
+                        icon = icon[:-1]
+                except Exception as e:
+                    print(str(e))
+                    icon = prefab_icon_list[parent.tile_list.currentRow()]
+            else:
+                icon = h_icon
+                print("using h_icon")
 
+                
+            self.button.setIcon(QIcon(icon))
+            self.button.setIconSize(QSize(32,32))
             iconlist[level][btn_id] = icon
             totalblocks[level][btn_id] = create[0]
             
@@ -117,17 +130,20 @@ class GridBtn(QWidget):
             except Exception as e:
                 print(str(e))
             if "*" not in currentfilename:
-                currentfilename = currentfilename+'*'
-                parent.setWindowTitle("Easy TF2 Mapper - ["+currentfilename+"]")
-    def checkForAlt(self):
-        modifiers = QApplication.keyboardModifiers()
-        global toggle
-        if modifiers == Qt.ControlModifier:
-            
-            toggle = 1
+                #currentfilename = currentfilename+'*'
+                parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
+
+            self.icon = icon
+
+    def checkForCtrl(self, clicked):
+        if clicked:
+            modifiers = QApplication.keyboardModifiers()
+            if modifiers == Qt.ControlModifier:           
+                return True
+            else: 
+                return False
         else:
-            
-            toggle = 0
+            return False
         
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -195,6 +211,16 @@ class MainWindow(QMainWindow):
         exportAction.setShortcut("Ctrl+E")
         exportAction.setStatusTip("Export as .vmf")
         exportAction.triggered.connect(self.file_export)
+
+        undoAction = QAction("&Undo", self)
+        undoAction.setShortcut("Ctrl+Z")
+        undoAction.setStatusTip("Undo previous action")
+        undoAction.triggered.connect(lambda: self.undo(True))
+
+        redoAction = QAction("&Redo", self)
+        redoAction.setShortcut("Ctrl+Shift+Z")
+        redoAction.setStatusTip("Redo previous action")
+        redoAction.triggered.connect(lambda: self.undo(False))
         
         removeAction = QAction("&Remove Last Prefab(s)",self)
         removeAction.setShortcut("Ctrl+R")
@@ -249,15 +275,17 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(saveAsAction)
         fileMenu.addSeparator()
         
-        helpMenu.addAction(tutorialAction)
-        helpMenu.addAction(helpAction)
-        
         importMenu = fileMenu.addMenu("&Import")
         importMenu.addAction(importPrefab)
 
         exportMenu = fileMenu.addMenu("&Export")
         exportMenu.addAction(exportAction)
         exportMenu.addAction(bspExportAction)
+        
+        fileMenu.addSeparator()
+
+        fileMenu.addAction(undoAction)
+        fileMenu.addAction(redoAction)
         
         fileMenu.addSeparator()
         
@@ -271,6 +299,9 @@ class MainWindow(QMainWindow):
         toolsMenu.addAction(hammerAction)
         toolsMenu.addSeparator()
         toolsMenu.addAction(consoleAction)
+        
+        helpMenu.addAction(tutorialAction)
+        helpMenu.addAction(helpAction)
         
         self.home()
         self.change_skybox()
@@ -1468,6 +1499,20 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.prev_text.append(new_text)
         self.curr_text.setText("")
 
+    def undo(undo, self):
+            x = history[-1][0] if undo else redo_history[-1][0]
+            y = history[-1][1] if undo else redo_history[-1][1]
+            h_icon = history[-1][2] if undo else redo_history[-1][2]
+
+            for button in grid_list:
+                if button.x == x and button.y == y:
+                    print('\n\n\nabout to run da click func')
+                    button.click_func(self, x, y, button.btn_id, False, h_icon)
+                    print('ran da click func')
+                    break
+
+            redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
+
     def sideshow(self):
         self.sideshowwindow = QLabel()
         movie = QMovie("icons/sideshow.gif")
@@ -1495,7 +1540,6 @@ id_num = 1
 rotation = 0
 world_id_num = 2
 entity_num = 1
-toggle = 0
 btn_id_count = 0
 grid_list=[]
 totalblocks = []
@@ -1512,6 +1556,8 @@ prefab_text_list = []
 prefab_icon_list = []
 openblocks=[]
 placeholder_list = []
+history = []
+redo_history = []
 currentfilename='Untitled'
 file_loaded = False
 current_loaded = ''
