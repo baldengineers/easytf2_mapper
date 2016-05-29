@@ -41,7 +41,7 @@ class GridBtn(QWidget):
     def reset_icon(self):
         self.button.setIcon(QIcon(""))
 
-    def click_func(self, parent, x, y, btn_id, clicked=True, h_icon=""): #h_icon is used when undoing/redoing
+    def click_func(self, parent, x, y, btn_id, clicked=True, h_moduleName="None", h_icon="", h_rot=""): #h_moduleName and h_icon and h_rot are used when undoing/redoing
         global world_id_num
         global id_num
         global entity_num
@@ -53,87 +53,96 @@ class GridBtn(QWidget):
         global levels
         global rotation, currentfilename
         global history
-
+        
         if clicked:
             if self.icon:
-                history.append((x,y,self.icon))
+                moduleName = eval(prefab_list[parent.tile_list.currentRow()])
+                history.append((x,y,moduleName,self.icon))
             else:
-                history.append((x,y,""))
+                history.append((x,y,"",""))
         print(history)
-        
-        if self.checkForCtrl(clicked):
+
+        def clear_btn():
             self.button.setIcon(QIcon())
             totalblocks[level][btn_id] = ''
             entity_list[level][btn_id] = ''
             iconlist[level][btn_id] = ''
             self.icon = ""
+        
+        if self.checkForCtrl(clicked):
+            clear_btn()
         else:
-            moduleName = eval(prefab_list[parent.tile_list.currentRow()])
-            try:
+            if clicked:
+                moduleName = eval(prefab_list[parent.tile_list.currentRow()])
+            else:
+                moduleName = h_moduleName if h_moduleName != "" else clear_btn()
+
+            if h_moduleName != "":
                 try:
                     try:
                         try:
-                            create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
+                            try:
+                                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
+                            except Exception as e:
+                                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
                         except Exception as e:
-                            create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
+                            create = moduleName.createTile(x, y, id_num, world_id_num, level)
                     except Exception as e:
-                        create = moduleName.createTile(x, y, id_num, world_id_num, level)
+                        create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, level)
                 except Exception as e:
-                    create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, level)
-            except Exception as e:
-                create = moduleName.createTile(x, y, id_num, world_id_num, rotation, level)
-            id_num = create[1]
-            world_id_num = create[2]
-            try:
-                entity_num = create[3]
-                placeholder_list = create[5]
-            except IndexError:
-                pass
-            #if parent.comboBox.currentIndex() != 0:
-                #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
-                #world_id_num +=1
-                #create = create + create2
-                
-            #else:
-                #pass
-            ###
-            ###
-            if clicked:
-                print("not using h_icon")
+                    create = moduleName.createTile(x, y, id_num, world_id_num, rotation, level)
+                id_num = create[1]
+                world_id_num = create[2]
                 try:
-                    #print(rotation)
-                    current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
-                    current_prefab_icon_list = current_prefab_icon_list.readlines()
-                    current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
-                    if "\n" in current_prefab_icon_list:
-                        current_prefab_icon_list = current_prefab_icon_list[:-1]
-                    current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
-                    current_prefab_icon_list = current_prefab_icon_list.readlines()
-                    icon = current_prefab_icon_list[rotation]
-                    if "\n" in icon:
-                        icon = icon[:-1]
+                    entity_num = create[3]
+                    placeholder_list = create[5]
+                except IndexError:
+                    pass
+                #if parent.comboBox.currentIndex() != 0:
+                    #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
+                    #world_id_num +=1
+                    #create = create + create2
+                    
+                #else:
+                    #pass
+                ###
+                ###
+                if clicked:
+                    print("not using h_icon")
+                    try:
+                        #print(rotation)
+                        current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
+                        current_prefab_icon_list = current_prefab_icon_list.readlines()
+                        current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
+                        if "\n" in current_prefab_icon_list:
+                            current_prefab_icon_list = current_prefab_icon_list[:-1]
+                        current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
+                        current_prefab_icon_list = current_prefab_icon_list.readlines()
+                        icon = current_prefab_icon_list[rotation]
+                        if "\n" in icon:
+                            icon = icon[:-1]
+                    except Exception as e:
+                        print(str(e))
+                        icon = prefab_icon_list[parent.tile_list.currentRow()]
+                else:
+                    icon = h_icon
+                    print("using h_icon")
+
+                    
+                self.button.setIcon(QIcon(icon))
+                self.button.setIconSize(QSize(32,32))
+                iconlist[level][btn_id] = icon
+                totalblocks[level][btn_id] = create[0]
+                
+                try:
+                    entity_list[level][btn_id] = create[4]
                 except Exception as e:
                     print(str(e))
-                    icon = prefab_icon_list[parent.tile_list.currentRow()]
-            else:
-                icon = h_icon
-                print("using h_icon")
+                if "*" not in currentfilename:
+                    #currentfilename = currentfilename+'*'
+                    parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
 
-                
-            self.button.setIcon(QIcon(icon))
-            self.button.setIconSize(QSize(32,32))
-            iconlist[level][btn_id] = icon
-            totalblocks[level][btn_id] = create[0]
-            
-            try:
-                entity_list[level][btn_id] = create[4]
-            except Exception as e:
-                print(str(e))
-            if "*" not in currentfilename:
-                #currentfilename = currentfilename+'*'
-                parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
-
-            self.icon = icon
+                self.icon = icon
 
     def checkForCtrl(self, clicked):
         if clicked:
@@ -1502,12 +1511,13 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
     def undo(undo, self):
             x = history[-1][0] if undo else redo_history[-1][0]
             y = history[-1][1] if undo else redo_history[-1][1]
-            h_icon = history[-1][2] if undo else redo_history[-1][2]
+            h_moduleName = history[-1][2] if undo else redo_history[-1][2]
+            h_icon = history[-1][3] if undo else redo_history[-1][3]
 
             for button in grid_list:
                 if button.x == x and button.y == y:
                     print('\n\n\nabout to run da click func')
-                    button.click_func(self, x, y, button.btn_id, False, h_icon)
+                    button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
                     print('ran da click func')
                     break
 
