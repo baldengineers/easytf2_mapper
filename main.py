@@ -57,8 +57,9 @@ class GridBtn(QWidget):
         
         if clicked:
             if self.icon:
+                #print(self.icon.split("_")[-1].replace('.jpg',''))
                 moduleName = eval(prefab_list[parent.tile_list.currentRow()])
-                history.append((x,y,moduleName,self.icon,self.icon.split("_")[-1])) #make work even without rotations enabled
+                history.append((x,y,moduleName,self.icon,self.icon.split("_")[-1].replace('.jpg',''))) #make work even without rotations enabled
             else:
                 history.append((x,y,"","",""))
         else: #0 = right, 1 = down, 2 = left, 3 = right
@@ -1516,10 +1517,11 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
             y = history[-1][1] if undo else redo_history[-1][1]
             h_moduleName = history[-1][2] if undo else redo_history[-1][2]
             h_icon = history[-1][3] if undo else redo_history[-1][3]
+            h_rot = history[-1][4] if undo else redo_history[-1][4]
 
             for button in grid_list:
                 if button.x == x and button.y == y:
-                    button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
+                    button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon, h_rot)
                     break
 
             redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
