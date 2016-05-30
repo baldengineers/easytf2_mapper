@@ -59,10 +59,11 @@ class GridBtn(QWidget):
             if self.icon:
                 #print(self.icon.split("_")[-1].replace('.jpg',''))
                 moduleName = eval(prefab_list[parent.tile_list.currentRow()])
-                history.append((x,y,moduleName,self.icon,self.icon.split("_")[-1].replace('.jpg',''))) #make work even without rotations enabled
+                history.append((x,y,moduleName,self.icon,self.icon.split("_")[-1].replace('.jpg',''),level)) #make work even without rotations enabled
             else:
-                history.append((x,y,"","",""))
+                history.append((x,y,"","","",level))
         else: #0 = right, 1 = down, 2 = left, 3 = right
+            rot_old = rotation
             rotation = 0 if h_rot == "right" else 1 if h_rot == "down" else 2 if h_rot == "left" else 3 if h_rot == "right" else rotation
         #print(history)
 
@@ -82,6 +83,7 @@ class GridBtn(QWidget):
                 moduleName = h_moduleName if h_moduleName != "" else clear_btn()
 
             if h_moduleName != "":
+                print('h_moduleName:',h_moduleName)
                 try:
                     try:
                         try:
@@ -147,6 +149,9 @@ class GridBtn(QWidget):
                     parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
 
                 self.icon = icon
+
+                if not clicked:
+                    rotation = rot_old
 
     def checkForCtrl(self, clicked):
         if clicked:
@@ -277,7 +282,7 @@ class MainWindow(QMainWindow):
         mainMenu = self.menuBar()
         
         
-        fileMenu = mainMenu.addMenu("&File")
+        fileMenu = mainMenu.addMenu("&File") 
         optionsMenu = mainMenu.addMenu("&Options")
         toolsMenu = mainMenu.addMenu("&Tools")
         helpMenu = mainMenu.addMenu("&Help")
@@ -1513,19 +1518,23 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.curr_text.setText("")
 
     def undo(self, undo):
-            x = history[-1][0] if undo else redo_history[-1][0]
-            y = history[-1][1] if undo else redo_history[-1][1]
-            h_moduleName = history[-1][2] if undo else redo_history[-1][2]
-            h_icon = history[-1][3] if undo else redo_history[-1][3]
-            h_rot = history[-1][4] if undo else redo_history[-1][4]
+        x = history[-1][0] if undo else redo_history[-1][0]
+        y = history[-1][1] if undo else redo_history[-1][1]
+        h_moduleName = history[-1][2] if undo else redo_history[-1][2]
+        h_icon = history[-1][3] if undo else redo_history[-1][3]
+        h_rot = history[-1][4] if undo else redo_history[-1][4]
+        level = history[-1][5] if undo else redo_history[-1][5]
+        self.level.setText("Level: " + str(level+1))
+        self.levellist.setCurrentRow(level)
+        self.change_level(False, False)
 
-            for button in grid_list:
-                if button.x == x and button.y == y:
-                    button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon, h_rot)
-                    break
+        for button in grid_list:
+            if button.x == x and button.y == y:
+                button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon, h_rot)
+                break
 
-            redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
-
+        redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
+        
     def sideshow(self):
         self.sideshowwindow = QLabel()
         movie = QMovie("icons/sideshow.gif")
