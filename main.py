@@ -53,13 +53,16 @@ class GridBtn(QWidget):
         global levels
         global rotation, currentfilename
         global history
+
         
         if clicked:
             if self.icon:
                 moduleName = eval(prefab_list[parent.tile_list.currentRow()])
-                history.append((x,y,moduleName,self.icon))
+                history.append((x,y,moduleName,self.icon,self.icon.split("_")[-1])) #make work even without rotations enabled
             else:
-                history.append((x,y,"",""))
+                history.append((x,y,"","",""))
+        else: #0 = right, 1 = down, 2 = left, 3 = right
+            rotation = 0 if h_rot == "right" else 1 if h_rot == "down" else 2 if h_rot == "left" else 3 if h_rot == "right" else rotation
         print(history)
 
         def clear_btn():
