@@ -63,7 +63,7 @@ class GridBtn(QWidget):
                 history.append((x,y,"","",""))
         else: #0 = right, 1 = down, 2 = left, 3 = right
             rotation = 0 if h_rot == "right" else 1 if h_rot == "down" else 2 if h_rot == "left" else 3 if h_rot == "right" else rotation
-        print(history)
+        #print(history)
 
         def clear_btn():
             self.button.setIcon(QIcon())
@@ -111,7 +111,7 @@ class GridBtn(QWidget):
                 ###
                 ###
                 if clicked:
-                    print("not using h_icon")
+                    #print("not using h_icon")
                     try:
                         #print(rotation)
                         current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
@@ -129,7 +129,7 @@ class GridBtn(QWidget):
                         icon = prefab_icon_list[parent.tile_list.currentRow()]
                 else:
                     icon = h_icon
-                    print("using h_icon")
+                    #print("using h_icon")
 
                     
                 self.button.setIcon(QIcon(icon))
@@ -1511,7 +1511,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.prev_text.append(new_text)
         self.curr_text.setText("")
 
-    def undo(undo, self):
+    def undo(self, undo):
             x = history[-1][0] if undo else redo_history[-1][0]
             y = history[-1][1] if undo else redo_history[-1][1]
             h_moduleName = history[-1][2] if undo else redo_history[-1][2]
@@ -1519,9 +1519,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
 
             for button in grid_list:
                 if button.x == x and button.y == y:
-                    print('\n\n\nabout to run da click func')
                     button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
-                    print('ran da click func')
                     break
 
             redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
