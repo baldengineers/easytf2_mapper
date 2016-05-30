@@ -1652,6 +1652,12 @@ for file in [prefab_file, prefab_text_file, prefab_icon_file,skybox_file,skybox_
 
 #imports that need prefab_list to be defined
 
+logo = open('logo.log','r+')
+logo_f = logo.readlines()
+for i in logo_f:
+    print(i[:-1])
+logo.close()
+
 for item in prefab_list:
     globals()[item] = importlib.import_module(item)
     print("import", item)
