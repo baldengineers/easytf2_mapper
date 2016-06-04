@@ -41,7 +41,7 @@ class GridBtn(QWidget):
     def reset_icon(self):
         self.button.setIcon(QIcon(""))
 
-    def click_func(self, parent, x, y, btn_id, clicked=True, h_icon='',undo_tuple=()): #h_moduleName and h_icon and h_rot are used when undoing/redoing
+    def click_func(self, parent, x, y, btn_id, clicked=True, h_moduleName="None", h_icon=''): #h_moduleName and h_icon and h_rot are used when undoing/redoing
         global world_id_num
         global id_num
         global entity_num
@@ -56,14 +56,29 @@ class GridBtn(QWidget):
         global rotation, currentfilename
         global history
 
-
+        
         global last_tuple
+        """
         if last_tuple == 'First':
             del last_tuple
-            last_tuple = ('None',x,y,btn_id)
+            last_tuple = ('None',x,y,btn_id,self.icon)
             history.append([last_tuple,self.icon])
         else:    
-            history.append([last_tuple,self.icon])
+            history.append([last_tuple,self.icon])"""
+        """
+        if self.icon:
+            history.append(last_tuple)
+        else:
+            last_tuple = ("None",x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level,"")
+            history.append(last_tuple)"""
+
+        #format | history.append((x,y,moduleName,self.icon,level))
+        if clicked:
+            if self.icon:
+                moduleName = eval(prefab_list[parent.tile_list.currentRow()])
+                history.append((x,y,moduleName,self.icon,level)) #make work even without rotations enabled
+            else:
+                history.append((x,y,"","",level))
 
         def clear_btn(btn_id):
             self.button.setIcon(QIcon())
@@ -79,59 +94,41 @@ class GridBtn(QWidget):
             if clicked:
                 moduleName = eval(prefab_list[parent.tile_list.currentRow()])
             else:
-                moduleName = undo_tuple[0]
+                moduleName = h_moduleName if h_moduleName != "" else clear_btn(btn_id)
 
-                
-            if clicked:
+            if h_moduleName != "":
+                if clicked:
 
-                try:
-                    #print(rotation)
-                    current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
-                    current_prefab_icon_list = current_prefab_icon_list.readlines()
-                    current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
-                    if "\n" in current_prefab_icon_list:
-                        current_prefab_icon_list = current_prefab_icon_list[:-1]
-                    current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
-                    current_prefab_icon_list = current_prefab_icon_list.readlines()
-                    icon = current_prefab_icon_list[rotation]
-                    if "\n" in icon:
-                        icon = icon[:-1]
-                except Exception as e:
-                    print(str(e))
-                    icon = prefab_icon_list[parent.tile_list.currentRow()]
-            else:
-                icon = h_icon
-               
-    
-            if moduleName != 'None':    
+                    try:
+                        #print(rotation)
+                        current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
+                        current_prefab_icon_list = current_prefab_icon_list.readlines()
+                        current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
+                        if "\n" in current_prefab_icon_list:
+                            current_prefab_icon_list = current_prefab_icon_list[:-1]
+                        current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
+                        current_prefab_icon_list = current_prefab_icon_list.readlines()
+                        icon = current_prefab_icon_list[rotation]
+                        if "\n" in icon:
+                            icon = icon[:-1]
+                    except Exception as e:
+                        print(str(e))
+                        icon = prefab_icon_list[parent.tile_list.currentRow()]
+                        
+                else:
+                    icon = h_icon
+
                 self.button.setIcon(QIcon(icon))
                 self.button.setIconSize(QSize(32,32))
                 iconlist[level][btn_id] = icon
                 stored_info_list[level][btn_id] = (moduleName,x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level)
-                last_tuple = (moduleName,x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level)
             else:
-                self.button.setIcon(QIcon(icon))
-                self.button.setIconSize(QSize(32,32))
-                iconlist[level][btn_id] = icon
-                stored_info_list[level][btn_id] = ''
-                last_tuple = ('None',x,y,btn_id)
+                stored_info_list[level][btn_id] = ""
 
-                
-                
-                #totalblocks[level][btn_id] = create[0]
-                
-                #try:
-                    #entity_list[level][btn_id] = create[4]
-                #except Exception as e:
-                    #print(str(e))
-                if "*" not in currentfilename:
-                    #currentfilename = currentfilename+'*'
-                    parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
+            if "*" not in currentfilename:
+                parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
 
-                self.icon = icon
-
-                if not clicked:
-                    rotation = rot_old
+            self.icon = icon
 
     def checkForCtrl(self, clicked):
         if clicked:
@@ -1560,35 +1557,41 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.curr_text.setText("")
 
     def undo(self, undo):
-        x = history[-1][0][1] if undo else redo_history[-1][0][1]
-        y = history[-1][0][2] if undo else redo_history[-1][0][2]
-        h_icon = history[-1][1] if undo else redo_history[-1][1]
+        x = history[-1][0] if undo else redo_history[-1][0]
+        y = history[-1][1] if undo else redo_history[-1][1]
+        h_moduleName = history[-1][2] if undo else redo_history[-1][2]
+        h_icon = history[-1][3] if undo else redo_history[-1][3]
+
+        level = history[-1][4] if undo else redo_history[-1][4] #check if 5 is correct
+        self.level.setText("Level: " + str(level+1))
+        self.levellist.setCurrentRow(level)
+        self.change_level(False, False)
+        
         for button in grid_list:
             if button.x == x and button.y == y:
-                button.click_func(self, x, y, button.btn_id, False, h_icon, history[-1][0])
+                button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
                 break
         redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
+
+        #format | click_func(parent, x, y, btn_id, clicked=True, h_moduleName="None", h_icon='')
+        #format | history.append((x,y,moduleName,self.icon,level))
         
 
 
     def sideshow(self):
-        self.sideshowwindow = QLabel()
-        movie = QMovie("icons/sideshow.gif")
-        self.sideshowwindow.setMovie(movie)
-        self.sideshowwindow.setGeometry(350,262,154,103)
-        self.sideshowwindow.setWindowTitle("SIDESHOW")
-        self.sideshowwindow.setWindowIcon(QIcon("icons/ss.ico"))
-        self.sideshowwindow.show()
-
-        movie.start()
+        self.gif("icons/sideshow.gif", (350,262,154,103), "SIDESHOW", "icons/ss.ico")
 
     def heavy(self):
-        self.heavywindow = QLabel()
-        movie = QMovie("icons/heavy.gif")
-        self.heavywindow.setMovie(movie)
-        self.heavywindow.setGeometry(350,262,150,99)
-        self.heavywindow.setWindowTitle("DANCE HEAVY DANCE!")
-        self.heavywindow.show()
+        self.gif("icons/heavy.gif", (350,262,150,99), "DANCE HEAVY DANCE!")
+
+    def gif(self, file, geo, title, icon="icons\icon.ico"):
+        self.gif = QLabel()
+        movie = QMovie(file)
+        self.gif.setMovie(movie)
+        self.gif.setGeometry(geo[0],geo[1],geo[2],geo[3])
+        self.gif.setWindowTitle(title)
+        self.gif.setWindowIcon(QIcon(icon))
+        self.gif.show()
 
         movie.start()
 
