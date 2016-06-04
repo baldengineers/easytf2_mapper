@@ -55,23 +55,8 @@ class GridBtn(QWidget):
         global levels
         global rotation, currentfilename
         global history
-<<<<<<< HEAD
 
-        
-        if clicked:
-            if self.icon:
-                #print(self.icon.split("_")[-1].replace('.jpg',''))
-                moduleName = eval(prefab_list[parent.tile_list.currentRow()])
-                history.append((x,y,moduleName,self.icon,self.icon.split("_")[-1].replace('.jpg',''),level)) #make work even without rotations enabled
-            else:
-                history.append((x,y,"","","",level))
-        else: #0 = right, 1 = down, 2 = left, 3 = right
-            rot_old = rotation
-            rotation = 0 if h_rot == "right" else 1 if h_rot == "down" else 2 if h_rot == "left" else 3 if h_rot == "right" else rotation
-        #print(history)
 
-        def clear_btn():
-=======
         global last_tuple
         if last_tuple == 'First':
             del last_tuple
@@ -81,7 +66,6 @@ class GridBtn(QWidget):
             history.append([last_tuple,self.icon])
 
         def clear_btn(btn_id):
->>>>>>> refs/remotes/origin/undo
             self.button.setIcon(QIcon())
             totalblocks[level][btn_id] = ''
             entity_list[level][btn_id] = ''
@@ -97,13 +81,9 @@ class GridBtn(QWidget):
             else:
                 moduleName = undo_tuple[0]
 
-<<<<<<< HEAD
-            if h_moduleName != "":
-                print('h_moduleName:',h_moduleName)
-=======
                 
             if clicked:
->>>>>>> refs/remotes/origin/undo
+
                 try:
                     #print(rotation)
                     current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
@@ -1580,33 +1560,6 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.curr_text.setText("")
 
     def undo(self, undo):
-<<<<<<< HEAD
-=======
-        '''
->>>>>>> refs/remotes/origin/undo
-        x = history[-1][0] if undo else redo_history[-1][0]
-        y = history[-1][1] if undo else redo_history[-1][1]
-        h_moduleName = history[-1][2] if undo else redo_history[-1][2]
-        h_icon = history[-1][3] if undo else redo_history[-1][3]
-        h_rot = history[-1][4] if undo else redo_history[-1][4]
-<<<<<<< HEAD
-        level = history[-1][5] if undo else redo_history[-1][5]
-        self.level.setText("Level: " + str(level+1))
-        self.levellist.setCurrentRow(level)
-        self.change_level(False, False)
-=======
->>>>>>> refs/remotes/origin/undo
-
-        for button in grid_list:
-            if button.x == x and button.y == y:
-                button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon, h_rot)
-                break
-
-        redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
-<<<<<<< HEAD
-        
-=======
-        '''
         x = history[-1][0][1] if undo else redo_history[-1][0][1]
         y = history[-1][0][2] if undo else redo_history[-1][0][2]
         h_icon = history[-1][1] if undo else redo_history[-1][1]
@@ -1617,7 +1570,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
         
 
->>>>>>> refs/remotes/origin/undo
+
     def sideshow(self):
         self.sideshowwindow = QLabel()
         movie = QMovie("icons/sideshow.gif")
