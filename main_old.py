@@ -41,7 +41,7 @@ class GridBtn(QWidget):
     def reset_icon(self):
         self.button.setIcon(QIcon(""))
 
-    def click_func(self, parent, x, y, btn_id, clicked=True, h_icon='',undo_tuple=()): #h_moduleName and h_icon and h_rot are used when undoing/redoing
+    def click_func(self, parent, x, y, btn_id, clicked=True, h_moduleName="None", h_icon="", h_rot=""): #h_moduleName and h_icon and h_rot are used when undoing/redoing
         global world_id_num
         global id_num
         global entity_num
@@ -50,12 +50,9 @@ class GridBtn(QWidget):
         global icon
         global rotation
         global totalblocks
-        global stored_info_list
-        global stored_rotation_list
         global levels
         global rotation, currentfilename
         global history
-<<<<<<< HEAD
 
         
         if clicked:
@@ -71,79 +68,82 @@ class GridBtn(QWidget):
         #print(history)
 
         def clear_btn():
-=======
-        global last_tuple
-        if last_tuple == 'First':
-            del last_tuple
-            last_tuple = ('None',x,y,btn_id)
-            history.append([last_tuple,self.icon])
-        else:    
-            history.append([last_tuple,self.icon])
-
-        def clear_btn(btn_id):
->>>>>>> refs/remotes/origin/undo
             self.button.setIcon(QIcon())
             totalblocks[level][btn_id] = ''
             entity_list[level][btn_id] = ''
             iconlist[level][btn_id] = ''
-            stored_info_list[level][btn_id]=''
             self.icon = ""
         
         if self.checkForCtrl(clicked):
-            clear_btn(btn_id)
+            clear_btn()
         else:
             if clicked:
                 moduleName = eval(prefab_list[parent.tile_list.currentRow()])
             else:
-                moduleName = undo_tuple[0]
+                moduleName = h_moduleName if h_moduleName != "" else clear_btn()
 
-<<<<<<< HEAD
             if h_moduleName != "":
                 print('h_moduleName:',h_moduleName)
-=======
-                
-            if clicked:
->>>>>>> refs/remotes/origin/undo
                 try:
-                    #print(rotation)
-                    current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
-                    current_prefab_icon_list = current_prefab_icon_list.readlines()
-                    current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
-                    if "\n" in current_prefab_icon_list:
-                        current_prefab_icon_list = current_prefab_icon_list[:-1]
-                    current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
-                    current_prefab_icon_list = current_prefab_icon_list.readlines()
-                    icon = current_prefab_icon_list[rotation]
-                    if "\n" in icon:
-                        icon = icon[:-1]
+                    try:
+                        try:
+                            try:
+                                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
+                            except Exception as e:
+                                create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, rotation, level)
+                        except Exception as e:
+                            create = moduleName.createTile(x, y, id_num, world_id_num, level)
+                    except Exception as e:
+                        create = moduleName.createTile(x, y, id_num, world_id_num, entity_num, placeholder_list, level)
+                except Exception as e:
+                    create = moduleName.createTile(x, y, id_num, world_id_num, rotation, level)
+                id_num = create[1]
+                world_id_num = create[2]
+                try:
+                    entity_num = create[3]
+                    placeholder_list = create[5]
+                except IndexError:
+                    pass
+                #if parent.comboBox.currentIndex() != 0:
+                    #create2 = ground_prefab.createTile(x, y, id_num, world_id_num)
+                    #world_id_num +=1
+                    #create = create + create2
+                    
+                #else:
+                    #pass
+                ###
+                ###
+                if clicked:
+                    #print("not using h_icon")
+                    try:
+                        #print(rotation)
+                        current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
+                        current_prefab_icon_list = current_prefab_icon_list.readlines()
+                        current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
+                        if "\n" in current_prefab_icon_list:
+                            current_prefab_icon_list = current_prefab_icon_list[:-1]
+                        current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
+                        current_prefab_icon_list = current_prefab_icon_list.readlines()
+                        icon = current_prefab_icon_list[rotation]
+                        if "\n" in icon:
+                            icon = icon[:-1]
+                    except Exception as e:
+                        print(str(e))
+                        icon = prefab_icon_list[parent.tile_list.currentRow()]
+                else:
+                    icon = h_icon
+                    #print("using h_icon")
+
+                    
+                self.button.setIcon(QIcon(icon))
+                self.button.setIconSize(QSize(32,32))
+                iconlist[level][btn_id] = icon
+                totalblocks[level][btn_id] = create[0]
+                
+                try:
+                    entity_list[level][btn_id] = create[4]
                 except Exception as e:
                     print(str(e))
-                    icon = prefab_icon_list[parent.tile_list.currentRow()]
-            else:
-                icon = h_icon
-               
-    
-            if moduleName != 'None':    
-                self.button.setIcon(QIcon(icon))
-                self.button.setIconSize(QSize(32,32))
-                iconlist[level][btn_id] = icon
-                stored_info_list[level][btn_id] = (moduleName,x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level)
-                last_tuple = (moduleName,x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level)
-            else:
-                self.button.setIcon(QIcon(icon))
-                self.button.setIconSize(QSize(32,32))
-                iconlist[level][btn_id] = icon
-                stored_info_list[level][btn_id] = ''
-                last_tuple = ('None',x,y,btn_id)
-
-                
-                
-                #totalblocks[level][btn_id] = create[0]
-                
-                #try:
-                    #entity_list[level][btn_id] = create[4]
-                #except Exception as e:
-                    #print(str(e))
                 if "*" not in currentfilename:
                     #currentfilename = currentfilename+'*'
                     parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
@@ -152,6 +152,8 @@ class GridBtn(QWidget):
 
                 if not clicked:
                     rotation = rot_old
+
+                print(history)
 
     def checkForCtrl(self, clicked):
         if clicked:
@@ -888,7 +890,7 @@ class MainWindow(QMainWindow):
         
 
     def file_export(self,bsp=False):
-        global cur_vmf_location,id_num,stored_info_list, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list, latest_path
+        global cur_vmf_location,id_num, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list, latest_path
         skyboxgeolist = []
         skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, %d minimum recommended):" %(levels*512)))
         try:
@@ -929,43 +931,13 @@ class MainWindow(QMainWindow):
         except:
             QMessageBox.critical(self, "Error", "Please choose a skybox.")
             self.change_skybox()
-        light = currentlight
+        entity_list[0][levels] = currentlight
         latest_path = latest_path.replace(".ezm",".vmf")
         if not bsp:
             name = QFileDialog.getSaveFileName(self, "Export .vmf", latest_path, "Valve Map File (*.vmf)")
             file = open(name[0], "w+")
-            totalblocks =[]
-            entity_list=[]
-            for lvl in stored_info_list:
-                for prfb in lvl:
-                    if prfb != '':
-                        try:
-                            try:
-                                try:
-                                    try:
-                                        create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[5], prfb[6], prfb[7], prfb[8])
-                                    except Exception as e:
-                                        create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[5], prfb[6], prfb[7], prfb[8])
-                                except Exception as e:
-                                    create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[8])
-                            except Exception as e:
-                                create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[5], prfb[6], prfb[8])
-                        except Exception as e:
-                            create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[7], prfb[8])
-                        id_num = create[1]
-                        world_id_num = create[2]
-                        totalblocks.append(create[0])
-                        try:
-                            entity_num = create[3]
-                            placeholder_list = create[5]
-                        except IndexError:
-                            pass
-                        try:
-                            entity_list.append(create[4])
-                        except Exception as e:
-                            print(str(e))
             import export
-            wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist, light)
+            wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
             file.write(wholething)
             file.close()
             popup = QMessageBox(self, "File Exported",
@@ -984,38 +956,8 @@ class MainWindow(QMainWindow):
             print('not bsp vmf part done')
         else:
             file = open('output/tf2mapperoutput.vmf','w+')
-            totalblocks =[]
-            entity_list=[]
-            for lvl in stored_info_list:
-                for prfb in lvl:
-                    if prfb != '':
-                        try:
-                            try:
-                                try:
-                                    try:
-                                        create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[5], prfb[6], prfb[7], prfb[8])
-                                    except Exception as e:
-                                        create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[5], prfb[6], prfb[7], prfb[8])
-                                except Exception as e:
-                                    create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[8])
-                            except Exception as e:
-                                create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[5], prfb[6], prfb[8])
-                        except Exception as e:
-                            create = prfb[0].createTile(prfb[1], prfb[2], prfb[3], prfb[4], prfb[7], prfb[8])
-                        id_num = create[1]
-                        world_id_num = create[2]
-                        totalblocks.append(create[0])
-                        try:
-                            entity_num = create[3]
-                            placeholder_list = create[5]
-                        except IndexError:
-                            pass
-                        try:
-                            entity_list.append(create[4])
-                        except Exception as e:
-                            print(str(e))
             import export
-            wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist, light)
+            wholething = export.execute(totalblocks, entity_list, levels, skybox,skyboxgeolist)
             file.write(wholething)
             file.close()
             cur_vmf_location = 'output/tf2mapperoutput.vmf'
@@ -1164,7 +1106,6 @@ class MainWindow(QMainWindow):
             totalblocks.append([])
             entity_list.append([])
             iconlist.append([])
-            stored_info_list.append([])
             self.btn_id_count=0
             count_btns=0
         
@@ -1177,7 +1118,6 @@ class MainWindow(QMainWindow):
                     count_btns += 1
                     entity_list[z].append("")
                     iconlist[z].append("")
-                    stored_info_list[z].append('')
         for x in range(self.grid_x):
             for y in range(self.grid_y):
                 grid_btn = GridBtn(self, x, y, self.btn_id_count)
@@ -1580,22 +1520,15 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.curr_text.setText("")
 
     def undo(self, undo):
-<<<<<<< HEAD
-=======
-        '''
->>>>>>> refs/remotes/origin/undo
         x = history[-1][0] if undo else redo_history[-1][0]
         y = history[-1][1] if undo else redo_history[-1][1]
         h_moduleName = history[-1][2] if undo else redo_history[-1][2]
         h_icon = history[-1][3] if undo else redo_history[-1][3]
         h_rot = history[-1][4] if undo else redo_history[-1][4]
-<<<<<<< HEAD
         level = history[-1][5] if undo else redo_history[-1][5]
         self.level.setText("Level: " + str(level+1))
         self.levellist.setCurrentRow(level)
         self.change_level(False, False)
-=======
->>>>>>> refs/remotes/origin/undo
 
         for button in grid_list:
             if button.x == x and button.y == y:
@@ -1603,21 +1536,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
                 break
 
         redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
-<<<<<<< HEAD
         
-=======
-        '''
-        x = history[-1][0][1] if undo else redo_history[-1][0][1]
-        y = history[-1][0][2] if undo else redo_history[-1][0][2]
-        h_icon = history[-1][1] if undo else redo_history[-1][1]
-        for button in grid_list:
-            if button.x == x and button.y == y:
-                button.click_func(self, x, y, button.btn_id, False, h_icon, history[-1][0])
-                break
-        redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
-        
-
->>>>>>> refs/remotes/origin/undo
     def sideshow(self):
         self.sideshowwindow = QLabel()
         movie = QMovie("icons/sideshow.gif")
@@ -1649,7 +1568,6 @@ btn_id_count = 0
 grid_list=[]
 totalblocks = []
 skybox_list=[]
-last_tuple = 'First'
 skybox_light_list=[]
 iconlist = []
 skybox_angle_list=[]
@@ -1658,9 +1576,6 @@ prefab_list = []
 gridsize_list = []
 count_btns = 0
 entity_list=[]
-
-stored_info_list=[]
-
 prefab_text_list = []
 prefab_icon_list = []
 openblocks=[]
