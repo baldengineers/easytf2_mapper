@@ -80,6 +80,8 @@ class GridBtn(QWidget):
             else:
                 history.append((x,y,"","",level))
 
+        print(history)
+
         def clear_btn(btn_id):
             self.button.setIcon(QIcon())
             totalblocks[level][btn_id] = ''
@@ -122,13 +124,15 @@ class GridBtn(QWidget):
                 self.button.setIconSize(QSize(32,32))
                 iconlist[level][btn_id] = icon
                 stored_info_list[level][btn_id] = (moduleName,x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level)
+
+                self.icon = icon
             else:
                 stored_info_list[level][btn_id] = ""
 
+                self.icon = "" #MIGHT not need because already stated in clear_btn()
+
             if "*" not in currentfilename:
                 parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
-
-            self.icon = icon
 
     def checkForCtrl(self, clicked):
         if clicked:
@@ -1576,7 +1580,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         #format | click_func(parent, x, y, btn_id, clicked=True, h_moduleName="None", h_icon='')
         #format | history.append((x,y,moduleName,self.icon,level))
         
-
+        print(history)
 
     def sideshow(self):
         self.gif("icons/sideshow.gif", (350,262,154,103), "SIDESHOW", "icons/ss.ico")
