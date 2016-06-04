@@ -56,7 +56,8 @@ class GridBtn(QWidget):
         global rotation, currentfilename
         global history
         global last_tuple
-        if last_tuple[0] == 'First':     
+        if last_tuple == 'First':
+            del last_tuple
             last_tuple = ('None',x,y,btn_id)
             history.append([last_tuple,self.icon])
         else:    
@@ -1608,7 +1609,7 @@ btn_id_count = 0
 grid_list=[]
 totalblocks = []
 skybox_list=[]
-last_tuple = ('First')
+last_tuple = 'First'
 skybox_light_list=[]
 iconlist = []
 skybox_angle_list=[]
