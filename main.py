@@ -20,6 +20,7 @@ import webbrowser
 import wave
 import zipfile
 import shutil
+import winsound
 
 class GridBtn(QWidget):
     def __init__(self, parent, x, y, btn_id):
@@ -591,8 +592,7 @@ class MainWindow(QMainWindow):
         global level, levels
 
         if not undo:
-            history.append(("","","","",level))
-            print('level: ', level)
+            history.append((None,None,None,None,level))
         
         if not but:
             self.file_save(True)
@@ -1567,24 +1567,28 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.curr_text.setText("")
 
     def undo(self, undo):
-        x = history[-1][0] if undo else redo_history[-1][0]
-        y = history[-1][1] if undo else redo_history[-1][1]
-        h_moduleName = history[-1][2] if undo else redo_history[-1][2]
-        h_icon = history[-1][3] if undo else redo_history[-1][3]
-        h_level = history[-1][4] if undo else redo_history[-1][4]
+        if history:
+            x = history[-1][0] if undo else redo_history[-1][0]
+            y = history[-1][1] if undo else redo_history[-1][1]
+            h_moduleName = history[-1][2] if undo else redo_history[-1][2]
+            h_icon = history[-1][3] if undo else redo_history[-1][3]
+            h_level = history[-1][4] if undo else redo_history[-1][4]
 
-        if h_level == None:   
-            for button in grid_list:
-                if button.x == x and button.y == y:
-                    button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
-                    break
+            if h_level == None:   
+                for button in grid_list:
+                    if button.x == x and button.y == y:
+                        button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
+                        break
+            else:
+                print('changelevel')
+                self.level.setText("Level: " + str(h_level+1))
+                self.levellist.setCurrentRow(h_level)
+                self.change_level(False, False, True)
+                
+            redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
         else:
-            print('changelevel')
-            self.level.setText("Level: " + str(h_level+1))
-            self.levellist.setCurrentRow(h_level)
-            self.change_level(False, False, True)
-
-        redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
+            print('No more items to undo!')
+            winsound.MessageBeep(winsound.MB_ICONEXCLAMATION)
         
         #format | click_func(parent, x, y, btn_id, clicked=True, h_moduleName="None", h_icon='')
         #format | history.append((x,y,moduleName,self.icon,level))
