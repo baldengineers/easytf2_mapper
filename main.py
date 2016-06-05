@@ -38,7 +38,7 @@ class GridBtn(QWidget):
         self.button.show()
         self.icon = []
         for i in range(levels):
-            self.icon.append("")
+            self.icon.append(None)
 
     def reset_icon(self):
         self.button.setIcon(QIcon(""))
@@ -79,9 +79,9 @@ class GridBtn(QWidget):
         if clicked:
             if self.icon[level]:
                 moduleName = eval(prefab_list[parent.tile_list.currentRow()])
-                history.append((x,y,moduleName,self.icon,level)) #make work even without rotations enabled
+                history.append((x,y,moduleName,self.icon[level],None)) #make work even without rotations enabled
             else:
-                history.append((x,y,"","",level))
+                history.append((x,y,None,None,None))
 
         print(history)
 
@@ -91,7 +91,7 @@ class GridBtn(QWidget):
             entity_list[level][btn_id] = ''
             iconlist[level][btn_id] = ''
             stored_info_list[level][btn_id]=''
-            self.icon[level] = ""
+            self.icon[level] = None
         
         if self.checkForCtrl(clicked):
             clear_btn(btn_id)
@@ -131,8 +131,6 @@ class GridBtn(QWidget):
                 self.icon[level] = icon
             else:
                 stored_info_list[level][btn_id] = ""
-
-                self.icon[level] = "" #MIGHT not need because already stated in clear_btn()
 
             if "*" not in currentfilename:
                 parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
@@ -593,7 +591,8 @@ class MainWindow(QMainWindow):
         global level, levels
 
         if not undo:
-            history.append(("LEVEL","LEVEL","LEVEL","LEVEL",level))
+            history.append(("","","","",level))
+            print('level: ', level)
         
         if not but:
             self.file_save(True)
@@ -1572,18 +1571,17 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         y = history[-1][1] if undo else redo_history[-1][1]
         h_moduleName = history[-1][2] if undo else redo_history[-1][2]
         h_icon = history[-1][3] if undo else redo_history[-1][3]
-        
-        changelevel = isinstance(x,str) #VERY VERY bad coding practice, may want to change in the future
+        h_level = history[-1][4] if undo else redo_history[-1][4]
 
-        if not changelevel:   
+        if h_level == None:   
             for button in grid_list:
                 if button.x == x and button.y == y:
                     button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
                     break
         else:
-            level = history[-1][4] if undo else redo_history[-1][4]
-            self.level.setText("Level: " + str(level+1))
-            self.levellist.setCurrentRow(level)
+            print('changelevel')
+            self.level.setText("Level: " + str(h_level+1))
+            self.levellist.setCurrentRow(h_level)
             self.change_level(False, False, True)
 
         redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
