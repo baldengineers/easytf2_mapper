@@ -36,7 +36,9 @@ class GridBtn(QWidget):
         self.button.setMouseTracking(True)
         self.button.installEventFilter(self)
         self.button.show()
-        self.icon = ""
+        self.icon = []
+        for i in range(levels):
+            self.icon.append("")
 
     def reset_icon(self):
         self.button.setIcon(QIcon(""))
@@ -56,8 +58,9 @@ class GridBtn(QWidget):
         global rotation, currentfilename
         global history
 
+        #TODOOOO- Make self.icon a list, containing the icons for each level
         
-        global last_tuple
+        #global last_tuple
         """
         if last_tuple == 'First':
             del last_tuple
@@ -74,7 +77,7 @@ class GridBtn(QWidget):
 
         #format | history.append((x,y,moduleName,self.icon,level))
         if clicked:
-            if self.icon:
+            if self.icon[level]:
                 moduleName = eval(prefab_list[parent.tile_list.currentRow()])
                 history.append((x,y,moduleName,self.icon,level)) #make work even without rotations enabled
             else:
@@ -88,7 +91,7 @@ class GridBtn(QWidget):
             entity_list[level][btn_id] = ''
             iconlist[level][btn_id] = ''
             stored_info_list[level][btn_id]=''
-            self.icon = ""
+            self.icon[level] = ""
         
         if self.checkForCtrl(clicked):
             clear_btn(btn_id)
@@ -125,11 +128,11 @@ class GridBtn(QWidget):
                 iconlist[level][btn_id] = icon
                 stored_info_list[level][btn_id] = (moduleName,x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level)
 
-                self.icon = icon
+                self.icon[level] = icon
             else:
                 stored_info_list[level][btn_id] = ""
 
-                self.icon = "" #MIGHT not need because already stated in clear_btn()
+                self.icon[level] = "" #MIGHT not need because already stated in clear_btn()
 
             if "*" not in currentfilename:
                 parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
