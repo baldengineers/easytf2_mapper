@@ -131,7 +131,7 @@ class GridBtn(QWidget):
             else:
                 stored_info_list[level][btn_id] = ""
 
-            if "*" not in currentfilename:
+            if "*" not in parent.windowTitle():
                 parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
 
     def checkForCtrl(self, clicked):
@@ -1274,11 +1274,18 @@ class MainWindow(QMainWindow):
 
     def close_application(self, restart = False):
         if not restart:
-            choice = QMessageBox.question(self, "Exit",
-                                          "Are you sure you want to exit?",
-                                          QMessageBox.Yes | QMessageBox.No,
-                                          QMessageBox.No)
-            if choice == QMessageBox.Yes:
+            close = True
+            
+            if "*" in self.windowTitle():
+                print('are you sure')
+                choice = QMessageBox.warning(self, "Exit TF2Mapper",
+                                              "Some changes have not been saved.\nDo you really want to quit?",
+                                              QMessageBox.Ok | QMessageBox.Cancel,
+                                              QMessageBox.Cancel)
+                if choice != QMessageBox.Ok:
+                    close = False
+                
+            if close:
                 folder = 'leveltemp/'
                 for f in os.listdir(folder):
                     if "level" in f: 
