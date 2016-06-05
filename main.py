@@ -58,8 +58,6 @@ class GridBtn(QWidget):
         global levels
         global rotation, currentfilename
         global history
-
-        #TODOOOO- Make self.icon a list, containing the icons for each level
         
         #global last_tuple
         """
@@ -100,9 +98,9 @@ class GridBtn(QWidget):
             if clicked:
                 moduleName = eval(prefab_list[parent.tile_list.currentRow()])
             else:
-                moduleName = h_moduleName if h_moduleName != "" else clear_btn(btn_id)
+                moduleName = h_moduleName if h_moduleName != None else clear_btn(btn_id)
 
-            if h_moduleName != "":
+            if h_moduleName != None:
                 if clicked:
 
                     try:
@@ -1586,6 +1584,9 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
                 self.change_level(False, False, True)
                 
             redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
+
+            if undo:
+                pass#redo_history[-1][]
         else:
             print('No more items to undo!')
             winsound.MessageBeep(winsound.MB_ICONEXCLAMATION)
