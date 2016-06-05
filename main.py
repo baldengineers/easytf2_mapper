@@ -1565,7 +1565,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         self.curr_text.setText("")
 
     def undo(self, undo):
-        if history:
+        if history if undo else redo_history:
             x = history[-1][0] if undo else redo_history[-1][0]
             y = history[-1][1] if undo else redo_history[-1][1]
             h_moduleName = history[-1][2] if undo else redo_history[-1][2]
@@ -1575,18 +1575,26 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
             if h_level == None:   
                 for button in grid_list:
                     if button.x == x and button.y == y:
+                        """if undo:
+                            history[-1][3] = button.icon
+                        else:
+                            redo_history[-1][3] = button.icon"""
+                        print('button\'s icon:', button.icon)
                         button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
                         break
             else:
                 print('changelevel')
+                """
+                if undo:
+                    history[-1][4] = level
+                else:
+                    redo_history[-1][4] = level
+                """
                 self.level.setText("Level: " + str(h_level+1))
                 self.levellist.setCurrentRow(h_level)
                 self.change_level(False, False, True)
                 
             redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
-
-            if undo:
-                pass#redo_history[-1][]
         else:
             print('No more items to undo!')
             winsound.MessageBeep(winsound.MB_ICONEXCLAMATION)
