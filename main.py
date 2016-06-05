@@ -589,8 +589,12 @@ class MainWindow(QMainWindow):
         self.windowl.setLayout(self.layoutl)
         self.windowl.exec_()
 
-    def change_level(self, but = False, up = False):
+    def change_level(self, but = False, up = False, undo = False):
         global level, levels
+
+        if not undo:
+            history.append(("LEVEL","LEVEL","LEVEL","LEVEL",level))
+        
         if not but:
             self.file_save(True)
             level = int(self.levellist.currentRow()) #+1 X First level should be 0
@@ -1568,18 +1572,22 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
         y = history[-1][1] if undo else redo_history[-1][1]
         h_moduleName = history[-1][2] if undo else redo_history[-1][2]
         h_icon = history[-1][3] if undo else redo_history[-1][3]
-
-        level = history[-1][4] if undo else redo_history[-1][4] #check if 5 is correct
-        self.level.setText("Level: " + str(level+1))
-        self.levellist.setCurrentRow(level)
-        self.change_level(False, False)
         
-        for button in grid_list:
-            if button.x == x and button.y == y:
-                button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
-                break
-        redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
+        changelevel = isinstance(x,str) #VERY VERY bad coding practice, may want to change in the future
 
+        if not changelevel:   
+            for button in grid_list:
+                if button.x == x and button.y == y:
+                    button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
+                    break
+        else:
+            level = history[-1][4] if undo else redo_history[-1][4]
+            self.level.setText("Level: " + str(level+1))
+            self.levellist.setCurrentRow(level)
+            self.change_level(False, False, True)
+
+        redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
+        
         #format | click_func(parent, x, y, btn_id, clicked=True, h_moduleName="None", h_icon='')
         #format | history.append((x,y,moduleName,self.icon,level))
         
@@ -1710,6 +1718,9 @@ for file in [prefab_file, prefab_text_file, prefab_icon_file,skybox_file,skybox_
     file.close()
 
 #imports that need prefab_list to be defined
+for item in prefab_list:
+    globals()[item] = importlib.import_module(item)
+    print("import", item)
 
 logo = open('logo.log','r+')
 logo_f = logo.readlines()
@@ -1717,9 +1728,6 @@ for i in logo_f:
     print(i[:-1])
 logo.close()
 
-for item in prefab_list:
-    globals()[item] = importlib.import_module(item)
-    print("import", item)
 print("\n~~~~~~~~~~~~~~~~~~~~~\nMapper loaded! You may have to alt-tab to find the input values dialog.\n")
 
 
