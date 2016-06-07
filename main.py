@@ -777,7 +777,7 @@ class MainWindow(QMainWindow):
                 elif "grid_size" in header:
                     openlines = pickle.load(file)
                     self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
-                elif "totalblocks" in header:
+                elif "stored_info_list" in header:
                     stored_info_list=[]
                     openlines = pickle.load(file)
                     for item in openlines:
