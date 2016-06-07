@@ -761,7 +761,7 @@ class MainWindow(QMainWindow):
         
         
     def file_open(self, tmp = False, first = False):
-        global grid_list, iconlist, level, totalblocks,entity_list, currentfilename, file_loaded, latest_path
+        global grid_list, iconlist, level, stored_info_list, totalblocks,entity_list, currentfilename, file_loaded, latest_path
         print(latest_path)
         if not tmp:
             name = QFileDialog.getOpenFileName(self, "Open File", latest_path,"*.ezm")
@@ -778,16 +778,10 @@ class MainWindow(QMainWindow):
                     openlines = pickle.load(file)
                     self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
                 elif "totalblocks" in header:
-                    totalblocks=[]
+                    stored_info_list=[]
                     openlines = pickle.load(file)
                     for item in openlines:
-                        totalblocks.append(item)
-                elif "entity_list" in header:
-                    entity_list=[]
-                    openlines = pickle.load(file)
-                    
-                    for item in openlines:
-                        entity_list.append(item)
+                        stored_info_list.append(item)
                 elif "icon_list" in header:
                     global grid_list
                     iconlist=[]
@@ -828,7 +822,7 @@ class MainWindow(QMainWindow):
                 print(str(e))
             
     def file_save(self, tmp = False, saveAs = False):
-        global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded, latest_path
+        global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded, latest_path, stored_info_list
         print(latest_path)
         gridsize_list = (grid_x,grid_y,levels)
         skybox_sav = skybox2_list.currentRow()
@@ -846,10 +840,8 @@ class MainWindow(QMainWindow):
             pickle.dump(levels,file)
             pickle.dump("<grid_size>", file)
             pickle.dump(gridsize_list, file)
-            pickle.dump("<totalblocks>", file)
-            pickle.dump(totalblocks, file)
-            pickle.dump("<entity_list>", file)
-            pickle.dump(entity_list, file)
+            pickle.dump("<stored_info_list>", file)
+            pickle.dump(stored_info_list, file)
             pickle.dump("<icon_list>", file)
             pickle.dump(iconlist, file)
             pickle.dump("<skybox>", file)
