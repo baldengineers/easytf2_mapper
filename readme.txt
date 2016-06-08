@@ -34,6 +34,10 @@ Ctrl+B = Choose skybox from a list. This will make the skybox of the rendered ma
 
 Ctrl+Q/Alt+f4 = Quit
 
+Ctrl+Z = Undo
+
+Ctrl+Shift+Z = Redo
+
 Ctrl+click on a square with a prefab on it to remove whatever was on it.
 
 Press ` or ~ to open the developer console. You probably don't need it.

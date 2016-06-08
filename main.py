@@ -58,31 +58,16 @@ class GridBtn(QWidget):
         global levels
         global rotation, currentfilename
         global history
-        
-        #global last_tuple
-        """
-        if last_tuple == 'First':
-            del last_tuple
-            last_tuple = ('None',x,y,btn_id,self.icon)
-            history.append([last_tuple,self.icon])
-        else:    
-            history.append([last_tuple,self.icon])"""
-        """
-        if self.icon:
-            history.append(last_tuple)
-        else:
-            last_tuple = ("None",x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level,"")
-            history.append(last_tuple)"""
+        global redo_history
 
         #format | history.append((x,y,moduleName,self.icon,level))
         if clicked:
+            redo_history=[]
             if self.icon[level]:
                 moduleName = eval(prefab_list[parent.tile_list.currentRow()])
-                history.append((x,y,moduleName,self.icon[level],None)) #make work even without rotations enabled
+                templist=[(x,y,moduleName,self.icon[level],None)]
             else:
-                history.append((x,y,None,None,None))
-
-        print(history)
+                templist=[(x,y,None,None,None)]
 
         def clear_btn(btn_id):
             self.button.setIcon(QIcon())
@@ -125,7 +110,7 @@ class GridBtn(QWidget):
                 self.button.setIcon(QIcon(icon))
                 self.button.setIconSize(QSize(32,32))
                 iconlist[level][btn_id] = icon
-                stored_info_list[level][btn_id] = (moduleName,x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level)
+                stored_info_list[level][btn_id] = [moduleName,x,y,id_num,world_id_num,entity_num,placeholder_list,rotation,level]
 
                 self.icon[level] = icon
             else:
@@ -133,6 +118,10 @@ class GridBtn(QWidget):
 
             if "*" not in parent.windowTitle():
                 parent.setWindowTitle("Easy TF2 Mapper* - ["+currentfilename+"]")
+            
+            if clicked:
+                templist.append((x,y,moduleName,self.icon[level],None))
+                history.append(templist)
 
     def checkForCtrl(self, clicked):
         if clicked:
@@ -590,7 +579,7 @@ class MainWindow(QMainWindow):
         global level, levels
 
         if not undo:
-            history.append((None,None,None,None,level))
+            templist = [(None,None,None,None,level)]
         
         if not but:
             self.file_save(True)
@@ -618,6 +607,10 @@ class MainWindow(QMainWindow):
             self.file_open(True)
             self.level.setText("Level: " + str(level+1))            
         #change grid to grid for level
+
+        if not undo:
+            templist.append((None,None,None,None,level))
+            history.append(templist)
         
 
     def rotateCW_func(self):
@@ -761,7 +754,7 @@ class MainWindow(QMainWindow):
         
         
     def file_open(self, tmp = False, first = False):
-        global grid_list, iconlist, level, stored_info_list, totalblocks,entity_list, currentfilename, file_loaded, latest_path
+        global grid_list, iconlist, level, stored_info_list, totalblocks,entity_list, currentfilename, file_loaded, latest_path,save_dict,load_dict
         print(latest_path)
         if not tmp:
             name = QFileDialog.getOpenFileName(self, "Open File", latest_path,"*.ezm")
@@ -779,9 +772,19 @@ class MainWindow(QMainWindow):
                     self.grid_change(openlines[0],openlines[1],openlines[2],False, True, True)
                 elif "stored_info_list" in header:
                     stored_info_list=[]
+                    stored_info_list_temp=[]
                     openlines = pickle.load(file)
                     for item in openlines:
-                        stored_info_list.append(item)
+                        stored_info_list_temp.append(item)
+                    for index,lvl in enumerate(stored_info_list_temp):
+                        stored_info_list.append([])
+                        for info in lvl:
+                            try:
+                                temp = save_dict[info[0]]
+                                info[0] = temp
+                                stored_info_list[index].append(info)
+                            except:
+                                stored_info_list[index].append('')
                 elif "icon_list" in header:
                     global grid_list
                     iconlist=[]
@@ -822,7 +825,7 @@ class MainWindow(QMainWindow):
                 print(str(e))
             
     def file_save(self, tmp = False, saveAs = False):
-        global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded, latest_path, stored_info_list
+        global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded, latest_path, stored_info_list, save_dict,load_dict
         print(latest_path)
         gridsize_list = (grid_x,grid_y,levels)
         skybox_sav = skybox2_list.currentRow()
@@ -841,7 +844,18 @@ class MainWindow(QMainWindow):
             pickle.dump("<grid_size>", file)
             pickle.dump(gridsize_list, file)
             pickle.dump("<stored_info_list>", file)
-            pickle.dump(stored_info_list, file)
+            stored_info_list_temp=[]
+            for index,lvl in enumerate(stored_info_list):
+                stored_info_list_temp.append([])
+                for info in lvl:
+                    print(info)
+                    try:
+                        temp = load_dict[info[0]]
+                        info[0] = temp
+                        stored_info_list_temp[index].append(info)
+                    except:
+                        stored_info_list_temp[index].append('')
+            pickle.dump(stored_info_list_temp, file)
             pickle.dump("<icon_list>", file)
             pickle.dump(iconlist, file)
             pickle.dump("<skybox>", file)
@@ -867,7 +881,7 @@ class MainWindow(QMainWindow):
     def file_export(self,bsp=False):
         global cur_vmf_location,id_num,stored_info_list, grid_y, grid_x, world_id_num, count_btns, currentlight, skybox, skybox2_list, entity_list, skybox_light_list, skybox_angle_list, latest_path
         skyboxgeolist = []
-        skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, %d minimum recommended):" %(levels*512)))
+        skyboxz = QInputDialog.getText(self,("Set Skybox Height"),("Skybox Height(hammer units, %d minimum recommended):" %(levels*512)), QLineEdit.Normal, "%d" %(levels*512))
         try:
             skyboxz = int(skyboxz[0])
         except:
@@ -958,7 +972,6 @@ class MainWindow(QMainWindow):
             if popup.clickedButton() == exitButton:
                 popup.deleteLater()
             cur_vmf_location = name[0]
-            print('not bsp vmf part done')
         else:
             file = open('output/tf2mapperoutput.vmf','w+')
             totalblocks =[]
@@ -996,7 +1009,7 @@ class MainWindow(QMainWindow):
             file.write(wholething)
             file.close()
             cur_vmf_location = 'output/tf2mapperoutput.vmf'
-            print('bsp vmf part done')
+
         
         
     def file_export_bsp(self):
@@ -1565,43 +1578,28 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
 
     def undo(self, undo):
         if history if undo else redo_history:
-            x = history[-1][0] if undo else redo_history[-1][0]
-            y = history[-1][1] if undo else redo_history[-1][1]
-            h_moduleName = history[-1][2] if undo else redo_history[-1][2]
-            h_icon = history[-1][3] if undo else redo_history[-1][3]
-            h_level = history[-1][4] if undo else redo_history[-1][4]
+            x = history[-1][0][0] if undo else redo_history[-1][1][0]
+            y = history[-1][0][1] if undo else redo_history[-1][1][1]
+            h_moduleName = history[-1][0][2] if undo else redo_history[-1][1][2]
+            h_icon = history[-1][0][3] if undo else redo_history[-1][1][3]
+            h_level = history[-1][0][4] if undo else redo_history[-1][1][4]
 
             if h_level == None:   
                 for button in grid_list:
                     if button.x == x and button.y == y:
-                        """if undo:
-                            history[-1][3] = button.icon
-                        else:
-                            redo_history[-1][3] = button.icon"""
-                        print('button\'s icon:', button.icon)
                         button.click_func(self, x, y, button.btn_id, False, h_moduleName, h_icon)
                         break
             else:
-                print('changelevel')
-                """
-                if undo:
-                    history[-1][4] = level
-                else:
-                    redo_history[-1][4] = level
-                """
                 self.level.setText("Level: " + str(h_level+1))
                 self.levellist.setCurrentRow(h_level)
                 self.change_level(False, False, True)
-                
+
             redo_history.append(history.pop(-1)) if undo else history.append(redo_history.pop(-1))
         else:
-            print('No more items to undo!')
             winsound.MessageBeep(winsound.MB_ICONEXCLAMATION)
         
         #format | click_func(parent, x, y, btn_id, clicked=True, h_moduleName="None", h_icon='')
-        #format | history.append((x,y,moduleName,self.icon,level))
-        
-        print(history)
+        #format | history.append((x,y,moduleName,self.icon,level), (x,y,moduleName,self.icon,level))
 
     def sideshow(self):
         self.gif("icons/sideshow.gif", (350,262,154,103), "SIDESHOW", "icons/ss.ico")
@@ -1639,6 +1637,9 @@ prefab_list = []
 gridsize_list = []
 count_btns = 0
 entity_list=[]
+
+save_dict={}
+load_dict={}
 
 stored_info_list=[]
 
@@ -1686,7 +1687,27 @@ set pathtoicon="icons/icon.ico"
 if %pathtoicon%=="" set pathtoicon=%pathtoexe%,0
 REG ADD HKEY_CLASSES_ROOT\%extension%\ /t REG_SZ /d %ftypename% /f
 REG ADD HKLM\SOFTWARE\Classes\%ftypename%\DefaultIcon\ /t REG_SZ /d %pathtoicon% /f
-ftype %ftypename%=%pathtoexe% "%%1" %%*
+ftype %ftypename%=%pathtoexe% "%%1" %%*import pickle
+import pprint
+import random
+import glob
+import webbrowser
+import wave
+import zipfile
+import shutil
+import winsound
+
+class GridBtn(QWidget):
+    def __init__(self, parent, x, y, btn_id):
+        super(GridBtn, self).__init__()
+        self.button = QPushButton("", parent)
+        self.x = x
+        self.y = y
+        self.btn_id = btn_id
+        #self.button.move(self.x,self.y)
+        self.button.resize(32,32)
+        self.button.setFixedSize(32, 32)
+
 assoc %extension%=%ftypename%
 '''
 #skyboxlight = '255 255 255 200'
@@ -1731,6 +1752,8 @@ for file in [prefab_file, prefab_text_file, prefab_icon_file,skybox_file,skybox_
 for item in prefab_list:
     globals()[item] = importlib.import_module(item)
     print("import", item)
+    save_dict[item]=eval(item)
+    load_dict[eval(item)]=item
 
 logo = open('logo.log','r+')
 logo_f = logo.readlines()
