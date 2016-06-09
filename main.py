@@ -1360,7 +1360,7 @@ class MainWindow(QMainWindow):
 
         self.rotCheckBox = QCheckBox()
         self.expCheckBox = QCheckBox()
-        self.buggyText = QLabel("This is a pretty buggy tool at this point, and is mostly used by developers. Are you sure you want to do this? \n(exported prefabs can be found in the main directory, where the executable is.")
+        self.buggyText = QLabel("This is a pretty buggy tool at this point, and is mostly used by developers. Are you sure you want to do this? \n(exported prefabs can be found in the main directory, where the executable is.)")
 
         
         
