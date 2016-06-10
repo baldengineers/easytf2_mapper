@@ -60,11 +60,13 @@ class GridBtn(QWidget):
         global history
         global redo_history
 
+        current_list = eval('tile_list%d' % self.list_tab_widget.currentIndex()+1)
+
         #format | history.append((x,y,moduleName,self.icon,level))
         if clicked:
             redo_history=[]
             if self.icon[level]:
-                moduleName = eval(prefab_list[parent.tile_list.currentRow()])
+                moduleName = eval(prefab_list[self.list_tab_widget.currentIndex()][parent.current_list.currentRow()])
                 templist=[(x,y,moduleName,self.icon[level],None)]
             else:
                 templist=[(x,y,None,None,None)]
@@ -81,7 +83,7 @@ class GridBtn(QWidget):
             clear_btn(btn_id)
         else:
             if clicked:
-                moduleName = eval(prefab_list[parent.tile_list.currentRow()])
+                moduleName = eval(prefab_list[self.list_tab_widget.currentIndex()][parent.current_list.currentRow()])
             else:
                 moduleName = h_moduleName if h_moduleName != None else clear_btn(btn_id)
 
@@ -89,10 +91,11 @@ class GridBtn(QWidget):
                 if clicked:
 
                     try:
-                        #print(rotation)
+                        #gotta redo this. this is very inefficient and needs to be like the rest
+                        #of the prefab lists
                         current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
                         current_prefab_icon_list = current_prefab_icon_list.readlines()
-                        current_prefab_icon_list = current_prefab_icon_list[parent.tile_list.currentRow()]
+                        current_prefab_icon_list = current_prefab_icon_list[parent.current_list.currentRow()]
                         if "\n" in current_prefab_icon_list:
                             current_prefab_icon_list = current_prefab_icon_list[:-1]
                         current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
@@ -102,7 +105,7 @@ class GridBtn(QWidget):
                             icon = icon[:-1]
                     except Exception as e:
                         print(str(e))
-                        icon = prefab_icon_list[parent.tile_list.currentRow()]
+                        icon = prefab_icon_list[self.list_tab_widget.currentIndex()][parent.current_list.currentRow()]
                         
                 else:
                     icon = h_icon
@@ -459,8 +462,8 @@ class MainWindow(QMainWindow):
         self.list_tab_widget = QTabWidget()
         self.list_tab_widget.setMaximumWidth(200)
         self.list_tab_widget.addTab(self.tile_list1,'Geometry')
-        self.list_tab_widget.addTab(self.tile_list2,'Fun and Profit')
-        self.list_tab_widget.addTab(self.tile_list3,'Map Layout')
+        self.list_tab_widget.addTab(self.tile_list2,'Map Layout')
+        self.list_tab_widget.addTab(self.tile_list3,'Fun')
 
         print("len:", self.list_tab_widget.count())
         #self.list_tab_widget.setStyleSheet("QTabWidget { background-color: rgb(50, 50, 50, 100); }")
@@ -554,7 +557,7 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, "First Launch", "First Launch!\n\nYou haven't launched this before! Try looking at the <a href=\"https://github.com/baldengineers/easytf2_mapper/wiki/Texture-bug\">wiki</a> for help!")
             f.write("startup")
             f.close
-            subprocess.Popen("associconwin.bat")
+        
             #WILL ONLY WORK IN REDIST FORM
         else:
             pass
@@ -1742,14 +1745,31 @@ skybox_icon = open("prefab_template/skybox_icons.txt")
 skybox_light = open("prefab_template/skybox_light.txt")
 skybox_angle = open("prefab_template/skybox_angle.txt") 
 
+prefab_list.append([])
+section=0
 for line in prefab_file.readlines():
-    prefab_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
-
+    if not line:
+        prefab_list.append([])
+        section+=1
+    else:
+        prefab_list[section].append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
+section=0
+prefab_text_list.append([])
 for line in prefab_text_file.readlines():
-    prefab_text_list.append(line[:-1] if line.endswith("\n") else line)
+    if not line:
+        prefab_text_list.append([])
+        section+=1
+    else:
+        prefab_text_list[section].append(line[:-1] if line.endswith("\n") else line)
 
+section=0
+prefab_icon_list.append([])
 for line in prefab_icon_file.readlines():
-    prefab_icon_list.append(line[:-1] if line.endswith("\n") else line)
+    if not icon:
+        prefab_icon_list.append([])
+        section +=1
+    else:
+        prefab_icon_list[section].append(line[:-1] if line.endswith("\n") else line)
 
 for line in skybox_file.readlines():
     skybox_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
