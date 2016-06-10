@@ -60,13 +60,13 @@ class GridBtn(QWidget):
         global history
         global redo_history
 
-        current_list = eval('tile_list%d' % self.list_tab_widget.currentIndex()+1)
+        current_list = eval('parent.tile_list%s' % str(parent.list_tab_widget.currentIndex()+1))
 
         #format | history.append((x,y,moduleName,self.icon,level))
         if clicked:
             redo_history=[]
             if self.icon[level]:
-                moduleName = eval(prefab_list[self.list_tab_widget.currentIndex()][parent.current_list.currentRow()])
+                moduleName = eval(prefab_list[parent.list_tab_widget.currentIndex()][current_list.currentRow()])
                 templist=[(x,y,moduleName,self.icon[level],None)]
             else:
                 templist=[(x,y,None,None,None)]
@@ -83,7 +83,7 @@ class GridBtn(QWidget):
             clear_btn(btn_id)
         else:
             if clicked:
-                moduleName = eval(prefab_list[self.list_tab_widget.currentIndex()][parent.current_list.currentRow()])
+                moduleName = eval(prefab_list[parent.list_tab_widget.currentIndex()][current_list.currentRow()])
             else:
                 moduleName = h_moduleName if h_moduleName != None else clear_btn(btn_id)
 
@@ -93,11 +93,16 @@ class GridBtn(QWidget):
                     try:
                         #gotta redo this. this is very inefficient and needs to be like the rest
                         #of the prefab lists
+                        '''
                         current_prefab_icon_list = open('prefab_template/rot_prefab_list.txt', 'r+')
                         current_prefab_icon_list = current_prefab_icon_list.readlines()
                         current_prefab_icon_list = current_prefab_icon_list[parent.current_list.currentRow()]
                         if "\n" in current_prefab_icon_list:
                             current_prefab_icon_list = current_prefab_icon_list[:-1]
+                        '''
+               
+
+                        current_prefab_icon_list = rotation_icon_list[parent.list_tab_widget.currentIndex()][current_list.currentRow()]
                         current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
                         current_prefab_icon_list = current_prefab_icon_list.readlines()
                         icon = current_prefab_icon_list[rotation]
@@ -105,7 +110,7 @@ class GridBtn(QWidget):
                             icon = icon[:-1]
                     except Exception as e:
                         print(str(e))
-                        icon = prefab_icon_list[self.list_tab_widget.currentIndex()][parent.current_list.currentRow()]
+                        icon = prefab_icon_list[parent.list_tab_widget.currentIndex()][current_list.currentRow()]
                         
                 else:
                     icon = h_icon
@@ -494,13 +499,11 @@ class MainWindow(QMainWindow):
         self.tile_toolbar.addWidget(self.add_tool_btn)
 
 
-        i = 1        
+             
         for index, text in enumerate(prefab_text_list):
-            if text == "":
-                i += 1
-            else:
-                curr_list = eval("self.tile_list%d" %(i))
-                item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
+            for ind, indiv in enumerate(text):
+                curr_list = eval("self.tile_list%d" % (index+1))
+                item = QListWidgetItem(QIcon(prefab_icon_list[index][ind]), indiv)
                 curr_list.addItem(item)
             
         for i in range(self.list_tab_widget.count()):
@@ -651,25 +654,30 @@ class MainWindow(QMainWindow):
         self.changeIcon()
 
     def prefab_list_up(self):
-        currentRow = self.tile_list1.currentRow()
+        current_list = eval('self.tile_list%s' % str(self.list_tab_widget.currentIndex()+1))
+        currentRow = self.current_list.currentRow()
 
         if currentRow > 0:
-            currentItem = self.tile_list1.takeItem(currentRow)
-            self.tile_list1.insertItem(currentRow - 1, currentItem)
-            self.tile_list1.setCurrentRow(currentRow - 1)
+            currentItem = self.current_list.takeItem(currentRow)
+            self.current_list.insertItem(currentRow - 1, currentItem)
+            self.current_list.setCurrentRow(currentRow - 1)
             self.update_list_file(currentRow, currentRow - 1)
             self.changeIcon()
 
     def prefab_list_down(self):
-        currentRow = self.tile_list1.currentRow()
-        if currentRow < self.tile_list1.count() - 1:
-            currentItem = self.tile_list1.takeItem(currentRow)
-            self.tile_list1.insertItem(currentRow + 1, currentItem)
-            self.tile_list1.setCurrentRow(currentRow + 1)
+        current_list = eval('self.tile_list%s' % str(self.list_tab_widget.currentIndex()+1))
+        currentRow = self.current_list.currentRow()
+        if currentRow < self.current_list.count() - 1:
+            currentItem = self.current_list.takeItem(currentRow)
+            self.current_list.insertItem(currentRow + 1, currentItem)
+            self.current_list.setCurrentRow(currentRow + 1)
             self.update_list_file(currentRow, currentRow + 1)
             self.changeIcon()
 
     def update_list_file(self, old_index, new_index):
+
+        #NEEDS TO BE REDONE
+        
         file_list = ["prefab_template/prefab_list.txt", "prefab_template/prefab_icon_list.txt", "prefab_template/prefab_text_list.txt"]
         list_list = [prefab_list, prefab_icon_list, prefab_text_list]
 
@@ -691,6 +699,9 @@ class MainWindow(QMainWindow):
          
 
     def prefab_list_del(self, currentprefab, currentText):
+
+        #NEEDS TO BE REDONE
+        
         self.restartCheck = QCheckBox()
         self.restartCheck.setText("Restart after deletion?")
 
@@ -738,6 +749,22 @@ class MainWindow(QMainWindow):
     def changeIcon(self):
         global rotation
         
+        current_list = eval('self.tile_list%s' % str(self.list_tab_widget.currentIndex()+1))
+        try:
+            current_prefab_icon_list = rotation_icon_list[self.list_tab_widget.currentIndex()][current_list.currentRow()]
+            current_prefab_icon_list = open('prefab_template/iconlists/'+current_prefab_icon_list, 'r+')
+            current_prefab_icon_list = current_prefab_icon_list.readlines()
+            icon = current_prefab_icon_list[rotation]
+            if "\n" in icon:
+                icon = icon[:-1]
+            self.current.setIcon(QIcon(icon))
+            self.current.setIconSize(QSize(32,32))
+        except Exception as e:
+            print(str(e))
+            icon = prefab_icon_list[self.list_tab_widget.currentIndex()][current_list.currentRow()]
+            self.current.setIcon(QIcon(icon))
+            self.current.setIconSize(QSize(32,32))
+        '''
         try:
             current_prefab_icon_list2 = open('prefab_template/rot_prefab_list.txt', 'r+')
             current_prefab_icon_list2 = current_prefab_icon_list2.readlines()
@@ -759,7 +786,7 @@ class MainWindow(QMainWindow):
 
 
         #might consider using the following code in the future    
-        '''
+        
         im_rot = Image.open(prefab_icon_list[self.tile_list.currentRow()])
         im_rot = im_rot.rotate(360-(rotation*90))
         data = im_rot.tobytes('raw')#('raw', 'RGBA')
@@ -1652,6 +1679,7 @@ skybox_list=[]
 last_tuple = 'First'
 skybox_light_list=[]
 iconlist = []
+rotation_icon_list=[]
 skybox_angle_list=[]
 skybox_icon_list=[]
 prefab_list = []
@@ -1748,7 +1776,7 @@ skybox_angle = open("prefab_template/skybox_angle.txt")
 prefab_list.append([])
 section=0
 for line in prefab_file.readlines():
-    if not line:
+    if line == '\n':
         prefab_list.append([])
         section+=1
     else:
@@ -1756,7 +1784,7 @@ for line in prefab_file.readlines():
 section=0
 prefab_text_list.append([])
 for line in prefab_text_file.readlines():
-    if not line:
+    if line == '\n':
         prefab_text_list.append([])
         section+=1
     else:
@@ -1765,11 +1793,25 @@ for line in prefab_text_file.readlines():
 section=0
 prefab_icon_list.append([])
 for line in prefab_icon_file.readlines():
-    if not icon:
+    if line == "\n":
         prefab_icon_list.append([])
         section +=1
     else:
         prefab_icon_list[section].append(line[:-1] if line.endswith("\n") else line)
+
+f = open('prefab_template/rot_prefab_list.txt', 'r+')
+lns = f.readlines()
+f.close()
+
+section = 0
+rotation_icon_list = []
+rotation_icon_list.append([])
+for line in lns:
+    if line == '\n':
+        rotation_icon_list.append([])
+        section+=1
+    else:
+        rotation_icon_list[section].append(line[:-1] if '\n' in line else line)
 
 for line in skybox_file.readlines():
     skybox_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
@@ -1787,12 +1829,13 @@ for file in [prefab_file, prefab_text_file, prefab_icon_file,skybox_file,skybox_
     file.close()
 
 #imports that need prefab_list to be defined
-for item in prefab_list:
-    if item:
-        globals()[item] = importlib.import_module(item)
-        print("import", item)
-        save_dict[item]=eval(item)
-        load_dict[eval(item)]=item
+for sec in prefab_list:
+    for item in sec:
+        if item:
+            globals()[item] = importlib.import_module(item)
+            print("import", item)
+            save_dict[item]=eval(item)
+            load_dict[eval(item)]=item
 
 logo = open('logo.log','r+')
 logo_f = logo.readlines()
