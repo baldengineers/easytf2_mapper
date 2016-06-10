@@ -10,6 +10,8 @@ corner_stone
 diag_wall
 diag_wall_egypt
 diag_wall_stone
+block
+
 respawn_blu
 respawn_red
 heal
@@ -19,8 +21,8 @@ cp_koth_prefab
 ramp
 spire
 mini_spire
+bl_spire
+
 death_pit
 laser_array
 nuke
-bl_spire
-block

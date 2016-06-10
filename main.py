@@ -449,11 +449,22 @@ class MainWindow(QMainWindow):
         self.button_rotate_layout.addWidget(self.leveldown)
         
         self.button_rotate_layout.addStretch(1)
-                               
-        self.tile_list = QListWidget()
-        self.tile_list.setMaximumWidth(200)
-        self.tile_list.setStyleSheet("QListWidget { background-color: rgb(50, 50, 50, 100); }")
+            
+        self.tile_list1 = QListWidget()
+        #self.tile_list.setMaximumWidth(200)
+        #self.tile_list.setStyleSheet("QListWidget { background-color: rgb(50, 50, 50, 100); }")
+        self.tile_list2 = QListWidget()
+        self.tile_list3 = QListWidget()
+        
+        self.list_tab_widget = QTabWidget()
+        self.list_tab_widget.setMaximumWidth(200)
+        self.list_tab_widget.addTab(self.tile_list1,'Geometry')
+        self.list_tab_widget.addTab(self.tile_list2,'Fun and Profit')
+        self.list_tab_widget.addTab(self.tile_list3,'Map Layout')
 
+        print("len:", self.list_tab_widget.count())
+        #self.list_tab_widget.setStyleSheet("QTabWidget { background-color: rgb(50, 50, 50, 100); }")
+        
         self.up_tool_btn = QToolButton(self)
         self.up_tool_btn.setIcon(QIcon('icons/up.png'))
         self.up_tool_btn.clicked.connect(self.prefab_list_up)
@@ -479,16 +490,23 @@ class MainWindow(QMainWindow):
         self.tile_toolbar.addSeparator()
         self.tile_toolbar.addWidget(self.add_tool_btn)
 
-        
-        for index, text in enumerate(prefab_text_list):
-            item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
-            self.tile_list.addItem(item)
 
-        self.tile_list.currentItemChanged.connect(self.changeIcon)
+        i = 1        
+        for index, text in enumerate(prefab_text_list):
+            if text == "":
+                i += 1
+            else:
+                curr_list = eval("self.tile_list%d" %(i))
+                item = QListWidgetItem(QIcon(prefab_icon_list[index]), text)
+                curr_list.addItem(item)
+            
+        for i in range(self.list_tab_widget.count()):
+            eval("self.tile_list%d" %(i+1)).currentItemChanged.connect(self.changeIcon)
+
         #contains label and list vertically
         self.tile_list_layout = QVBoxLayout()
         self.tile_list_layout.addWidget(self.listLabel)
-        self.tile_list_layout.addWidget(self.tile_list)
+        self.tile_list_layout.addWidget(self.list_tab_widget)
         self.tile_list_layout.addWidget(self.tile_toolbar)
         
         self.button_grid_layout = QGridLayout()
@@ -630,21 +648,21 @@ class MainWindow(QMainWindow):
         self.changeIcon()
 
     def prefab_list_up(self):
-        currentRow = self.tile_list.currentRow()
+        currentRow = self.tile_list1.currentRow()
 
         if currentRow > 0:
-            currentItem = self.tile_list.takeItem(currentRow)
-            self.tile_list.insertItem(currentRow - 1, currentItem)
-            self.tile_list.setCurrentRow(currentRow - 1)
+            currentItem = self.tile_list1.takeItem(currentRow)
+            self.tile_list1.insertItem(currentRow - 1, currentItem)
+            self.tile_list1.setCurrentRow(currentRow - 1)
             self.update_list_file(currentRow, currentRow - 1)
             self.changeIcon()
 
     def prefab_list_down(self):
-        currentRow = self.tile_list.currentRow()
-        if currentRow < self.tile_list.count() - 1:
-            currentItem = self.tile_list.takeItem(currentRow)
-            self.tile_list.insertItem(currentRow + 1, currentItem)
-            self.tile_list.setCurrentRow(currentRow + 1)
+        currentRow = self.tile_list1.currentRow()
+        if currentRow < self.tile_list1.count() - 1:
+            currentItem = self.tile_list1.takeItem(currentRow)
+            self.tile_list1.insertItem(currentRow + 1, currentItem)
+            self.tile_list1.setCurrentRow(currentRow + 1)
             self.update_list_file(currentRow, currentRow + 1)
             self.changeIcon()
 
@@ -720,7 +738,7 @@ class MainWindow(QMainWindow):
         try:
             current_prefab_icon_list2 = open('prefab_template/rot_prefab_list.txt', 'r+')
             current_prefab_icon_list2 = current_prefab_icon_list2.readlines()
-            current_prefab_icon_list2 = current_prefab_icon_list2[self.tile_list.currentRow()]
+            current_prefab_icon_list2 = current_prefab_icon_list2[self.tile_list1.currentRow()]
             if "\n" in current_prefab_icon_list2:
                 current_prefab_icon_list2 = current_prefab_icon_list2[:-1]
             current_prefab_icon_list2 = open('prefab_template/iconlists/'+current_prefab_icon_list2, 'r+')
@@ -732,7 +750,7 @@ class MainWindow(QMainWindow):
             self.current.setIconSize(QSize(32,32))
         except Exception as e:
             print(str(e))
-            icon = prefab_icon_list[self.tile_list.currentRow()]
+            icon = prefab_icon_list[self.tile_list1.currentRow()]
             self.current.setIcon(QIcon(icon))
             self.current.setIconSize(QSize(32,32))
 
@@ -1750,10 +1768,11 @@ for file in [prefab_file, prefab_text_file, prefab_icon_file,skybox_file,skybox_
 
 #imports that need prefab_list to be defined
 for item in prefab_list:
-    globals()[item] = importlib.import_module(item)
-    print("import", item)
-    save_dict[item]=eval(item)
-    load_dict[eval(item)]=item
+    if item:
+        globals()[item] = importlib.import_module(item)
+        print("import", item)
+        save_dict[item]=eval(item)
+        load_dict[eval(item)]=item
 
 logo = open('logo.log','r+')
 logo_f = logo.readlines()
@@ -1772,3 +1791,24 @@ gui = MainWindow()
 
 
 app.exec_()
+
+
+
+#to get this working we're going to need a global variable that is the number
+#of the currently selected tab. (eg 1, 2, 3) This can be defined when the event
+#tab.changed.connect or something along those lines happens
+#
+#IS ACTUALLY list_tab_widget.currentIndex() (returns int)
+#
+#at the top of every function that references the old tile_list, write something like
+#current_prefab_tab = eval('tile_list%d' % CURRENT_TAB+1)
+#and replace all instances of the tile_list with current_prefab_tab
+#
+#when loading all the prefabs, if the line is blank, add a new sublist. When referencing the
+#prefab_list, use prefab_list[CURRENT_TAB][current_prefab_tab.index]
+#
+#When changing order of the prefabs, change the list, and when user EXITS the program, change the files 
+#
+#UNKNOWN TODO
+#Figure out a way to decide which tab newly created prefabs should be placed in.
+#Figure out how to move prefabs from tab to tab

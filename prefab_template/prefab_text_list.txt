@@ -10,6 +10,8 @@ Stone Corner
 Diagonal Wall
 Egypt Diagonal Wall
 Stone Diagonal Wall
+Block
+
 Respawn Room (BLU)
 Respawn Room (RED)
 Heal Beam
@@ -19,8 +21,8 @@ Control Point (KOTH)
 Ramp To Next Level
 Spike
 Mini-Spire
+Spire
+
 Death Pit (bottom level only)
 Laser Array
 Nuke
-Spire
-Block

@@ -10,6 +10,8 @@ corner_stone_icon_list.txt
 diag_wall_icon_list.txt
 diag_wall_egypt_icon_list.txt
 diag_wall_stone_icon_list.txt
+block_icon_list.txt
+
 respawn_blu_icon_list.txt
 respawn_red_icon_list.txt
 heal_icon_list.txt
@@ -19,8 +21,8 @@ cp_koth_prefab_icon_list.txt
 ramp_icon_list.txt
 spire_icon_list.txt
 mini_spire_icon_list.txt
+bl_spire_icon_list.txt
+
 death_pit_icon_list.txt
 laser_array_icon_list.txt
 nuke_icon_list.txt
-bl_spire_icon_list.txt
-block_icon_list.txt

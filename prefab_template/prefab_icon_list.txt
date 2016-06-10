@@ -10,6 +10,8 @@ icons/corner_stone.jpg
 icons/diag_wall.jpg
 icons/diag_wall_egypt.jpg
 icons/diag_wall_stone.jpg
+icons/block_right.jpg
+
 icons/respawn_blu_right.jpg
 icons/respawn_red_right.jpg
 icons/heal_tile.jpg
@@ -19,8 +21,8 @@ icons/control_point.jpg
 icons/ramp.jpg
 icons/spire.jpg
 icons/minispire.jpg
+icons/bl_spire_right.jpg
+
 icons/death_pit.jpg
 icons/laser.jpg
 icons/nuke_icon.png
-icons/bl_spire_right.jpg
-icons/block_right.jpg
