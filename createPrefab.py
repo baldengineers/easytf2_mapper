@@ -120,13 +120,13 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
     prefab_text_file.write(prefab_text_file_contents)
     prefab_icon_file.write(prefab_icon_file_contents)
   else:
-      prefab_file = open("prefab_template/prefab_list.txt", "a")
-      prefab_text_file = open("prefab_template/prefab_text_list.txt", "a")
-      prefab_icon_file = open("prefab_template/prefab_icon_list.txt", "a")
+    prefab_file = open("prefab_template/prefab_list.txt", "a")
+    prefab_text_file = open("prefab_template/prefab_text_list.txt", "a")
+    prefab_icon_file = open("prefab_template/prefab_icon_list.txt", "a")
 
-      prefab_file.write(prefab_name + "\n")
-      prefab_text_file.write(prefab_text + "\n")
-      prefab_icon_file.write(prefab_icon + "\n")    
+    prefab_file.write(prefab_name + "\n")
+    prefab_text_file.write(prefab_text + "\n")
+    prefab_icon_file.write(prefab_icon + "\n")    
 
   for file in [prefab_file, prefab_text_file, prefab_icon_file]:
     file.close()
@@ -227,7 +227,7 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
 
 
 
-def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled, workshop_export,indexLine):
+def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled, workshop_export,indexLine,index):
   if indexLine == 'END':
     insertBool = False
   else:
@@ -948,7 +948,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         tempApp = open("prefab_template/rot_prefab_list.txt", "r")
         tempLines = tempApp.readlines()
         tempApp.close()
-        tempLines.insert(indexLine,icondir+"_icon_list.txt\n")
+        tempLines.insert(indexLine-1,icondir+"_icon_list.txt\n")
         tempLines = "".join(tempLines)
         tempWrite = open("prefab_template/rot_prefab_list.txt", "w")
         tempWrite.write(tempLines)
@@ -996,7 +996,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
   if workshop_export:
     d = open("info.txt","w")
-    d.write(icondir+"\n"+prefab_name+"\n"+prefab_text+"\n")
+    d.write(icondir+"\n"+prefab_name+"\n"+prefab_text+"\n"+str(index)+"\n")
     d.close()
     with zipfile.ZipFile(prefab_name + '.zip', 'w') as f:
       f.write(txt_path)

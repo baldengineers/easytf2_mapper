@@ -391,6 +391,7 @@ class MainWindow(QMainWindow):
 
         actiondict = {}
         self.buttonLabel = QLabel("Rotation:",self)
+        self.levelLabel = QLabel("Level Select:",self)
         self.listLabel = QLabel("List of prefabs:",self)
         self.gridLabel = QLabel("Work Area:",self)
         
@@ -409,12 +410,17 @@ class MainWindow(QMainWindow):
         self.current.setFlat(True)
         self.current.clicked.connect(self.heavy)
 
-        self.level = QPushButton(self)
+##'''
+##        self.level = QPushButton(self)
+##
+##        self.level.setText("Level: 1")
+##        
+##        self.level.setFixedSize(QSize(150,30))
+##        self.level.clicked.connect(self.level_select)
+##'''
 
-        self.level.setText("Level: 1")
-        
-        self.level.setFixedSize(QSize(150,30))
-        self.level.clicked.connect(self.level_select)
+        self.levelSelect = QComboBox(self)
+        self.levelSelect.currentIndexChanged.connect(lambda: self.change_level_new())
 
         self.levelup = QToolButton(self)
         self.levelup.setIcon(QIcon('icons/up.png'))
@@ -452,7 +458,8 @@ class MainWindow(QMainWindow):
         self.button_rotate_layout.addWidget(self.current)
         self.button_rotate_layout.addWidget(self.rotateCW)
         self.button_rotate_layout.addWidget(self.divider)
-        self.button_rotate_layout.addWidget(self.level)
+        self.button_rotate_layout.addWidget(self.levelLabel)
+        self.button_rotate_layout.addWidget(self.levelSelect)
         self.button_rotate_layout.addWidget(self.levelup)
         self.button_rotate_layout.addWidget(self.leveldown)
         
@@ -599,6 +606,10 @@ class MainWindow(QMainWindow):
         self.windowl.setLayout(self.layoutl)
         self.windowl.exec_()
 
+    def change_level_new(self):
+        global level
+        level = self.levelSelect.currentIndex()
+
     def change_level(self, but = False, up = False, undo = False):
         global level, levels
 
@@ -607,10 +618,13 @@ class MainWindow(QMainWindow):
         
         if not but:
             self.file_save(True)
-            level = int(self.levellist.currentRow()) #+1 X First level should be 0
+            level = int(self.levelSelect.currentIndex()) #+1 X First level should be 0
             print(level)
             self.file_open(True)
-            self.windowl.close()
+            try:
+                self.windowl.close()
+            except:
+                pass
             self.level.setText("Level: " + str(level+1))
         if up:
             self.file_save(True)
@@ -635,7 +649,10 @@ class MainWindow(QMainWindow):
         if not undo:
             templist.append((None,None,None,None,level))
             history.append(templist)
-        
+            
+    def update_levels(self):
+        for i in range(levels):
+            self.levelSelect.addItem("Level %s" % str(i+1))
 
     def rotateCW_func(self):
         global rotation
@@ -1255,6 +1272,9 @@ class MainWindow(QMainWindow):
         self.gridLayout.addWidget(self.scrollArea)
         self.button_grid_all.addLayout(self.gridLayout)
         self.setWindowTitle("Easy TF2 Mapper ")
+
+        self.update_levels()
+        
         return grid_list
 
     def change_light(self):
@@ -1414,7 +1434,8 @@ class MainWindow(QMainWindow):
         self.expCheckBox = QCheckBox()
         self.buggyText = QLabel("This is a pretty buggy tool at this point, and is mostly used by developers. Are you sure you want to do this? \n(exported prefabs can be found in the main directory, where the executable is.)")
 
-        
+        self.sectionSelect = QComboBox()
+        self.sectionSelect.addItems(["Geometry","Map Layout","Fun/Other"])
         
         self.form = QFormLayout()
         self.form.addRow(self.buggyText)
@@ -1424,6 +1445,7 @@ class MainWindow(QMainWindow):
         self.form.addRow("Icon (.jpg):", self.iconLayout)
         self.form.addRow("Make Rotations?", self.rotCheckBox)
         self.form.addRow("Export prefab?", self.expCheckBox)
+        self.form.addRow("Which section?",self.sectionSelect)
         for i in range(5):
             self.form.addRow(self.blankstring)
         self.form.addRow(self.okay_btn_layout)
@@ -1437,17 +1459,18 @@ class MainWindow(QMainWindow):
         self.window.exec_()
 
     def create_run_func(self):
-        if index_section_list[self.list_tab_widget.currentIndex()] == 2:
+        if self.sectionSelect.currentIndex() == 2:
             input_number = 'END'
         else:
-            input_number = index_section_list[self.list_tab_widget.currentIndex()]+1
+            input_number = index_section_list[self.sectionSelect.currentIndex()+1]
         name_str = self.nameLineEdit.displayText().replace(' ','_')
         form_list,t_list = [self.vmfTextEdit.displayText(),self.textLineEdit.displayText(),self.iconTextEdit.displayText(),self.nameLineEdit.displayText()],[]
         form_dict = {1:'Prefab Text',2:'Prefab Name',3:'VMF file',4:'Icon'}
         if self.vmfTextEdit.displayText() !=  '' and self.textLineEdit.displayText() != '' and self.iconTextEdit.displayText() != '' and self.nameLineEdit.displayText() != '':
             QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                           createPrefab.create(self.vmfTextEdit.displayText(), name_str,
-                                                                            self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked(),self.expCheckBox.isChecked(),input_number))
+                                                                            self.textLineEdit.displayText(), self.iconTextEdit.displayText(),
+                                                                                self.rotCheckBox.isChecked(),self.expCheckBox.isChecked(),input_number,self.sectionSelect.currentIndex()))
             restart_btn = QPushButton("Restart")
             later_btn = QPushButton("Later")
             choice = QMessageBox(self)
@@ -1484,20 +1507,56 @@ class MainWindow(QMainWindow):
 
         with open("info.txt", "r+") as f:
             zip_info = f.readlines()
-            with open('prefab_template/rot_prefab_list.txt',"a") as d:
-                tempfil = zip_info[0]
-                tempfil = tempfil.replace('\n','')
-                d.write(tempfil+"_icon_list.txt\n")
-            with open('prefab_template/prefab_list.txt',"a") as d:
-                tempfil = zip_info[0]
-                tempfil = tempfil.replace('\n','')
-                d.write(tempfil+'\n')
-            with open('prefab_template/prefab_text_list.txt',"a") as d:
-                d.write(zip_info[2])
-            with open('prefab_template/prefab_icon_list.txt',"a") as d:
-                tempfil = zip_info[1]
-                tempfil = tempfil.replace('\n','')
-                d.write('icons/'+tempfil+'_right.jpg\n')
+            if zip_info[3] == 2:
+                with open('prefab_template/rot_prefab_list.txt',"a") as d:
+                    tempfil = zip_info[0]
+                    tempfil = tempfil.replace('\n','')
+                    d.write(tempfil+"_icon_list.txt\n")
+                with open('prefab_template/prefab_list.txt',"a") as d:
+                    tempfil = zip_info[0]
+                    tempfil = tempfil.replace('\n','')
+                    d.write(tempfil+'\n')
+                with open('prefab_template/prefab_text_list.txt',"a") as d:
+                    d.write(zip_info[2])
+                with open('prefab_template/prefab_icon_list.txt',"a") as d:
+                    tempfil = zip_info[1]
+                    tempfil = tempfil.replace('\n','')
+                    d.write('icons/'+tempfil+'_right.jpg\n')
+            else:
+                #most childish code 2016
+                z = open('prefab_template/rot_prefab_list.txt',"r")
+                zlines = z.readlines()
+                z.close()
+                y = open('prefab_template/prefab_list.txt',"r")
+                ylines = y.readlines()
+                y.close()
+                x = open('prefab_template/prefab_text_list.txt',"r")
+                xlines = x.readlines()
+                x.close()
+                w = open('prefab_template/prefab_icon_list.txt',"r")
+                wlines = w.readlines()
+                w.close()
+                
+                z = open('prefab_template/rot_prefab_list.txt',"w")
+                zlines.insert(self.index_section_index[int(zip_info[3])]-1,zip_info[0]+"_icon_list.txt\n")
+                zlines = "".join(zlines)
+                z.write(zlines)
+                z.close()
+                y = open('prefab_template/prefab_list.txt',"w")
+                ylines.insert(self.index_section_index[int(zip_info[3])]-1,zip_info[0])
+                ylines = "".join(ylines)
+                y.write(ylines)
+                y.close()
+                x = open('prefab_template/prefab_text_list.txt',"w")
+                xlines.insert(self.index_section_index[int(zip_info[3])]-1,zip_info[2])
+                xlines = "".join(xlines)
+                x.write(xlines)
+                x.close()
+                w = open('prefab_template/prefab_icon_list.txt',"w")
+                wlines.insert(self.index_section_index[int(zip_info[3])]-1,'icons/'+zip_info[1]+'_right.jpg\n')
+                wlines = "".join(wlines)
+                w.write(wlines)
+                w.close()                
 
         os.remove("info.txt")
         
@@ -1676,6 +1735,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
 
 #define some global variables
 level = 0
+levels = 0
 id_num = 1
 rotation = 0
 world_id_num = 2
@@ -1817,12 +1877,12 @@ index_section_list = [0]
 rotation_icon_list.append([])
 for index,line in enumerate(lns):
     if line == '\n':
-        index_section_list.append(index)
+        index_section_list.append(index+1)
         rotation_icon_list.append([])
         section+=1
     else:
         rotation_icon_list[section].append(line[:-1] if '\n' in line else line)
-
+print(index_section_list)
 for line in skybox_file.readlines():
     skybox_list.append(line[:-1] if line.endswith("\n") else line)# need to do this because reading the file generates a \n after every line
 
