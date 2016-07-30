@@ -87,7 +87,7 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
         rot_py_list.append(rot_py_list_text)
 
 
-def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path):
+def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path,indexLine):
   file = open(txt_path, "w")
   
   for item in txt_list:
@@ -99,14 +99,34 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
   for item in ent_list:
     file.write(item)
   file.close
+  if insertBool:  
+    prefab_file = open("prefab_template/prefab_list.txt", "r")
+    prefab_text_file = open("prefab_template/prefab_text_list.txt", "r")
+    prefab_icon_file = open("prefab_template/prefab_icon_list.txt", "r")
+    prefab_file_contents,prefab_text_file_contents,prefab_icon_file_contents = prefab_file.readlines(),prefab_text_file.readlines(),prefab_icon_file.readlines()
     
-  prefab_file = open("prefab_template/prefab_list.txt", "a")
-  prefab_text_file = open("prefab_template/prefab_text_list.txt", "a")
-  prefab_icon_file = open("prefab_template/prefab_icon_list.txt", "a")
+    for file in [prefab_file, prefab_text_file, prefab_icon_file]:
+      file.close()
 
-  prefab_file.write(prefab_name + "\n")
-  prefab_text_file.write(prefab_text + "\n")
-  prefab_icon_file.write(prefab_icon + "\n")
+    prefab_file_contents.insert(indexLine-1,prefab_name + "\n")
+    prefab_text_file_contents.insert(indexLine-1,prefab_text + "\n")
+    prefab_icon_file_contents.insert(indexLine-1,prefab_icon + "\n")
+    
+    prefab_file = open("prefab_template/prefab_list.txt", "w")
+    prefab_text_file = open("prefab_template/prefab_text_list.txt", "w")
+    prefab_icon_file = open("prefab_template/prefab_icon_list.txt", "w")
+    
+    prefab_file.write(prefab_file_contents)
+    prefab_text_file.write(prefab_text_file_contents)
+    prefab_icon_file.write(prefab_icon_file_contents)
+  else:
+      prefab_file = open("prefab_template/prefab_list.txt", "a")
+      prefab_text_file = open("prefab_template/prefab_text_list.txt", "a")
+      prefab_icon_file = open("prefab_template/prefab_icon_list.txt", "a")
+
+      prefab_file.write(prefab_name + "\n")
+      prefab_text_file.write(prefab_text + "\n")
+      prefab_icon_file.write(prefab_icon + "\n")    
 
   for file in [prefab_file, prefab_text_file, prefab_icon_file]:
     file.close()
@@ -207,7 +227,11 @@ def compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, 
 
 
 
-def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled, workshop_export):
+def create(name, prefab_name, prefab_text, prefab_icon, rot_enabled, workshop_export,indexLine):
+  if indexLine == 'END':
+    insertBool = False
+  else:
+    insertBool = True
 
   py_list = []
   ent_py_list = []
@@ -916,8 +940,19 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
     print(prefab_icon)
     ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
     icondir = str(prefab_name)
-    with open("prefab_template/rot_prefab_list.txt", "a") as f:
-      f.write(icondir+"_icon_list.txt\n")
+    if not insertBool:
+        with open("prefab_template/rot_prefab_list.txt", "a") as f:
+          f.write(icondir+"_icon_list.txt\n")
+          f.close()
+    else:
+        tempApp = open("prefab_template/rot_prefab_list.txt", "r")
+        tempLines = tempApp.readlines()
+        tempApp.close()
+        tempLines.insert(indexLine,icondir+"_icon_list.txt\n")
+        tempLines = "".join(tempLines)
+        tempWrite = open("prefab_template/rot_prefab_list.txt", "w")
+        tempWrite.write(tempLines)
+        tempWrite.close()
 
     imageRot = Image.open(prefab_icon)
     imageRot.save("icons/"+ icondir+"_right.jpg")
@@ -937,16 +972,26 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
   else:
     icondir = str(prefab_name)
-    with open("prefab_template/rot_prefab_list.txt", "a") as f:
-      f.write("NO_ROTATION\n")
-      f.close()
+    if not insertBool:
+        with open("prefab_template/rot_prefab_list.txt", "a") as f:
+          f.write("NO_ROTATION\n")
+          f.close()
+    else:
+        tempApp = open("prefab_template/rot_prefab_list.txt", "r")
+        tempLines = tempApp.readlines()
+        tempApp.close()
+        tempLines.insert(indexLine,"NO_ROTATION\n")
+        tempLines = "".join(tempLines)
+        tempWrite = open("prefab_template/rot_prefab_list.txt", "w")
+        tempWrite.write(tempLines)
+        tempWrite.close()
     f = open("prefab_template/iconlists/"+ icondir+"_icon_list.txt","w+")
     for i in range(4):
       f.write("icons/"+icondir+"\n")
     f.close()
 
 
-  txtReturn = compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path)
+  txtReturn = compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path,indexLine)
   pyReturn = compilePY(py_path, py_list, txt_path, compile_list, contains_ent, ent_code, ent_path, ent_py_list, rot_code, rot_py_list, rot_ent_py_list, rot_enabled)
 
   if workshop_export:

@@ -483,7 +483,7 @@ class MainWindow(QMainWindow):
         
         self.del_tool_btn = QToolButton(self)
         self.del_tool_btn.setIcon(QIcon('icons/delete.png'))
-        self.del_tool_btn.clicked.connect(lambda: self.prefab_list_del(self.tile_list.currentRow(), self.tile_list.currentItem()))
+        self.del_tool_btn.clicked.connect(lambda: current_list.currentIndex())
 
         self.add_tool_btn = QToolButton(self)
         self.add_tool_btn.setIcon(QIcon('icons/add.png'))
@@ -701,6 +701,10 @@ class MainWindow(QMainWindow):
     def prefab_list_del(self, currentprefab, currentText):
 
         #NEEDS TO BE REDONE
+        index_list_index = 0
+        if current_list == self.tile_list2: index_list_index = 1
+        if current_list == self.tile_list3: index_list_index = 2
+        print(index_list_index)
         
         self.restartCheck = QCheckBox()
         self.restartCheck.setText("Restart after deletion?")
@@ -718,7 +722,7 @@ class MainWindow(QMainWindow):
                 file.seek(0)
                 file.truncate()
                 
-                del cur_list[currentprefab]
+                del cur_list[index_section_list[self.list_tab_widget.currentIndex()]+currentprefab]
                 cur_str = "".join(cur_list)
                 file.write(cur_str)
                 file.close()
@@ -1433,13 +1437,17 @@ class MainWindow(QMainWindow):
         self.window.exec_()
 
     def create_run_func(self):
+        if index_section_list[self.list_tab_widget.currentIndex()] == 2:
+            input_number = 'END'
+        else:
+            input_number = index_section_list[self.list_tab_widget.currentIndex()]+1
         name_str = self.nameLineEdit.displayText().replace(' ','_')
         form_list,t_list = [self.vmfTextEdit.displayText(),self.textLineEdit.displayText(),self.iconTextEdit.displayText(),self.nameLineEdit.displayText()],[]
         form_dict = {1:'Prefab Text',2:'Prefab Name',3:'VMF file',4:'Icon'}
         if self.vmfTextEdit.displayText() !=  '' and self.textLineEdit.displayText() != '' and self.iconTextEdit.displayText() != '' and self.nameLineEdit.displayText() != '':
             QMessageBox.information(self, "Files Created, restart to see the prefab.",
                                                                           createPrefab.create(self.vmfTextEdit.displayText(), name_str,
-                                                                            self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked(),self.expCheckBox.isChecked()))
+                                                                            self.textLineEdit.displayText(), self.iconTextEdit.displayText(), self.rotCheckBox.isChecked(),self.expCheckBox.isChecked(),input_number))
             restart_btn = QPushButton("Restart")
             later_btn = QPushButton("Later")
             choice = QMessageBox(self)
@@ -1805,9 +1813,11 @@ f.close()
 
 section = 0
 rotation_icon_list = []
+index_section_list = [0]
 rotation_icon_list.append([])
-for line in lns:
+for index,line in enumerate(lns):
     if line == '\n':
+        index_section_list.append(index)
         rotation_icon_list.append([])
         section+=1
     else:
