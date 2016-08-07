@@ -364,7 +364,7 @@ class MainWindow(QMainWindow):
         self.close_application()
         
     def home(self):
-        global levels
+        global levels, current_list
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
 
@@ -476,6 +476,7 @@ class MainWindow(QMainWindow):
         self.list_tab_widget.addTab(self.tile_list1,'Geometry')
         self.list_tab_widget.addTab(self.tile_list2,'Map Layout')
         self.list_tab_widget.addTab(self.tile_list3,'Fun')
+        self.list_tab_widget.currentChanged.connect(self.changeCurrentList)
 
         print("len:", self.list_tab_widget.count())
         #self.list_tab_widget.setStyleSheet("QTabWidget { background-color: rgb(50, 50, 50, 100); }")
@@ -490,7 +491,7 @@ class MainWindow(QMainWindow):
         
         self.del_tool_btn = QToolButton(self)
         self.del_tool_btn.setIcon(QIcon('icons/delete.png'))
-        self.del_tool_btn.clicked.connect(lambda: current_list.currentIndex())
+        self.del_tool_btn.clicked.connect(lambda: self.prefab_list_del(current_list.currentIndex()))
 
         self.add_tool_btn = QToolButton(self)
         self.add_tool_btn.setIcon(QIcon('icons/add.png'))
@@ -545,6 +546,8 @@ class MainWindow(QMainWindow):
         
         self.row = QVBoxLayout(self.central_widget)
         self.row.addLayout(self.column)
+
+        current_list = self.tile_list1
         
         try:
             f = open('startupcache/firsttime.su', 'r+')
@@ -654,6 +657,9 @@ class MainWindow(QMainWindow):
         for i in range(levels):
             self.levelSelect.addItem("Level %s" % str(i+1))
 
+    def changeCurrentList(self):
+        current_list = eval('self.tile_list%s' % str(self.list_tab_widget.currentIndex()+1))
+
     def rotateCW_func(self):
         global rotation
         if rotation < 3:
@@ -715,7 +721,7 @@ class MainWindow(QMainWindow):
         #stupid icon lists, making me add more lines of code to my already concise function
          
 
-    def prefab_list_del(self, currentprefab, currentText):
+    def prefab_list_del(self, currentprefab):
 
         #NEEDS TO BE REDONE
         index_list_index = 0
