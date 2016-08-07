@@ -1877,7 +1877,7 @@ index_section_list = [0]
 rotation_icon_list.append([])
 for index,line in enumerate(lns):
     if line == '\n':
-        index_section_list.append(index+1)
+        index_section_list.append(index)
         rotation_icon_list.append([])
         section+=1
     else:

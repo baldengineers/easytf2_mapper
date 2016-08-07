@@ -108,9 +108,9 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
     for file in [prefab_file, prefab_text_file, prefab_icon_file]:
       file.close()
 
-    prefab_file_contents.insert(indexLine-1,prefab_name + "\n")
-    prefab_text_file_contents.insert(indexLine-1,prefab_text + "\n")
-    prefab_icon_file_contents.insert(indexLine-1,prefab_icon + "\n")
+    prefab_file_contents.insert(indexLine,prefab_name + "\n")
+    prefab_text_file_contents.insert(indexLine,prefab_text + "\n")
+    prefab_icon_file_contents.insert(indexLine,prefab_icon + "\n")
     
     prefab_file = open("prefab_template/prefab_list.txt", "w")
     prefab_text_file = open("prefab_template/prefab_text_list.txt", "w")
@@ -948,7 +948,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
         tempApp = open("prefab_template/rot_prefab_list.txt", "r")
         tempLines = tempApp.readlines()
         tempApp.close()
-        tempLines.insert(indexLine-1,icondir+"_icon_list.txt\n")
+        tempLines.insert(indexLine,icondir+"_icon_list.txt\n")
         tempLines = "".join(tempLines)
         tempWrite = open("prefab_template/rot_prefab_list.txt", "w")
         tempWrite.write(tempLines)
