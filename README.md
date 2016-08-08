@@ -1,5 +1,5 @@
 # Easy TF2 Mapper (release 1.0.1)
-##in broken state: Yes
+##in broken state: No
 Make TF2 maps with blocks, similar to the Time Splitters map creator. currently in active development again! Send bugs, ideas, and suggestions to toadsrc@gmail.com.
 ### current development branch: master, bugfixes. screenshots will be updated soon.
 <p>
