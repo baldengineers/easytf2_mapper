@@ -491,7 +491,7 @@ class MainWindow(QMainWindow):
         
         self.del_tool_btn = QToolButton(self)
         self.del_tool_btn.setIcon(QIcon('icons/delete.png'))
-        self.del_tool_btn.clicked.connect(lambda: self.prefab_list_del(current_list.currentIndex()))
+        self.del_tool_btn.clicked.connect(lambda: self.prefab_list_del(current_list.currentRow()))
 
         self.add_tool_btn = QToolButton(self)
         self.add_tool_btn.setIcon(QIcon('icons/add.png'))
@@ -658,6 +658,8 @@ class MainWindow(QMainWindow):
             self.levelSelect.addItem("Level %s" % str(i+1))
 
     def changeCurrentList(self):
+        global current_list
+        print("current list: tile_list%s" % str(self.list_tab_widget.currentIndex()+1))
         current_list = eval('self.tile_list%s' % str(self.list_tab_widget.currentIndex()+1))
 
     def rotateCW_func(self):
@@ -724,15 +726,17 @@ class MainWindow(QMainWindow):
     def prefab_list_del(self, currentprefab):
 
         #NEEDS TO BE REDONE
+        global current_list
+        #print(currentprefab)
         index_list_index = 0
         if current_list == self.tile_list2: index_list_index = 1
         if current_list == self.tile_list3: index_list_index = 2
-        print(index_list_index)
+        #print(index_list_index)
         
         self.restartCheck = QCheckBox()
         self.restartCheck.setText("Restart after deletion?")
 
-        choice = QMessageBox.question(self,"Delete Prefab (DO NOT DELETE STOCK PREFABS)","Are you sure you want to delete \"%s\"?\nThis is mainly for developers." %(prefab_text_list[currentprefab]),
+        choice = QMessageBox.question(self,"Delete Prefab (DO NOT DELETE STOCK PREFABS)","Are you sure you want to delete \"%s\"?\nThis is mainly for developers." %(prefab_text_list[self.list_tab_widget.currentIndex()][currentprefab]),
                              QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
            
         if choice == QMessageBox.Yes:
@@ -744,8 +748,9 @@ class MainWindow(QMainWindow):
                 cur_list = file.readlines()
                 file.seek(0)
                 file.truncate()
-                
-                del cur_list[index_section_list[self.list_tab_widget.currentIndex()]+currentprefab]
+
+                print(cur_list[index_section_list[self.list_tab_widget.currentIndex()]+currentprefab+1])
+                del cur_list[index_section_list[self.list_tab_widget.currentIndex()]+currentprefab+1]
                 cur_str = "".join(cur_list)
                 file.write(cur_str)
                 file.close()
