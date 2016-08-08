@@ -1611,7 +1611,7 @@ class MainWindow(QMainWindow):
         self.console.setWindowTitle("Developer Console")
 
         self.prev_text = QTextEdit("<Bald Engineers Developer Console>")
-        self.prev_text.setText('''Developer console for Easy TF2 Mapper version beta 2.8.5. Current commands are:
+        self.prev_text.setText('''Developer console for Easy TF2 Mapper version r 1.0.1. Current commands are:
 print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>.\n''')
         self.prev_text.setReadOnly(True)
         
@@ -1669,7 +1669,7 @@ print <variable>, setlevel <int>, help, restart, exit, func <function>, wiki, py
                 new_text = text_prefix + str(e)
 
         elif command == "help":
-            new_text = text_prefix + '''Developer console for Easy TF2 Mapper version beta 2.8.5. Current commands are: print <variable>, func <function>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>'''
+            new_text = text_prefix + '''Developer console for Easy TF2 Mapper version r 1.0.1. Current commands are: print <variable>, func <function>, setlevel <int>, help, restart, exit, func <function>, wiki, py <python function>'''
 
         elif command == "exit":
             self.close_application()

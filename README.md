@@ -1,9 +1,9 @@
-# Easy TF2 Mapper (release 1.0.0)
+# Easy TF2 Mapper (release 1.0.1)
 ##in broken state: Yes
-Make TF2 maps with blocks, similar to the Time Splitters map creator. currently in development; a few weeks from release. Send bugs, ideas, and suggestions to toadsrc@gmail.com.
-### current development branch: master, bugfixes
+Make TF2 maps with blocks, similar to the Time Splitters map creator. currently in active development again! Send bugs, ideas, and suggestions to toadsrc@gmail.com.
+### current development branch: master, bugfixes. screenshots will be updated soon.
 <p>
-_CURRENTLY IN RELEASE 1.0.0. POSSIBLY BUGGY. SEND BUGS TO toadsrc@gmail.com_ This is only for Windows, as Hammer is only for Windows.
+_CURRENTLY IN RELEASE 1.0.1. POSSIBLY BUGGY. SEND BUGS TO toadsrc@gmail.com_ This is only for Windows, as Hammer is only for Windows.
 <p>
 *READ THE README.TXT AND WIKI FOR INFO*
 <p>
