@@ -89,7 +89,7 @@ def write_var(num_list, txt_list, py_list, var_num, value_list_history, in_solid
 
 def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_list, ent_path,indexLine):
   file = open(txt_path, "w")
-  
+  global insertBool
   for item in txt_list:
     file.write(item)
   file.close()
@@ -111,6 +111,10 @@ def compileTXT(txt_path, txt_list, prefab_name, prefab_text, prefab_icon, ent_li
     prefab_file_contents.insert(indexLine,prefab_name + "\n")
     prefab_text_file_contents.insert(indexLine,prefab_text + "\n")
     prefab_icon_file_contents.insert(indexLine,prefab_icon + "\n")
+
+    prefab_file_contents = "".join(prefab_file_contents)
+    prefab_text_file_contents = "".join(prefab_text_file_contents)
+    prefab_icon_file_contents = "".join(prefab_icon_file_contents)
     
     prefab_file = open("prefab_template/prefab_list.txt", "w")
     prefab_text_file = open("prefab_template/prefab_text_list.txt", "w")
@@ -935,7 +939,7 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
 
 
   file.close()
-
+  global insertBool
   if rot_enabled:
     print(prefab_icon)
     ext_list = ["_right.jpg","_down.jpg","_left.jpg","_up.jpg"]
@@ -1018,3 +1022,5 @@ def createTile(posx, posy, id_num, world_id_num, entity_num, placeholder_list, r
       os.remove("info.txt")
 
   return txtReturn + pyReturn
+
+insertBool = False
