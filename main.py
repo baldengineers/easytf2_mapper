@@ -654,6 +654,16 @@ class MainWindow(QMainWindow):
             history.append(templist)
             
     def update_levels(self):
+        try:
+            for i in range(1000):
+                try:
+                    self.levelSelect.removeItem(i)
+                except:
+                    break
+        except:
+            pass
+        print(levels)
+        self.levelSelect.removeItem(0)
         for i in range(levels):
             self.levelSelect.addItem("Level %s" % str(i+1))
 
