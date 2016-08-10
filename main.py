@@ -611,7 +611,9 @@ class MainWindow(QMainWindow):
 
     def change_level_new(self):
         global level
+        self.file_save(True)
         level = self.levelSelect.currentIndex()
+        self.file_open(True)
 
     def change_level(self, but = False, up = False, undo = False):
         global level, levels
@@ -628,7 +630,7 @@ class MainWindow(QMainWindow):
                 self.windowl.close()
             except:
                 pass
-            self.level.setText("Level: " + str(level+1))
+            #self.level.setText("Level: " + str(level+1))
         if up:
             self.file_save(True)
             if level != levels-1:
@@ -637,7 +639,7 @@ class MainWindow(QMainWindow):
                 pass
             print(level)
             self.file_open(True)
-            self.level.setText("Level: " + str(level+1))
+            #self.level.setText("Level: " + str(level+1))
         elif not up and but:
             self.file_save(True)
             if level != 0:
@@ -646,7 +648,7 @@ class MainWindow(QMainWindow):
                 pass
             print(level)
             self.file_open(True)
-            self.level.setText("Level: " + str(level+1))            
+            #self.level.setText("Level: " + str(level+1))            
         #change grid to grid for level
 
         if not undo:
@@ -915,10 +917,13 @@ class MainWindow(QMainWindow):
                 print(str(e))
             
     def file_save(self, tmp = False, saveAs = False):
-        global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded, latest_path, stored_info_list, save_dict,load_dict
+        global grid_x, grid_y, iconlist, levels, level, currentfilename, file_loaded, latest_path, stored_info_list, save_dict,load_dict,skybox2_list
         print(latest_path)
         gridsize_list = (grid_x,grid_y,levels)
-        skybox_sav = skybox2_list.currentRow()
+        try:
+            skybox_sav = skybox2_list.currentRow()
+        except:
+            pass
         if not tmp:
             if not file_loaded or saveAs:
                 name = QFileDialog.getSaveFileName(self, "Save File", latest_path, "*.ezm")[0]
