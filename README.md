@@ -1,6 +1,8 @@
 
 # Easy TF2 Mapper (release 1.0.2)
 ##in broken state: No
+____
+##development moved to baldengineers/easycsgomapper to make a multi-game version
 
 Make TF2 maps with blocks, similar to the Time Splitters map creator. currently in active development again! Send bugs, ideas, and suggestions to toadsrc@gmail.com.
 ### current development branch: master, bugfixes. screenshots will be updated soon.
